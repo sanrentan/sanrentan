@@ -27,6 +27,7 @@
  */
 	//Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 	Router::connect('/', array('controller' => 'homes', 'action' => 'index'));
+	Router::connect('/expectations/complete', array('controller' => 'homes', 'action' => 'complete'));
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */

@@ -44,9 +44,9 @@ class HomesController extends AppController {
 	);
 
 
+	//入力・確認
 	public function index(){
 		$this->set("message","こんにちわ");
-		$this->layout = "default";
 
 		$horseData = array();
 		for($i=1;$i<=10;$i++){
@@ -55,24 +55,41 @@ class HomesController extends AppController {
 
 		if(!empty($this->request->data['Expectation']['item'])){
 			if(count($this->request->data['Expectation']['item'])==Configure::read('Base.box_count')){
-				$expectationData = array(
-					'race_id' => 1,
-					'user_id' => 1,
-				);
-				for($i=0;$i<Configure::read('Base.box_count');$i++){
-					$expectationData['item'.($i+1)] = $this->request->data['Expectation']['item'][$i];
-				}
-				$this->Expectation->create();
-				$this->Expectation->save($expectationData);
 
+				//ここでセッションにpost値を入れる
+				$this->set("message","確認画面");
+	            $this->Session->write('shop', $this->data);
+    	        $this->set('postData',$this->data);
+
+				$this->render('confirm');
+				return;
 
 			}else{
-				$this->Session->setFlash(__('※選択してください。'));
+				$this->Session->setFlash(__('※'.Configure::read('Base.box_count').'つ選択してください。'));
 			}
 		}
 
-
 		$this->set("horseData",$horseData);
+	}
+
+	//登録機能
+	public function complete(){
+
+		if(count($this->request->data['Expectation']['item'])==Configure::read('Base.box_count')){
+			$expectationData = array(
+				'race_id' => 1,
+				'user_id' => 1,
+			);
+			for($i=0;$i<Configure::read('Base.box_count');$i++){
+				$expectationData['item'.($i+1)] = $this->request->data['Expectation']['item'][$i];
+			}
+			$this->Expectation->create();
+			$this->Expectation->save($expectationData);
+			$this->Session->setFlash(__('※登録しました'));
+		}else{
+			$this->Session->setFlash(__('※不正な遷移です。'));
+			$this->redirect('/');
+		}
 	}
 
 	public function index2(){
