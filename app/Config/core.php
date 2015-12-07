@@ -383,3 +383,8 @@ Cache::config('_cake_model_', array(
 	'serialize' => ($engine === 'File'),
 	'duration' => $duration
 ));
+
+
+//選択できる数
+Configure::write('Base.box_count', 5);
+

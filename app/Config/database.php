@@ -71,7 +71,7 @@ class DATABASE_CONFIG {
 		'persistent' => false,
 		'host' => 'localhost',
 		'login' => 'yamaoka',
-		'password' => 'NvyRAEFaZTcTm8e5',
+		'password' => 'UpeKwjK9FTYSGjb9',
 		'database' => 'sanrentan',
 		'prefix' => '',
 		//'encoding' => 'utf8',
