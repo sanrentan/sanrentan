@@ -92,15 +92,59 @@ class HomesController extends AppController {
 		}
 	}
 
+	//URLからデータを取得する場合
+	//参考URL http://www.junk-port.com/php/php-simple-html-dom-parser/
 	public function index2(){
-		//URLからデータを取得する場合
-		//参考URL http://www.junk-port.com/php/php-simple-html-dom-parser/
-		//$html = file_get_html( 'http://keiba.yahoo.co.jp/race/denma/1507040211/' );
+
+		//対象のレースを取得
+
+
+		//htmlを取得
+		$html = file_get_html('http://keiba.yahoo.co.jp/race/denma/1507040211/');
 		
-		//リンク項目を表示
-		//foreach($html->find('.fntN a') as $element){
-		    //echo $element->plaintext . '<br>';
-		//}
-		//exit;
+		//trのループ
+		$i=0;
+		$horseList = array();
+		foreach($html->find('.denmaLs tr') as $key=>$element){
+			//ヘッダー行は飛ばす
+			if($i>0){
+				//tdのループ
+				$tdCounter = 0;
+				foreach($element->find('td') as $key2=>$data){
+					switch ($tdCounter) {
+						
+						case 0://枠
+							$horseList[$i]["wk"] = $data->plaintext;
+							break;
+						case 1://馬番
+							$horseList[$i]["uma"] = $data->plaintext;
+							break;
+						case 2://馬名,性齢
+							$horseList[$i]["name"] = $data->find("strong")[0]->plaintext;
+							$tmp = $data->find("span")[0]->plaintext;
+							$horseList[$i]["sexage"] = explode('/',$tmp)[0]; 
+							break;
+						case 3://馬体重、増減
+							$horseList[$i]["weight"] = substr($data->plaintext, 1,3); 
+							$horseList[$i]["plus"] = substr($data->plaintext, 4); 
+							break;
+						case 4://騎手名、斤量
+							$horseList[$i]["j_name"]   = $data->find("a")[0]->plaintext;
+							$horseList[$i]["j_weight"]   = substr($data->plaintext, -5); 
+							break;
+						case 5://父馬、母馬、母父馬
+							//$tmp = explode(" ",$data->plaintext);
+							//$houseList[$i]["father"]   = ""; 
+							//$houseList[$i]["mother"]   = "";
+							//$houseList[$i]["m_father"] = "";
+
+					} 
+					$tdCounter++;
+				}
+			}
+			$i++;
+		}
+
+		//DBに登録
 	}
 }
