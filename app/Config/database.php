@@ -74,7 +74,7 @@ class DATABASE_CONFIG {
 		'password' => 'UpeKwjK9FTYSGjb9',
 		'database' => 'sanrentan',
 		'prefix' => '',
-		//'encoding' => 'utf8',
+		'encoding' => 'utf8',
 	);
 
 	public $test = array(

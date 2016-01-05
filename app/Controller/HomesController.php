@@ -41,11 +41,33 @@ class HomesController extends AppController {
  */
 	public $uses = array(
 		'Expectation',
+		'RaceCard',
+		'Race'
 	);
+
+	//レースを表示
+	public function index(){
+		$this->set("message","こんにちわ。レース一覧を表示します。");
+
+		//今年のデータを取得したい
+		$targetYear = array(date("Y-1-1 00:00:00"),date("Y-12-31 23:59:59"));
+
+		$options = array(
+			'conditions' => array(
+				'is_deleted' => 0,
+				'race_date between ? and ?' => $targetYear
+			),
+			//'limit' => 2,
+			'order' => array("Race.race_date asc")
+		);
+
+		$raceData = $this->Race->find("all",$options);
+		$this->set("raceData",$raceData);
+	}
 
 
 	//入力・確認
-	public function index(){
+	public function index_input(){
 		$this->set("message","こんにちわ");
 
 		$horseData = array();
@@ -94,13 +116,32 @@ class HomesController extends AppController {
 
 	//URLからデータを取得する場合
 	//参考URL http://www.junk-port.com/php/php-simple-html-dom-parser/
-	public function index2(){
+	public function index2($raceId=null){
 
-		//対象のレースを取得
+		if(empty($raceId)||!is_numeric($raceId)){
+			$raceId = 1;
+		}
 
+		//対象のレースが存在するか？
+		$raceData = $this->Race->findById($raceId);
+		if(empty($raceData)){
+			echo "race not found ! race_id = ".$raceId;exit;
+		}
+
+		//すでに出走表にデータが登録されていないか？
+		$options = array(
+			'conditions' => array(
+				'is_deleted' => 0,
+				'race_id' => $raceData["Race"]["id"]
+			)
+		);
+		$cardData = $this->RaceCard->find("all",$options);
+		if(!empty($cardData)){
+			echo "raceCard already exists! race_id = ".$raceId;exit;
+		}
 
 		//htmlを取得
-		$html = file_get_html('http://keiba.yahoo.co.jp/race/denma/1507040211/');
+		$html = file_get_html('http://keiba.yahoo.co.jp/race/denma/'.$raceData["Race"]["html_id"].'/');
 		
 		//trのループ
 		$i=0;
@@ -134,9 +175,9 @@ class HomesController extends AppController {
 							break;
 						case 5://父馬、母馬、母父馬
 							//$tmp = explode(" ",$data->plaintext);
-							//$houseList[$i]["father"]   = ""; 
-							//$houseList[$i]["mother"]   = "";
-							//$houseList[$i]["m_father"] = "";
+							//$horseList[$i]["father"]   = ""; 
+							//$horseList[$i]["mother"]   = "";
+							//$horseList[$i]["m_father"] = "";
 
 					} 
 					$tdCounter++;
@@ -146,5 +187,14 @@ class HomesController extends AppController {
 		}
 
 		//DBに登録
+		foreach($horseList as $key=>&$horse){
+			$horse["race_id"] = $raceId;
+			$this->RaceCard->create();
+			$this->RaceCard->save($horse);
+		}
+		$this->set("horseList",$horseList);
+		$this->response->charset('Shift_JIS');
+
+
 	}
 }
