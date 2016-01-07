@@ -28,8 +28,6 @@
 	//Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 	Router::connect('/', array('controller' => 'homes', 'action' => 'index'));
 	Router::connect('/index2/*', array('controller' => 'homes', 'action' => 'index2'));
-	Router::connect('/detail/*', array('controller' => 'homes', 'action' => 'detail'));
-	Router::connect('/index_input/*', array('controller' => 'homes', 'action' => 'index_input'));
 	Router::connect('/expectations/complete', array('controller' => 'homes', 'action' => 'complete'));
 /**
  * ...and connect the rest of 'Pages' controller's URLs.

@@ -114,54 +114,6 @@ class HomesController extends AppController {
 		}
 	}
 
-	//レース詳細
-	public function detail($raceId){
-		$this->set("message","出走表");
-
-		$typeArr = array("芝","ダート");
-		$this->set("typeArr",$typeArr);
-
-		$turnArr = array("右","左");
-		$this->set("turnArr",$turnArr);
-
-		//$raceData = $this->Race->getRaceData($raceId);
-
-		$raceData = $this->Race->findById($raceId);
-		if(empty($raceData)){
-			echo "race not found ! race_id = ".$raceId;exit;
-		}
-		$this->set("raceData",$raceData);
-
-		$options = array(
-			'conditions' => array(
-				'is_deleted' => 0,
-				'race_id' => $raceData["Race"]["id"]
-			)
-		);
-		$cardData = $this->RaceCard->find("all",$options);
-		$this->set("cardData",$cardData);
-
-
-		//予想
-		if(!empty($this->request->data['Expectation']['item'])){
-			if(count($this->request->data['Expectation']['item'])==Configure::read('Base.box_count')){
-
-				//ここでセッションにpost値を入れる
-				$this->set("message","確認画面");
-	            $this->Session->write('shop', $this->data);
-    	        $this->set('postData',$this->data);
-
-				$this->render('confirm');
-				return;
-
-			}else{
-				$this->Session->setFlash(__('※'.Configure::read('Base.box_count').'つ選択してください。'));
-			}
-		}
-
-
-	}
-
 	//URLからデータを取得する場合
 	//参考URL http://www.junk-port.com/php/php-simple-html-dom-parser/
 	public function index2($raceId=null){
@@ -242,7 +194,7 @@ class HomesController extends AppController {
 		}
 		$this->set("horseList",$horseList);
 		$this->response->charset('Shift_JIS');
+
+
 	}
-
-
 }
