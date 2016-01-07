@@ -10,17 +10,12 @@
  */
 class Race extends AppModel {
 
-	//public $hasMany = array(
-    //    'RaceCard' => array(
-    //        'className' => 'RaceCard',
-    //    )
-    //);
-
-    public function getRaceData($id){
-    	$raceData = $this->findById($id);
-
-    }
-
-
+	public $hasMany = array(
+        'RaceCard' => array(
+            'className' => 'RaceCard',
+            'conditions' => array('RaceCard.is_deleted' => 0),
+            'order' => 'RaceCard.uma asc'            
+        )
+    );
 
 }

@@ -31,4 +31,11 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+
+	function beforeFilter() {
+		$typeArr = array("芝","ダート");
+		$this->set("typeArr",$typeArr);
+		$turnArr = array("右","左");
+		$this->set("turnArr",$turnArr);
+   	}
 }

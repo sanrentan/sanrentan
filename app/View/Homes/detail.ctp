@@ -9,14 +9,14 @@
 <?php echo $this->Form->hidden('Expectation.race_id' ,array('value' => $raceData["Race"]["id"]));?>
 <table border="1">
 <tr><th>選択</th><th>枠番</th><th>馬番</th><th>馬名</th><th>馬体重</th><th>騎手</th></tr
-<?php foreach($cardData as $key=>$data):?>
+<?php foreach($raceData["RaceCard"] as $key=>$data):?>
 	<tr>
-		<td><input type="checkbox" name="data[Expectation][item][]" value="<?php echo $data['RaceCard']['id'];?>"></td>
-		<td><?php echo $data["RaceCard"]["wk"];?></td>
-		<td><?php echo $data["RaceCard"]["uma"];?></td>
-		<td><?php echo $data["RaceCard"]["name"];?></td>
-		<td><?php echo $data["RaceCard"]["weight"];?></td>
-		<td><?php echo $data["RaceCard"]["j_name"];?></td>
+		<td><input type="checkbox" name="data[Expectation][item][]" value="<?php echo $data['id'];?>"></td>
+		<td><?php echo $data["wk"];?></td>
+		<td><?php echo $data["uma"];?></td>
+		<td><?php echo $data["name"];?></td>
+		<td><?php echo $data["weight"];?></td>
+		<td><?php echo $data["j_name"];?></td>
 	</tr>
 <?php endforeach;?>
 

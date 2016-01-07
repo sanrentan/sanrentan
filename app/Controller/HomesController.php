@@ -99,7 +99,7 @@ class HomesController extends AppController {
 
 		if(count($this->request->data['Expectation']['item'])==Configure::read('Base.box_count')){
 			$expectationData = array(
-				'race_id' => 1,
+				'race_id' => $this->request->data['Expectation']['race_id'],
 				'user_id' => 1,
 			);
 			for($i=0;$i<Configure::read('Base.box_count');$i++){
@@ -118,48 +118,38 @@ class HomesController extends AppController {
 	public function detail($raceId){
 		$this->set("message","出走表");
 
-		$typeArr = array("芝","ダート");
-		$this->set("typeArr",$typeArr);
-
-		$turnArr = array("右","左");
-		$this->set("turnArr",$turnArr);
-
-		//$raceData = $this->Race->getRaceData($raceId);
-
 		$raceData = $this->Race->findById($raceId);
+
 		if(empty($raceData)){
 			echo "race not found ! race_id = ".$raceId;exit;
 		}
 		$this->set("raceData",$raceData);
 
-		$options = array(
-			'conditions' => array(
-				'is_deleted' => 0,
-				'race_id' => $raceData["Race"]["id"]
-			)
-		);
-		$cardData = $this->RaceCard->find("all",$options);
-		$this->set("cardData",$cardData);
-
-
 		//予想
-		if(!empty($this->request->data['Expectation']['item'])){
-			if(count($this->request->data['Expectation']['item'])==Configure::read('Base.box_count')){
-
+		if($this->request->is('post')){
+			if(!empty($this->request->data['Expectation']['item'])&&count($this->request->data['Expectation']['item'])==Configure::read('Base.box_count')){
 				//ここでセッションにpost値を入れる
-				$this->set("message","確認画面");
-	            $this->Session->write('shop', $this->data);
-    	        $this->set('postData',$this->data);
-
-				$this->render('confirm');
-				return;
-
+	            $this->Session->write('expectation', $this->data);
+				$this->redirect('/confirm');
 			}else{
 				$this->Session->setFlash(__('※'.Configure::read('Base.box_count').'つ選択してください。'));
 			}
 		}
+	}
 
+	//確認画面
+	public function confirm(){
+		$this->set("message","確認画面");
+		$postData = $this->Session->read("expectation");
+		$raceData = $this->Race->findById($postData["Expectation"]["race_id"]);
 
+		$selectArray = array();
+		foreach($raceData["RaceCard"] as $key=>$data){
+			if(in_array($data["id"],$postData["Expectation"]["item"])){
+				$selectArray[] = $data;
+			}
+		}
+		$this->set(compact("postData", "raceData","selectArray"));
 	}
 
 	//URLからデータを取得する場合
