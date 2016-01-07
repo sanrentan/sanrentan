@@ -2,5 +2,5 @@
 
 
 <?php foreach($raceData as $key=>$data):?>
-	<p><?php echo $data["Race"]["name"];?></p>
+	<p><a href="/detail/<?php echo $data['Race']['id'];?>"><?php echo $data['Race']['name'];?></a></p>
 <?php endforeach;?>
