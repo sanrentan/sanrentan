@@ -100,7 +100,7 @@ class HomesController extends AppController {
 		if(count($this->request->data['Expectation']['item'])==Configure::read('Base.box_count')){
 			$expectationData = array(
 				'race_id' => $this->request->data['Expectation']['race_id'],
-				'user_id' => 1,
+				'user_id' => $this->user["id"],
 			);
 			for($i=0;$i<Configure::read('Base.box_count');$i++){
 				$expectationData['item'.($i+1)] = $this->request->data['Expectation']['item'][$i];

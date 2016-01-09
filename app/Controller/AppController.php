@@ -32,10 +32,38 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
+    public $components = array(
+        'Session',
+        'Flash',
+        'Auth' => array(
+            'loginRedirect' => array(
+                'controller' => '/',
+                'action' => 'index'
+            ),
+            'logoutRedirect' => array(
+                'controller' => 'users',
+                'action' => 'login',
+                'home'
+            ),
+            'authenticate' => array(
+                'Form' => array(
+                    'passwordHasher' => 'Blowfish'
+                )
+            )
+        )
+    );
+
 	function beforeFilter() {
 		$typeArr = array("芝","ダート");
 		$this->set("typeArr",$typeArr);
 		$turnArr = array("右","左");
 		$this->set("turnArr",$turnArr);
+
+		$this->user = $this->Auth->user();
+		$this->set("user",$this->user);
+
+        $this->Auth->allow('index', 'view','edit');
    	}
+
+
 }

@@ -38,7 +38,13 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
+			<h1><?php echo $this->Html->link('トップページ', '/'); ?></h1>
+			<?php if(!empty($user["id"])):?>
+				<p>ようこそ　<?php echo $user["username"];?>さん</p>
+				<p style="text-algin:right;"><a href="/users/logout">ログアウト</a></p>
+			<?php else:?>
+				<p style="text-algin:right;"><a href="/users/login">ログイン</a></p>
+			<?php endif;?>
 		</div>
 		<div id="content">
 

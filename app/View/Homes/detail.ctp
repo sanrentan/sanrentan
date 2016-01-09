@@ -22,4 +22,8 @@
 
 </table>
 
-<?php echo $this->Form->end('送信');?>
+<?php if(!empty($user["id"])):?>
+	<?php echo $this->Form->end('送信');?>
+<?php else:?>
+	<a href="/users/login">ログイン</a>
+<?php endif;?>
