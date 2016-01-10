@@ -55,10 +55,11 @@
 						<li class="active"><a href="/">Home</a></li>
 						<li><a href="#about">当サイトについて</a></li>
 						<li><a href="#contact">お問い合わせ</a></li>
-						<li><a href="#contact">マイページ</a></li>
 						<?php if(!empty($user["id"])):?>
+							<li><a href="#contact">マイページ</a></li>
 							<li><a href="/users/logout">ログアウト</a></li>
 						<?php else:?>
+							<li><a href="/regist">新規会員登録</a></li>
 							<li><a href="/users/login">ログイン</a></li>
 						<?php endif;?>
 					</ul>

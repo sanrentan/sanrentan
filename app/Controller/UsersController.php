@@ -29,6 +29,17 @@ class UsersController extends AppController {
 	    $this->Auth->allow('add', 'logout');
     }
 
+    //会員登録
+    public function regist(){
+        if ($this->request->is('post')) {
+            $this->User->create();
+            if ($this->User->save($this->request->data)) {
+                //ログインしてトップページへ
+                $this->login();
+            }
+        }
+    }
+
     public function index() {
         $this->User->recursive = 0;
         $this->set('users', $this->paginate());
