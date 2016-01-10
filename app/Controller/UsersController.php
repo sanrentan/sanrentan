@@ -3,6 +3,27 @@ App::uses('AppController', 'Controller');
 
 class UsersController extends AppController {
 
+    public $components = array(
+        'Session',
+        'Flash',
+        'Auth' => array(
+            'loginRedirect' => array(
+                'controller' => '/',
+                'action' => 'index'
+            ),
+            'logoutRedirect' => array(
+                'controller' => 'users',
+                'action' => 'login',
+                'home'
+            ),
+            'authenticate' => array(
+                'Form' => array(
+                    'passwordHasher' => 'Blowfish'
+                )
+            )
+        )
+    );
+
     public function beforeFilter() {
         parent::beforeFilter();
 	    $this->Auth->allow('add', 'logout');

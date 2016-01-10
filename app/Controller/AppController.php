@@ -53,6 +53,16 @@ class AppController extends Controller {
         )
     );
 
+	public $helpers = array(
+	 		'Session',
+	 		'Html' => array('className' => 'TwitterBootstrap.BootstrapHtml'),
+	 		'Form' => array('className' => 'TwitterBootstrap.BootstrapForm'),
+	 		'Paginator' => array('className' => 'TwitterBootstrap.BootstrapPaginator'),
+	 );
+
+	public $layout = 'bootstrap';
+	
+
 	function beforeFilter() {
 		$typeArr = array("芝","ダート");
 		$this->set("typeArr",$typeArr);
@@ -61,8 +71,9 @@ class AppController extends Controller {
 
 		$this->user = $this->Auth->user();
 		$this->set("user",$this->user);
-
-        $this->Auth->allow('index', 'view','edit');
+	
+		$this->Auth->allow();
+        //$this->Auth->allow('index', 'view','edit','detail');
    	}
 
 
