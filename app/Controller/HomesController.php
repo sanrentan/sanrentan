@@ -49,119 +49,115 @@ class HomesController extends AppController {
 	public function index(){
 		$this->set("message","こんにちわ。レース一覧を表示します。");
 
-		//今年のデータを取得したい
-		$targetYear = array(date("Y-1-1 00:00:00"),date("Y-12-31 23:59:59"));
+		//受付中のレース
+		$acceptingRace = $this->Race->getAcceptingRace();
 
-		$options = array(
-			'conditions' => array(
-				'is_deleted' => 0,
-				'race_date between ? and ?' => $targetYear
-			),
-			//'limit' => 2,
-			'order' => array("Race.race_date asc")
-		);
+		//過去５レース
+		$recentRace = $this->Race->getRecentRace();
 
-		$raceData = $this->Race->find("all",$options);
-		$this->set("raceData",$raceData);
+		//最新のこじはる予想
+		$recentKojiharu = $this->Expectation->getRecentKojiharu();
+
+		$this->set(compact("acceptingRace", "recentRace","recentKojiharu"));
+
 	}
 
 
-	//入力・確認
-	public function index_input(){
-		$this->set("message","こんにちわ");
+	//レース詳細
+	public function detail($raceId){
+		$this->set("message","出走表");
 
-		$horseData = array();
-		for($i=1;$i<=10;$i++){
-			$horseData[] = "テスト".$i;
+		$raceData = $this->Race->findById($raceId);
+
+		if(empty($raceData)){
+			echo "race not found ! race_id = ".$raceId;exit;
 		}
+		$this->set("raceData",$raceData);
 
-		if(!empty($this->request->data['Expectation']['item'])){
-			if(count($this->request->data['Expectation']['item'])==Configure::read('Base.box_count')){
-
+		//予想
+		if($this->request->is('post')){
+			if(!empty($this->request->data['Expectation']['item'])&&count($this->request->data['Expectation']['item'])==Configure::read('Base.box_count')){
 				//ここでセッションにpost値を入れる
-				$this->set("message","確認画面");
-	            $this->Session->write('shop', $this->data);
-    	        $this->set('postData',$this->data);
-
-				$this->render('confirm');
-				return;
-
+	            $this->Session->write('expectation', $this->request->data);
+				$this->redirect('/confirm');
 			}else{
 				$this->Session->setFlash(__('※'.Configure::read('Base.box_count').'つ選択してください。'));
 			}
 		}
 
-		$this->set("horseData",$horseData);
+		//すでに予想しているか	
+		$myData = array();
+		if(!empty($this->user["id"])){
+			$myData = $this->Expectation->getExpectationData($raceId,$this->user["id"]);
+		}
+
+		//こじはるの予想
+		$kojiharuData = $this->Expectation->getExpectationData($raceId);
+
+		$this->set(compact("myData","kojiharuData"));
+
+
+	}
+
+	//確認画面
+	public function confirm(){
+		$this->set("message","確認画面");
+		$postData = $this->Session->read("expectation");
+		$raceData = $this->Race->findById($postData["Expectation"]["race_id"]);
+
+		//こじはるの情報を取得
+		$kojiharuData = $this->Expectation->getExpectationData($postData["Expectation"]["race_id"]);
+
+		//自分用
+		$selectArray = array();
+		foreach($raceData["RaceCard"] as $key=>$data){
+			if(in_array($data["id"],$postData["Expectation"]["item"])){
+				$selectArray[] = $data;
+			}
+		}
+
+		$this->set(compact("postData", "raceData","selectArray","kojiharuData"));
 	}
 
 	//登録機能
 	public function complete(){
 
-		if(count($this->request->data['Expectation']['item'])==Configure::read('Base.box_count')){
-			$expectationData = array(
-				'race_id' => 1,
-				'user_id' => 1,
-			);
-			for($i=0;$i<Configure::read('Base.box_count');$i++){
-				$expectationData['item'.($i+1)] = $this->request->data['Expectation']['item'][$i];
+		if(!empty($this->user["id"])&&count($this->request->data['Expectation']['item'])==Configure::read('Base.box_count')){
+			//既に予想していないか？
+			$exceptionData = $this->Expectation->getExpectationData($this->request->data['Expectation']['race_id'],$this->user["id"]);
+			if(empty($exceptionData)){
+				$expectationData = array(
+					'race_id' => $this->request->data['Expectation']['race_id'],
+					'user_id' => $this->user["id"],
+				);
+				for($i=0;$i<Configure::read('Base.box_count');$i++){
+					$expectationData['item'.($i+1)] = $this->request->data['Expectation']['item'][$i];
+				}
+				$this->Expectation->create();
+				$this->Expectation->save($expectationData);
+			    $this->Session->write('expectation', "");
+
+			    //
+				$raceData = $this->Race->findById($this->request->data['Expectation']['race_id']);
+				$this->set("raceData",$raceData);
+			}else{
+				$this->Session->setFlash(__('※不正な遷移です。'));
+				$this->redirect('/');
 			}
-			$this->Expectation->create();
-			$this->Expectation->save($expectationData);
-			$this->Session->setFlash(__('※登録しました'));
+
 		}else{
 			$this->Session->setFlash(__('※不正な遷移です。'));
 			$this->redirect('/');
 		}
 	}
 
-	//レース詳細
-	public function detail($raceId){
-		$this->set("message","出走表");
-
-		$typeArr = array("芝","ダート");
-		$this->set("typeArr",$typeArr);
-
-		$turnArr = array("右","左");
-		$this->set("turnArr",$turnArr);
-
-		//$raceData = $this->Race->getRaceData($raceId);
-
-		$raceData = $this->Race->findById($raceId);
-		if(empty($raceData)){
-			echo "race not found ! race_id = ".$raceId;exit;
-		}
-		$this->set("raceData",$raceData);
-
-		$options = array(
-			'conditions' => array(
-				'is_deleted' => 0,
-				'race_id' => $raceData["Race"]["id"]
-			)
-		);
-		$cardData = $this->RaceCard->find("all",$options);
-		$this->set("cardData",$cardData);
-
-
-		//予想
-		if(!empty($this->request->data['Expectation']['item'])){
-			if(count($this->request->data['Expectation']['item'])==Configure::read('Base.box_count')){
-
-				//ここでセッションにpost値を入れる
-				$this->set("message","確認画面");
-	            $this->Session->write('shop', $this->data);
-    	        $this->set('postData',$this->data);
-
-				$this->render('confirm');
-				return;
-
-			}else{
-				$this->Session->setFlash(__('※'.Configure::read('Base.box_count').'つ選択してください。'));
-			}
-		}
-
+	//マイページ
+	public function mypage(){
+		//自分の予想一覧を取得
 
 	}
 
+	//後ほどシェルにする
 	//URLからデータを取得する場合
 	//参考URL http://www.junk-port.com/php/php-simple-html-dom-parser/
 	public function index2($raceId=null){

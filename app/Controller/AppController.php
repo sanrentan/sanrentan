@@ -31,4 +31,50 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+
+    public $components = array(
+        'Session',
+        'Flash',
+        'Auth' => array(
+            'loginRedirect' => array(
+                'controller' => '/',
+                'action' => 'index'
+            ),
+            'logoutRedirect' => array(
+                'controller' => 'users',
+                'action' => 'login',
+                'home'
+            ),
+            'authenticate' => array(
+                'Form' => array(
+                    'passwordHasher' => 'Blowfish'
+                )
+            )
+        )
+    );
+
+	public $helpers = array(
+	 		'Session',
+	 		'Html' => array('className' => 'TwitterBootstrap.BootstrapHtml'),
+	 		'Form' => array('className' => 'TwitterBootstrap.BootstrapForm'),
+	 		'Paginator' => array('className' => 'TwitterBootstrap.BootstrapPaginator'),
+	 );
+
+	public $layout = 'bootstrap';
+	
+
+	function beforeFilter() {
+		$typeArr = array("芝","ダート");
+		$this->set("typeArr",$typeArr);
+		$turnArr = array("右","左");
+		$this->set("turnArr",$turnArr);
+
+		$this->user = $this->Auth->user();
+		$this->set("user",$this->user);
+	
+		$this->Auth->allow();
+        //$this->Auth->allow('index', 'view','edit','detail');
+   	}
+
+
 }

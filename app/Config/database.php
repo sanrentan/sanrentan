@@ -69,7 +69,7 @@ class DATABASE_CONFIG {
 	public $default = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
-		'host' => 'localhost',
+		'host' => '127.0.0.1',
 		'login' => 'yamaoka',
 		'password' => 'UpeKwjK9FTYSGjb9',
 		'database' => 'sanrentan',

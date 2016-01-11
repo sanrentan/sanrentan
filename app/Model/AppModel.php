@@ -30,4 +30,10 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+
+	public function alphaNumeric($check) {
+	    $value = array_values($check);
+	    $value = $value[0];
+	    return preg_match('/^[a-zA-Z0-9]+$/', $value);
+	}
 }
