@@ -32,6 +32,10 @@
 	Router::connect('/confirm/*', array('controller' => 'homes', 'action' => 'confirm'));
 	Router::connect('/expectations/complete', array('controller' => 'homes', 'action' => 'complete'));
 	Router::connect('/regist', array('controller' => 'users', 'action' => 'regist'));
+	Router::connect('/regist_confirm', array('controller' => 'users', 'action' => 'regist_confirm'));
+	Router::connect('/regist_complete', array('controller' => 'users', 'action' => 'regist_complete'));
+	Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
+	Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
 
 /**
  * ...and connect the rest of 'Pages' controller's URLs.

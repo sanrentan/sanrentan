@@ -57,10 +57,10 @@
 						<li><a href="#contact">お問い合わせ</a></li>
 						<?php if(!empty($user["id"])):?>
 							<li><a href="#contact">マイページ</a></li>
-							<li><a href="/users/logout">ログアウト</a></li>
+							<li><a href="/logout">ログアウト</a></li>
 						<?php else:?>
 							<li><a href="/regist">新規会員登録</a></li>
-							<li><a href="/users/login">ログイン</a></li>
+							<li><a href="/login">ログイン</a></li>
 						<?php endif;?>
 					</ul>
 				</div><!--/.nav-collapse -->
