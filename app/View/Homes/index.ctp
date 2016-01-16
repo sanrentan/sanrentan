@@ -40,7 +40,7 @@
 					<span><?php echo date("m月d日",strtotime($data["Race"]["race_date"]));?></span>
 					<span class="racePlace"><?php echo $data['Race']['place'];?></span>　
 					<span class="raceName">
-						<a href="/detail/<?php echo $data['Race']['id'];?>">
+						<a href="/result/<?php echo $data['Race']['id'];?>">
 							<?php echo $data['Race']['name'];?><?php if($data['Race']['grade']>0):?> (G<?php echo $data['Race']['grade'];?>)<?php endif;?>
 						</a>
 					</span>
