@@ -172,6 +172,47 @@
 	padding:10px;
 }
 
+#horseListArea #priceArea{
+	margin-bottom:30px;
+}
+#horseListArea #priceArea table{
+	width:100%;
+	cellpadding:10px;
+}
+
+#horseListArea #priceArea table td,
+#horseListArea #priceArea table th{
+	padding: 5px 10px 5px 10px;
+}
+
+#horseListArea #priceArea table th{
+	background-color: #eec;
+}
+
+#horseListArea #priceArea table td{
+	text-align:right;
+}
+
+#horseListArea #priceArea table td.r_number{
+	background-color: #f6f7f2;
+	text-align:center;
+}
+
+#horseListArea #priceArea #leftPriceTable{
+	float:left;
+	width:400px;
+	margin-left:25px;
+}
+#horseListArea #priceArea #rightPriceTable{
+	float:left;
+	width:400px;
+	margin-left:20px;
+}
+
+#horseListArea #resultListArea table td,
+#horseListArea #resultListArea table th{
+	padding: 5px 8px 5px 8px;
+}
 
 
 #confirmArea{
