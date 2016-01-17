@@ -27,4 +27,16 @@ App::uses('Shell', 'Console');
  */
 class AppShell extends Shell {
 
+	public function __log($msg,$endFlg=false){
+		$msg = "[".date('Y-m-d H:i:s')."] ".$msg;
+		$this->out($msg);
+		if($endFlg){
+			$msg = "shell finish.";
+			$msg = "[".date('Y-m-d H:i:s')."] ".$msg;
+			$this->out($msg);
+			exit;
+		}
+	}
+
+
 }
