@@ -41,11 +41,14 @@ class HomesController extends AppController {
  */
 	public $uses = array(
 		'Expectation',
+		'ExpectationResult',
 		'RaceCard',
 		'Race',
 		'RaceResult',
 		'RaceResultDetail'
 	);
+
+	public $kojiharu_id = 3;
 
 	//レースを表示
 	public function index(){
@@ -170,7 +173,7 @@ class HomesController extends AppController {
 
 		//レース結果がない場合はdetailへリダイレクト
 		if(empty($raceResultData)){
-			echo "race detail not found ! race_id = ".$raceId;exit;
+			$this->redirect("/detail/".$raceId);
 		}
 
 		//自分の予想を取得	
@@ -188,9 +191,44 @@ class HomesController extends AppController {
 
 	//マイページ
 	public function mypage(){
-		//自分の予想一覧を取得
+		
+		if(empty($this->user["id"])){
+			//ログインページへリダイレクト
+			$this->redirect('/login');
+		}else{
+			$user = $this->user;
+		}
 
-		//
+		$year = date("Y");//TODO 引数で受け取りたい
+
+
+		//対象の年のレースを取得
+		$raceData = $this->Race->getRaceListYear($year);
+
+		$raceIdArr = array();
+		foreach($raceData as $key=>$data){
+			$raceIdArr[] = $data["Race"]["id"];
+		}
+
+		//レース結果を取得
+		$options = array("conditions"=>array("race_id"=>$raceIdArr));
+		$tmpData = $this->RaceResult->find("all",$options);
+		$raceResultData = array();
+		foreach($tmpData as $key=>$data){
+			$raceResultData[$data["RaceResult"]["race_id"]] = $data;
+		}
+
+		//自分の予想一覧を取得
+		$myData = $this->Expectation->getExpectaionList($user["id"],$raceIdArr);
+		//自分の結果を取得
+		$myResultData = $this->ExpectationResult->getResultData($user["id"],$year);
+
+		//こじはるの予想一覧を取得
+		$kojiharuData = $this->Expectation->getExpectaionList($this->kojiharu_id,$raceIdArr);
+		//こじはるの結果を取得
+		$kojiharuResultData = $this->ExpectationResult->getResultData($this->kojiharu_id,$year);
+
+		$this->set(compact("raceData", "raceResultData","myData","myResultData","kojiharuData","kojiharuResultData"));
 
 	}
 
