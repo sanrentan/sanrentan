@@ -61,7 +61,23 @@ class Race extends AppModel {
 			'limit' => $limit
 		);
 		return $this->find("all",$options);
+    }
 
+    //対象の年のレース結果を取得
+    public function getRaceListYear($year){
+    	$start = $year."-01-01 00:00:00";
+		$end   = $year."-12-31 00:00:00";
+
+		$options = array(
+			"conditions" => array(
+				"race_date between ? and ?" => array($start,$end),
+				"is_deleted" => 0,
+				"view_flg" => 1
+			),
+			"order" => "id desc"
+		);
+		$raceData = $this->find("all",$options);
+		return $raceData;
     }
 
 }

@@ -261,3 +261,40 @@
 	margin-bottom:0;
 }
 
+/**マイページ**/
+#mypageNavi{
+	margin-bottom: 20px;
+}
+#mypageNavi ul li{
+	float:left;
+	list-style: none;
+	border-bottom:1px solid #CCC;
+	margin-right:10px;
+	padding:10px 10px 10px 10px;
+	background-color: #FFE4E1;
+}
+
+#mypageNavi ul li.active{
+	font-weight: bold;
+}
+
+#mypage #resultArea{
+	padding-left:25px;
+	padding-right:25px;
+}
+
+#mypage #resultArea p{
+	font-size:120%;
+}
+#mypage #resultArea table th,
+#mypage #resultArea table td
+{
+	padding:10px 10px 10px 10px;
+}
+
+#mypage #resultArea table tr.row2{
+	background-color:#f6f7f2;
+}
+
+
+

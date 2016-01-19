@@ -56,7 +56,7 @@
 						<li><a href="#about">当サイトについて</a></li>
 						<li><a href="#contact">お問い合わせ</a></li>
 						<?php if(!empty($user["id"])):?>
-							<li><a href="#contact">マイページ</a></li>
+							<li><a href="/mypage">マイページ</a></li>
 							<li><a href="/logout">ログアウト</a></li>
 						<?php else:?>
 							<li><a href="/regist">新規会員登録</a></li>

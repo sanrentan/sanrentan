@@ -20,12 +20,14 @@
 				<?php echo $this->Form->hidden('item][',array("value"=>$data["id"]));?>
 			<?php endforeach;?>
 		</ul>
-		<ul class="selectList">
-			<p id="kojiharuList">こじはるの予想</p>
-			<?php foreach($kojiharuData["selectData"] as $key=>$data):?>
-				<li><span class="wk<?php echo $data["RaceCard"]['wk'];?>"><?php echo $data["RaceCard"]["uma"];?></span> <?php echo $data["RaceCard"]["name"];?></li>
-			<?php endforeach;?>
-		</ul>
+		<?php if(!empty($kojiharuData)):?>
+			<ul class="selectList">
+				<p id="kojiharuList">こじはるの予想</p>
+				<?php foreach($kojiharuData["selectData"] as $key=>$data):?>
+					<li><span class="wk<?php echo $data["RaceCard"]['wk'];?>"><?php echo $data["RaceCard"]["uma"];?></span> <?php echo $data["RaceCard"]["name"];?></li>
+				<?php endforeach;?>
+			</ul>
+		<?php endif;?>
 		<div class="clearfix"></div>
 	</div>
 

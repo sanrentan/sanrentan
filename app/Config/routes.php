@@ -32,6 +32,8 @@
 	Router::connect('/result/*', array('controller' => 'homes', 'action' => 'result'));
 	Router::connect('/confirm/*', array('controller' => 'homes', 'action' => 'confirm'));
 	Router::connect('/expectations/complete', array('controller' => 'homes', 'action' => 'complete'));
+	Router::connect('/mypage', array('controller' => 'homes', 'action' => 'mypage'));
+
 	Router::connect('/regist', array('controller' => 'users', 'action' => 'regist'));
 	Router::connect('/regist_confirm', array('controller' => 'users', 'action' => 'regist_confirm'));
 	Router::connect('/regist_complete', array('controller' => 'users', 'action' => 'regist_complete'));
