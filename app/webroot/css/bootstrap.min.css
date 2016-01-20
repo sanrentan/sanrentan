@@ -277,6 +277,9 @@
 #mypageNavi ul li.active{
 	font-weight: bold;
 }
+#mypageNavi ul li.active a{
+	color:#000000;
+}
 
 #mypage #resultArea{
 	padding-left:25px;
