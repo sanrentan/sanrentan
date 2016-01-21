@@ -36,6 +36,30 @@ class AppController extends Controller {
         'Session',
         'Flash',
         'Auth' => array(
+            'authenticate' => array(
+                'all' => array(
+                    'fields' => array(
+                        'username' => 'username',
+                        'password' => 'password',
+                    ),
+                ),
+                'TwitterKit.TwitterOauth',
+            ),
+            //ログインアクション
+            'loginAction' => array(
+                'plugin' => 'twitter_kit',
+                'controller' => 'users',
+                'action' => 'login',
+            ),
+            //ログイン後に遷移するURL
+            'loginRedirect' => array(
+                'plugin' => 'twitter_kit',
+                'controller' => 'users',
+                'action' => 'login',
+            ),
+        ),
+        'TwitterKit.Twitter'
+/**        'Auth' => array(
             'loginRedirect' => array(
                 'controller' => '/',
                 'action' => 'index'
@@ -51,6 +75,7 @@ class AppController extends Controller {
                 )
             )
         )
+**/
     );
 
 	public $helpers = array(

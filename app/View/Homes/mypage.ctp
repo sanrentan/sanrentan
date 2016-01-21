@@ -2,16 +2,7 @@
 
 <div id="mypage">
 
-	<div id="mypageNavi">
-		<ul>
-			<li class="active">あなたの予想記録</li>
-			<li><a href="">こじはる予想記録</a></li>
-			<li><a href="">登録情報の変更</a></li>
-			<li><a href="">ログアウト</a></li>
-			<li><a href="">退会</a></li>
-		</ul>
-		<div class="clearfix"></div>
-	</div>
+	<?php echo $this->element('mypageNavi',array("active"=>"index")); ?>
 
 	<div id="resultArea">
 		<p>今年の戦績：<?php echo $myResultData["ExpectationResult"]["win"];?>勝<?php echo $myResultData["ExpectationResult"]["lose"];?>敗　収支 <?php if($myResultData["ExpectationResult"]["price"]>0):?>+<?php endif;?><?php echo number_format($myResultData["ExpectationResult"]["price"]);?>円</p>

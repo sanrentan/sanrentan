@@ -1,21 +1,26 @@
-<div class="users form">
-<?php echo $this->Form->create('User'); ?>
-	<fieldset>
-		<legend><?php echo __('Edit User'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('username');
-		echo $this->Form->input('password');
-		echo $this->Form->input('role');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+<p class="titleLabel">マイページ</p>
+<div id="mypage">
+	<?php echo $this->element('mypageNavi',array("active"=>"edit")); ?>
 
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('User.id')), array('confirm' => __('Are you sure you want to delete # %s?', $this->Form->value('User.id')))); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?></li>
-	</ul>
+	<div class="userForm">
+	<p class="titleLabel">登録情報の変更</p>
+	<?php echo $this->Form->create('User'); ?>
+		<fieldset>
+			<p>ログインID</p>
+			<?php echo $this->request->data["User"]["username"];?>
+			<p>パスワード (半角英数6文字以上)　※変更する場合は入力</p>
+			<?php echo $this->Form->input('password',array('label'=>false,'required'=>false));?>
+			<p>ニックネーム <span class="red">※必須</span></p>
+			<?php echo $this->Form->input('nickname',array('label'=>false));?>
+			<p>競馬歴</p>
+			<?php echo $this->Form->input('span',array('label'=>false,'required'=>false));?>
+			<p>好きな馬</p>
+			<?php echo $this->Form->input('favorite',array('label'=>false,'required'=>false));?>
+			<p>自己紹介</p>
+			<span style="color:#b94a48;"><?php echo $this->Form->error('message');?></span>
+			<?php echo $this->Form->textarea('message', array('cols' => 40, 'rows' => 10,'required'=>false));?>
+		</fieldset>
+	<?php echo $this->Form->end(__('Submit')); ?>
+	</div>
 </div>
+

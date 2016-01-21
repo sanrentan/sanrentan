@@ -108,23 +108,38 @@ class UsersController extends AppController {
         }
     }
 
-    public function edit($id = null) {
-        $this->User->id = $id;
+    //会員情報変更
+    public function edit() {
+        if(empty($this->user["id"])){
+            $this->redirect("/login");
+        }
+
+        $this->User->id = $this->user["id"];
         if (!$this->User->exists()) {
             throw new NotFoundException(__('Invalid user'));
         }
+
         if ($this->request->is('post') || $this->request->is('put')) {
+
+            $this->request->data["User"]["id"]       = $this->user["id"];
+            $this->request->data["User"]["username"] = $this->user["username"];
+
+            //パスワードがpostされなかった場合はバリデーションを消す
+            if(empty($this->request->data["User"]["password"])){
+                unset($this->User->validate['password']);
+            }
+            
             if ($this->User->save($this->request->data)) {
-                $this->Flash->success(__('The user has been saved'));
-                return $this->redirect(array('action' => 'index'));
+                return $this->redirect("/users/edit");
             }
             $this->Flash->error(
                 __('The user could not be saved. Please, try again.')
             );
         } else {
-            $this->request->data = $this->User->findById($id);
+            $this->request->data = $this->User->findById($this->user["id"]);
             unset($this->request->data['User']['password']);
         }
+
     }
 
     public function delete($id = null) {
