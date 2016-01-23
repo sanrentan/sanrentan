@@ -42,6 +42,7 @@ class AppController extends Controller {
                         'username' => 'username',
                         'password' => 'password',
                     ),
+                    'scope' => array('is_deleted' => 0),
                 ),
                 'TwitterKit.TwitterOauth',
             ),
