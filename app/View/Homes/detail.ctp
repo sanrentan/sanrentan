@@ -1,4 +1,7 @@
 <p class="titleLabel"><?php echo $raceData["Race"]["place"];?>　<?php echo $raceData["Race"]["full_name"];?> (G<?php echo $raceData["Race"]["grade"];?>)</p>
+<!-- <pre>
+	<?php //print_r($recentRaceResult[153][0]['RecentRaceResult']);exit; ?>
+</pre> -->
 
 <div id="raceDetailTxt">
 	<div id="detailLeft">
@@ -37,7 +40,7 @@
 <?php echo $this->Form->hidden('Expectation.race_id' ,array('value' => $raceData["Race"]["id"]));?>
 <div id="horseListArea">
 	<table border="1">
-	<tr><?php if(empty($myData)):?><th>選択</th><?php endif;?><th>枠番</th><th>馬番</th><th>馬名</th><th>性齢</th><th>馬体重</th><th>負担重量/騎手名</th></tr
+	<tr><?php if(empty($myData)):?><th>選択</th><?php endif;?><th>枠番</th><th>馬番</th><th>馬名</th><th>性齢</th><th>馬体重</th><th>負担重量/騎手名</th><th>前走</th><th>前々走</th><th>3走前</th><th>4走前</th><th>5走前</th></tr>
 	<?php foreach($raceData["RaceCard"] as $key=>$data):?>
 		<tr>
 			<?php if(empty($myData)):?><td align="center"><input type="checkbox" name="data[Expectation][item][]" value="<?php echo $data['id'];?>"></td><?php endif;?>
@@ -55,6 +58,29 @@
 				<?php endif;?>
 			</td>
 			<td><?php echo $data["j_weight"];?><br><?php echo $data["j_name"];?></td>
+			<?php for($i = 0; $i < count($recentRaceResult[$data['id']]); $i++ ): ?>
+			<td>
+				<table border="0">
+				<tbody>
+					<tr>
+						<td><span class = "lastDate"><?php echo date("Y.m.d",strtotime($recentRaceResult[$data['id']][$i]["race_date"])); ?></span></td>
+						<td><span class = "lastRacePlace"><?php echo $recentRaceResult[$data['id']][$i]['place'] ?></span></td>
+					</tr>
+					<tr>
+						<td><span class = "lastRace"><?php echo $recentRaceResult[$data['id']][$i]['race_name'] ?></span></td>
+						<td><span class = "lastCource"><?php echo $recentRaceResult[$data['id']][$i]['cource']?></span></td>
+						<td><span class = "lastBaba"><?php echo $recentRaceResult[$data['id']][$i]['baba']?></span></td>
+					</tr>
+					<td><span class = "lastOrderOfArrival"><?php echo $recentRaceResult[$data['id']][$i]['order_of_arrival']?>着</span></td>
+					<td><span class = "lastNumberOfHead"><?php echo $recentRaceResult[$data['id']][$i]['number_of_heads']?>頭</span></td>
+					<td><span class = "lastPopularity"><?php echo $recentRaceResult[$data['id']][$i]['popularity']?>番人気</span></td>
+					<tr>
+						<td><span class = "lastJockey"><?php echo $recentRaceResult[$data['id']][$i]['jockey']?></span></td>
+					</tr>
+				</tbody>
+				</table>
+			</td>
+			<?php endfor; ?>
 		</tr>
 	<?php endforeach;?>
 

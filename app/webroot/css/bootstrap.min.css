@@ -277,6 +277,9 @@
 #mypageNavi ul li.active{
 	font-weight: bold;
 }
+#mypageNavi ul li.active a{
+	color:#000000;
+}
 
 #mypage #resultArea{
 	padding-left:25px;
@@ -294,6 +297,40 @@
 
 #mypage #resultArea table tr.row2{
 	background-color:#f6f7f2;
+}
+.recentResults{
+
+}
+.lastRace{
+
+}
+.lastDate{
+	font-size: 0.5em;
+}
+.lastRacePlace{
+	font-size: 0.5em;
+
+}
+.lastCource{
+	font-size: 0.5em;
+}
+.lastBaba{
+	font-size: 0.5em;
+}
+.lastNumberOfHead{
+
+}
+.lastPopularity{
+
+}
+.lastOdds{
+
+}
+.lastOrderOfArrival{
+
+}
+.lastJockey{
+
 }
 
 
