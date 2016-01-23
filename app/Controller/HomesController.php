@@ -97,7 +97,7 @@ class HomesController extends AppController {
 		print_r($RecentRaceResult);
 		echo "</pre>";
 		exit;*/
-
+		//test
 
 		$this->set('recentRaceResult', $RecentRaceResult);
 		
