@@ -77,8 +77,17 @@ class HomesController extends AppController {
 		$raceData = $this->Race->findById($raceId);
 
 		$raceCardData = $raceData['RaceCard'];
+		$raceCardId = array();
+		foreach($raceCardData as $hoge ){
+			array_push($raceCardId, $hoge['id']);
+		}
+		$RecentRaceResult = $this->RecentRaceResult->find('all',
+			[
+			'conditions' => ['race_card_id' => $raceCardId]
+			]
+			);
 		
-		for($i = 0; $i < count($raceCardData); $i++){
+		/*for($i = 0; $i < count($raceCardData); $i++){
 			$getData =$this->RecentRaceResult->find('all',
 			[
 			'conditions' => ['race_card_id' => $raceCardData[$i]['id']],
@@ -92,12 +101,7 @@ class HomesController extends AppController {
 			//レースカードIDをキーに配列を加える
 			$array = array($raceCardData[$i]['id'] => $recentData);
 			$RecentRaceResult += $array;
-		}
-		/*echo "<pre>";
-		print_r($RecentRaceResult);
-		echo "</pre>";
-		exit;*/
-		//test
+		}*/
 
 		$this->set('recentRaceResult', $RecentRaceResult);
 		
@@ -282,7 +286,7 @@ class HomesController extends AppController {
 		);
 		$cardData = $this->RaceCard->find("all",$options);
 		if(!empty($cardData)){
-			echo "raceCard already exists! race_id = ".$raceId;exit;
+			echo "raceCard already exists! race_id = ".$raceId;
 			exit;
 		}
 

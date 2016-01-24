@@ -299,12 +299,11 @@
 	background-color:#f6f7f2;
 }
 .recentResults{
-
+	font-size: 0.8em;
 }
-.lastRace{
-
+.lastRaceName{
 }
-.lastDate{
+.lastRaceDate{
 	font-size: 0.5em;
 }
 .lastRacePlace{
@@ -327,11 +326,25 @@
 
 }
 .lastOrderOfArrival{
-
+	font-size: 1.2em;
 }
 .lastJockey{
 
 }
-
+.lastOrderOfArrival.lastRaceWon{
+	color: red;
+	font-weight: bold;
+}
+.lastOrderOfArrival.lastRaceSecond{
+	color: blue;
+	font-weight: bold;
+}
+.lastOrderOfArrival.lastRaceThird{
+	color: green;
+	font-weight: bold;
+}
+.lastOrder{
+	font-size: 0.2em;
+}
 
 
