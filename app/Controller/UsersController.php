@@ -31,6 +31,7 @@ class UsersController extends AppController {
 
     //会員登録
     public function regist(){
+        $this->set("naviType","regist");
         if ($this->request->is('post')) {
 
             $this->User->set($this->request->data);
@@ -50,6 +51,7 @@ class UsersController extends AppController {
 
     //会員登録確認画面
     public function regist_confirm(){
+        $this->set("naviType","regist");
         $postData = $this->Session->read("regist");
 
         if($this->request->is('post')){
@@ -64,6 +66,7 @@ class UsersController extends AppController {
 
     //会員登録完了
     public function regist_complete(){
+        $this->set("naviType","regist");
         $postData = $this->Session->read("regist");
         if(!empty($postData)){
             $user_id = $this->User->create();
@@ -110,6 +113,7 @@ class UsersController extends AppController {
 
     //会員情報変更
     public function edit() {
+        $this->set("naviType","mypage");
         if(empty($this->user["id"])){
             $this->redirect("/login");
         }
@@ -144,6 +148,7 @@ class UsersController extends AppController {
 
     //会員登録変更　確認
     public function edit_confirm(){
+        $this->set("naviType","mypage");
         $postData = $this->Session->read("edit");
 
         if($this->request->is('post')){
@@ -154,6 +159,7 @@ class UsersController extends AppController {
 
     //会員登録変更　完了
     public function edit_complete(){
+        $this->set("naviType","mypage");
         $postData = $this->Session->read("edit");
         if(!empty($postData)){
 
@@ -223,6 +229,7 @@ class UsersController extends AppController {
 
     //ログイン
 	public function login() {
+        $this->set("naviType","login");
 	    if ($this->request->is('post')) {
 	        if ($this->Auth->login()) {
 				$this->redirect('/');

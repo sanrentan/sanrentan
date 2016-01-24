@@ -33,6 +33,7 @@
 	Router::connect('/confirm/*', array('controller' => 'homes', 'action' => 'confirm'));
 	Router::connect('/expectations/complete', array('controller' => 'homes', 'action' => 'complete'));
 	Router::connect('/mypage', array('controller' => 'homes', 'action' => 'mypage'));
+	Router::connect('/kojiharu_list', array('controller' => 'homes', 'action' => 'kojiharu_list'));
 
 	Router::connect('/regist', array('controller' => 'users', 'action' => 'regist'));
 	Router::connect('/regist_confirm', array('controller' => 'users', 'action' => 'regist_confirm'));
