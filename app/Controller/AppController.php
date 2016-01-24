@@ -42,6 +42,7 @@ class AppController extends Controller {
                         'username' => 'username',
                         'password' => 'password',
                     ),
+                    'scope' => array('is_deleted' => 0),
                 ),
                 'TwitterKit.TwitterOauth',
             ),
@@ -99,6 +100,8 @@ class AppController extends Controller {
 	
 		$this->Auth->allow();
         //$this->Auth->allow('index', 'view','edit','detail');
+
+        $this->set("naviType","top");
    	}
 
 

@@ -52,15 +52,16 @@
 				<a class="brand" href="/"><?php echo __('3連単5頭BOXならだいたい当たる'); ?></a>
 				<div class="nav-collapse">
 					<ul class="nav">
-						<li class="active"><a href="/">Home</a></li>
+						<li <?php if($naviType=="top"):?>class="active"<?php endif;?>><a href="/">Home</a></li>
+						<li <?php if($naviType=="kojiharu"):?>class="active"<?php endif;?>><a href="/kojiharu_list">こじはる予想</a></li>
 						<li><a href="#about">当サイトについて</a></li>
 						<li><a href="#contact">お問い合わせ</a></li>
 						<?php if(!empty($user["id"])):?>
-							<li><a href="/mypage">マイページ</a></li>
+							<li <?php if($naviType=="mypage"):?>class="active"<?php endif;?>><a href="/mypage">マイページ</a></li>
 							<li><a href="/logout">ログアウト</a></li>
 						<?php else:?>
-							<li><a href="/regist">新規会員登録</a></li>
-							<li><a href="/login">ログイン</a></li>
+							<li <?php if($naviType=="regist"):?>class="active"<?php endif;?>><a href="/regist">新規会員登録</a></li>
+							<li <?php if($naviType=="login"):?>class="active"<?php endif;?>><a href="/login">ログイン</a></li>
 						<?php endif;?>
 					</ul>
 				</div><!--/.nav-collapse -->

@@ -31,6 +31,7 @@ class UsersController extends AppController {
 
     //会員登録
     public function regist(){
+        $this->set("naviType","regist");
         if ($this->request->is('post')) {
 
             $this->User->set($this->request->data);
@@ -50,6 +51,7 @@ class UsersController extends AppController {
 
     //会員登録確認画面
     public function regist_confirm(){
+        $this->set("naviType","regist");
         $postData = $this->Session->read("regist");
 
         if($this->request->is('post')){
@@ -64,6 +66,7 @@ class UsersController extends AppController {
 
     //会員登録完了
     public function regist_complete(){
+        $this->set("naviType","regist");
         $postData = $this->Session->read("regist");
         if(!empty($postData)){
             $user_id = $this->User->create();
@@ -110,6 +113,7 @@ class UsersController extends AppController {
 
     //会員情報変更
     public function edit() {
+        $this->set("naviType","mypage");
         if(empty($this->user["id"])){
             $this->redirect("/login");
         }
@@ -128,19 +132,82 @@ class UsersController extends AppController {
             if(empty($this->request->data["User"]["password"])){
                 unset($this->User->validate['password']);
             }
-            
-            if ($this->User->save($this->request->data)) {
-                return $this->redirect("/users/edit");
+
+            $this->User->set($this->request->data);
+            if ($this->User->validates()) {
+                //セッションにセットして確認画面へ
+                $this->Session->write('edit', $this->request->data);
+                $this->redirect('/users/edit_confirm');
             }
-            $this->Flash->error(
-                __('The user could not be saved. Please, try again.')
-            );
+
         } else {
             $this->request->data = $this->User->findById($this->user["id"]);
             unset($this->request->data['User']['password']);
         }
-
     }
+
+    //会員登録変更　確認
+    public function edit_confirm(){
+        $this->set("naviType","mypage");
+        $postData = $this->Session->read("edit");
+
+        if($this->request->is('post')){
+            $this->redirect("/users/edit_complete");
+        }
+        $this->set("postData",$postData);
+    }
+
+    //会員登録変更　完了
+    public function edit_complete(){
+        $this->set("naviType","mypage");
+        $postData = $this->Session->read("edit");
+        if(!empty($postData)){
+
+            if(empty($postData["User"]["password"])){
+                unset($postData["User"]["password"]);
+            }
+            $postData["User"]["id"] = $this->user["id"];
+            $postData["User"]["username"] = $this->user["username"];
+
+            if ($this->User->save($postData)) {
+                $this->Session->write("edit","");
+
+                //sessionを更新する
+                if(!empty($postData["User"]["password"])){
+                    unset($postData['User']['password']);
+                }
+                $this->Session->write('Auth', $postData);
+                $this->user = $this->Auth->user();
+                $this->set("user",$this->user);
+
+            }else{
+                $this->Session->setFlash(__('※不正な遷移です。'));
+            }
+        }
+    }
+
+
+    //退会
+    public function withdrawal(){
+        if ($this->request->is('post')) {
+            //退会処理
+            $data = array(
+                "User"=>array(
+                    "id" => $this->user["id"],
+                    "is_deleted" => 1,
+                    "deleted_date" => date("Y-m-d H:i:s")
+                )
+            );
+            $this->User->save($data);
+
+            //ログアウトして
+            $this->Auth->logout();
+            $doneFlg = true;
+            $this->set("doneFlg",$doneFlg);
+
+        }
+    }
+
 
     public function delete($id = null) {
         // Prior to 2.5 use
@@ -162,6 +229,7 @@ class UsersController extends AppController {
 
     //ログイン
 	public function login() {
+        $this->set("naviType","login");
 	    if ($this->request->is('post')) {
 	        if ($this->Auth->login()) {
 				$this->redirect('/');
