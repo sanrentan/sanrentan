@@ -100,6 +100,8 @@ class AppController extends Controller {
 	
 		$this->Auth->allow();
         //$this->Auth->allow('index', 'view','edit','detail');
+
+        $this->set("naviType","top");
    	}
 
 
