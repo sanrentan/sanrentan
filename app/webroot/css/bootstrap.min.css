@@ -22,18 +22,54 @@
 	color:#FF0000;
 }
 
+.navbar .brand {
+    display: block;
+    float: left;
+    padding: 0 10px 0;
+    margin-left: -10px;
+    font-size: 20px;
+    font-weight: 200;
+    color: #777;
+    text-shadow: 0 1px 0 #fff;
+}
+
 .titleLabel{
 	font-size:18px;
 	padding:10px;
+	padding-left:45px;
 	background-color:#2c4ebe;
 	color:#FFF;
+	background-image: url("../img/icon/horse.png");
+	background-repeat: no-repeat;
+	background-size: 30px;
+	background-position: 5px center;
 }
+.titleLabel.note{
+	background-image: url("../img/icon/note.png");
+}
+.titleLabel.light{
+	background-image: url("../img/icon/light.png");
+}
+
+
+
 .titleLabelKojiharu{
 	font-size:18px;
 	padding:10px;
+	padding-left:45px;
 	background-color:#FFC0CB;
 	color:#FFF;
+	background-image: url("../img/icon/heart.png");
+	background-repeat: no-repeat;
+	background-size: 30px;
+	background-position: 5px center;
 }
+
+.nav-collapse .nav li{
+	line-height:40px;
+	border-left: 1px solid #CCC;
+}
+
 
 #mainBannerArea{
 	width:100%;
@@ -281,6 +317,10 @@
 	color:#000000;
 }
 
+#mypage{
+	padding-bottom:20px;
+}
+
 #mypage #resultArea{
 	padding-left:25px;
 	padding-right:25px;
@@ -299,5 +339,67 @@
 	background-color:#f6f7f2;
 }
 
+#aboutContent {
+	padding:5px 0 20px 30px;
+}
 
+#aboutContent #imgArea{
+	margin-bottom:20px;
+}
+
+
+#aboutContent .txtTitle{
+	margin-top:10px;
+	font-size:140%;
+}
+#aboutContent .txtContent{
+	padding:0 10px 0 10px;
+	margin-bottom:30px;
+	max-width: 80%;
+}
+
+#aboutContent #kojiProfileArea{
+	width:100%;
+	margin-bottom:30px;
+}
+#aboutContent #kojiProfileArea #profileLeft{
+	float:left;
+	display: block;
+}
+#aboutContent #kojiProfileArea #profileRight{
+	width:600px;
+	float:left;
+	display: block;
+	padding: 10px 10px 10px 30px;
+}
+#aboutContent #kojiProfileArea #profileRight p{
+	max-width: 100%;
+}
+
+
+#footer{
+	text-align: center;
+	padding:20px 10px 0 10px;
+	position: relative; 
+ 	overflow: hidden;
+ 	border-top:1px solid #CCC;
+ 	background-color: #fafafa;
+}
+#footer ul{
+	position: relative;
+ 	left: 50%;
+ 	float:left;
+}
+#footer ul li{
+	position: relative;
+	left: -50%; 
+	float:left;
+	list-style: none;
+	margin-left:10px;
+
+}
+#footer ul li a{
+	text-decoration: underline;
+	color:#777;
+}
 

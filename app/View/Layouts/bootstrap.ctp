@@ -49,13 +49,13 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-				<a class="brand" href="/"><?php echo __('3連単5頭BOXならだいたい当たる'); ?></a>
+				<a class="brand" href="/"><img src="/img/common/logo.png" width="200" alt="3連単5頭BOXならだいたい当たる"></a>
 				<div class="nav-collapse">
 					<ul class="nav">
 						<li <?php if($naviType=="top"):?>class="active"<?php endif;?>><a href="/">Home</a></li>
 						<li <?php if($naviType=="kojiharu"):?>class="active"<?php endif;?>><a href="/kojiharu_list">こじはる予想</a></li>
-						<li><a href="#about">当サイトについて</a></li>
-						<li><a href="#contact">お問い合わせ</a></li>
+						<li <?php if($naviType=="about"):?>class="active"<?php endif;?>><a href="/about">当サイトについて</a></li>
+						<li <?php if($naviType=="contact"):?>class="active"<?php endif;?>><a href="/contact">お問い合わせ</a></li>
 						<?php if(!empty($user["id"])):?>
 							<li <?php if($naviType=="mypage"):?>class="active"<?php endif;?>><a href="/mypage">マイページ</a></li>
 							<li><a href="/logout">ログアウト</a></li>
@@ -74,6 +74,17 @@
 		<?php echo $this->Session->flash(); ?>
 
 		<?php echo $this->fetch('content'); ?>
+
+		<div id="footer">
+			<ul>
+				<li><a href="/">HOME</a></li>
+				<li><a href="/kojiharu_list">こじはる予想</a></li>
+				<li><a href="/about">当サイトについて</a></li>
+				<li><a href="/contact">お問い合わせ</a></li>
+			</ul>
+			<div class="clearfix"></div>
+			<p>Copyright © yamaty. All Rights Reserved.</p>
+		</div>
 
 	</div> <!-- /container -->
 

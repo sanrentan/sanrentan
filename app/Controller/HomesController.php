@@ -266,6 +266,61 @@ class HomesController extends AppController {
 
 	}
 
+	//当サイトについて
+	public function about(){
+		$this->set("naviType","about");
+	}
+
+	//お問い合わせ
+	public function contact(){
+		$this->set("naviType","contact");
+
+		if($this->request->is('post')){
+			
+			if(empty($this->request->data["Home"]["name"])){
+				$errMessage["name"] = "※名前を入力してください";
+			}
+			if(empty($this->request->data["Home"]["email"])){
+				$errMessage["email"] = "※メールアドレスを入力してください";
+			}
+			if(empty($this->request->data["Home"]["message"])){
+				$errMessage["message"] = "※お問い合わせ内容を入力してください";
+			}
+			if(empty($errMessage)){
+				//セッションに保存
+                $this->Session->write('contact', $this->request->data["Home"]);
+                $this->redirect('/contact_confirm');
+			}
+			$this->set("errMessage",$errMessage);
+		}
+	}
+
+	//お問い合わせ確認画面
+	public function contact_confirm(){
+    	$this->set("naviType","contact");
+
+    	$data = $this->Session->read('contact');
+    	$this->set("data",$data);
+
+		if($this->request->is('post')){
+	    	//メール送信
+
+	    	//sessionから削除
+	        $this->Session->write('contact', "");
+
+	        //リダイレクト
+	        $this->redirect("/contact_complete");
+		}
+	}
+
+	//お問い合わせ完了ページ
+	public function contact_complete(){
+    	$this->set("naviType","contact");
+
+	}
+
+
+
 	//後ほどシェルにする
 	//URLからデータを取得する場合
 	//参考URL http://www.junk-port.com/php/php-simple-html-dom-parser/

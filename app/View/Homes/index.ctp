@@ -33,7 +33,7 @@
 		</ul>
 
 
-		<p class="titleLabel">過去５レースの結果（※当サイト受付分のみ）</p>
+		<p class="titleLabel note">過去５レースの結果（※当サイト受付分のみ）</p>
 		<ul class="raceList">
 			<?php foreach($recentRace as $key=>$data):?>
 				<li>
@@ -50,7 +50,7 @@
 		</ul>
 		もっとみる
 
-		<p class="titleLabel">お知らせ</p>
+		<p class="titleLabel light">お知らせ</p>
 		<ul class="information">
 			<li>2016年1月10日　[こじはる]<a href="http://ameblo.jp/akihabara48/entry-12115448437.html" target="_blank">「祝 高橋みなみ卒業“148.5cmの見た夢”in 横浜スタジアム」／チケット先行発売のご案内</a></li>
 			<li>2016年1月10日　[競馬]シンザン記念の受付を開始しました</li>
