@@ -65,6 +65,42 @@ class HomesController extends AppController {
 
 		$this->set(compact("acceptingRace", "recentRace","recentKojiharu"));
 
+		//RSS
+		$tmpRss = simplexml_load_file('http://keiba.jp/rss/news.xml');
+		$newsRss = array();
+		$counter = 0;
+		foreach($tmpRss->channel->item as $item){
+			if($counter<5){
+				$newsRss[] = $item;
+				$counter++;
+			}else{
+				break;
+			}
+		}
+		$tmpRss = simplexml_load_file('http://keiba.jp/rss/prediction.xml');
+		$expectRss = array();
+		$counter = 0;
+		foreach($tmpRss->channel->item as $item){
+			if($counter<5){
+				$expectRss[] = $item;
+				$counter++;
+			}else{
+				break;
+			}
+		}
+		$tmpRss = simplexml_load_file('http://godskeiba.ldblog.jp/index.rdf');
+		$matomeRss = array();
+		$counter = 0;
+		foreach($tmpRss->item as $item){
+			if($counter<10){
+				$matomeRss[] = $item;
+				$counter++;
+			}else{
+				break;
+			}
+		}
+		$this->set(compact("newsRss", "expectRss","matomeRss"));
+
 	}
 
 
