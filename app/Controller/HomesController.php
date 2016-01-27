@@ -45,7 +45,9 @@ class HomesController extends AppController {
 		'RaceCard',
 		'Race',
 		'RaceResult',
-		'RaceResultDetail'
+		'RaceResultDetail',
+		'Thread',
+		'User'
 	);
 
 	public $kojiharu_id = 3;
@@ -65,6 +67,37 @@ class HomesController extends AppController {
 
 		$this->set(compact("acceptingRace", "recentRace","recentKojiharu"));
 
+	}
+	public function thread(){
+		if($this->request->is('post')){
+			if(!empty($this->request->data['thread']['comment'])){
+				$this->Session->write('comment', $this->request->data);
+				$this->redirect('/commentConfirm');
+			}else{
+				$this->Session->setFlash(__('投稿内容を入力してください'));
+				$this->redirect($this->request->data['url']);
+			}
+		}	
+	}
+
+	public function commentConfirm(){
+		$commentData = $this->Session->read('comment');
+		$this->set('comment',$commentData);
+
+	}
+	public function commentComplete(){
+		$commentData['comment'] = $this->Session->read('comment')['thread']['comment'];
+		$commentData['user_id'] = $this->user["id"];
+		$commentData['race_id'] = $this->request->data['race_id'];
+		
+		//投稿された出走表のURLを渡す
+		$postedUrl = $this->Session->read('comment')['url'];
+		$this->set('postedUrl',$postedUrl);
+
+		$this->Thread->create();
+		$this->Thread->save($commentData);
+
+		
 	}
 
 
@@ -103,6 +136,15 @@ class HomesController extends AppController {
 
 		$this->set(compact("myData","kojiharuData"));
 
+		//投稿一覧の取得
+		$options = array("conditions" => array('race_id' =>$raceId, 'is_deleted' => 0));
+		$threads = $this->Thread->find('all',$options);
+		foreach($threads as $key => $thread){
+			$theUser = $this->User->findById($thread['Thread']['user_id']);
+			$threads[$key]['Thread']['userName'] = $theUser['User']['username']; 
+		}
+
+		$this->set("posts", $threads);
 
 	}
 

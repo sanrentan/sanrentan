@@ -298,6 +298,12 @@
 #mypage #resultArea table tr.row2{
 	background-color:#f6f7f2;
 }
-
+div.post{
+	border: 1px solid gray;
+	margin:3px auto;
+}
+.post li{
+	list-style-type: none;
+}
 
 

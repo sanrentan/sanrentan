@@ -33,7 +33,7 @@
 	<div class="clearfix"></div>
 </div>
 
-<?php echo $this->Form->create('Expectation',array('type' => 'post'));?>
+<?php echo $this->Form->create('Expectation',array('type' => 'post','name' =>'expectation'));?>
 <?php echo $this->Form->hidden('Expectation.race_id' ,array('value' => $raceData["Race"]["id"]));?>
 <div id="horseListArea">
 	<table border="1">
@@ -62,9 +62,35 @@
 
 	<?php if(!empty($user["id"])):?>
 		<?php if(empty($myData)):?>
-			<?php echo $this->Form->end('送信');?>
+			<?php echo $this->Form->submit('送信', array('name' => 'expectation')); ?>
+			<?php echo $this->Form->end();?>
 		<?php endif;?>
 	<?php else:?>
 		<a href="/users/login">ログイン</a>
+		<?php echo $this->Form->end();?>
 	<?php endif;?>
-</div>
+	<br>
+	<?php if(!empty($user["id"])):?>
+	<span>コメント</span>
+	<?php echo $this->Form->create('thread',array('type' => 'post','action' => '/thread', 'name' => 'thread')); ?>
+	<div class="form-group">
+	<?php echo $this->Form->hidden('thread.race_id', array('value' => $raceData["Race"]["id"], 'name' => 'race_id')) ?>
+	<?php echo $this->Form->hidden('thread.url', array('value' => Router::url(), 'name' =>	 'url' )) ?>
+	<?php echo $this->Form->textarea('thread.comment',array( "rows"=>5, "class" => "form-horizontal" )); ?>
+	<?php echo $this->Form->submit('投稿', array('name' => 'thread')); ?>
+	<?php echo $this->Form->end(); ?>
+	<?php else: ?>
+	<?php endif; ?>
+	</div>
+
+	<div class="posts">
+		<ul>
+			<?php foreach($posts as $post): ?>
+			<div class = "post">
+				<span><li class = "name">投稿者：<?php echo $post['Thread']['comment']; ?></li></span><span>投稿日時：<?php echo $post['Thread']['created'] ; ?></span>
+				<li class = "comment">投稿内容：<?php echo $post['Thread']['userName']; ?></li>
+			</div>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+	</div>

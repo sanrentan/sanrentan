@@ -34,6 +34,9 @@
 	Router::connect('/expectations/complete', array('controller' => 'homes', 'action' => 'complete'));
 	Router::connect('/mypage', array('controller' => 'homes', 'action' => 'mypage'));
 	Router::connect('/kojiharu_list', array('controller' => 'homes', 'action' => 'kojiharu_list'));
+	Router::connect('/threads/thread', array('controller' => 'homes', 'action' => 'thread'));
+	Router::connect('/commentConfirm/*', array('controller' => 'homes', 'action' => 'commentConfirm'));
+	Router::connect('/threads/commentComplete/*', array('controller' => 'homes', 'action' => 'commentComplete'));
 
 	Router::connect('/regist', array('controller' => 'users', 'action' => 'regist'));
 	Router::connect('/regist_confirm', array('controller' => 'users', 'action' => 'regist_confirm'));
