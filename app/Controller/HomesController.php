@@ -78,32 +78,26 @@ class HomesController extends AppController {
 
 		$raceCardData = $raceData['RaceCard'];
 		$raceCardId = array();
-		foreach($raceCardData as $hoge ){
-			array_push($raceCardId, $hoge['id']);
+		foreach($raceCardData as $data ){
+			array_push($raceCardId, $data['id']);
 		}
 		$RecentRaceResult = $this->RecentRaceResult->find('all',
 			[
 			'conditions' => ['race_card_id' => $raceCardId]
 			]
 			);
-		
-		/*for($i = 0; $i < count($raceCardData); $i++){
-			$getData =$this->RecentRaceResult->find('all',
-			[
-			'conditions' => ['race_card_id' => $raceCardData[$i]['id']],
-			'limit' => 5
-			] );
-			//取得配列よりモデル名除去
-			$recentData = array();
-			for($j = 0; $j < count($getData); $j++){
-				$recentData[$j] = $getData[$j]['RecentRaceResult'];
+		//viewに渡すようの配列を生成
+		$eachRaceCardIdResult = array();
+		foreach($RecentRaceResult as $eachRace){
+			if(!isset($eachRaceCardIdResult[$eachRace['RecentRaceResult']['race_card_id']])){
+				//レースカードIDをキーに配列を持っていなければ配列を渡す
+				$eachRaceCardIdResult[$eachRace['RecentRaceResult']['race_card_id']] = array();
+				
 			}
-			//レースカードIDをキーに配列を加える
-			$array = array($raceCardData[$i]['id'] => $recentData);
-			$RecentRaceResult += $array;
-		}*/
-
-		$this->set('recentRaceResult', $RecentRaceResult);
+			//レースカードIDをキーに最近のレース結果をプッシュしていく
+			array_push($eachRaceCardIdResult[$eachRace['RecentRaceResult']['race_card_id']], $eachRace['RecentRaceResult']);
+		}
+		$this->set('recentRaceResult', $eachRaceCardIdResult);
 		
 
 		if(empty($raceData)){

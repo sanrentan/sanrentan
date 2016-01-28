@@ -58,25 +58,32 @@
 				<?php endif;?>
 			</td>
 			<td><?php echo $data["j_weight"];?><br><?php echo $data["j_name"];?></td>
-			<?php foreach($recentRaceResult as $eachResult): ?>
-				<?php if($eachResult['RecentRaceResult']['race_card_id'] ===  $data['id']): ?>
-				<td class = "recentResults">
-				<span class = "lastRaceName"><?php echo $eachResult['RecentRaceResult']['race_name'] ?></span>
-				<span class = "lastRacePlace"><?php echo $eachResult['RecentRaceResult']['place'] ?></span>
-				<br>
-				<span class = "lastRaceDate"><?php echo date("y.m.d.",strtotime($eachResult["RecentRaceResult"]["race_date"])); ?></span>
-				<span class = "lastJockey"><?php echo $eachResult['RecentRaceResult']['jockey'] ?></span>
-				<br>
-				<span class = "lastOrder">着順:</span>
-				<span class = "lastOrderOfArrival <?php if($eachResult['RecentRaceResult']['order_of_arrival']  === "1"){echo "lastRaceWon";}elseif($eachResult['RecentRaceResult']['order_of_arrival'] === "2"){echo "lastRaceSecond";}elseif($eachResult['RecentRaceResult']['order_of_arrival'] ==="3"){echo"lastRaceThird";} ?>"><?php echo $eachResult['RecentRaceResult']['order_of_arrival'] ?></span>
-				<span class = "lastCource"><?php echo $eachResult['RecentRaceResult']['cource'] ?></span>
-				<span class = "lastBaba"><?php echo $eachResult['RecentRaceResult']['baba'] ?></span>
-				<br>
-				<span class = "lastNumberOfHead"><?php echo $eachResult['RecentRaceResult']['number_of_heads'] ?>頭</span>
-				<span class = "lastPopularity"><?php echo $eachResult['RecentRaceResult']['popularity'] ?>番人気</span>
-				</td>
+			<?php if(isset($recentRaceResult[$data['id']])): ?>
+				<?php foreach($recentRaceResult[$data['id']] as $eachResult): ?>
+					<td class = "recentResults">
+					<span class = "lastRaceName"><?php echo $eachResult['race_name'] ?></span>
+					<span class = "lastRacePlace"><?php echo $eachResult['place'] ?></span>
+					<br>
+					<span class = "lastRaceDate"><?php echo date("y.m.d.",strtotime($eachResult["race_date"])); ?></span>
+					<span class = "lastJockey"><?php echo $eachResult['jockey'] ?></span>
+					<br>
+					<span class = "lastOrder">着順:</span>
+					<span class = "lastOrderOfArrival <?php if($eachResult['order_of_arrival']  === "1"){echo "lastRaceWon";}elseif($eachResult['order_of_arrival'] === "2"){echo "lastRaceSecond";}elseif($eachResult['order_of_arrival'] ==="3"){echo"lastRaceThird";} ?>"><?php echo $eachResult['order_of_arrival'] ?></span>
+					<span class = "lastCource"><?php echo $eachResult['cource'] ?></span>
+					<span class = "lastBaba"><?php echo $eachResult['baba'] ?></span>
+					<br>
+					<span class = "lastNumberOfHead"><?php echo $eachResult['number_of_heads'] ?>頭</span>
+					<span class = "lastPopularity"><?php echo $eachResult['popularity'] ?>番人気</span>
+					</td>
+				<?php endforeach; ?>
+				<?php if(count($recentRaceResult[$data['id']]) < 5): ?>
+					<?php for($i = count($recentRaceResult[$data['id']]); $i < 5 ; $i++): ?>
+						<td align="center">-</td>
+					<?php endfor; ?>
 				<?php endif; ?>
-			<?php endforeach; ?>
+			<?php else: ?>
+				<td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td>
+			<?php endif; ?>
 		</tr>
 	<?php endforeach;?>
 
