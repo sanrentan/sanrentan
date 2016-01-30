@@ -66,6 +66,42 @@ class HomesController extends AppController {
 
 		$this->set(compact("acceptingRace", "recentRace","recentKojiharu"));
 
+		//RSS
+		$tmpRss = simplexml_load_file('http://keiba.jp/rss/news.xml');
+		$newsRss = array();
+		$counter = 0;
+		foreach($tmpRss->channel->item as $item){
+			if($counter<5){
+				$newsRss[] = $item;
+				$counter++;
+			}else{
+				break;
+			}
+		}
+		$tmpRss = simplexml_load_file('http://keiba.jp/rss/prediction.xml');
+		$expectRss = array();
+		$counter = 0;
+		foreach($tmpRss->channel->item as $item){
+			if($counter<5){
+				$expectRss[] = $item;
+				$counter++;
+			}else{
+				break;
+			}
+		}
+		$tmpRss = simplexml_load_file('http://godskeiba.ldblog.jp/index.rdf');
+		$matomeRss = array();
+		$counter = 0;
+		foreach($tmpRss->item as $item){
+			if($counter<10){
+				$matomeRss[] = $item;
+				$counter++;
+			}else{
+				break;
+			}
+		}
+		$this->set(compact("newsRss", "expectRss","matomeRss"));
+
 	}
 
 
@@ -217,6 +253,7 @@ class HomesController extends AppController {
 
 	//マイページ
 	public function mypage(){
+		$this->set("naviType","mypage");
 		
 		if(empty($this->user["id"])){
 			//ログインページへリダイレクト
@@ -257,6 +294,94 @@ class HomesController extends AppController {
 		$this->set(compact("raceData", "raceResultData","myData","myResultData","kojiharuData","kojiharuResultData"));
 
 	}
+
+
+	//こじはるの予想一覧
+	public function kojiharu_list(){
+		$this->set("naviType","kojiharu");
+		
+		$year = date("Y");//TODO 引数で受け取りたい
+
+		//対象の年のレースを取得
+		$raceData = $this->Race->getRaceListYear($year,1);
+
+		$raceIdArr = array();
+		foreach($raceData as $key=>$data){
+			$raceIdArr[] = $data["Race"]["id"];
+		}
+
+		//レース結果を取得
+		$options = array("conditions"=>array("race_id"=>$raceIdArr));
+		$tmpData = $this->RaceResult->find("all",$options);
+		$raceResultData = array();
+		foreach($tmpData as $key=>$data){
+			$raceResultData[$data["RaceResult"]["race_id"]] = $data;
+		}
+
+
+		//こじはるの予想一覧を取得
+		$myData = $this->Expectation->getExpectaionList($this->kojiharu_id,$raceIdArr);
+		//こじはるの結果を取得
+		$myResultData = $this->ExpectationResult->getResultData($this->kojiharu_id,$year);
+
+		$this->set(compact("raceData", "raceResultData","myData","myResultData"));
+
+	}
+
+	//当サイトについて
+	public function about(){
+		$this->set("naviType","about");
+	}
+
+	//お問い合わせ
+	public function contact(){
+		$this->set("naviType","contact");
+
+		if($this->request->is('post')){
+			
+			if(empty($this->request->data["Home"]["name"])){
+				$errMessage["name"] = "※名前を入力してください";
+			}
+			if(empty($this->request->data["Home"]["email"])){
+				$errMessage["email"] = "※メールアドレスを入力してください";
+			}
+			if(empty($this->request->data["Home"]["message"])){
+				$errMessage["message"] = "※お問い合わせ内容を入力してください";
+			}
+			if(empty($errMessage)){
+				//セッションに保存
+                $this->Session->write('contact', $this->request->data["Home"]);
+                $this->redirect('/contact_confirm');
+			}
+			$this->set("errMessage",$errMessage);
+		}
+	}
+
+	//お問い合わせ確認画面
+	public function contact_confirm(){
+    	$this->set("naviType","contact");
+
+    	$data = $this->Session->read('contact');
+    	$this->set("data",$data);
+
+		if($this->request->is('post')){
+	    	//メール送信
+
+	    	//sessionから削除
+	        $this->Session->write('contact', "");
+
+	        //リダイレクト
+	        $this->redirect("/contact_complete");
+		}
+	}
+
+	//お問い合わせ完了ページ
+	public function contact_complete(){
+    	$this->set("naviType","contact");
+
+	}
+
+
 
 	//後ほどシェルにする
 	//URLからデータを取得する場合

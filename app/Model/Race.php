@@ -64,7 +64,7 @@ class Race extends AppModel {
     }
 
     //対象の年のレース結果を取得
-    public function getRaceListYear($year){
+    public function getRaceListYear($year,$kojiharu_flg=0){
     	$start = $year."-01-01 00:00:00";
 		$end   = $year."-12-31 00:00:00";
 
@@ -72,10 +72,15 @@ class Race extends AppModel {
 			"conditions" => array(
 				"race_date between ? and ?" => array($start,$end),
 				"is_deleted" => 0,
-				"view_flg" => 1
+				"view_flg" => 1,
 			),
 			"order" => "id desc"
 		);
+
+		if($kojiharu_flg==1){
+			$options["conditions"]["kojiharu_flg"] = 1;
+		}
+
 		$raceData = $this->find("all",$options);
 		return $raceData;
     }

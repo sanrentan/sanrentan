@@ -33,12 +33,19 @@
 	Router::connect('/confirm/*', array('controller' => 'homes', 'action' => 'confirm'));
 	Router::connect('/expectations/complete', array('controller' => 'homes', 'action' => 'complete'));
 	Router::connect('/mypage', array('controller' => 'homes', 'action' => 'mypage'));
+	Router::connect('/kojiharu_list', array('controller' => 'homes', 'action' => 'kojiharu_list'));
+	Router::connect('/about', array('controller' => 'homes', 'action' => 'about'));
+	Router::connect('/contact', array('controller' => 'homes', 'action' => 'contact'));
+	Router::connect('/contact_confirm', array('controller' => 'homes', 'action' => 'contact_confirm'));
+	Router::connect('/contact_complete', array('controller' => 'homes', 'action' => 'contact_complete'));
 
 	Router::connect('/regist', array('controller' => 'users', 'action' => 'regist'));
 	Router::connect('/regist_confirm', array('controller' => 'users', 'action' => 'regist_confirm'));
 	Router::connect('/regist_complete', array('controller' => 'users', 'action' => 'regist_complete'));
 	Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
 	Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
+
+
 
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
