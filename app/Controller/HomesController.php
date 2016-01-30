@@ -45,7 +45,8 @@ class HomesController extends AppController {
 		'RaceCard',
 		'Race',
 		'RaceResult',
-		'RaceResultDetail'
+		'RaceResultDetail',
+		'RecentRaceResult'
 	);
 
 	public $kojiharu_id = 3;
@@ -107,15 +108,40 @@ class HomesController extends AppController {
 	//レース詳細
 	public function detail($raceId){
 		$this->set("message","出走表");
+		$RecentRaceResult = array();
 
 		$raceData = $this->Race->findById($raceId);
+
+		$raceCardData = $raceData['RaceCard'];
+		$raceCardId = array();
+		foreach($raceCardData as $data ){
+			array_push($raceCardId, $data['id']);
+		}
+		$RecentRaceResult = $this->RecentRaceResult->find('all',
+			[
+			'conditions' => ['race_card_id' => $raceCardId]
+			]
+			);
+		//viewに渡すようの配列を生成
+		$eachRaceCardIdResult = array();
+		foreach($RecentRaceResult as $eachRace){
+			if(!isset($eachRaceCardIdResult[$eachRace['RecentRaceResult']['race_card_id']])){
+				//レースカードIDをキーに配列を持っていなければ配列を渡す
+				$eachRaceCardIdResult[$eachRace['RecentRaceResult']['race_card_id']] = array();
+				
+			}
+			//レースカードIDをキーに最近のレース結果をプッシュしていく
+			array_push($eachRaceCardIdResult[$eachRace['RecentRaceResult']['race_card_id']], $eachRace['RecentRaceResult']);
+		}
+		$this->set('recentRaceResult', $eachRaceCardIdResult);
+		
 
 		if(empty($raceData)){
 			echo "race not found ! race_id = ".$raceId;exit;
 		}
 		$this->set("raceData",$raceData);
-
-
+		//直近レースの結果
+		//$recentRaceResult= $this->Racee->
 
 		//予想
 		if($this->request->is('post')){
@@ -361,11 +387,9 @@ class HomesController extends AppController {
 	//URLからデータを取得する場合
 	//参考URL http://www.junk-port.com/php/php-simple-html-dom-parser/
 	public function index2($raceId=null){
-
 		if(empty($raceId)||!is_numeric($raceId)){
 			$raceId = 1;
 		}
-
 		//対象のレースが存在するか？
 		$raceData = $this->Race->findById($raceId);
 		if(empty($raceData)){
@@ -381,7 +405,8 @@ class HomesController extends AppController {
 		);
 		$cardData = $this->RaceCard->find("all",$options);
 		if(!empty($cardData)){
-			echo "raceCard already exists! race_id = ".$raceId;exit;
+			echo "raceCard already exists! race_id = ".$raceId;
+			exit;
 		}
 
 		//htmlを取得
@@ -390,6 +415,9 @@ class HomesController extends AppController {
 		//trのループ
 		$i=0;
 		$horseList = array();
+
+		$recent_5race_results = array();
+
 		foreach($html->find('.denmaLs tr') as $key=>$element){
 			//ヘッダー行は飛ばす
 			if($i>0){
@@ -407,7 +435,64 @@ class HomesController extends AppController {
 						case 2://馬名,性齢
 							$horseList[$i]["name"] = $data->find("strong")[0]->plaintext;
 							$tmp = $data->find("span")[0]->plaintext;
-							$horseList[$i]["sexage"] = explode('/',$tmp)[0]; 
+							$horseList[$i]["sexage"] = explode('/',$tmp)[0];
+
+							//ここから直近レースの結果を取得する
+							$horseUrl = $data->find("a")[0]->href;
+							$horseHtml = file_get_html("http://keiba.yahoo.co.jp/".$horseUrl);
+							$j = 0;
+							foreach($horseHtml->find('#resultLs tr') as $key3 => $rowElements){
+								if($j > 1 && $j < 7){
+									echo $j;
+									$tdCounter2 = 0;
+									foreach($rowElements->find('td') as $key4 => $tdData){
+										switch($tdCounter2){
+
+											case 0 :
+												$recent_5race_results[$i][$j]["race_date"] =  $tdData->plaintext;
+												break;
+											case 1:
+												$recent_5race_results[$i][$j]["race_name"] =  $tdData->plaintext;
+												break;
+											case 2:
+												$recent_5race_results[$i][$j]["place"] = $tdData->find("span")[0]->plaintext;
+												break;
+											case 3:
+												$recent_5race_results[$i][$j]["cource"] =  $tdData->find("span")[0]->plaintext;
+												break;
+											case 4:
+												$recent_5race_results[$i][$j]["baba"] =  $tdData->find("span")[0]->plaintext;
+												break;
+											case 5:
+												$recent_5race_results[$i][$j]["number_of_heads"] = $tdData->plaintext;
+												break;
+											case 6:
+												$recent_5race_results[$i][$j]["wk"] = $tdData->plaintext;
+												break;
+											case 7:
+												$recent_5race_results[$i][$j]["uma"] = $tdData->plaintext;
+												break;
+											case 8:
+												$recent_5race_results[$i][$j]["popularity"] = $tdData->plaintext;
+												break;
+											case 9:
+												$recent_5race_results[$i][$j]["odds"] = $tdData->plaintext;
+												break;
+											case 10:
+												$recent_5race_results[$i][$j]["order_of_arrival"] = $tdData->plaintext;	
+												break;
+											case 11:
+												$recent_5race_results[$i][$j]["jockey"] = $tdData->find("a")[0]->plaintext;
+												break;
+										}
+										$tdCounter2++;
+									}
+									
+								}
+								$j++;
+							}
+
+
 							break;
 						case 3://馬体重、増減
 							$horseList[$i]["weight"] = substr($data->plaintext, 1,3); 
@@ -429,15 +514,23 @@ class HomesController extends AppController {
 			}
 			$i++;
 		}
-
 		//DBに登録
+		$row = 1;
 		foreach($horseList as $key=>&$horse){
 			$horse["race_id"] = $raceId;
 			$this->RaceCard->create();
 			$this->RaceCard->save($horse);
+			$last_id = $this->RaceCard->getLastInsertID();
+			foreach($recent_5race_results[$row] as $eachResult){
+				$eachResult["race_card_id"] = $last_id;
+				//$eachResult["race_card_id"] = 1;
+				$this->RecentRaceResult->create();
+				$this->RecentRaceResult->save($eachResult);
+			}
+			$row++;
 		}
 		$this->set("horseList",$horseList);
-		$this->response->charset('Shift_JIS');
+		//$this->response->charset('Shift_JIS');
 	}
 
 
