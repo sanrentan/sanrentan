@@ -57,24 +57,26 @@
 			<li>2016年1月10日　サイトをオープンしました。</li>
 		</ul>
 
-		<p class="titleLabel light">競馬ニュース</p>
-		<ul class="information">
+		<p class="titleLabel light">競馬ニュース(競馬JAPAN)</p>
+		<ul class="information matomeList">
 			<?php foreach($newsRss as $key=>$data):?>
-				<li><a href="<?php echo $data->link;?>" target="_blank"><?php echo $data->title;?></a></li>
+				<li class="icontype0">　<a href="<?php echo $data['link'];?>" target="_blank"><?php echo $data['title'];?></a></li>
 			<?php endforeach;?>
 		</ul>
 
+		<!--
 		<p class="titleLabel light">競馬予想</p>
 		<ul class="information">
 			<?php foreach($expectRss as $key=>$data):?>
-				<li><a href="<?php echo $data->link;?>" target="_blank"><?php echo $data->title;?></a></li>
+				<li><a href="<?php echo $data['link'];?>" target="_blank"><?php echo $data['title'];?>(<?php echo $data["blogTitle"];?>)</a></li>
 			<?php endforeach;?>
 		</ul>
+		-->
 
 		<p class="titleLabel light">まとめサイト</p>
-		<ul class="information">
+		<ul class="information matomeList">
 			<?php foreach($matomeRss as $key=>$data):?>
-				<li><a href="<?php echo $data->link;?>" target="_blank"><?php echo $data->title;?></a></li>
+				<li class="icontype<?php echo $data['css'];?>"><a href="<?php echo $data['link'];?>" target="_blank"><?php echo $data['title'];?>(<?php echo $data["blogTitle"];?>)</a></li>
 			<?php endforeach;?>
 		</ul>
 

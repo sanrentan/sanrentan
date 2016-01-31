@@ -66,40 +66,20 @@ class HomesController extends AppController {
 
 		$this->set(compact("acceptingRace", "recentRace","recentKojiharu"));
 
-		//RSS
-		$tmpRss = simplexml_load_file('http://keiba.jp/rss/news.xml');
-		$newsRss = array();
-		$counter = 0;
-		foreach($tmpRss->channel->item as $item){
-			if($counter<5){
-				$newsRss[] = $item;
-				$counter++;
-			}else{
-				break;
-			}
-		}
-		$tmpRss = simplexml_load_file('http://keiba.jp/rss/prediction.xml');
-		$expectRss = array();
-		$counter = 0;
-		foreach($tmpRss->channel->item as $item){
-			if($counter<5){
-				$expectRss[] = $item;
-				$counter++;
-			}else{
-				break;
-			}
-		}
-		$tmpRss = simplexml_load_file('http://godskeiba.ldblog.jp/index.rdf');
-		$matomeRss = array();
-		$counter = 0;
-		foreach($tmpRss->item as $item){
-			if($counter<10){
-				$matomeRss[] = $item;
-				$counter++;
-			}else{
-				break;
-			}
-		}
+		//RSS 競馬ニュース
+		$newsRss = $this->getRss("keiba_news","http://keiba.jp/rss/news.xml");
+
+		//競馬コラム
+		$expectRss = $this->getRss("expectRss","http://keiba.jp/rss/column.xml");
+
+		//まとめサイト
+		$matomeRss = $this->getRss("umasoku","http://umasoku.doorblog.jp/index.rdf",5,1);
+		$keibaKyodai = $this->getRss("keibakyodai","http://keibakyoudai.com/feed.xml",5,2);
+		$keibayosou = $this->getRss("keibayosou","http://blog.livedoor.jp/win_keibayosou/index.rdf",5,3);
+
+		$matomeRss = array_merge($matomeRss,$keibaKyodai,$keibayosou);
+
+
 		$this->set(compact("newsRss", "expectRss","matomeRss"));
 
 	}

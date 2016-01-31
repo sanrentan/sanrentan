@@ -385,6 +385,14 @@ Cache::config('_cake_model_', array(
 ));
 
 
+Cache::config('rss', array(
+	'engine' => "File",
+	'duration' => "+1 hour",
+	'path' => CACHE . 'rss' . DS,
+	'prefix' => "",
+));
+
+
 //選択できる数
 Configure::write('Base.box_count', 5);
 
