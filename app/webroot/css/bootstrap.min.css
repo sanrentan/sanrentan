@@ -298,12 +298,30 @@
 #mypage #resultArea table tr.row2{
 	background-color:#f6f7f2;
 }
-div.post{
-	border: 1px solid gray;
-	margin:3px auto;
+.postComment{
+	width: 90%;
+	margin:0 auto;
 }
-.post li{
+.posts{
+	width:90%;	
+	margin:1px auto;
+}
+.posts .post{
+	border:1px solid #CCC;
+	border-collapse: collapse;
+}
+.post .date{
+	color:#717279!important;
+}
+.post .comment{
+	margin-left: 20px;
+	margin-top: 5px;
+}
+.posts li{
 	list-style-type: none;
+	display: inline;
+	margin:0 3px;
 }
-
-
+.posts .pagination{
+	text-align: center;
+}

@@ -49,6 +49,12 @@ class HomesController extends AppController {
 		'Thread',
 		'User'
 	);
+	public $paginate = array(
+            'Thread' => array(
+                'limit' =>5,
+                'order' => array('created' => 'desc'),
+            )
+        );
 
 	public $kojiharu_id = 3;
 
@@ -71,8 +77,11 @@ class HomesController extends AppController {
 	public function thread(){
 		if($this->request->is('post')){
 			if(!empty($this->request->data['thread']['comment'])){
-				$this->Session->write('comment', $this->request->data);
-				$this->redirect('/commentConfirm');
+	            $this->Thread->set($this->request->data);
+				if($this->Thread->validates()){
+					$this->Session->write('comment', $this->request->data);
+					$this->redirect('/commentConfirm');
+				}
 			}else{
 				$this->Session->setFlash(__('投稿内容を入力してください'));
 				$this->redirect($this->request->data['url']);
@@ -139,11 +148,11 @@ class HomesController extends AppController {
 		//投稿一覧の取得
 		$options = array("conditions" => array('race_id' =>$raceId, 'is_deleted' => 0));
 		$threads = $this->Thread->find('all',$options);
+		$threads = $this->paginate('Thread');
 		foreach($threads as $key => $thread){
 			$theUser = $this->User->findById($thread['Thread']['user_id']);
 			$threads[$key]['Thread']['userName'] = $theUser['User']['username']; 
 		}
-
 		$this->set("posts", $threads);
 
 	}

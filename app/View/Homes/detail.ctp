@@ -71,12 +71,13 @@
 	<?php endif;?>
 	<br>
 	<?php if(!empty($user["id"])):?>
-	<span>コメント</span>
+	
 	<?php echo $this->Form->create('thread',array('type' => 'post','action' => '/thread', 'name' => 'thread')); ?>
-	<div class="form-group">
+	<div class="postComment">
+	<p>コメントする</p>
 	<?php echo $this->Form->hidden('thread.race_id', array('value' => $raceData["Race"]["id"], 'name' => 'race_id')) ?>
 	<?php echo $this->Form->hidden('thread.url', array('value' => Router::url(), 'name' =>	 'url' )) ?>
-	<?php echo $this->Form->textarea('thread.comment',array( "rows"=>5, "class" => "form-horizontal" )); ?>
+	<?php echo $this->Form->textarea('thread.comment',array( "rows"=>5, "cols" => 100, "class" => "form-horizontal" )); ?>
 	<?php echo $this->Form->submit('投稿', array('name' => 'thread')); ?>
 	<?php echo $this->Form->end(); ?>
 	<?php else: ?>
@@ -84,13 +85,19 @@
 	</div>
 
 	<div class="posts">
-		<ul>
+			<h4>コメント一覧</h4>
 			<?php foreach($posts as $post): ?>
 			<div class = "post">
-				<span><li class = "name">投稿者：<?php echo $post['Thread']['comment']; ?></li></span><span>投稿日時：<?php echo $post['Thread']['created'] ; ?></span>
-				<li class = "comment">投稿内容：<?php echo $post['Thread']['userName']; ?></li>
+				<span><?php echo $post['Thread']['userName']; ?></span>
+				<span>|</span>
+				<span class = "date"><?php echo $post['Thread']['created'] ; ?></span>
+				<p class = "comment"><?php echo $post['Thread']['comment']; ?></p>
 			</div>
 			<?php endforeach; ?>
-		</ul>
+			<div class ="pagination">
+			<span><?php echo $this->Paginator->prev('< 前へ', array(), null, array('class' => 'prev disabled')); ?></span>
+			<span><?php echo $this->Paginator->numbers(array('separator' => '')); ?></span>
+			<span><?php echo $this->Paginator->next('次へ >', array(), null, array('class' => 'next disabled')); ?></span>
+			</div>
 	</div>
 	</div>
