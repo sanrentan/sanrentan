@@ -1,9 +1,11 @@
 <?php
 
+App::import('Vendor', 'simple_html_dom');
+
 //レースの予想結果を集計する
 class ResultExpectationShell extends AppShell {
 
-    public $uses = array('Race','RaceResult','User','Expectation','ExpectationResult');
+    public $uses = array('Race','RaceResult','RaceResultDetail','User','Expectation','ExpectationResult');
 
     public function main() {
     	$msg = "start shell";
@@ -26,6 +28,154 @@ class ResultExpectationShell extends AppShell {
 
     	$year = substr($raceData["Race"]["race_date"],0,4);
 
+
+        //配当金を取得
+        //すでに結果データが登録されていないか？
+        $options = array(
+            'conditions' => array(
+                'race_id' => $raceData["Race"]["id"]
+            )
+        );
+        $resultData = $this->RaceResult->find("all",$options);
+        if(!empty($resultData)){
+            $this->__log("すでにrace_resultsが存在します",true);
+        }
+
+        //htmlを取得
+        $html = file_get_html('http://keiba.yahoo.co.jp/race/result/'.$raceData["Race"]["html_id"].'/');
+        
+        $nameArray = array("単勝","複勝","馬連","枠連","ワイド","馬単","3連複","3連単");
+        $colsArray = array("tan","fuku","uma","wk","wide","umatan","sanrenpuku","sanrentan");
+
+        //trのループ
+        $resultData = array();
+        foreach($html->find('.resultYen tr') as $key=>$element){
+            //$targetCol = null;
+            foreach($element->find('th') as $key2=>$data){
+                if(in_array($data->plaintext, $nameArray)){
+                    $colKey = array_search($data->plaintext,$nameArray);
+                    $col = $colsArray[$colKey];
+                    $duplCounter = 1;
+                }else{
+                    $this->__log("data is problem",true);
+                }
+            }
+
+            if($colKey==1||$colKey==4){
+                $col = $colsArray[$colKey].$duplCounter;
+                $duplCounter++;
+            }
+
+
+            $tdCounter = 0;
+            foreach($element->find('td') as $key2=>$data){
+                switch ($tdCounter) {
+                    case 0://馬番
+                        $resultData[$col] = $data->plaintext;
+                        break;
+                    case 1://金額
+                        $price = mb_substr($data->plaintext, 0, -1);
+                        $price = str_replace(",", "", $price);
+                        $resultData[$col."_price"] = $price;
+                        break;
+                    case 2://人気
+                        $popularity = mb_substr($data->plaintext,0,mb_strlen($data->plaintext)-4);
+                        $resultData[$col."_popularity"] = $popularity;
+                        break;
+                }
+                $tdCounter++;
+            }
+        }
+        $sanrentan = explode("－",$resultData["sanrentan"]);
+        $resultData["horse1"] = $sanrentan[0];
+        $resultData["horse2"] = $sanrentan[1];
+        $resultData["horse3"] = $sanrentan[2];
+        $resultData["race_id"] = $race_id;
+
+        $this->RaceResult->create();
+        $this->RaceResult->save($resultData);
+
+        $this->__log("race_results ok");
+
+
+        //次にレース結果詳細テーブル
+        //すでに結果詳細データが登録されていないか？
+        $options = array(
+            'conditions' => array(
+                'race_id' => $raceData["Race"]["id"]
+            )
+        );
+        $resultDetail = $this->RaceResultDetail->find("all",$options);
+        if(!empty($resultDetail)){
+            $this->__log("esultDetail already exists!",true);
+        }
+
+        //htmlを取得
+        $html = file_get_html('http://keiba.yahoo.co.jp/race/result/'.$raceData["Race"]["html_id"].'/');
+        
+
+        //trのループ
+        $resultData = array();
+        $i = 0;
+
+        foreach($html->find('#resultLs tr') as $key=>$element){
+            $tdCounter = 0;
+            foreach($element->find('td') as $key2=>$data){
+                switch ($tdCounter) {
+                    case 0://着順
+                        $resultData[$i]["result"] = $data->plaintext;
+                        break;
+                    case 1://枠
+                        $resultData[$i]["wk"] = $data->plaintext;
+                        break;
+                    case 2://馬
+                        $resultData[$i]["uma"] = $data->plaintext;
+                        break;
+                    case 3://馬名
+                        $resultData[$i]["name"] = $data->plaintext;
+                        break;
+                    case 4://性齢
+                        $resultData[$i]["sexage"] = $data->plaintext;
+                        break;
+                    case 5://騎手名
+                        $resultData[$i]["j_name"] = $data->plaintext;
+                        break;
+                    case 6://time
+                        $resultData[$i]["time"] = $data->plaintext;
+                        break;
+                    case 7://着差
+                        $resultData[$i]["difference"] = $data->plaintext;
+                        break;
+                    case 9://ラスト３ハロン
+                        $resultData[$i]["last_time"] = $data->plaintext;
+                        break;
+                    case 10://斤量
+                        $resultData[$i]["j_weight"] = $data->plaintext;
+                        break;
+                    case 11://体重
+                        $resultData[$i]["weight"] = $data->plaintext;
+                        break;
+                    case 12://人気
+                        $resultData[$i]["popularity"] = $data->plaintext;
+                        break;
+                    case 13://調教師
+                        $resultData[$i]["trainer"] = $data->plaintext;
+                        break;
+                }
+                $tdCounter++;
+            }
+            $i++;
+        }
+
+        foreach ($resultData as $key => $data) {
+            $data["race_id"] = $race_id;
+            $this->RaceResultDetail->create();
+            $this->RaceResultDetail->save($data);
+        }
+        $this->__log("RaceResultDetail OK");
+
+
+        //以下予想結果を判定
     	//race結果データを取得
     	$resultData = $this->RaceResult->find("first",array("conditions"=>array("race_id"=>$race_id)));
     	if(empty($resultData)){
@@ -114,6 +264,11 @@ class ResultExpectationShell extends AppShell {
     		$this->Expectation->save($data);
     		$this->ExpectationResult->save($userExpectation);
     	}
+
+        //レースを受付終了にする
+        $raceData["Race"]["accepting_flg"] = 0;
+        $this->Race->save($raceData);
+
 
     	$msg = "ok:".$okCount;
     	$this->__log($msg);
