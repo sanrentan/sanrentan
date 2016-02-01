@@ -104,5 +104,43 @@ class AppController extends Controller {
         $this->set("naviType","top");
    	}
 
+    public function getRss($key,$url,$num=5,$css=1){
+
+        $cache = Cache::read($key,"rss");
+        if($cache){
+            //キャッシュがあれば
+            $xml = simplexml_load_string($cache, 'SimpleXMLElement', LIBXML_NOCDATA);
+        }else{
+            //なければRSSを取得
+            $fileData = file_get_contents($url);
+            Cache::write($key,$fileData,"rss");
+            $cache = Cache::read($key,"rss");
+            $xml = simplexml_load_string($cache, 'SimpleXMLElement', LIBXML_NOCDATA);
+        }
+        $json = json_encode($xml);
+        $tmpArray = json_decode($json,TRUE);
+
+        $tmpRss = array();
+        if(empty($tmpArray["channel"]["item"])){
+            $tmpRss = $tmpArray["item"];
+        }else{
+            $tmpRss = $tmpArray["channel"]["item"];
+        }
+
+        $returnData = array();
+        $counter = 0;
+        foreach($tmpRss as $item){
+            if($counter<$num){
+                $item["css"] = $css;
+                $item["blogTitle"] = $tmpArray["channel"]["title"];
+                $returnData[] = $item;
+                $counter++;
+            }else{
+                break;
+            }
+        }
+        return $returnData;
+    }
+
 
 }

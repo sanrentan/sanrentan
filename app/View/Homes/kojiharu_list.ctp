@@ -11,7 +11,7 @@
 			<?php foreach($raceData as $key=>$data):?>
 				<tr <?php if($key%2==0):?>class="row2"<?php endif;?>>
 					<th><?php echo date("m月d日",strtotime($data["Race"]["race_date"]));?></th>
-					<td><a href="/result/<?php echo $data['Race']['id'];?>"><?php echo $data["Race"]["full_name"];?></a></td>
+					<td><a href="/result/<?php echo $data['Race']['id'];?>"><?php echo $data["Race"]["full_name"];?>(G<?php echo $data["Race"]["grade"];?>)</a></td>
 					<td>
 						<?php if(!empty($raceResultData[$data["Race"]["id"]])):?>
 							<span class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][0]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["uma"];?></span> <?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["name"];?><br>

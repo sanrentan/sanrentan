@@ -138,6 +138,34 @@
 	padding:10px 0 10px;
 }
 
+ul.information.matomeList{
+	margin-left:10px;
+	margin-right:10px;
+	margin-bottom:20px;
+}
+.information.matomeList li{
+	list-style: none;
+	background-image: url("../img/icon/flag.png");
+	background-repeat: no-repeat;
+	background-size: 15px;
+	background-position: 5px center;
+	padding-left:20px;
+	padding:5px 5px 5px 20px;
+}
+.information.matomeList li.icontype0{
+	background-image: url("../img/icon/news.png");
+}
+.information.matomeList li.icontype2{
+	background-image: url("../img/icon/flag_green.png");
+}
+.information.matomeList li.icontype3{
+	background-image: url("../img/icon/flag_yellow.png");
+}
+
+.information.matomeList li a{
+	font-size:80%;
+}
+
 .wk1,.wk2,.wk3,.wk4,.wk5,.wk6,.wk7,.wk8
 {
 	padding:5px;
@@ -454,3 +482,11 @@
 	color:#777;
 }
 
+#inner_space{
+	display: block;
+	width:100%;
+}
+#inner_space #parts_frame{
+	display: block;
+	margin:0 auto 0 auto;
+}
