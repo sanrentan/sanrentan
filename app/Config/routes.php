@@ -38,6 +38,7 @@
 	Router::connect('/contact', array('controller' => 'homes', 'action' => 'contact'));
 	Router::connect('/contact_confirm', array('controller' => 'homes', 'action' => 'contact_confirm'));
 	Router::connect('/contact_complete', array('controller' => 'homes', 'action' => 'contact_complete'));
+	Router::connect('/other/*', array('controller' => 'homes', 'action' => 'other'));
 
 	Router::connect('/regist', array('controller' => 'users', 'action' => 'regist'));
 	Router::connect('/regist_confirm', array('controller' => 'users', 'action' => 'regist_confirm'));

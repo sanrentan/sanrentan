@@ -123,7 +123,12 @@ class ResultExpectationShell extends AppShell {
             foreach($element->find('td') as $key2=>$data){
                 switch ($tdCounter) {
                     case 0://着順
-                        $resultData[$i]["result"] = $data->plaintext;
+                        if(!empty($data->plaintext)&&is_numeric($data->plaintext)){
+                            $resultData[$i]["result"] = $data->plaintext;
+                        }else{
+                            //競争中止や出走除外など
+                            $resultData[$i]["result"] = 99;
+                        }
                         break;
                     case 1://枠
                         $resultData[$i]["wk"] = $data->plaintext;

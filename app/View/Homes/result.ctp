@@ -67,7 +67,7 @@
 		<tr><th>着順</th><th>枠</th><th>馬番</th><th>馬名</th><th>性齢</th><th>負担重量</th><th>騎手名</th><th>タイム</th><th>着差</th><th>推定上り</th><th>馬体重</th><th>調教師名</th><th>単勝人気</th></tr>
 		<?php foreach($raceResultData["RaceResultDetail"] as $key=>$data):?>
 			<tr>
-				<td align="center"><?php echo $data["result"];?></td>
+				<td align="center"><?php if($data["result"]!=99):?><?php echo $data["result"];?><?php else:?>-<?php endif;?></td>
 				<td align="center"><span class="wk<?php echo $data['wk'];?>"><?php echo $data["wk"];?></span></td>
 				<td align="center"><?php echo $data["uma"];?></td>
 				<td align="center"><?php echo $data["name"];?></td>
@@ -82,9 +82,38 @@
 				<td align="center"><?php echo $data["popularity"];?></td>
 			</tr>
 		<?php endforeach;?>
-
 		</table>
 	</div>
+
+	<p class="titleLabel">予想的中者</p>
+	<div id="winUserArea">
+		<?php if(!empty($winUser)):?>
+			<?php foreach($winUser as $key=>$data):?>
+				<a href="/other/<?php echo $data['User']['id'];?>">
+					<div class="winUser">
+						<div class="profileLeft">
+							<img src="/img/common/noimage_person.png" class="profileImg">
+						</div>
+						<div class="profileRight">
+							<p>
+								<?php echo $data["User"]["nickname"];?>
+								<?php if(!empty($data["User"]["span"])):?>
+									<br>(競馬歴：<?php echo $data["User"]["span"];?>)
+								<?php endif;?>
+							</p>
+						</div>
+					</div>
+				</a>
+				<?php if(($key+1)%6==0):?>
+					<div class="clearfix"></div>
+				<?php endif;?>
+			<?php endforeach;?>
+			<div class="clearfix"></div>
+		<?php else:?>
+			<p>残念ながら本サイトからは当選者はいませんでした。</p>
+		<?php endif;?>
+	</div>
+
 
 
 
