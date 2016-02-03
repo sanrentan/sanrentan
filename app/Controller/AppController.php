@@ -113,9 +113,13 @@ class AppController extends Controller {
         }else{
             //なければRSSを取得
             $fileData = file_get_contents($url);
-            Cache::write($key,$fileData,"rss");
-            $cache = Cache::read($key,"rss");
-            $xml = simplexml_load_string($cache, 'SimpleXMLElement', LIBXML_NOCDATA);
+            if(!empty($fileData)){
+                Cache::write($key,$fileData,"rss");
+                $cache = Cache::read($key,"rss");
+                $xml = simplexml_load_string($cache, 'SimpleXMLElement', LIBXML_NOCDATA);
+            }else{
+                return null;
+            }
         }
         $json = json_encode($xml);
         $tmpArray = json_decode($json,TRUE);

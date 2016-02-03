@@ -93,7 +93,28 @@
 		<?php if(empty($myData)):?>
 			<?php echo $this->Form->end('送信');?>
 		<?php endif;?>
-	<?php else:?>
-		<a href="/users/login">ログイン</a>
 	<?php endif;?>
 </div>
+
+<p class="titleLabel">みんなの予想</p>
+<?php if(!empty($otherExpectData)):?>
+	<?php foreach($otherExpectData as $key=>$data):?>
+		<a href="/other/<?php echo $data['User']['id'];?>">
+			<div class="userExpect">
+				<img src="/img/common/noimage_person.png">
+				<p><?php echo $data["User"]["nickname"];?></p>
+				<p>
+					<span class="wk<?php echo $data["selectData"][0]["RaceCard"]["wk"];?>"><?php echo $data["selectData"][0]["RaceCard"]["uma"];?></span>-
+					<span class="wk<?php echo $data["selectData"][1]["RaceCard"]["wk"];?>"><?php echo $data["selectData"][1]["RaceCard"]["uma"];?></span>-
+					<span class="wk<?php echo $data["selectData"][2]["RaceCard"]["wk"];?>"><?php echo $data["selectData"][2]["RaceCard"]["uma"];?></span>-
+					<span class="wk<?php echo $data["selectData"][3]["RaceCard"]["wk"];?>"><?php echo $data["selectData"][3]["RaceCard"]["uma"];?></span>-
+					<span class="wk<?php echo $data["selectData"][4]["RaceCard"]["wk"];?>"><?php echo $data["selectData"][4]["RaceCard"]["uma"];?></span>
+					</p>
+			</div>
+		</a>
+	<?php endforeach;?>
+	<div class="clearfix"></div>
+<?php else:?>
+	<p style="padding-left:20px;">まだ予想がありません</p>
+<?php endif;?>
+

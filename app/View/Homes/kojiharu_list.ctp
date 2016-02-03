@@ -3,13 +3,13 @@
 <div id="mypage">
 
 	<div id="resultArea">
-		<p>今年の戦績：<?php echo $myResultData["ExpectationResult"]["win"];?>勝<?php echo $myResultData["ExpectationResult"]["lose"];?>敗　収支 <?php if($myResultData["ExpectationResult"]["price"]>0):?>+<?php endif;?><?php echo number_format($myResultData["ExpectationResult"]["price"]);?>円</p>
+		<p class="subtitle"><?php echo $year;?>年の戦績：<?php echo $myResultData["ExpectationResult"]["win"];?>勝<?php echo $myResultData["ExpectationResult"]["lose"];?>敗　収支 <?php if($myResultData["ExpectationResult"]["price"]>0):?>+<?php endif;?><?php echo number_format($myResultData["ExpectationResult"]["price"]);?>円</p>
 
-		<p>レース詳細</p>
 		<table border="1">
-			<tr><th>日付</th><th>レース名</th><th>結果<br>１着/２着/３着</th><th>配当金</th><th>こじはる予想</th><th>結果</th></tr>
+			<tr><th>No.</th><th>日付</th><th>レース名</th><th>結果<br>１着/２着/３着</th><th>配当金</th><th>こじはる予想</th><th>結果</th></tr>
 			<?php foreach($raceData as $key=>$data):?>
 				<tr <?php if($key%2==0):?>class="row2"<?php endif;?>>
+					<th><?php echo count($raceData)-$key;?></th>
 					<th><?php echo date("m月d日",strtotime($data["Race"]["race_date"]));?></th>
 					<td><a href="/result/<?php echo $data['Race']['id'];?>"><?php echo $data["Race"]["full_name"];?>(G<?php echo $data["Race"]["grade"];?>)</a></td>
 					<td>
@@ -23,7 +23,10 @@
 					</td>
 					<td>
 						<?php if(!empty($raceResultData[$data['Race']['id']])):?>
-							<?php echo number_format($raceResultData[$data['Race']['id']]["RaceResult"]["sanrentan_price"]);?>円<br>
+							<?php if($myData[$data["Race"]["id"]]["Expectation"]["result"]==1):?><span class="red"><?php endif;?>
+								<?php echo number_format($raceResultData[$data['Race']['id']]["RaceResult"]["sanrentan_price"]);?>円
+							<?php if($myData[$data["Race"]["id"]]["Expectation"]["result"]==1):?></span><?php endif;?>
+							<br>
 							<?php echo number_format($raceResultData[$data['Race']['id']]["RaceResult"]["sanrentan_popularity"]);?>人気
 						<?php endif;?>
 					</td>
@@ -43,7 +46,7 @@
 					<td>
 						<?php if(!empty($myData[$data["Race"]["id"]])):?>
 							<?php if($myData[$data["Race"]["id"]]["Expectation"]["result"]==1):?>
-								当たり
+								<span class="winmark">当たり</span>
 							<?php elseif($myData[$data["Race"]["id"]]["Expectation"]["result"]==2):?>
 								外れ
 							<?php else:?>

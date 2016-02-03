@@ -46,7 +46,8 @@ class HomesController extends AppController {
 		'Race',
 		'RaceResult',
 		'RaceResultDetail',
-		'RecentRaceResult'
+		'RecentRaceResult',
+		'User'
 	);
 
 	public $kojiharu_id = 3;
@@ -143,7 +144,11 @@ class HomesController extends AppController {
 		//こじはるの予想
 		$kojiharuData = $this->Expectation->getExpectationData($raceId);
 
-		$this->set(compact("myData","kojiharuData"));
+
+		//みんなの予想を取得
+		$otherExpectData = $this->Expectation->getExpectationOther($raceId);
+
+		$this->set(compact("myData","kojiharuData","otherExpectData"));
 
 
 	}
@@ -227,7 +232,10 @@ class HomesController extends AppController {
 		//こじはるの予想
 		$kojiharuData = $this->Expectation->getExpectationData($raceId);
 
-		$this->set(compact("raceData","raceResultData","myData","kojiharuData"));
+		//当選者を取得
+		$winUser = $this->Expectation->getWinUsers($raceId);
+
+		$this->set(compact("raceData","raceResultData","myData","kojiharuData","winUser"));
 	}
 
 
@@ -304,9 +312,67 @@ class HomesController extends AppController {
 		//こじはるの結果を取得
 		$myResultData = $this->ExpectationResult->getResultData($this->kojiharu_id,$year);
 
-		$this->set(compact("raceData", "raceResultData","myData","myResultData"));
+		$this->set(compact("year","raceData", "raceResultData","myData","myResultData"));
 
 	}
+
+
+	//他人の予想結果
+	public function other($user_id=3){
+			
+		if(empty($user_id)||!is_numeric($user_id)){
+			echo "user_id is wrong";exit;
+		}
+
+		$otherUser = $this->User->find("first",array("conditions"=>array("id"=>$user_id)));
+		if(empty($otherUser)){
+			echo "user is not exist!";exit;
+		}
+
+		$year = date("Y");//TODO 引数で受け取りたい
+
+		//対象の年のレースを取得
+		$raceData = $this->Race->getRaceListYear($year);
+
+		$raceIdArr = array();
+		foreach($raceData as $key=>$data){
+			$raceIdArr[] = $data["Race"]["id"];
+		}
+
+		//予想一覧を取得
+		$myData = $this->Expectation->getExpectaionList($user_id,$raceIdArr);
+		//結果を取得
+		$myResultData = $this->ExpectationResult->getResultData($user_id,$year);
+
+		//予想したレースのみ
+		$raceIdArr = array();
+		foreach($myData as $key=>$data){
+			$raceIdArr[] = $data["Expectation"]["race_id"];
+		}
+
+		$tmpRaceData = array();
+		foreach($raceData as $key=>$data){
+			if(in_array($data["Race"]["id"], $raceIdArr)){
+				$tmpRaceData[] = $data;
+			}	
+		}
+		$raceData = $tmpRaceData;
+
+
+		//レース結果を取得
+		$options = array("conditions"=>array("race_id"=>$raceIdArr));
+		$tmpData = $this->RaceResult->find("all",$options);
+		$raceResultData = array();
+		foreach($tmpData as $key=>$data){
+			$raceResultData[$data["RaceResult"]["race_id"]] = $data;
+		}
+
+
+
+		$this->set(compact("year","raceData", "raceResultData","myData","myResultData","otherUser"));
+
+	}
+
 
 	//当サイトについて
 	public function about(){

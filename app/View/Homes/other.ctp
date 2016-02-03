@@ -1,19 +1,29 @@
-<p class="titleLabel">マイページ</p>
+<p class="titleLabel"><?php echo $otherUser["User"]["nickname"];?>さんの予想一覧</p>
 
 <div id="mypage">
-
-	<?php echo $this->element('mypageNavi',array("active"=>"index")); ?>
+	<div id="profileArea">
+		<div id="profileLeft">
+			<img src="/img/common/noimage_person.png">
+		</div>
+		<div id="profileRight">
+			<p class="nickname">ニックネーム：<?php echo $otherUser["User"]["nickname"];?></p>
+			<p class="keibareki">競馬歴：<?php if(!empty($otherUser["User"]["span"])):?><?php echo $otherUser["User"]["span"];?><?php else:?>未登録<?php endif;?></p>
+			<p class="favorite">好きな馬：<?php if(!empty($otherUser["User"]["favorite"])):?><?php echo $otherUser["User"]["favorite"];?><?php else:?>未登録<?php endif;?></p>
+			<p class="message">自己紹介：<br><?php if(!empty($otherUser["User"]["message"])):?><?php echo nl2br(h($otherUser["User"]["message"]));?><?php else:?>未登録<?php endif;?></p>
+		</div>
+		<div class="clearfix"></div>
+	</div>
 
 	<div id="resultArea">
-		<p>今年の戦績：<?php echo $myResultData["ExpectationResult"]["win"];?>勝<?php echo $myResultData["ExpectationResult"]["lose"];?>敗　収支 <?php if($myResultData["ExpectationResult"]["price"]>0):?>+<?php endif;?><?php echo number_format($myResultData["ExpectationResult"]["price"]);?>円</p>
+		<p class="subtitle"><?php echo $year;?>年の戦績：<?php echo $myResultData["ExpectationResult"]["win"];?>勝<?php echo $myResultData["ExpectationResult"]["lose"];?>敗　収支 <?php if($myResultData["ExpectationResult"]["price"]>0):?>+<?php endif;?><?php echo number_format($myResultData["ExpectationResult"]["price"]);?>円</p>
 
-		<p>レース詳細</p>
 		<table border="1">
-			<tr><th>日付</th><th>レース名</th><th>結果<br>１着/２着/３着</th><th>配当金</th><th>あなたの予想</th><th>結果</th></tr>
+			<tr><th>No.</th><th>日付</th><th>レース名</th><th>結果<br>１着/２着/３着</th><th>配当金</th><th>こじはる予想</th><th>結果</th></tr>
 			<?php foreach($raceData as $key=>$data):?>
 				<tr <?php if($key%2==0):?>class="row2"<?php endif;?>>
+					<th><?php echo count($raceData)-$key;?></th>
 					<th><?php echo date("m月d日",strtotime($data["Race"]["race_date"]));?></th>
-					<td><a href="/result/<?php echo $data['Race']['id'];?>"><?php echo $data["Race"]["full_name"];?></a></td>
+					<td><a href="/result/<?php echo $data['Race']['id'];?>"><?php echo $data["Race"]["full_name"];?>(G<?php echo $data["Race"]["grade"];?>)</a></td>
 					<td>
 						<?php if(!empty($raceResultData[$data["Race"]["id"]])):?>
 							<span class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][0]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["uma"];?></span> <?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["name"];?><br>
@@ -25,7 +35,10 @@
 					</td>
 					<td>
 						<?php if(!empty($raceResultData[$data['Race']['id']])):?>
-							<?php echo number_format($raceResultData[$data['Race']['id']]["RaceResult"]["sanrentan_price"]);?>円<br>
+							<?php if($myData[$data["Race"]["id"]]["Expectation"]["result"]==1):?><span class="red"><?php endif;?>
+								<?php echo number_format($raceResultData[$data['Race']['id']]["RaceResult"]["sanrentan_price"]);?>円
+							<?php if($myData[$data["Race"]["id"]]["Expectation"]["result"]==1):?></span><?php endif;?>
+							<br>
 							<?php echo number_format($raceResultData[$data['Race']['id']]["RaceResult"]["sanrentan_popularity"]);?>人気
 						<?php endif;?>
 					</td>

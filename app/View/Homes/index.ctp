@@ -57,12 +57,14 @@
 			<li>2016年1月10日　サイトをオープンしました。</li>
 		</ul>
 
-		<p class="titleLabel light">競馬ニュース(競馬JAPAN)</p>
-		<ul class="information matomeList">
-			<?php foreach($newsRss as $key=>$data):?>
-				<li class="icontype0">　<a href="<?php echo $data['link'];?>" target="_blank"><?php echo $data['title'];?></a></li>
-			<?php endforeach;?>
-		</ul>
+		<?php if(!empty($newsRss)):?>
+			<p class="titleLabel light">競馬ニュース(競馬JAPAN)</p>
+			<ul class="information matomeList">
+				<?php foreach($newsRss as $key=>$data):?>
+					<li class="icontype0">　<a href="<?php echo $data['link'];?>" target="_blank"><?php echo $data['title'];?></a></li>
+				<?php endforeach;?>
+			</ul>
+		<?php endif;?>
 
 		<!--
 		<p class="titleLabel light">競馬予想</p>
