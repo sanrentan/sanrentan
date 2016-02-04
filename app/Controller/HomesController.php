@@ -47,8 +47,12 @@ class HomesController extends AppController {
 		'RaceResult',
 		'RaceResultDetail',
 		'RecentRaceResult',
-		'User'
+		'User',
+		'FavoUser'
 	);
+
+    var $helpers = array('Js');
+    var $components = array( 'RequestHandler');
 
 	public $kojiharu_id = 3;
 
@@ -367,9 +371,24 @@ class HomesController extends AppController {
 			$raceResultData[$data["RaceResult"]["race_id"]] = $data;
 		}
 
+		//お気に入りに登録しているか
+		$favoFlg = false;
+		if(!empty($this->user["id"])){
+			$conditions = array(
+				"conditions" => array(
+					"user_id" => $this->user["id"],
+					"other_user_id" => $user_id
+				)
+			);
+			$favoData = $this->FavoUser->find("first",$conditions);
+			if(!empty($favoData)){
+				$favoFlg = true;
+			}
+		}
 
 
-		$this->set(compact("year","raceData", "raceResultData","myData","myResultData","otherUser"));
+
+		$this->set(compact("year","raceData", "raceResultData","myData","myResultData","otherUser","favoFlg"));
 
 	}
 
@@ -579,4 +598,115 @@ class HomesController extends AppController {
 		//$this->response->charset('Shift_JIS');
 	}
 
+
+	//お気に入りに登録(ajaxを使用)
+	public function favorite_add(){
+        $this->autoRender = false;
+        if($this->request->is('ajax')) {
+        	if(!empty($this->user)){
+
+        		//すでに登録されていないか？
+        		$conditions = array(
+        			"conditions" => array(
+        				"user_id" => $this->user["id"],
+        				"other_user_id" => $this->request->data["other_user_id"]
+        			)
+        		);
+        		$favoData = $this->FavoUser->find("first",$conditions);
+
+        		if(empty($favoData)){
+	        		$data = array();
+	        		$data["user_id"] = $this->user["id"];
+	        		$data["other_user_id"] = $this->request->data["other_user_id"];
+	        		$this->FavoUser->save($data);
+		        	$messageData["status"] = "ok";
+					echo json_encode($messageData);
+					exit;
+
+        		}else{
+		        	$messageData["status"] = "already";
+					echo json_encode($messageData);
+					exit;
+        		}
+
+        	}else{
+	        	$messageData = array();
+	        	$messageData["status"] = "non-member";
+				echo json_encode($messageData);
+				exit;
+
+        	}
+        }
+	}
+
+
+	//お気に入りに削除(ajaxを使用)
+	public function favorite_delete(){
+        $this->autoRender = false;
+        if($this->request->is('ajax')) {
+        	if(!empty($this->user)){
+
+        		//すでに登録されていないか？
+        		$conditions = array(
+        			"conditions" => array(
+        				"user_id" => $this->user["id"],
+        				"other_user_id" => $this->request->data["other_user_id"]
+        			)
+        		);
+        		$favoData = $this->FavoUser->find("first",$conditions);
+        		if(!empty($favoData)){
+	        		$this->FavoUser->delete($favoData["FavoUser"]["id"]);
+		        	$messageData["status"] = "ok";
+					echo json_encode($messageData);
+					exit;
+
+        		}else{
+		        	$messageData["status"] = "error";
+					echo json_encode($messageData);
+					exit;
+        		}
+
+        	}else{
+	        	$messageData = array();
+	        	$messageData["status"] = "error";
+				echo json_encode($messageData);
+				exit;
+
+        	}
+        }
+	}
+
+	//お気に入り一覧
+	public function favorite(){
+		if(empty($this->user["id"])){
+			redirect("/");
+		}
+
+		//お気に入りユーザーを取得
+		$options = array(
+			"conditions" => array(
+				"FavoUser.user_id" => $this->user["id"]
+			),
+			"order" => "FavoUser.id desc",
+		);
+		$favoList = $this->FavoUser->find("all",$options);
+
+		if(!empty($favoList)){
+			foreach($favoList as $key=>$data){
+				$user_ids[] = $data["FavoUser"]["other_user_id"];
+			}
+
+			$userDataTmp = $this->User->find("all",array("conditions"=>array("id"=>$user_ids)));
+			$userData = array();
+			foreach($userDataTmp as $key=>$data){
+				$userData[$data["User"]["id"]] = $data["User"];
+			}
+
+			foreach($favoList as $key=>&$data){
+				$data["User"] = $userData[$data["FavoUser"]["other_user_id"]];
+			}
+		}
+
+		$this->set(compact("favoList"));
+	}
 }

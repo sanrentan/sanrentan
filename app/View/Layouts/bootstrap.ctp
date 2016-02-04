@@ -36,6 +36,7 @@
 	echo $this->fetch('meta');
 	echo $this->fetch('css');
 	?>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 </head>
 
 <body>
@@ -60,7 +61,7 @@
 							<li <?php if($naviType=="mypage"):?>class="active"<?php endif;?>><a href="/mypage">マイページ</a></li>
 							<li><a href="/logout">ログアウト</a></li>
 						<?php else:?>
-							<li <?php if($naviType=="regist"):?>class="active"<?php endif;?>><a href="/regist">新規会員登録</a></li>
+							<li <?php if($naviType=="regist"):?>class="active"<?php endif;?>><a href="/regist">無料会員登録</a></li>
 							<li <?php if($naviType=="login"):?>class="active"<?php endif;?>><a href="/login">ログイン</a></li>
 						<?php endif;?>
 					</ul>
@@ -91,7 +92,6 @@
 	<!-- Le javascript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 	<?php echo $this->Html->script('bootstrap.min'); ?>
 	<?php echo $this->fetch('script'); ?>
 	<?php echo $this->element('sql_dump'); ?>

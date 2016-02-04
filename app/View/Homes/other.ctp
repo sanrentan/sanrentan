@@ -1,3 +1,64 @@
+<script type="text/javascript">
+
+		function add_favorite(user_id){
+			$(".favo_btn").css('display', 'none');
+			$(".favo_send").css('display', 'block');
+		    $.ajax({
+		        url:  "<?php echo $this->Html->url(array('controller' =>'homes','action' => 'favorite_add'));?>",
+		        type: "POST",
+		        data: { other_user_id : user_id },
+		        dataType: "json",
+		        success : function(data){
+		            //通信成功時の処理
+		            if(data.status=="ok"){
+						$(".favo_end").css('display', 'block');
+						$(".favo_send").css('display', 'none');
+		            }else if(data.status=="already"){
+		            	alert("すでにお気に入りに登録済みのユーザーです。")
+						$(".favo_end").css('display', 'block');
+						$(".favo_send").css('display', 'none');
+		            }else if(data.status=="non-member"){
+		            	alert("お気に入りに登録するためには会員登録が必要です。")
+						$(".favo_btn").css('display', 'block');
+						$(".favo_send").css('display', 'none');
+		            }else{
+			            alert('通信失敗');
+		            }
+		        },
+		        error: function(response){
+		            //通信失敗時の処理
+		            alert('通信失敗');
+		        }
+		    });
+		}
+
+		function delete_favorite(user_id){
+			$(".favo_end").css('display', 'none');
+			$(".favo_send").css('display', 'block');
+		    $.ajax({
+		        url:  "<?php echo $this->Html->url(array('controller' =>'homes','action' => 'favorite_delete'));?>",
+		        type: "POST",
+		        data: { other_user_id : user_id },
+		        dataType: "json",
+		        success : function(data){
+		            //通信成功時の処理
+		            if(data.status=="ok"){
+						$(".favo_btn").css('display', 'block');
+						$(".favo_send").css('display', 'none');
+		            }else{
+			            alert('通信失敗');
+		            }
+		        },
+		        error: function(response){
+		            //通信失敗時の処理
+		            alert('通信失敗');
+		        }
+		    });
+		}
+
+
+</script>
+
 <p class="titleLabel"><?php echo $otherUser["User"]["nickname"];?>さんの予想一覧</p>
 
 <div id="mypage">
@@ -10,6 +71,11 @@
 			<p class="keibareki">競馬歴：<?php if(!empty($otherUser["User"]["span"])):?><?php echo $otherUser["User"]["span"];?><?php else:?>未登録<?php endif;?></p>
 			<p class="favorite">好きな馬：<?php if(!empty($otherUser["User"]["favorite"])):?><?php echo $otherUser["User"]["favorite"];?><?php else:?>未登録<?php endif;?></p>
 			<p class="message">自己紹介：<br><?php if(!empty($otherUser["User"]["message"])):?><?php echo nl2br(h($otherUser["User"]["message"]));?><?php else:?>未登録<?php endif;?></p>
+		</div>
+		<div id="profileFavo">
+			<p class="favo_btn" <?php if($favoFlg):?>style="display:none;"<?php endif;?>><a href="#" onclick="add_favorite(<?php echo $otherUser['User']['id'];?>);return false;" class="btn btn-danger">お気に入りに登録する</a>	
+			<p class="favo_send" style="display:none;"><a href="#" class="btn btn-info" >送信中..</a></p>
+			<p class="favo_end" <?php if(!$favoFlg):?>style="display:none;"<?php endif;?>><a href="#" onclick="delete_favorite(<?php echo $otherUser['User']['id'];?>);return false;" class="btn btn-warning" >お気に入り登録済み</a></p>
 		</div>
 		<div class="clearfix"></div>
 	</div>

@@ -396,10 +396,8 @@ ul.information.matomeList{
 #mypageNavi ul li{
 	float:left;
 	list-style: none;
-	border-bottom:1px solid #CCC;
-	margin-right:10px;
-	padding:10px 10px 10px 10px;
-	background-color: #FFE4E1;
+	padding:10px 5px 10px 10px;
+	//background-color: #FFE4E1;
 }
 
 #mypageNavi ul li.active{
