@@ -5,6 +5,15 @@ App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 
 // app/Model/User.php
 class User extends AppModel {
+
+    public $hasOne = array(
+        'ExpectationResult' => array(
+            'className' => 'ExpectationResult',
+            'order' => 'ExpectationResult.id desc',
+            'limit' => 1
+        )
+    );
+    
     public $validate = array(
         'username' => array(
             'required' => array(

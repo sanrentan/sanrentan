@@ -396,10 +396,8 @@ ul.information.matomeList{
 #mypageNavi ul li{
 	float:left;
 	list-style: none;
-	border-bottom:1px solid #CCC;
-	margin-right:10px;
-	padding:10px 10px 10px 10px;
-	background-color: #FFE4E1;
+	padding:10px 5px 10px 10px;
+	//background-color: #FFE4E1;
 }
 
 #mypageNavi ul li.active{
@@ -593,4 +591,44 @@ ul.information.matomeList{
 #inner_space #parts_frame{
 	display: block;
 	margin:0 auto 0 auto;
+}
+
+#mypage #favoUserList{
+	padding:10px;
+}
+#mypage #favoUserList .favoUser{
+	margin-left:14px;
+	margin-bottom:20px;
+	background-color: #f5f8fa;
+	border:2px solid #CCC;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	display:block;
+	float:left;
+	width:31%;
+	height:200px;
+}
+#mypage #favoUserList .favoUserImg{
+	width:25%;
+	float:left;
+}
+#mypage #favoUserList .favoBtn{
+	float:right;
+	padding:10px;
+}
+#mypage #favoUserList .favoUserName{
+	padding-left:10px;
+	font-size:120%;
+}
+#mypage #favoUserList .favoUserName a{
+	color:#000000;
+}
+#mypage #favoUserList .favoUserMessage{
+	padding:10px;
+	color:#66757f;
+}
+#mypage #favoUserList .favoUserDetail{
+	padding:10px;
+	color:#66757f;
 }
