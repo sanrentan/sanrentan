@@ -328,7 +328,7 @@ class HomesController extends AppController {
 			echo "user_id is wrong";exit;
 		}
 
-		$otherUser = $this->User->find("first",array("conditions"=>array("id"=>$user_id)));
+		$otherUser = $this->User->find("first",array("conditions"=>array("User.id"=>$user_id)));
 		if(empty($otherUser)){
 			echo "user is not exist!";exit;
 		}
@@ -620,11 +620,13 @@ class HomesController extends AppController {
 	        		$data["other_user_id"] = $this->request->data["other_user_id"];
 	        		$this->FavoUser->save($data);
 		        	$messageData["status"] = "ok";
+		        	$messageData["other_user_id"] = $this->request->data["other_user_id"];
 					echo json_encode($messageData);
 					exit;
 
         		}else{
 		        	$messageData["status"] = "already";
+		        	$messageData["other_user_id"] = $this->request->data["other_user_id"];
 					echo json_encode($messageData);
 					exit;
         		}
@@ -632,6 +634,7 @@ class HomesController extends AppController {
         	}else{
 	        	$messageData = array();
 	        	$messageData["status"] = "non-member";
+		        $messageData["other_user_id"] = $this->request->data["other_user_id"];
 				echo json_encode($messageData);
 				exit;
 
@@ -657,11 +660,13 @@ class HomesController extends AppController {
         		if(!empty($favoData)){
 	        		$this->FavoUser->delete($favoData["FavoUser"]["id"]);
 		        	$messageData["status"] = "ok";
+		        	$messageData["other_user_id"] = $this->request->data["other_user_id"];
 					echo json_encode($messageData);
 					exit;
 
         		}else{
 		        	$messageData["status"] = "error";
+		        	$messageData["other_user_id"] = $this->request->data["other_user_id"];
 					echo json_encode($messageData);
 					exit;
         		}
@@ -669,6 +674,7 @@ class HomesController extends AppController {
         	}else{
 	        	$messageData = array();
 	        	$messageData["status"] = "error";
+		        $messageData["other_user_id"] = $this->request->data["other_user_id"];
 				echo json_encode($messageData);
 				exit;
 
@@ -679,7 +685,7 @@ class HomesController extends AppController {
 	//お気に入り一覧
 	public function favorite(){
 		if(empty($this->user["id"])){
-			redirect("/");
+			$this->redirect("/");
 		}
 
 		//お気に入りユーザーを取得
@@ -696,14 +702,15 @@ class HomesController extends AppController {
 				$user_ids[] = $data["FavoUser"]["other_user_id"];
 			}
 
-			$userDataTmp = $this->User->find("all",array("conditions"=>array("id"=>$user_ids)));
+			$userDataTmp = $this->User->find("all",array("conditions"=>array("User.id"=>$user_ids)));
 			$userData = array();
 			foreach($userDataTmp as $key=>$data){
-				$userData[$data["User"]["id"]] = $data["User"];
+				$userData[$data["User"]["id"]] = $data;
 			}
 
 			foreach($favoList as $key=>&$data){
-				$data["User"] = $userData[$data["FavoUser"]["other_user_id"]];
+				$data["User"] = $userData[$data["FavoUser"]["other_user_id"]]["User"];
+				$data["ExpectationResult"] = $userData[$data["FavoUser"]["other_user_id"]]["ExpectationResult"];
 			}
 		}
 

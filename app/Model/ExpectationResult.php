@@ -12,6 +12,7 @@ class ExpectationResult extends AppModel {
 
 	public $kojiharu_id = 3;
 
+
 	public function getResultData($user_id,$year){
 		$options = array(
 			"conditions" => array(

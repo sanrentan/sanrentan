@@ -189,6 +189,10 @@ class UsersController extends AppController {
 
     //退会
     public function withdrawal(){
+        if(empty($this->user["id"])){
+            $this->redirect("/login");
+        }
+
         if ($this->request->is('post')) {
             //退会処理
             $data = array(
