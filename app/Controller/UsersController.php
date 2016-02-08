@@ -34,8 +34,29 @@ class UsersController extends AppController {
         $this->set("naviType","regist");
         if ($this->request->is('post')) {
 
+
             $this->User->set($this->request->data);
             if ($this->User->validates()) {
+
+                //画像アップロード
+                $fileInfo = getimagesize($this->request->data['User']['profile_img']['tmp_name']);
+                switch ($fileInfo["mime"]) {
+                    case 'image/gif':
+                        $ext = "gif";
+                        break;
+                    case 'image/png':
+                        $ext = "png";
+                        break;
+                    case 'image/jpg':
+                    case 'image/jpeg':
+                        $ext = "jpg";
+                        break;
+                    
+                }
+                $file_name = md5(date("YmdHis").$this->request->data['User']['profile_img']['name']).".".$ext;
+                move_uploaded_file( $this->request->data['User']['profile_img']['tmp_name'], IMAGES . "profileImg/".$file_name);
+                $this->request->data["User"]["profile_img"] = $file_name;
+
                 //セッションにセットして確認画面へ
                 $this->Session->write('regist', $this->request->data);
                 $this->redirect('/regist_confirm');
@@ -70,6 +91,7 @@ class UsersController extends AppController {
         $postData = $this->Session->read("regist");
         if(!empty($postData)){
             $user_id = $this->User->create();
+            unset($this->User->validate["profile_img"]);
             if ($this->User->save($postData)) {
                 //ログインしてトップページへ
                 $user_id = $this->User->getLastInsertID();

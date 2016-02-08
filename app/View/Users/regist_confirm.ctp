@@ -29,6 +29,10 @@
 	<p><?php if(!empty($postData["User"]["message"])):?><?php echo $postData["User"]["message"];?><?php else:?>未入力<?php endif;?></p>
 	<?php echo $this->Form->hidden('message' ,array('value' => $postData["User"]["message"]));?>
 
+	<p class="inputLabel">プロフィール画像</p>
+	<p><?php if(!empty($postData["User"]["profile_img"])):?><img src="/img/profileImg/<?php echo $postData["User"]["profile_img"];?>"><?php else:?>未登録<?php endif;?></p>
+	<?php echo $this->Form->hidden('profile_img' ,array('value' => $postData["User"]["profile_img"]));?>
+
 
 	<p style="margin-bottom:0;"><span class="red">※注意事項※</span><br>本サイトはあくまで予想をするだけです。馬券の購入は各自行ってください。</p>
 	<?php if(!empty($postData["agreeError"])):?>
