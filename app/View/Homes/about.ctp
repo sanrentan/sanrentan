@@ -55,5 +55,8 @@
 		<br>好きな言葉　　　　　：３連単５頭ボックスならだいたい当たる
 	</p>
 	<p class="txtContent">ご意見、ご要望は<a href="/contact">こちら</a>からお願いいたします<br>当サイトをどうぞよろしくお願いします。<br></p>
+	<p class="txtContent">twitter:<a href="https://twitter.com/sanrentan_box" target="_blank">@sanrentan_box</a><br>
+		facebook:準備中
+	</p>
 
 </div>

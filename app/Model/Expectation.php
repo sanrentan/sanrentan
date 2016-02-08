@@ -67,7 +67,7 @@ class Expectation extends AppModel {
 				$userIds[] = $data["Expectation"]["user_id"];
 			}
 			$User = ClassRegistry::init('User');
-			$tmpData = $User->find("all",array("conditions"=>array("id"=>$userIds)));
+			$tmpData = $User->find("all",array("conditions"=>array("User.id"=>$userIds)));
 			$userData = array();
 			foreach($tmpData as $key=>$data){
 				$userData[$data["User"]["id"]] = $data["User"];

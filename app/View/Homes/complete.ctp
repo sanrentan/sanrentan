@@ -7,7 +7,7 @@
 	<p>発走時刻：<?php echo date("H時i分",strtotime($raceData["Race"]["race_date"]));?></p>
 	<br>
 	<p class="red">登録しました。</p>
-	<a href="/">トップページへ</a>
+	<a href="/" class="btn btn-primary">トップページへ</a>
 </div>
 
 

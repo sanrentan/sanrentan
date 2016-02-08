@@ -17,8 +17,9 @@
 	<div class="buttonArea">
 		<ul>
 			<li><?php echo $this->Form->button('戻る',array('onclick'=>'history.back()','class'=>"btn"));?></li>
-			<li><?php echo $this->Form->end('送信');?></li>
+			<li><input type="submit" class="btn btn-primary" value="送信する"></li>
 		</ul>
+		<?php echo $this->Form->end();?>
 		<div class="clearfix"></div>
 	</div>
 </div>
