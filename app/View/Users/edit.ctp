@@ -20,7 +20,8 @@
 			<span style="color:#b94a48;"><?php echo $this->Form->error('message');?></span>
 			<?php echo $this->Form->textarea('message', array('cols' => 40, 'rows' => 10,'required'=>false));?>
 		</fieldset>
-	<?php echo $this->Form->end(__('Submit')); ?>
+		<input type="submit" class="btn btn-primary" value="確認画面へ">
+	<?php echo $this->Form->end(); ?>
 	</div>
 </div>
 

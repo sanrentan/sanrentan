@@ -77,11 +77,23 @@
 		<?php echo $this->fetch('content'); ?>
 
 		<div id="footer">
+			<div id="footerArea">
+				<a href="http://px.a8.net/svt/ejp?a8mat=2BY5X7+G6VESA+2VOI+65EOH" target="_blank">
+<img border="0" width="728" height="90" alt="" src="http://www22.a8.net/svt/bgt?aid=141002107979&wid=002&eno=01&mid=s00000013437001033000&mc=1"></a>
+<img border="0" width="1" height="1" src="http://www17.a8.net/0.gif?a8mat=2BY5X7+G6VESA+2VOI+65EOH" alt="">
+			</div>
+
+
 			<ul>
-				<li><a href="/">HOME</a></li>
-				<li><a href="/kojiharu_list">こじはる予想</a></li>
-				<li><a href="/about">当サイトについて</a></li>
-				<li><a href="/contact">お問い合わせ</a></li>
+				<a href="/"><li>HOME</li></a>
+				<a href="/kojiharu_list"><li>こじはる予想</li></a>
+				<a href="/about"><li>当サイトについて</li></a>
+				<a href="/contact"><li>お問い合わせ</li></a>
+				<a href="/mypage" class="sp"><li>マイページ</li></a>
+				<a href="/regist" class="sp"><li>無料会員登録</li></a>
+				<a href="/login" class="sp"><li>ログイン</li></a>
+				<a href="http://www.jra.go.jp/"  target="_blank"><li>JRA(外部サイト)</li></a>
+				<a href="http://www.akb48.co.jp/" target="_blanl"><li>AKB公式サイト(外部サイト)</li></a>
 			</ul>
 			<div class="clearfix"></div>
 			<p>Copyright © yamaty. All Rights Reserved.</p>

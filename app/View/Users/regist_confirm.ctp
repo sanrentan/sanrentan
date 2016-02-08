@@ -41,8 +41,10 @@
 
 	<div class="buttonArea">
 		<ul>
-			<li><?php echo $this->Form->button('戻る',array('onclick'=>'history.back()','class'=>"btn"));?></li>
-			<li><?php echo $this->Form->end('送信');?></li>
+			<li><?php echo $this->Form->button('戻る',array('onclick'=>'history.back()','class'=>"btn btn-default"));?></li>
+			<li><input type="submit" class="btn btn-primary" value="登録する"></li>
 		</ul>
+		<?php echo $this->Form->end();?>
+		<div class="clearfix"></div>
 	</div>
 </div>

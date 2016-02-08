@@ -72,11 +72,13 @@
 			<p class="favorite">好きな馬：<?php if(!empty($otherUser["User"]["favorite"])):?><?php echo $otherUser["User"]["favorite"];?><?php else:?>未登録<?php endif;?></p>
 			<p class="message">自己紹介：<br><?php if(!empty($otherUser["User"]["message"])):?><?php echo nl2br(h($otherUser["User"]["message"]));?><?php else:?>未登録<?php endif;?></p>
 		</div>
-		<div id="profileFavo">
-			<p class="favo_btn" <?php if($favoFlg):?>style="display:none;"<?php endif;?>><a href="#" onclick="add_favorite(<?php echo $otherUser['User']['id'];?>);return false;" class="btn btn-danger">お気に入りに登録する</a>	
-			<p class="favo_send" style="display:none;"><a href="#" class="btn btn-info" >送信中..</a></p>
-			<p class="favo_end" <?php if(!$favoFlg):?>style="display:none;"<?php endif;?>><a href="#" onclick="delete_favorite(<?php echo $otherUser['User']['id'];?>);return false;" class="btn btn-warning" >お気に入り登録済み</a></p>
-		</div>
+		<?php if(empty($user)||$user["id"]!=$otherUser["User"]["id"]):?>
+			<div id="profileFavo">
+				<p class="favo_btn" <?php if($favoFlg):?>style="display:none;"<?php endif;?>><a href="#" onclick="add_favorite(<?php echo $otherUser['User']['id'];?>);return false;" class="btn btn-danger">お気に入りに登録する</a>	
+				<p class="favo_send" style="display:none;"><a href="#" class="btn btn-info" >送信中..</a></p>
+				<p class="favo_end" <?php if(!$favoFlg):?>style="display:none;"<?php endif;?>><a href="#" onclick="delete_favorite(<?php echo $otherUser['User']['id'];?>);return false;" class="btn btn-warning" >お気に入り登録済み</a></p>
+			</div>
+		<?php endif;?>
 		<div class="clearfix"></div>
 	</div>
 

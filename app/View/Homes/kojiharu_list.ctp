@@ -3,6 +3,12 @@
 <div id="mypage">
 
 	<div id="resultArea">
+		<div id="imgArea">
+			<img src="/img/common/kojikabe.jpg" width="400">
+			<img src="/img/common/keiba_sozai2.jpg" style="max-height:250px;">
+		</div>
+		<br>
+
 		<p class="subtitle"><?php echo $year;?>年の戦績：<?php echo $myResultData["ExpectationResult"]["win"];?>勝<?php echo $myResultData["ExpectationResult"]["lose"];?>敗　収支 <?php if($myResultData["ExpectationResult"]["price"]>0):?>+<?php endif;?><?php echo number_format($myResultData["ExpectationResult"]["price"]);?>円</p>
 
 		<table border="1">

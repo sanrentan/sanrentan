@@ -81,8 +81,10 @@ class HomesController extends AppController {
 		$matomeRss = $this->getRss("umasoku","http://umasoku.doorblog.jp/index.rdf",5,1);
 		$keibaKyodai = $this->getRss("keibakyodai","http://keibakyoudai.com/feed.xml",5,2);
 		$keibayosou = $this->getRss("keibayosou","http://blog.livedoor.jp/win_keibayosou/index.rdf",5,3);
+		$umachannel = $this->getRss("umachannel","http://bspear.com/feed",5,4);
 
-		$matomeRss = array_merge($matomeRss,$keibaKyodai,$keibayosou);
+
+		$matomeRss = array_merge($matomeRss,$keibaKyodai,$keibayosou,$umachannel);
 
 
 		$this->set(compact("newsRss", "expectRss","matomeRss"));
@@ -135,7 +137,13 @@ class HomesController extends AppController {
 	            $this->Session->write('expectation', $this->request->data);
 				$this->redirect('/confirm');
 			}else{
-				$this->Session->setFlash(__('※'.Configure::read('Base.box_count').'つ選択してください。'));
+
+				if(empty($this->request->data["Expectation"]["item"])){
+					$errorMessage = '※'.Configure::read('Base.box_count').'つ選択してください。';
+				}else{
+					$errorMessage = '※'.Configure::read('Base.box_count').'つ選択してください。('.count($this->request->data["Expectation"]["item"])."頭選択されました)";
+				}
+				$this->set("errorMessage",$errorMessage);
 			}
 		}
 
@@ -324,6 +332,10 @@ class HomesController extends AppController {
 	//他人の予想結果
 	public function other($user_id=3){
 			
+		if(!empty($this->user["id"])){
+			$this->set("user",$this->user);
+		}
+
 		if(empty($user_id)||!is_numeric($user_id)){
 			echo "user_id is wrong";exit;
 		}
@@ -507,7 +519,7 @@ class HomesController extends AppController {
 							$horseHtml = file_get_html("http://keiba.yahoo.co.jp/".$horseUrl);
 							$j = 0;
 							foreach($horseHtml->find('#resultLs tr') as $key3 => $rowElements){
-								if($j > 1 && $j < 7){
+								if($j > 0 && $j < 6){
 									echo $j;
 									$tdCounter2 = 0;
 									foreach($rowElements->find('td') as $key4 => $tdData){
@@ -547,7 +559,7 @@ class HomesController extends AppController {
 												$recent_5race_results[$i][$j]["order_of_arrival"] = $tdData->plaintext;	
 												break;
 											case 11:
-												$recent_5race_results[$i][$j]["jockey"] = $tdData->find("a")[0]->plaintext;
+												$recent_5race_results[$i][$j]["jockey"] = $tdData->plaintext;
 												break;
 										}
 										$tdCounter2++;
