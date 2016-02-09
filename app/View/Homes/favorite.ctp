@@ -71,7 +71,13 @@
 			<?php foreach($favoList as $key=>$data):?>
 				<div class="favoUser">
 					<div class="favoUserImg">
-						<a href="/other/<?php echo $data['User']['id'];?>"><img src="/img/common/noimage_person.png"></a>
+						<a href="/other/<?php echo $data['User']['id'];?>">
+							<?php if($data['User']['profile_img']):?>
+								<img src="/img/profileImg/<?php echo $data['User']['profile_img'];?>">
+							<?php else:?>
+								<img src="/img/common/noimage_person.png">
+							<?php endif;?>
+						</a>
 					</div>
 					<div class="favoBtn">
 						<p class="favo_btn<?php echo $data['User']['id'];?>" style="display:none;"><a href="#" onclick="add_favorite(<?php echo $data['User']['id'];?>);return false;" class="btn btn-danger">＋フォロー</a>	

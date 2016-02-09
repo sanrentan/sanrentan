@@ -64,7 +64,11 @@
 <div id="mypage">
 	<div id="profileArea">
 		<div id="profileLeft">
-			<img src="/img/common/noimage_person.png">
+			<?php if(!empty($otherUser["User"]["profile_img"])):?>
+				<img src="/img/profileImg/<?php echo $otherUser['User']['profile_img'];?>">
+			<?php else:?>
+				<img src="/img/common/noimage_person.png">
+			<?php endif;?>
 		</div>
 		<div id="profileRight">
 			<p class="nickname">ニックネーム：<?php echo $otherUser["User"]["nickname"];?></p>
