@@ -33,6 +33,8 @@
 		<?php echo $this->Form->hidden('message' ,array('value' => $postData["User"]["message"]));?>
 
 
+		<p class="inputLabel">プロフィール画像</p>
+		<p><?php if(!empty($postData["User"]["profile_img"])):?><img src="/img/profileImg/<?php echo $postData["User"]["profile_img"];?>" width="200"><?php else:?>未登録<?php endif;?></p>
 
 
 		</fieldset>

@@ -328,8 +328,13 @@ ul.information.matomeList{
 }
 #horseListArea #winUserArea .winUser .profileLeft .profileImg,
 #horseListArea #winUserArea .winUser .profileRight .profileMessage{
-	margin:0 auto 0 auto;
+	margin:10px auto 10px auto;
 	display: block;
+	background-color: #FFF;
+	border:1px solid #FFF;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 }
 #horseListArea #winUserArea .winUser .profileRight p{
 	text-align: center;
@@ -352,9 +357,16 @@ ul.information.matomeList{
 	display:block;
 	float:left;
 	width:20%;
+	min-height: 160px;
 }
 .userExpect img{
-	max-width: 180px;
+	width: 72px;
+	margin:10px;
+	background-color: #FFF;
+	border:1px solid #FFF;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 }
 
 
@@ -440,6 +452,12 @@ ul.information.matomeList{
 }
 #mypage #profileArea #profileLeft img{
 	width:150px;
+    background-color: #FFF;
+    border: 1px solid #FFF;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    margin: 10px;
 }
 #mypage #profileArea #profileRight{
 	float:left;
@@ -618,6 +636,19 @@ ul.information.matomeList{
 	margin:0 auto 0 auto;
 }
 
+#mypageNavi .myProfileImg img{
+	margin-left:20px;
+	display:block;
+	float:left;
+	width:72px;
+    background-color: #FFF;
+    border: 1px solid #FFF;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+
 #mypage #favoUserList{
 	padding:10px;
 }
@@ -635,9 +666,18 @@ ul.information.matomeList{
 	height:200px;
 }
 #mypage #favoUserList .favoUserImg{
-	width:25%;
 	float:left;
 }
+#mypage #favoUserList .favoUserImg img{
+	width:72px;
+	margin: 10px;
+    background-color: #FFF;
+    border: 1px solid #FFF;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
 #mypage #favoUserList .favoBtn{
 	float:right;
 	padding:10px;

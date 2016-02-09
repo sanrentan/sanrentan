@@ -107,7 +107,11 @@
 	<?php foreach($otherExpectData as $key=>$data):?>
 		<a href="/other/<?php echo $data['User']['id'];?>">
 			<div class="userExpect">
-				<img src="/img/common/noimage_person.png">
+				<?php if(!empty($data["User"]["profile_img"])):?>
+					<img src="/img/profileImg/<?php echo $data['User']['profile_img'];?>" class="profileImg">
+				<?php else:?>
+					<img src="/img/common/noimage_person.png" class="profileImg">
+				<?php endif;?>
 				<p><?php echo $data["User"]["nickname"];?></p>
 				<p>
 					<span class="wk<?php echo $data["selectData"][0]["RaceCard"]["wk"];?>"><?php echo $data["selectData"][0]["RaceCard"]["uma"];?></span>-

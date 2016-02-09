@@ -39,23 +39,25 @@ class UsersController extends AppController {
             if ($this->User->validates()) {
 
                 //画像アップロード
-                $fileInfo = getimagesize($this->request->data['User']['profile_img']['tmp_name']);
-                switch ($fileInfo["mime"]) {
-                    case 'image/gif':
-                        $ext = "gif";
-                        break;
-                    case 'image/png':
-                        $ext = "png";
-                        break;
-                    case 'image/jpg':
-                    case 'image/jpeg':
-                        $ext = "jpg";
-                        break;
-                    
+                if(!empty($this->request->data['User']['profile_img']['tmp_name'])){
+                    $fileInfo = getimagesize($this->request->data['User']['profile_img']['tmp_name']);
+                    switch ($fileInfo["mime"]) {
+                        case 'image/gif':
+                            $ext = "gif";
+                            break;
+                        case 'image/png':
+                            $ext = "png";
+                            break;
+                        case 'image/jpg':
+                        case 'image/jpeg':
+                            $ext = "jpg";
+                            break;
+                        
+                    }
+                    $file_name = md5(date("YmdHis").$this->request->data['User']['profile_img']['name']).".".$ext;
+                    move_uploaded_file( $this->request->data['User']['profile_img']['tmp_name'], IMAGES . "profileImg/".$file_name);
+                    $this->request->data["User"]["profile_img"] = $file_name;
                 }
-                $file_name = md5(date("YmdHis").$this->request->data['User']['profile_img']['name']).".".$ext;
-                move_uploaded_file( $this->request->data['User']['profile_img']['tmp_name'], IMAGES . "profileImg/".$file_name);
-                $this->request->data["User"]["profile_img"] = $file_name;
 
                 //セッションにセットして確認画面へ
                 $this->Session->write('regist', $this->request->data);
@@ -155,8 +157,37 @@ class UsersController extends AppController {
                 unset($this->User->validate['password']);
             }
 
+            if(empty($this->request->data["User"]["profile_img"]["name"])){
+                unset($this->User->validate['profile_img']);
+            }
+
             $this->User->set($this->request->data);
             if ($this->User->validates()) {
+
+                if(!empty($this->request->data["User"]["profile_img"]["name"])){
+                    //画像アップロード
+                    $fileInfo = getimagesize($this->request->data['User']['profile_img']['tmp_name']);
+                    switch ($fileInfo["mime"]) {
+                        case 'image/gif':
+                            $ext = "gif";
+                            break;
+                        case 'image/png':
+                            $ext = "png";
+                            break;
+                        case 'image/jpg':
+                        case 'image/jpeg':
+                            $ext = "jpg";
+                            break;
+                        
+                    }
+                    $file_name = md5(date("YmdHis").$this->request->data['User']['profile_img']['name']).".".$ext;
+                    move_uploaded_file( $this->request->data['User']['profile_img']['tmp_name'], IMAGES . "profileImg/".$file_name);
+                    $this->request->data["User"]["profile_img"] = $file_name;
+                }else{
+                    $this->request->data["User"]["profile_img"] = "";
+                }
+
+
                 //セッションにセットして確認画面へ
                 $this->Session->write('edit', $this->request->data);
                 $this->redirect('/users/edit_confirm');
@@ -172,6 +203,11 @@ class UsersController extends AppController {
     public function edit_confirm(){
         $this->set("naviType","mypage");
         $postData = $this->Session->read("edit");
+
+        if(empty($postData["User"]["profile_img"])&&!empty($postData["profile_img_text"])){
+            $postData["User"]["profile_img"] = $postData["profile_img_text"];
+            $this->Session->write('edit', $postData);
+        }
 
         if($this->request->is('post')){
             $this->redirect("/users/edit_complete");
@@ -191,6 +227,9 @@ class UsersController extends AppController {
             $postData["User"]["id"] = $this->user["id"];
             $postData["User"]["username"] = $this->user["username"];
 
+
+            unset($this->User->validate["profile_img"]);
+ 
             if ($this->User->save($postData)) {
                 $this->Session->write("edit","");
 

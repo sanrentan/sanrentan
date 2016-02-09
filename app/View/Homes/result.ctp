@@ -92,7 +92,11 @@
 				<a href="/other/<?php echo $data['User']['id'];?>">
 					<div class="winUser">
 						<div class="profileLeft">
-							<img src="/img/common/noimage_person.png" class="profileImg">
+							<?php if(!empty($data["User"]["profile_img"])):?>
+								<img src="/img/profileImg/<?php echo $data['User']['profile_img'];?>" class="profileImg">
+							<?php else:?>
+								<img src="/img/common/noimage_person.png" class="profileImg">
+							<?php endif;?>
 						</div>
 						<div class="profileRight">
 							<p>
