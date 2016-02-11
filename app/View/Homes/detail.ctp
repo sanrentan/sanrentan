@@ -72,12 +72,13 @@
 	<br>
 	<?php if(!empty($user["id"])):?>
 	
-	<?php echo $this->Form->create('thread',array('type' => 'post','action' => '/thread', 'name' => 'thread')); ?>
+	<?php echo $this->Form->create('Thread',array('type'=>'file', 'enctype' => 'multipart/form-data')); ?>
 	<div class="postComment">
 	<p>コメントする</p>
-	<?php echo $this->Form->hidden('thread.race_id', array('value' => $raceData["Race"]["id"], 'name' => 'race_id')) ?>
-	<?php echo $this->Form->hidden('thread.url', array('value' => Router::url(), 'name' =>	 'url' )) ?>
-	<?php echo $this->Form->textarea('thread.comment',array( "rows"=>5, "cols" => 100, "class" => "form-horizontal" )); ?>
+	<?php echo $this->Form->hidden('Thread.race_id', array('value' => $raceData["Race"]["id"], 'name' => 'race_id')) ?>
+	<?php echo $this->Form->hidden('Thread.url', array('value' => Router::url(), 'name' =>	 'url' )) ?>
+	<?php echo $this->Form->textarea('Thread.comment',array( "rows"=>5, "cols" => 100, "class" => "form-horizontal" )); ?>
+	<?php echo $this->Form->input('Thread.file_name', array('label' => false, 'type' => 'file')); ?>
 	<?php echo $this->Form->submit('投稿', array('name' => 'thread')); ?>
 	<?php echo $this->Form->end(); ?>
 	<?php else: ?>
@@ -92,6 +93,9 @@
 				<span>|</span>
 				<span class = "date"><?php echo $post['Thread']['created'] ; ?></span>
 				<p class = "comment"><?php echo $post['Thread']['comment']; ?></p>
+				<?php if(!empty($post['Thread']['file_name'])): ?>
+				<img src="/img/thread/<?php echo $raceData["Race"]["id"]. DS .$post['Thread']['file_name'] ?>" class = "img-responsive" alt="">
+				<?php endif; ?>
 			</div>
 			<?php endforeach; ?>
 			<div class ="pagination">

@@ -74,39 +74,31 @@ class HomesController extends AppController {
 		$this->set(compact("acceptingRace", "recentRace","recentKojiharu"));
 
 	}
-	public function thread(){
-		if($this->request->is('post')){
-			if(!empty($this->request->data['thread']['comment'])){
-	            $this->Thread->set($this->request->data);
-				if($this->Thread->validates()){
-					$this->Session->write('comment', $this->request->data);
-					$this->redirect('/commentConfirm');
-				}
-			}else{
-				$this->Session->setFlash(__('投稿内容を入力してください'));
-				$this->redirect($this->request->data['url']);
-			}
-		}	
-	}
 
 	public function commentConfirm(){
 		$commentData = $this->Session->read('comment');
+		$encryptionFileName = $this->Session->read('encryptionFileName');
 		$this->set('comment',$commentData);
+		$this->set('encryptionFileName', $encryptionFileName);
 
 	}
 	public function commentComplete(){
-		$commentData['comment'] = $this->Session->read('comment')['thread']['comment'];
+		$commentData['comment'] = $this->Session->read('comment')['Thread']['comment'];
 		$commentData['user_id'] = $this->user["id"];
 		$commentData['race_id'] = $this->request->data['race_id'];
-		
+		$commentData['file_name'] = $this->Session->read('encryptionFileName');
+
 		//投稿された出走表のURLを渡す
 		$postedUrl = $this->Session->read('comment')['url'];
 		$this->set('postedUrl',$postedUrl);
 
 		$this->Thread->create();
-		$this->Thread->save($commentData);
+		if($this->Thread->save($commentData)){
+			$this->set('saveResult', "登録しました");
+		}else{
+			$this->set('saveResult', "登録に失敗しました");
+		}
 
-		
 	}
 
 
@@ -122,15 +114,55 @@ class HomesController extends AppController {
 		$this->set("raceData",$raceData);
 
 
-
-		//予想
+		//ポストされた時
+		//予想のポストの処理
 		if($this->request->is('post')){
-			if(!empty($this->request->data['Expectation']['item'])&&count($this->request->data['Expectation']['item'])==Configure::read('Base.box_count')){
-				//ここでセッションにpost値を入れる
-	            $this->Session->write('expectation', $this->request->data);
-				$this->redirect('/confirm');
-			}else{
-				$this->Session->setFlash(__('※'.Configure::read('Base.box_count').'つ選択してください。'));
+			if(isset($this->request->data['expectation'])){
+				if(!empty($this->request->data['Expectation']['item'])&&count($this->request->data['Expectation']['item'])==Configure::read('Base.box_count')){
+					//ここでセッションにpost値を入れる
+		            $this->Session->write('expectation', $this->request->data);
+					$this->redirect('/confirm');
+				}else{
+					$this->Session->setFlash(__('※'.Configure::read('Base.box_count').'つ選択してください。'));
+				}
+			//ここから掲示板に投稿された時の処理
+			}else if(isset($this->request->data['thread'])){
+				if(!empty($this->request->data['Thread']['comment'])){
+			        $this->Thread->set($this->request->data);
+			        if(empty($_FILES['data']['name']['Thread']['file_name'])){
+			        	unset($this->Thread->validate['file_name']);
+			        }
+					if($this->Thread->validates()){
+						$this->Session->write('comment', $this->request->data);
+						//ここからファイルが投稿された時の処理
+						if(!empty($this->request->data['Thread']['file_name']['name'])){
+							if($this->request->data['Thread']['file_name']['size'] > 1048576){
+								$this->Session->setFlash(__('画像サイズは１MB以下にしてください'));
+								$this->redirect($this->request->data['url']);
+							}
+							//投稿ファイルの拡張子を取得
+							$extension = substr(strchr($this->request->data['Thread']['file_name']['name'], '.'), 0);
+							//投稿されたファイル名と現在時刻からファイル名を作り、拡張子をつける
+							$encryptionFileName = md5($this->request->data['Thread']['file_name']['name'].microtime(time())).$extension;
+							//threadフォルダ以下にレースIDのフォルダがなければ作る
+							if(!file_exists(IMAGES.'thread'. DS .$raceId)){
+								mkdir(IMAGES.'thread'. DS .$raceId, 0777);
+							}
+							$this->Session->write('encryptionFileName', $encryptionFileName);
+							move_uploaded_file($this->request->data['Thread']['file_name']['tmp_name'], IMAGES.'thread'.DS. $raceId . DS.$encryptionFileName);
+						}else{
+							//ファイルが設定されてない場合はセッションからファイル名を削除。削除しないと確認画面で前のファイルが表示されてしまう。
+							unset($_SESSION['encryptionFileName']);
+						}
+						$this->redirect('/commentConfirm');
+					}else{
+						$this->render('detail');
+					}
+				}else{
+					//JavaScriptで制御しているのでここにたどり着くことは基本ない
+					$this->Session->setFlash(__('投稿内容を入力してください'));
+					$this->redirect($this->request->data['url']);
+				}
 			}
 		}
 
@@ -146,9 +178,8 @@ class HomesController extends AppController {
 		$this->set(compact("myData","kojiharuData"));
 
 		//投稿一覧の取得
-		$options = array("conditions" => array('race_id' =>$raceId, 'is_deleted' => 0));
-		$threads = $this->Thread->find('all',$options);
-		$threads = $this->paginate('Thread');
+		$options = array('race_id' =>$raceId, 'is_deleted' => 0, 'view_flg' => 1);		
+		$threads = $this->paginate('Thread', $options);
 		foreach($threads as $key => $thread){
 			$theUser = $this->User->findById($thread['Thread']['user_id']);
 			$threads[$key]['Thread']['userName'] = $theUser['User']['username']; 
