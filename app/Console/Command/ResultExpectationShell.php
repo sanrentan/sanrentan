@@ -197,7 +197,9 @@ class ResultExpectationShell extends AppShell {
     	);
     	$expectationData = $this->Expectation->find("all",$options);
     	if(empty($expectationData)){
-    		$this->__log("予想データがありません. race_id:".$race_id,true);
+            $raceData["Race"]["accepting_flg"] = 0;
+            $this->Race->save($raceData);
+    		$this->__log("予想データがありませんが終了フラグをたてました. race_id:".$race_id,true);
     	}
 
     	//当選者

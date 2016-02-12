@@ -233,6 +233,11 @@ ul.information.matomeList{
 	margin:0 auto 0 auto;
 }
 
+#horseListArea table th{
+	background-color: #D9D9B0;
+}
+
+
 #raceDetailTxt{
 	padding:5px 0 20px 30px;
 }
@@ -506,13 +511,54 @@ ul.information.matomeList{
 .recentResults{
 	font-size: 0.8em;
 }
-.lastRaceName{
+#horseListArea table td.recentResults{
+	vertical-align: top;
 }
+#horseListArea table td.first{
+	background-color: #eecece;
+}
+#horseListArea table td.second{
+	background-color: #e2def7;
+}
+#horseListArea table td.third{
+	background-color: #c3f2c8;
+}
+
+
+#horseListArea table td .lastRaceName{
+	color: -webkit-link;
+	text-decoration: underline;
+	font-size:120%;
+}
+
+#horseListArea table td .g1,
+#horseListArea table td .g2,
+#horseListArea table td .g3
+{
+	margin-left: 10px;
+	color:#FFF;
+	padding:2px 5px 2px 5px;
+}
+#horseListArea table td .g1
+{
+	background-color: #4169E1;
+}
+#horseListArea table td .g2
+{
+	background-color: #DC143C;
+}
+#horseListArea table td .g3
+{
+	background-color: #3CB371;
+}
+
+
 .lastRaceDate{
 	font-size: 0.5em;
 }
 .lastRacePlace{
 	font-size: 0.5em;
+	text-align: right;
 
 }
 .lastCource{
@@ -529,10 +575,9 @@ ul.information.matomeList{
 }
 .lastOdds{
 
-<<<<<<< HEAD
 }
 .lastOrderOfArrival{
-	font-size: 1.2em;
+	font-size: 130%;
 }
 .lastJockey{
 
