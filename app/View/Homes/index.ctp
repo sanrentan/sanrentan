@@ -28,20 +28,24 @@
 			<div id="subBannerArea"><img src="/img/common/umairasto.png" style="max-width:150px;"></div>	
 		</div>
 
-		<p class="titleLabel">現在受付中のレース</p>
+		<p class="titleLabel">現在受付中のレース（※当サイト受付分のみ）</p>
 		<ul class="raceList">
-			<?php foreach($acceptingRace as $key=>$data):?>
-				<li>
-					<span><?php echo date("m月d日",strtotime($data["Race"]["race_date"]));?></span>
-					<span class="racePlace"><?php echo $data['Race']['place'];?></span>　
-					<span class="raceName">
-						<a href="/detail/<?php echo $data['Race']['id'];?>">
-							<?php echo $data['Race']['name'];?><?php if($data['Race']['grade']>0):?> (G<?php echo $data['Race']['grade'];?>)<?php endif;?>
-						</a>
-					</span>
-					<?php if($data['Race']['kojiharu_flg']):?>　<span class="kojiharuRace">こじはる予想レース</span><?php endif;?>
-				</li>
-			<?php endforeach;?>
+			<?php if(!empty($acceptingRace)):?>
+				<?php foreach($acceptingRace as $key=>$data):?>
+					<li>
+						<span><?php echo date("m月d日",strtotime($data["Race"]["race_date"]));?></span>
+						<span class="racePlace"><?php echo $data['Race']['place'];?></span>　
+						<span class="raceName">
+							<a href="/detail/<?php echo $data['Race']['id'];?>">
+								<?php echo $data['Race']['name'];?><?php if($data['Race']['grade']>0):?> (G<?php echo $data['Race']['grade'];?>)<?php endif;?>
+							</a>
+						</span>
+						<?php if($data['Race']['kojiharu_flg']):?>　<span class="kojiharuRace">こじはる予想レース</span><?php endif;?>
+					</li>
+				<?php endforeach;?>
+			<?php else:?>
+				<li>※現在受付中のレースはありません。</li>
+			<?php endif;?>
 		</ul>
 
 
