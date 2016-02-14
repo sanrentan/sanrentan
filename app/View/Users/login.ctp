@@ -12,6 +12,6 @@
 			<p>パスワード</p>
 			<?php echo $this->Form->input('password',array('label'=>false));?>
 	    </fieldset>
-	    <input type="submit" class="btn btn-primary" value="ログイン">
+	    <input type="submit" class="btn btn-primary btn-block-sp" value="ログイン">
 	<?php echo $this->Form->end();?>
 </div>

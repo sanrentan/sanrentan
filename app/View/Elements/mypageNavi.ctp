@@ -5,6 +5,7 @@
 		<li><a href="/favorite" class="btn btn-<?php if($active=='favorite'):?>primary<?php else:?>info<?php endif;?> btn-lg">お気に入り</a></li>
 		<li><a href="/users/withdrawal" class="btn btn-<?php if($active=='withdrawal'):?>primary<?php else:?>info<?php endif;?> btn-lg">退会</a></li>
 	</ul>
+	<div class="clearfix sp"></div>
 	<div class="myProfileImg">
 		<a href="/users/edit">
 		<?php if(!empty($user["profile_img"])):?>
