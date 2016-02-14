@@ -23,6 +23,16 @@
 		width:100% !important;
 	}
 
+	.btn-block-sp{
+		display: block;
+		width: 90% !important;
+		padding: 10px 5% 10px 5%;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		margin:15px auto 0 auto;
+	}
+
 	#mainBannerArea{
 		width:100%;
 		margin-bottom:20px;
@@ -72,7 +82,105 @@
 	}
 
 
+	#aboutContent #imgArea .img1,
+	#mypage #resultArea #imgArea .img1{
+		width:49%;
+	}
+	#aboutContent #imgArea .img2,
+	#mypage #resultArea #imgArea .img2{
+		width:49%;
+	}
+
+	#mypage #resultArea .sp_resultArea ul{
+		margin:0;
+	}
+
+	#mypage #resultArea .sp_resultArea li{
+		list-style: none;
+		border-bottom:1px solid #CCC;
+		padding:5px 5px 5px 10px;
+	}
+	#mypage #resultArea .sp_resultArea p{
+		font-size: 100%;
+		margin:10px 0 10px;
+	}
+
+	#mypage #resultArea .sp_resultArea .winmark{
+		background-image:url("../img/icon/okan.png");
+		background-repeat: no-repeat;
+		background-size: 20px;
+		background-position: 0 center;
+		padding-left:20px;
+		padding:5px 5px 5px 25px;
+	}
+
+	#raceDetailTxt #detailLeft{
+		float: none;
+	}
+	#raceDetailTxt #detailRight{
+		float: none;
+	}
+
+	.buttonArea ul li {
+	    list-style: none;
+	    float: none;
+	    margin-right: 15px;
+	}
 
 
+	#horseListArea #priceArea #leftPriceTable {
+	    float: none;
+	    width: 95%;
+	    margin-left: 0;
+	    margin: 0 auto 0 auto;
+	}
 
+	#horseListArea #priceArea #rightPriceTable {
+	    float: none;
+	    width: 95%;
+	    margin: 10px auto 0 auto;
+	}
+
+
+	#horseListArea #winUserArea .winUser {
+	    margin-left: 10px;
+	    margin-bottom: 20px;
+	    background-color: #FFEFD5;
+	    border: 2px solid #FFEFD5;
+	    -webkit-border-radius: 10px;
+	    -moz-border-radius: 10px;
+	    border-radius: 10px;
+	    display: block;
+	    float: left;
+	    width: 30%;
+	}
+
+	#aboutContent {
+	    padding: 0 0 20px 20px;
+	}
+
+	#aboutContent #kojiProfileArea #profileLeft {
+	    float: none;
+	    display: block;
+	}
+	#aboutContent #kojiProfileArea #profileRight {
+	    width: 100%;
+	    float: none;
+	    display: block;
+	    padding: 10px 0 0 0;
+	}
+
+	#mypage #favoUserList .favoUser {
+	    margin-left: 0;
+	    margin-bottom: 20px;
+	    background-color: #f5f8fa;
+	    border: 2px solid #CCC;
+	    -webkit-border-radius: 10px;
+	    -moz-border-radius: 10px;
+	    border-radius: 10px;
+	    display: block;
+	    float: left;
+	    width: 100%;
+	    height: 200px;
+	}	
 }

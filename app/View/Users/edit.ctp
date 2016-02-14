@@ -41,7 +41,7 @@
 			    <input type="hidden" name="profile_img_text" value="">
 		    <?php endif;?>
 		</fieldset>
-		<input type="submit" class="btn btn-primary" value="確認画面へ">
+		<input type="submit" class="btn btn-primary btn-block-sp" value="確認画面へ">
 	<?php echo $this->Form->end(); ?>
 	</div>
 </div>

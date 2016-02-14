@@ -139,9 +139,9 @@ class HomesController extends AppController {
 			}else{
 
 				if(empty($this->request->data["Expectation"]["item"])){
-					$errorMessage = '※'.Configure::read('Base.box_count').'つ選択してください。';
+					$errorMessage = '※'.Configure::read('Base.box_count').'頭選択してください。';
 				}else{
-					$errorMessage = '※'.Configure::read('Base.box_count').'つ選択してください。('.count($this->request->data["Expectation"]["item"])."頭選択されました)";
+					$errorMessage = '※'.Configure::read('Base.box_count').'頭選択してください。('.count($this->request->data["Expectation"]["item"])."頭選択されました)";
 				}
 				$this->set("errorMessage",$errorMessage);
 			}

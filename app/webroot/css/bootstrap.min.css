@@ -363,6 +363,7 @@ ul.information.matomeList{
 	float:left;
 	width:20%;
 	min-height: 160px;
+	min-width: 160px;
 }
 .userExpect img{
 	width: 72px;
@@ -473,6 +474,13 @@ ul.information.matomeList{
 #mypage #resultArea{
 	padding-left:25px;
 	padding-right:25px;
+}
+
+#mypage #resultArea #imgArea .img1{
+	width:400px;
+}
+#mypage #resultArea #imgArea .img2{
+	max-height:250px;
 }
 
 #mypage #resultArea p{
@@ -605,6 +613,12 @@ ul.information.matomeList{
 
 #aboutContent #imgArea{
 	margin-bottom:20px;
+}
+#aboutContent #imgArea .img1{
+	width:400px;
+}
+#aboutContent #imgArea .img2{
+	width:400px;
 }
 
 

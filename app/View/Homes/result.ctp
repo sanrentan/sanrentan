@@ -64,7 +64,7 @@
 	<p class="titleLabel">競争成績</p>
 	<div id="resultListArea">
 		<table border="1">
-		<tr><th>着順</th><th>枠</th><th>馬番</th><th>馬名</th><th>性齢</th><th>負担重量</th><th>騎手名</th><th>タイム</th><th>着差</th><th>推定上り</th><th>馬体重</th><th>調教師名</th><th>単勝人気</th></tr>
+		<tr><th>着順</th><th>枠</th><th>馬番</th><th>馬名</th><th>性齢</th><th>負担重量</th><th>騎手名</th><th class="pc">タイム</th><th class="pc">着差</th><th class="pc">推定上り</th><th class="pc">馬体重</th><th class="pc">調教師名</th><th>単勝人気</th></tr>
 		<?php foreach($raceResultData["RaceResultDetail"] as $key=>$data):?>
 			<tr>
 				<td align="center"><?php if($data["result"]!=99):?><?php echo $data["result"];?><?php else:?>-<?php endif;?></td>
@@ -74,11 +74,11 @@
 				<td align="center"><?php echo $data["sexage"];?></td>
 				<td align="center"><?php echo $data["j_weight"];?></td>
 				<td align="center"><?php echo $data["j_name"];?></td>
-				<td align="center"><?php echo $data["time"];?></td>
-				<td align="center"><?php echo $data["difference"];?></td>
-				<td align="center"><?php echo $data["last_time"];?></td>
-				<td align="center"><?php echo $data["weight"];?></td>
-				<td align="center"><?php echo $data["trainer"];?></td>
+				<td align="center" class="pc"><?php echo $data["time"];?></td>
+				<td align="center" class="pc"><?php echo $data["difference"];?></td>
+				<td align="center" class="pc"><?php echo $data["last_time"];?></td>
+				<td align="center" class="pc"><?php echo $data["weight"];?></td>
+				<td align="center" class="pc"><?php echo $data["trainer"];?></td>
 				<td align="center"><?php echo $data["popularity"];?></td>
 			</tr>
 		<?php endforeach;?>
@@ -109,7 +109,6 @@
 					</div>
 				</a>
 				<?php if(($key+1)%6==0):?>
-					<div class="clearfix"></div>
 				<?php endif;?>
 			<?php endforeach;?>
 			<div class="clearfix"></div>
