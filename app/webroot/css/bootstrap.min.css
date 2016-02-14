@@ -702,3 +702,13 @@ ul.information.matomeList{
 	width:270px;
 	margin:0 0 0 auto;
 }
+.ranking img{
+	max-width: 80px;
+}
+.ranking td{
+	text-align: center;
+	vertical-align: middle;
+}
+.ranking th{
+	text-align: center;
+}

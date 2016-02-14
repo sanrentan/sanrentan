@@ -102,6 +102,25 @@
 	<a class="twitter-timeline" href="https://twitter.com/sanrentan_box" data-widget-id="695993921566932996">@sanrentan_boxさんのツイート</a>
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 </div>
+<p class="titleLabel">ユーザーランキング</p>
+	<div class="ranking">
+		<table class="table">
+				<th>順位</th><th>ユーザー</th><th>収支・勝敗</th>
+				<?php foreach($rankedUsers as $rank => $rankedUser): ?>
+					<tr>
+						<td><?php echo $rank + 1 ?></td>
+						<?php if(!empty($rankedUser['User']['profile_img'])): ?>
+							<td><img src="/img/profileImg/<?php echo $rankedUser['User']['profile_img'] ; ?>" alt="" style="width: 100px; height: 100px;">
+						<?php else: ?>
+							<td><img src="/img/common/noimage_person.png" alt="">
+						<?php endif ?><br>
+						<?php echo $rankedUser['User']['username'] ?></td>
+						<td><?php echo $rankedUser['ExpectationResult']['price'] ?>円<br><?php echo $rankedUser['ExpectationResult']['win'] ?>勝<?php echo $rankedUser['ExpectationResult']['lose'] ?>負</td>
+					</tr>
+				<?php endforeach; ?>
+		</table>
+
+	</div>
 
 
 <div class="adArea pc">

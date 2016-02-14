@@ -86,8 +86,18 @@ class HomesController extends AppController {
 
 		$matomeRss = array_merge($matomeRss,$keibaKyodai,$keibayosou,$umachannel);
 
+		//ランキング
+		$optionsForRanking = array(
+			'conditions'  => array(
+				'NOT' => array(
+					'ExpectationResult.price' => NULL)
+				),
+			'order' => array('ExpectationResult.price' => 'desc'),
+			'limit' => 5
+			);
+		$rankedUsers = $this->User->find("all", $optionsForRanking);
 
-		$this->set(compact("newsRss", "expectRss","matomeRss"));
+		$this->set(compact("newsRss", "expectRss","matomeRss", "rankedUsers"));
 
 	}
 
