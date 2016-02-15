@@ -45,7 +45,17 @@
 	#mainBannerArea #mainBannerAreaLeft img{
 		width: 100%;
 	}
-	#mainBannerArea #mainBannerAreaRight{
+	#mainBannerAreaRight #recentKojiharuArea{
+		margin:10px;
+	}
+	#mainBannerAreaRight #recentKojiharuArea{
+		font-size:110%;
+		margin-bottom:20px;
+		float:left;
+	}
+	#mainBannerAreaRight #subBannerArea{
+		float:right;
+		margin-right:10px;
 	}
 
 	#mainContent #leftContent{

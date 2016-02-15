@@ -26,6 +26,7 @@
 				<?php endforeach;?>
 			</div>
 			<div id="subBannerArea"><img src="/img/common/umairasto.png" style="max-width:150px;"></div>	
+			<div class="clearfix"></div>
 		</div>
 
 		<p class="titleLabel">現在受付中のレース（※当サイト受付分のみ）</p>

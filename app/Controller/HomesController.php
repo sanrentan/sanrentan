@@ -58,7 +58,8 @@ class HomesController extends AppController {
 
 	//トップページ
 	public function index(){
-		$this->set("message","こんにちわ。レース一覧を表示します。");
+		//$this->meta_description = "test";
+		//$this->meta_keywords = "test";
 
 		//受付中のレース
 		$acceptingRace = $this->Race->getAcceptingRace();
@@ -94,6 +95,7 @@ class HomesController extends AppController {
 
 	//レース詳細
 	public function detail($raceId){
+
 		$this->set("message","出走表");
 		$RecentRaceResult = array();
 
@@ -162,12 +164,18 @@ class HomesController extends AppController {
 
 		$this->set(compact("myData","kojiharuData","otherExpectData"));
 
+		//metaタグ設定
+        $this->meta_description = "こじはるさんの「".$raceData["Race"]["name"]."」の３連単５頭ボックスの予想です。参考にして是非みなさんも予想してみましょう。目指せ万馬券！";
+		$this->meta_keywords = "こじはる,予想,出走表,".$raceData["Race"]["name"];
+		$this->title_tag = $raceData["Race"]["name"]." 出走表";
 
 	}
 
 	//確認画面
 	public function confirm(){
-		$this->set("message","確認画面");
+		//metaタグ設定
+		$this->title_tag = "予想登録の確認画面";
+
 		$postData = $this->Session->read("expectation");
 		$raceData = $this->Race->findById($postData["Expectation"]["race_id"]);
 
@@ -183,10 +191,13 @@ class HomesController extends AppController {
 		}
 
 		$this->set(compact("postData", "raceData","selectArray","kojiharuData"));
+
 	}
 
 	//登録機能
 	public function complete(){
+		//metaタグ設定
+		$this->title_tag = "予想完了";
 
 		if(!empty($this->user["id"])&&count($this->request->data['Expectation']['item'])==Configure::read('Base.box_count')){
 			//既に予想していないか？
@@ -215,6 +226,7 @@ class HomesController extends AppController {
 			$this->Session->setFlash(__('※不正な遷移です。'));
 			$this->redirect('/');
 		}
+
 	}
 
 	//結果ページ
@@ -248,11 +260,22 @@ class HomesController extends AppController {
 		$winUser = $this->Expectation->getWinUsers($raceId);
 
 		$this->set(compact("raceData","raceResultData","myData","kojiharuData","winUser"));
+
+		//metaタグ設定
+        $this->meta_description = "こじはるさんの「".$raceData["Race"]["name"]."」の３連単５頭ボックスのレース結果です。みなさんの予想も当たったかどうか確認してください。";
+		$this->meta_keywords = "こじはる,３連単,レース結果,".$raceData["Race"]["name"];
+		$this->title_tag = $raceData["Race"]["name"]." レース結果";
+
 	}
 
 
 	//マイページ
 	public function mypage(){
+		//metaタグ設定
+        $this->meta_description = "マイページです。これまでの予想結果の確認や、登録情報の変更、お気に入りユーザーの確認が可能です。";
+		$this->meta_keywords = "マイページ";
+		$this->title_tag = "マイページ";
+
 		$this->set("naviType","mypage");
 		
 		if(empty($this->user["id"])){
@@ -298,6 +321,10 @@ class HomesController extends AppController {
 
 	//こじはるの予想一覧
 	public function kojiharu_list(){
+        $this->meta_description = "こじはるさんのこれまでの３連単５頭ボックスの予想一覧です。だいたい当たっています。みなさんもこじはるさんと一緒に是非予想してみましょう。";
+		$this->meta_keywords = "こじはる,３連単,5頭ボックス,予想";
+		$this->title_tag = "予想一覧";
+
 		$this->set("naviType","kojiharu");
 		
 		$year = date("Y");//TODO 引数で受け取りたい
@@ -398,6 +425,7 @@ class HomesController extends AppController {
 			}
 		}
 
+		$this->title_tag = $otherUser["User"]["nickname"]."さんの予想一覧";
 
 
 		$this->set(compact("year","raceData", "raceResultData","myData","myResultData","otherUser","favoFlg"));
@@ -407,11 +435,13 @@ class HomesController extends AppController {
 
 	//当サイトについて
 	public function about(){
+		$this->title_tag = "当サイトについて";
 		$this->set("naviType","about");
 	}
 
 	//お問い合わせ
 	public function contact(){
+		$this->title_tag = "お問い合わせ";
 		$this->set("naviType","contact");
 
 		if($this->request->is('post')){
@@ -436,6 +466,7 @@ class HomesController extends AppController {
 
 	//お問い合わせ確認画面
 	public function contact_confirm(){
+		$this->title_tag = "お問い合わせ確認画面";
     	$this->set("naviType","contact");
 
     	$data = $this->Session->read('contact');
@@ -454,6 +485,7 @@ class HomesController extends AppController {
 
 	//お問い合わせ完了ページ
 	public function contact_complete(){
+		$this->title_tag = "お問い合わせ確認完了";
     	$this->set("naviType","contact");
 
 	}
@@ -544,6 +576,7 @@ class HomesController extends AppController {
 
 	//お気に入り一覧
 	public function favorite(){
+		$this->title_tag = "お気に入り一覧";
 		if(empty($this->user["id"])){
 			$this->redirect("/");
 		}
