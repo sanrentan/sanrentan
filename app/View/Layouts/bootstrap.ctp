@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>
-		<?php echo __('CakePHP: the rapid development php framework:'); ?>
-		<?php echo $title_for_layout; ?>
-	</title>
+	<title><?php if(!empty($title_tag)):?><?php echo $title_tag; ?>｜こじはる３連単５頭ボックス<?php else:?>こじはる３連単５頭ボックス<?php endif;?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author" content="">
+	<meta name="description" content="<?php echo $meta_description;?>">
+	<meta name="keywords" content="<?php echo $meta_keywords;?>">
+	<meta name="author" content="yamaty">
 
 	<!-- Le styles -->
 	<?php echo $this->Html->css('bootstrap.min'); ?>
@@ -18,7 +16,6 @@
 	}
 	</style>
 	<?php echo $this->Html->css('bootstrap-responsive.min'); ?>
-
 	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -37,6 +34,7 @@
 	echo $this->fetch('css');
 	?>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<?php echo $this->html->meta('icon');?>
 </head>
 
 <body>
