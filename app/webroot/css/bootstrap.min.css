@@ -758,6 +758,23 @@ ul.information.matomeList{
 }
 
 .twitterArea{
-	width:270px;
+	width:300px;
 	margin:0 0 0 auto;
+}
+
+.adArea{
+	width:300px;
+}
+.adArea ul{
+	margin-left:0;
+}
+
+.adArea .adheight{
+	margin-bottom: 10px;
+}
+.adArea .adheight .adheightLeft{
+	float:left;
+}
+.adArea .adheight .adheightRight{
+	float:right;	
 }
