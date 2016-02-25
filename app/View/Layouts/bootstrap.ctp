@@ -87,9 +87,46 @@
 
 		<div id="footer">
 			<div id="footerArea">
-				<a href="http://px.a8.net/svt/ejp?a8mat=2BY5X7+G6VESA+2VOI+65EOH" target="_blank">
-<img border="0" width="728" height="90" alt="" src="http://www22.a8.net/svt/bgt?aid=141002107979&wid=002&eno=01&mid=s00000013437001033000&mc=1"></a>
-<img border="0" width="1" height="1" src="http://www17.a8.net/0.gif?a8mat=2BY5X7+G6VESA+2VOI+65EOH" alt="">
+
+				<?php $footerAd = rand(1,10);?>
+
+				<?php if($footerAd<=2):?>
+					<?php //yahoo ;?>
+					<a href="http://px.a8.net/svt/ejp?a8mat=2BY5X7+G6VFK2+2VOI+64C3L" target="_blank">
+					<img border="0" width="728" height="90" alt="" src="http://www27.a8.net/svt/bgt?aid=141002107979&wid=003&eno=01&mid=s00000013437001028000&mc=1"></a>
+					<img border="0" width="1" height="1" src="http://www14.a8.net/0.gif?a8mat=2BY5X7+G6VFK2+2VOI+64C3L" alt="">
+
+				<?php elseif($footerAd<=4):?>
+					<?php //さくら ;?>
+					<a href="http://px.a8.net/svt/ejp?a8mat=2HJY3S+72TL8I+D8Y+C7TC1" target="_blank">
+					<img border="0" width="728" height="90" alt="" src="http://www22.a8.net/svt/bgt?aid=150416488428&wid=003&eno=01&mid=s00000001717002052000&mc=1"></a>
+					<img border="0" width="1" height="1" src="http://www12.a8.net/0.gif?a8mat=2HJY3S+72TL8I+D8Y+C7TC1" alt="">				
+
+				<?php elseif($footerAd<=6):?>
+					<?php //KLAN ;?>
+					<a href="http://px.a8.net/svt/ejp?a8mat=2NDV7S+198ZIY+2KK8+HVFKX" target="_blank">
+					<img border="0" width="728" height="90" alt="" src="http://www27.a8.net/svt/bgt?aid=160210504076&wid=003&eno=01&mid=s00000011996003002000&mc=1"></a>
+					<img border="0" width="1" height="1" src="http://www18.a8.net/0.gif?a8mat=2NDV7S+198ZIY+2KK8+HVFKX" alt="">
+
+				<?php elseif($footerAd<=8):?>
+					<?php //BASE ;?>
+					<a href="http://px.a8.net/svt/ejp?a8mat=2NC1FN+CAD4SI+2QQG+63H8H" target="_blank">
+					<img border="0" width="728" height="90" alt="" src="http://www27.a8.net/svt/bgt?aid=160125251743&wid=003&eno=01&mid=s00000012796001024000&mc=1"></a>
+					<img border="0" width="1" height="1" src="http://www14.a8.net/0.gif?a8mat=2NC1FN+CAD4SI+2QQG+63H8H" alt="">
+				<?php else:?>
+					<?php //オッズパーク ;?>
+					<a href="http://px.a8.net/svt/ejp?a8mat=2NC1FN+C3TD4Y+1JS2+C164X" target="_blank">
+					<img border="0" width="728" height="90" alt="" src="http://www29.a8.net/svt/bgt?aid=160125251732&wid=003&eno=01&mid=s00000007229002021000&mc=1"></a>
+					<img border="0" width="1" height="1" src="http://www18.a8.net/0.gif?a8mat=2NC1FN+C3TD4Y+1JS2+C164X" alt="">
+				<?php endif;?>
+
+
+
+				
+
+
+
+
 			</div>
 
 
