@@ -97,13 +97,6 @@
 			<?php endforeach;?>
 		</ul>
 
-
-		<div id="leftAdArea">
-
-
-		</div>
-
-
 	</div>
 	<div id="rightContent">
 
