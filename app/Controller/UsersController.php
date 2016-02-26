@@ -35,8 +35,12 @@ class UsersController extends AppController {
         $this->set("naviType","regist");
         if ($this->request->is('post')) {
 
-
             $this->User->set($this->request->data);
+
+            if(empty($this->request->data["User"]["profile_img"]["name"])){
+                unset($this->User->validate["profile_img"]);
+            }
+
             if ($this->User->validates()) {
 
                 //画像アップロード
@@ -86,6 +90,13 @@ class UsersController extends AppController {
                 $postData["agreeError"] = 1;
             }
         }
+
+        if(is_array($postData["User"]["profile_img"])){
+            unset($postData["User"]["profile_img"]);
+            $postData["User"]["profile_img"] = "";
+            $this->Session->write('regist', $postData);
+        }
+
         $this->set("postData",$postData);
     }
 
@@ -263,7 +274,7 @@ class UsersController extends AppController {
 				$this->redirect('/');
 	            //$this->redirect($this->Auth->redirect());
 	        } else {
-	            $this->Flash->error(__('Invalid username or password, try again'));
+                $this->set("errorMsg","※ログインIDまたはパスワードが異なります");
 	        }
 	    }
 	}
@@ -274,6 +285,7 @@ class UsersController extends AppController {
 	    //$this->redirect($this->Auth->logout());
         $this->Auth->logout();
         //$this->redirect('/');
+        $this->set("user","");
 	}
 
 }

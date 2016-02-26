@@ -42,6 +42,12 @@
 		border-bottom:1px solid #CCC;
 	}
 
+	.navi-nickname{
+		padding-top:10px;
+		padding-right: 5px;
+		text-align: right;
+	}
+
 
 	.titleLabel {
 	    font-size: 100%;
@@ -242,6 +248,11 @@
 	    padding: 0 0 0 0;
 	    margin-bottom: 30px;
 	    max-width: 100%;
+	}
+
+	#bottomAd{
+		display: block;
+		margin: 0 auto 20px auto;
 	}
 
 }

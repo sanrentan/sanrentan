@@ -497,6 +497,14 @@ ul.information.matomeList{
 	padding:10px 10px 10px 10px;
 }
 
+#mypage #resultArea table td p.resultUmaName{
+	font-size:100%;
+}
+#mypage #resultArea table td p.resultUmaName.last{
+	margin-bottom:0;
+}
+
+
 #mypage #resultArea table tr.row2{
 	background-color:#f6f7f2;
 }
@@ -778,3 +786,5 @@ ul.information.matomeList{
 .adArea .adheight .adheightRight{
 	float:right;	
 }
+
+

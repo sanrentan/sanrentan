@@ -7,6 +7,7 @@
 	        <legend>
 	            <?php echo __('ログインIDとパスワードを入力してください'); ?>
 	        </legend>
+	        <?php if(!empty($errorMsg)):?><p class="red"><?php echo $errorMsg;?></p><?php endif;?>
 			<p>ログインID</p>
 			<?php echo $this->Form->input('username',array('label'=>false));?>
 			<p>パスワード</p>

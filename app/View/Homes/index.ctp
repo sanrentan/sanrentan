@@ -134,26 +134,19 @@
 		<?php endif;?>
 
 		<?php $ad2 = rand(1,10);?>
-		<?php if($ad2<=3):?>
+		<?php if($ad2<=5):?>
 			<li>
 				<?php //乃木坂 ?>
 				<a href="http://px.a8.net/svt/ejp?a8mat=2C0PLP+DG1H4Y+347Q+61C2P" target="_blank">
 				<img border="0" width="300" height="250" alt="" src="http://www22.a8.net/svt/bgt?aid=141120925813&wid=003&eno=01&mid=s00000014543001014000&mc=1"></a>
 				<img border="0" width="1" height="1" src="http://www16.a8.net/0.gif?a8mat=2C0PLP+DG1H4Y+347Q+61C2P" alt="">
 			</li>
-		<?php elseif($ad2<=3):?>
+		<?php else:?>
 			<li>
 				<?php //お名前レンタルサーバー ?>
 				<a href="http://px.a8.net/svt/ejp?a8mat=2NC1FG+DE96BM+50+35OAJ5" target="_blank">
 				<img border="0" width="350" height="240" alt="" src="http://www29.a8.net/svt/bgt?aid=160125244810&wid=003&eno=01&mid=s00000000018019093000&mc=1"></a>
 				<img border="0" width="1" height="1" src="http://www15.a8.net/0.gif?a8mat=2NC1FG+DE96BM+50+35OAJ5" alt="">
-			</li>
-		<?php else:?>
-			<li>
-				<?php //BASE ?>
-				<a href="http://px.a8.net/svt/ejp?a8mat=2NC1FN+CAD4SI+2QQG+61JSH" target="_blank">
-				<img border="0" width="336" height="280" alt="" src="http://www26.a8.net/svt/bgt?aid=160125251743&wid=003&eno=01&mid=s00000012796001015000&mc=1"></a>
-				<img border="0" width="1" height="1" src="http://www11.a8.net/0.gif?a8mat=2NC1FN+CAD4SI+2QQG+61JSH" alt="">
 			</li>
 		<?php endif;?>
 

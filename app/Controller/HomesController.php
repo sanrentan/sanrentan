@@ -361,6 +361,9 @@ class HomesController extends AppController {
 			
 		if(!empty($this->user["id"])){
 			$this->set("user",$this->user);
+		}else{
+			//ログインしていない場合は見れません
+			$this->render("/homes/nonmember");
 		}
 
 		if(empty($user_id)||!is_numeric($user_id)){
