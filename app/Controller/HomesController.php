@@ -472,8 +472,16 @@ class HomesController extends AppController {
     	$data = $this->Session->read('contact');
     	$this->set("data",$data);
 
-		if($this->request->is('post')){
+		if($this->request->is('post')&&!empty($data)){
 	    	//メール送信
+	    	$email = new CakeEmail('smtp'); 
+		    $email->to($data["email"]);
+		    $email->bcc('info@sanrentan-box.com');
+		    $email->subject( 'お問い合わせ頂きありがとうございます');
+			$email->emailFormat('text');
+		    $email->template('contact');
+		    $email->viewVars(compact('data'));
+		    $email->send();
 
 	    	//sessionから削除
 	        $this->Session->write('contact', "");
@@ -487,6 +495,9 @@ class HomesController extends AppController {
 	public function contact_complete(){
 		$this->title_tag = "お問い合わせ確認完了";
     	$this->set("naviType","contact");
+
+    	$this->Session->write('contact','');
+
 
 	}
 
