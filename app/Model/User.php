@@ -94,33 +94,38 @@ class User extends AppModel {
             // ルール：uploadError => errorを検証 (2.2 以降)
             'upload-file' => array( 
                 'rule' => array( 'uploadError'),
-                'message' => array( 'ファイルアップロードに失敗しました')
+                'message' => array( 'ファイルアップロードに失敗しました'),
+                'allowEmpty' => true
             ),
-/**
+
             // ルール：extension => pathinfoを使用して拡張子を検証
             'extension' => array(
                 'rule' => array('extension', array( 'jpg', 'jpeg', 'png', 'gif')),
-                'message' => array('jpgまたはpngまたはgifファイルを指定してください')
+                'message' => array('jpgまたはpngまたはgifファイルを指定してください'),
+                'allowEmpty' => true
             ),
 
             // ルール：mimeType => 
             'mimetype' => array( 
                 'rule' => array( 'mimeType', array('image/jpeg', 'image/png', 'image/gif')),
-                'message' => array('jpgまたはpngまたはgifファイルを指定してください')
+                'message' => array('jpgまたはpngまたはgifファイルを指定してください'),
+                'allowEmpty' => true
             ),
 
             // ルール：fileSize => filesizeでファイルサイズを検証(2GBまで)  (2.3 以降)
             'size' => array(
                 'maxFileSize' => array( 
                     'rule' => array( 'fileSize', '<=', '2MB'),  // 10M以下
-                    'message' => array( 'ファイルサイズは2MB以下の画像を指定してください')
+                    'message' => array( 'ファイルサイズは2MB以下の画像を指定してください'),
+                    'allowEmpty' => true
                 ),
                 'minFileSize' => array( 
                     'rule' => array( 'fileSize', '>',  0),    // 0バイトより大
-                    'message' => array( 'ファイルサイズが不正です')
+                    'message' => array( 'ファイルサイズが不正です'),
+                    'allowEmpty' => true
                 ),
             ),
-*/
+
 
         ),
     );
