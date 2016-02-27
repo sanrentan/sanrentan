@@ -363,7 +363,7 @@ class HomesController extends AppController {
 			$this->set("user",$this->user);
 		}else{
 			//ログインしていない場合は見れません
-			$this->render("/homes/nonmember");
+			$this->render("nonmember");
 			return;
 		}
 
@@ -379,7 +379,7 @@ class HomesController extends AppController {
 		$otherUser = $this->User->find("first",array("conditions"=>$conditions));
 		if(empty($otherUser)){
 			$this->set("message","ユーザーが存在しません。または既に退会しています。");
-			$this->render("/homes/error");
+			$this->render("error");
 			return;
 		}
 
