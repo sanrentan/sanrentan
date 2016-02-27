@@ -109,6 +109,16 @@ class UsersController extends AppController {
             $user_id = $this->User->create();
             unset($this->User->validate["profile_img"]);
             if ($this->User->save($postData)) {
+
+                //メール送信
+                $email = new CakeEmail('smtp'); 
+                $email->to('info@sanrentan-box.com');
+                $email->subject( '会員登録がありました');
+                $email->emailFormat('text');
+                $email->template('regist');
+                $email->viewVars(compact('postData'));
+                $email->send();
+
                 //ログインしてトップページへ
                 $user_id = $this->User->getLastInsertID();
                 $this->Session->write("regist","");
