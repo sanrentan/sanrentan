@@ -68,8 +68,8 @@
 
 		<p class="titleLabel light">お知らせ</p>
 		<ul class="information">
-			<li>2016年2月19日　フェブラリーステークスの受付を開始しました。</li>
-			<li>2016年2月19日　サイトをオープンしました。</li>
+			<li>2016年2月27日　<a href="/detail/23">中山記念</a>の受付を開始しました。</li>
+			<li>2016年2月27日　サイトをオープンしました。</li>
 		</ul>
 
 		<?php if(!empty($newsRss)):?>

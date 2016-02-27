@@ -49,13 +49,15 @@ class Expectation extends AppModel {
     }
 
    //みんなのレースの予想を取得
-    public function getExpectationOther($race_id,$limit = 5){
+    public function getExpectationOther($race_id,$limit = 50){
 		$options = array(
 			'conditions' => array(
 				'Expectation.cancel_flg' => 0,
 				'Expectation.race_id' => $race_id,
+				'Expectation.user_id >' => 100,
 			),
-			'limit' => $limit
+			'limit' => $limit,
+			'order' => "id desc"
 		);
 		$resultData = $this->find("all",$options);
 
@@ -162,13 +164,11 @@ class Expectation extends AppModel {
 				'Expectation.cancel_flg' => 0,
 				'Expectation.race_id' => $race_id,
 				'Expectation.result' => 1,
+				'Expectation.user_id >' => 100 
 			),
 			'order' => "id asc"
 		);
 		$winData = $this->find("all",$options);
-
-		//あとで消す
-		$winData = array_merge($winData,$winData,$winData,$winData,$winData,$winData,$winData,$winData,$winData,$winData,$winData,$winData,$winData,$winData,$winData);
 
 		$userIds = array();
 		if(!empty($winData)){

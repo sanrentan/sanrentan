@@ -364,15 +364,23 @@ class HomesController extends AppController {
 		}else{
 			//ログインしていない場合は見れません
 			$this->render("/homes/nonmember");
+			return;
 		}
 
 		if(empty($user_id)||!is_numeric($user_id)){
 			echo "user_id is wrong";exit;
 		}
 
-		$otherUser = $this->User->find("first",array("conditions"=>array("User.id"=>$user_id)));
+		$conditions = array(
+			"User.id" => $user_id,
+			"User.is_deleted" => 0,
+			"User.test_flg" => 0
+		);
+		$otherUser = $this->User->find("first",array("conditions"=>$conditions));
 		if(empty($otherUser)){
-			echo "user is not exist!";exit;
+			$this->set("message","ユーザーが存在しません。または既に退会しています。");
+			$this->render("/homes/error");
+			return;
 		}
 
 		$year = date("Y");//TODO 引数で受け取りたい
