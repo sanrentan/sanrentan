@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="jp">
 <head>
 	<meta charset="utf-8">
 	<title><?php if(!empty($title_tag)):?><?php echo $title_tag; ?>｜こじはる３連単５頭ボックス<?php else:?>こじはる３連単５頭ボックス<?php endif;?></title>

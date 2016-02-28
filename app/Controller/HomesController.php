@@ -216,7 +216,11 @@ class HomesController extends AppController {
 
 			    //
 				$raceData = $this->Race->findById($this->request->data['Expectation']['race_id']);
+		
+				$myData = $this->Expectation->getExpectationData($this->request->data['Expectation']['race_id'],$this->user["id"]);
+
 				$this->set("raceData",$raceData);
+				$this->set("expectationData",$myData);
 			}else{
 				$this->Session->setFlash(__('※不正な遷移です。'));
 				$this->redirect('/');
