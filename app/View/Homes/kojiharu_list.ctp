@@ -9,8 +9,14 @@
 		</div>
 		<br>
 
-		<p class="subtitle"><?php echo $year;?>年の戦績：<?php echo $myResultData["ExpectationResult"]["win"];?>勝<?php echo $myResultData["ExpectationResult"]["lose"];?>敗　収支 <?php if($myResultData["ExpectationResult"]["price"]>0):?>+<?php endif;?><?php echo number_format($myResultData["ExpectationResult"]["price"]);?>円</p>
-
+		<div>
+		<p class="subtitle" style="float:left;"><?php echo $year;?>年の戦績：<?php echo $myResultData["ExpectationResult"]["win"];?>勝<?php echo $myResultData["ExpectationResult"]["lose"];?>敗　収支 <?php if($myResultData["ExpectationResult"]["price"]>0):?>+<?php endif;?><?php echo number_format($myResultData["ExpectationResult"]["price"]);?>円
+		</p>
+		<p style="float:left;margin-left:20px;">
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.sanrentan-box.com/kojiharu_list/" data-text="こじはるさんの３連単予想記録！" data-lang="ja" data-size="large" data-hashtags="３連単予想">ツイート</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+		</p>
+		<div class="clearfix"></div>
 		<table border="1" class="pc">
 			<tr><th>No.</th><th>日付</th><th>レース名</th><th>結果<br>１着/２着/３着</th><th>配当金</th><th>こじはる予想</th><th>結果</th></tr>
 			<?php foreach($raceData as $key=>$data):?>
