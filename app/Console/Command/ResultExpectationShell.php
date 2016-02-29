@@ -227,6 +227,7 @@ class ResultExpectationShell extends AppShell {
                 $tmpData = $this->RaceResultDetail->find("first",$options);
                 //人気は月曜にならないととれないので
                 $tmpData["RaceResultDetail"]["popularity"] = $data["popularity"];
+                $tmpData["RaceResultDetail"]["result"]  = $data["result"];
                 $tmpData["RaceResultDetail"]["trainer"] = $data["trainer"];
                 $tmpData["RaceResultDetail"]["modified"] = date("Y-m-d H:i:s");
                 $this->RaceResultDetail->save($tmpData);

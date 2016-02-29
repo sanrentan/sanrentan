@@ -79,7 +79,7 @@
 				<td align="center" class="pc"><?php echo $data["last_time"];?></td>
 				<td align="center" class="pc"><?php echo $data["weight"];?></td>
 				<td align="center" class="pc"><?php echo $data["trainer"];?></td>
-				<td align="center"><?php echo $data["popularity"];?></td>
+				<td align="center"><?php if($data["popularity"]!=0):?><?php echo $data["popularity"];?><?php else:?>-<?php endif;?></td>
 			</tr>
 		<?php endforeach;?>
 		</table>
