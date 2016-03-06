@@ -38,12 +38,13 @@ class AppController extends Controller {
         'Flash',
         'Auth' => array(
             'authenticate' => array(
-                'all' => array(
+                'Form' => array(
                     'fields' => array(
                         'username' => 'username',
                         'password' => 'password',
                     ),
                     'scope' => array('is_deleted' => 0),
+                    'passwordHasher' => 'Blowfish'
                 ),
                 'TwitterKit.TwitterOauth',
             ),
