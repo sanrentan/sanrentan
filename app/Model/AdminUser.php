@@ -1,6 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
 App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
+App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
 
 class AdminUser extends AppModel {
     
@@ -38,13 +39,6 @@ class AdminUser extends AppModel {
                 'message' => 'パスワードは6文字以上、20文字以下で入力して下さい',
             ),
         ),
-        'role' => array(
-            'valid' => array(
-                'rule' => array('inList', array('admin', 'author')),
-                'message' => 'Please enter a valid role',
-                'allowEmpty' => false
-            )
-        ),
         'nickname' => array(
             'required' => array(
                 'rule' => 'notBlank',
@@ -64,10 +58,10 @@ class AdminUser extends AppModel {
 
 	public function beforeSave($options = array()) {
 	    if (isset($this->data[$this->alias]['password'])) {
-	        //$passwordHasher = new BlowfishPasswordHasher();
-	        //$this->data[$this->alias]['password'] = $passwordHasher->hash(
-	        //    $this->data[$this->alias]['password']
-	        //);
+            $passwordHasher = new SimplePasswordHasher(array('hashType' => 'sha256'));
+            $this->data[$this->alias]['password'] = $passwordHasher->hash(
+                $this->data[$this->alias]['password']
+            );
 	    }
 	    return true;
 	}

@@ -81,4 +81,84 @@ class ManagesController extends AdminController {
 		$this->redirect($this->Auth->logout());
 	}
 
+
+	///管理者管理(一覧表示)
+	public function admin_user(){
+		$options = array(
+			"conditions" => array(
+				"is_deleted" => 0
+			),
+			"order" => "id asc"
+		);
+		$adminUser = $this->AdminUser->find("all",$options);
+		$this->set("adminUser",$adminUser);
+	}
+
+	//管理者ユーザーの新規登録
+	public function admin_user_add(){
+		$select1 = array(
+			"0" => "一般管理者",
+			"1" => "システム管理者",
+		);
+		$this->set("select1",$select1);
+
+	    if ($this->request->is('post')) {
+	    	$this->AdminUser->create();
+	    	if($this->AdminUser->save($this->request->data)){
+                $this->Flash->success(__('登録しました'));
+	    		$this->redirect("./user");
+	    	}
+	    }
+	}
+	public function admin_user_edit($id){
+		if(empty($id)||!is_numeric($id)){
+	    	$this->Session->setFlash("idが不正です");
+	    	$this->redirect("./user");
+	    }
+
+        $this->AdminUser->id = $id;
+        if (!$this->AdminUser->exists()) {
+	    	$this->Session->setFlash("ユーザーが存在しません");
+	    	$this->redirect("./user");
+        }
+
+        if ($this->request->is('post')||$this->request->is('put')) {
+
+        	if(empty($this->request->data["AdminUser"]["password"])){
+        		unset($this->AdminUser->validate["password"]);
+        	}
+
+            if ($this->AdminUser->save($this->request->data)) {
+                $this->Flash->success(__('更新しました。id='.$id));
+                return $this->redirect(array('action' => 'user'));
+            }
+            $this->Flash->error(
+                __('登録に失敗しました')
+            );
+        } else {
+            $this->request->data = $this->AdminUser->findById($id);
+            unset($this->request->data['AdminUser']['password']);
+        }
+
+		$select1 = array(
+			"0" => "一般管理者",
+			"1" => "システム管理者",
+		);
+		$this->set("select1",$select1);
+	}
+
+	public function admin_user_delete($id){
+
+        $this->AdminUser->id = $id;
+        if (!$this->AdminUser->exists()) {
+	    	$this->Session->setFlash("ユーザーが存在しません");
+	    	$this->redirect("./AdminUser");
+        }
+
+		$this->AdminUser->saveField('is_deleted', 1);  
+		$this->AdminUser->saveField('deleted_date', date("Y-m-d H:i:s"));  
+        $this->Flash->success(__('削除しました'));
+        return $this->redirect(array('action' => 'user'));
+	}
+
 }
