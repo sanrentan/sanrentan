@@ -2,6 +2,14 @@
 	clear:both;
 }
 
+.red{
+	color:#FF0000;
+}
+
+.titleLabel{
+	font-size:140%;
+}
+
 #header{
 	display: block;
 }
@@ -22,4 +30,14 @@
 .adminNavi ul li a{
 	color:#000 !important;
 	text-decoration: underline;
+}
+
+.userForm p{
+	margin-bottom:0;
+}
+
+.userForm input, 
+.userForm textarea{
+	font-size:120%;
+	padding:5px;
 }
