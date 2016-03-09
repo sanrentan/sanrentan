@@ -9,7 +9,7 @@
 			<td><?php echo $data["Race"]["id"];?></td>
 			<td><?php echo date("Y年m月d日",strtotime($data["Race"]["race_date"]));?></td>
 			<td><?php echo $data["Race"]["place"];?></td>
-			<td><?php echo $data["Race"]["name"];?>(G<?php echo $data["Race"]["grade"];?>)</td>
+			<td><?php echo $data["Race"]["name"];?><?php if($data["Race"]["grade"]>=1):?>(G<?php echo $data["Race"]["grade"];?>)<?php endif;?></td>
 			<td><?php echo $data["Race"]["full_name"];?></td>
 			<td><?php echo $typeArr[$data["Race"]["type"]];?>　<?php echo $data["Race"]["distance"];?>m</td>
 			<td><?php echo $viewArr[$data["Race"]["view_flg"]];?></td>
