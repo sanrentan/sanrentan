@@ -54,7 +54,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
 				<div class="adminNavi">
 					<ul>
-						<li><a href="">レース管理</a></li>
+						<li><a href="/admin/manageRaces/">レース管理</a></li>
 						<li><a href="">ユーザー管理</a></li>
 						<li><a href="">予想管理</a></li>
 						<li><a href="">掲示板管理</a></li>

@@ -84,6 +84,19 @@ class AdminController extends Controller {
             }
         }
 
+        $typeArr = array("芝","ダート");
+        $this->set("typeArr",$typeArr);
+        $turnArr = array("右","左");
+        $this->set("turnArr",$turnArr);
+
+        $viewArr = array("非公開","公開");
+        $this->set("viewArr",$viewArr);
+        $acceptArr = array("停止","受付中");
+        $this->set("acceptArr",$acceptArr);
+        $kojiharuArr = array("-","対象レース");
+        $this->set("kojiharuArr",$kojiharuArr);
+
+
 		$this->user = $this->Auth->user();
 		$this->set("user",$this->user);
 

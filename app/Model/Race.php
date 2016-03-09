@@ -18,6 +18,124 @@ class Race extends AppModel {
         )
     );
 
+    public $validate = array(
+        'name' => array(
+            'required' => array(
+                'rule' => 'notBlank',
+                'message' => 'レース名を入力してください'
+            ),
+            'length' => array(
+                'rule' => array( 'maxLength', 20),
+                'message' => 'レース名は20文字まで',
+            ),
+        ),
+        'full_name' => array(
+            'required' => array(
+                'rule' => 'notBlank',
+                'message' => 'レース正式名称を入力してください'
+            ),
+            'length' => array(
+                'rule' => array( 'maxLength', 50),
+                'message' => 'レース正式名称は50文字までです',
+            ),
+        ),
+        'grade' => array(
+            'numeric' => array(
+                'rule' => array( 'numeric'),
+                'message' => 'グレードは数字を入力してください',
+            ),
+        ),
+        'distance' => array(
+            'required' => array(
+                'rule' => 'notBlank',
+                'message' => '距離を入力してください'
+            ),
+            'numeric' => array(
+                'rule' => array( 'numeric'),
+                'message' => '距離は数字を入力してください',
+            ),
+        ),
+        'type' => array(
+            'required' => array(
+                'rule' => 'notBlank',
+                'message' => '芝・ダートを入力してください'
+            ),
+            'numeric' => array(
+                'rule' => array( 'numeric'),
+                'message' => '芝・ダートは数字を入力してください',
+            ),
+        ),
+        'turn' => array(
+            'required' => array(
+                'rule' => 'notBlank',
+                'message' => '右または左を入力してください'
+            ),
+            'numeric' => array(
+                'rule' => array('numeric'),
+                'message' => '右または左は数字を入力してください',
+            ),
+        ),
+        'note' => array(
+            'length' => array(
+                'rule' => array( 'maxLength', 100),
+                'message' => '備考欄は100文字まで',
+            ),
+        ),
+        'race_date' => array(
+            'required' => array(
+                'rule' => 'notBlank',
+                'message' => 'レース名を入力してください'
+            ),
+            'datetime' => array(
+                'rule' => array("datetime"),
+                'message' => '有効な日時を入力してください。',
+            ),
+        ),
+        'view_flg' => array(
+            'required' => array(
+                'rule' => 'notBlank',
+                'message' => '表示フラグを入力してください'
+            ),
+            'numeric' => array(
+                'rule' => array('numeric'),
+                'message' => '表示フラグは数字を入力してください',
+            ),
+        ),
+        'accepting_flg' => array(
+            'required' => array(
+                'rule' => 'notBlank',
+                'message' => '受付フラグを入力してください'
+            ),
+            'numeric' => array(
+                'rule' => array('numeric'),
+                'message' => '受付フラグは数字を入力してください',
+            ),
+        ),
+        'kojiharu_flg' => array(
+            'required' => array(
+                'rule' => 'notBlank',
+                'message' => 'こじはるフラグを入力してください'
+            ),
+            'numeric' => array(
+                'rule' => array('numeric'),
+                'message' => 'こじはるフラグは数字を入力してください',
+            ),
+        ),
+
+        'html_id' => array(
+            'required' => array(
+                'rule' => 'notBlank',
+                'message' => 'html_idを入力してください'
+            ),
+            'numeric' => array(
+                'rule' => array('numeric'),
+                'message' => 'html_idは数字を入力してください',
+            ),
+        ),
+
+    );	
+
+
     public function afterFind($results,$primary = false){
     	if(!empty($results)&&count($results)==1){
     		$wkArray = array();
