@@ -122,6 +122,7 @@
 
 <p class="titleLabel">みんなの予想</p>
 <?php if(!empty($otherExpectData)):?>
+	<div id="userListArea">
 	<?php foreach($otherExpectData as $key=>$data):?>
 		<a href="/other/<?php echo $data['User']['id'];?>">
 			<div class="userExpect">

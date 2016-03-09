@@ -186,7 +186,8 @@
 
 
 	#horseListArea #winUserArea .winUser {
-	    margin-left: 10px;
+	    margin-left: 1%;
+	    margin-right: 1%;
 	    margin-bottom: 20px;
 	    background-color: #FFEFD5;
 	    border: 2px solid #FFEFD5;
@@ -253,6 +254,13 @@
 	#bottomAd{
 		display: block;
 		margin: 0 auto 20px auto;
+	}
+
+	#userListArea .userExpect{
+		width:45%;
+	}
+	#userListArea .userExpect p{
+		font-size:90%;
 	}
 
 }
