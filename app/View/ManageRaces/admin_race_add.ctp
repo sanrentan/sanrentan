@@ -29,6 +29,7 @@
 			<?php echo $this->Form->input('view_flg', array('type' => 'select', 'options' => $viewArrays,"label"=>"公開状態"));?>
 			<?php echo $this->Form->input('accepting_flg', array('type' => 'select', 'options' => $acceptArrays,"label"=>"受付状態"));?>
 			<?php echo $this->Form->input('kojiharu_flg', array('type' => 'select', 'options' => $kojiharuArrays,"label"=>"こじはるフラグ"));?>
+			<?php echo $this->Form->input('html_id',array("type"=>"text","label"=>"html_id"));?>
 
 			<?php echo $this->Form->input('note',array("label"=>"備考欄","required"=>false));?>
 
