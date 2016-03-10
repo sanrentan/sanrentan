@@ -10,7 +10,7 @@
 		<p><?php echo $raceData["Race"]["note"];?></p>
 		<p>発走時刻：<?php echo date("H時i分",strtotime($raceData["Race"]["race_date"]));?></p>
 		<p><a href="http://keiba.yahoo.co.jp/race/denma/<?php echo $raceData['Race']['html_id'];?>/" target="_blank">レース詳細（外部サイト)</a></p>
-		<p class="red2"><?php if(empty($myData)):?>下記出走表から５頭選択してください。<?php else:?>既に予想を登録済みです。<?php endif;?></p>
+		<p class="red2"><?php if(!$raceData["Race"]["accepting_flg"]):?>受付開始までお待ちください<?php elseif(empty($myData)):?>下記出走表から５頭選択してください。<?php else:?>既に予想を登録済みです。<?php endif;?></p>
 		<?php if(empty($user)):?><p class="red2">※予想をするためには<a href="/login">ログイン</a>または<a href="/regist">無料会員登録</a>を行ってください。</p><?php endif;?>
 		<?php if(!empty($errorMessage)):?><p class="red2"><?php echo $errorMessage;?></p><?php endif;?>
 	</div>
@@ -43,10 +43,10 @@
 <?php echo $this->Form->hidden('Expectation.race_id' ,array('value' => $raceData["Race"]["id"]));?>
 <div id="horseListArea">
 	<table border="1">
-	<tr><?php if(!empty($user)&&empty($myData)):?><th>選択</th><?php endif;?><th>枠番</th><th>馬番</th><th>馬名</th><th>性齢</th><th>馬体重</th><th>負担重量/<br>騎手名</th><th class="pc">前走</th><th class="pc">前々走</th><th class="pc">3走前</th><th class="pc">4走前</th><th class="pc">5走前</th></tr>
+	<tr><?php if(!empty($user)&&empty($myData)&&$raceData["Race"]["accepting_flg"]):?><th>選択</th><?php endif;?><th>枠番</th><th>馬番</th><th>馬名</th><th>性齢</th><th>馬体重</th><th>負担重量/<br>騎手名</th><th class="pc">前走</th><th class="pc">前々走</th><th class="pc">3走前</th><th class="pc">4走前</th><th class="pc">5走前</th></tr>
 	<?php foreach($raceData["RaceCard"] as $key=>$data):?>
 		<tr>
-			<?php if(!empty($user)&&empty($myData)):?><td align="center"><input type="checkbox" name="data[Expectation][item][]" value="<?php echo $data['id'];?>" <?php if(!empty($this->request->data['Expectation']['item'])&&in_array($data['id'],$this->request->data['Expectation']['item'])):?>checked<?php endif;?>></td><?php endif;?>
+			<?php if(!empty($user)&&empty($myData)&&$raceData["Race"]["accepting_flg"]):?><td align="center"><input type="checkbox" name="data[Expectation][item][]" value="<?php echo $data['id'];?>" <?php if(!empty($this->request->data['Expectation']['item'])&&in_array($data['id'],$this->request->data['Expectation']['item'])):?>checked<?php endif;?>></td><?php endif;?>
 			<?php if($data["wk_flg"]):?>
 				<td rowspan="<?php echo $raceData['wkData'][$data['wk']];?>" class="wk<?php echo $data['wk'];?>" align="center"><?php if($data["wk"]>0):?><?php echo $data["wk"];?><?php else:?>-<?php endif;?></td>
 			<?php endif;?>
@@ -110,7 +110,7 @@
 	</table>
 
 	<?php if(!empty($user["id"])):?>
-		<?php if(empty($myData)):?>
+		<?php if(empty($myData)&&$raceData["Race"]["accepting_flg"]):?>
 			<p style="padding:10px 0 0 25px;" class="pc"><input type="submit" class="btn btn-primary" value="予想する"></p>
 			<p class="sp"><input type="submit" class="btn btn-primary btn-block-sp" value="予想する"></p>
 			<?php echo $this->Form->end();?>
