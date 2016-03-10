@@ -48,9 +48,9 @@
 		<tr>
 			<?php if(!empty($user)&&empty($myData)):?><td align="center"><input type="checkbox" name="data[Expectation][item][]" value="<?php echo $data['id'];?>" <?php if(!empty($this->request->data['Expectation']['item'])&&in_array($data['id'],$this->request->data['Expectation']['item'])):?>checked<?php endif;?>></td><?php endif;?>
 			<?php if($data["wk_flg"]):?>
-				<td rowspan="<?php echo $raceData['wkData'][$data['wk']];?>" class="wk<?php echo $data['wk'];?>" align="center"><?php echo $data["wk"];?></td>
+				<td rowspan="<?php echo $raceData['wkData'][$data['wk']];?>" class="wk<?php echo $data['wk'];?>" align="center"><?php if($data["wk"]>0):?><?php echo $data["wk"];?><?php else:?>-<?php endif;?></td>
 			<?php endif;?>
-			<td align="center"><?php echo $data["uma"];?></td>
+			<td align="center"><?php if($data["uma"]>0):?><?php echo $data["uma"];?><?php else:?>-<?php endif;?></td>
 			<td><?php echo $data["name"];?></td>
 			<td align="center"><?php echo $data["sexage"];?></td>
 			<td align="center">

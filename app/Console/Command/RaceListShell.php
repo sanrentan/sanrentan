@@ -7,16 +7,42 @@ class RaceListShell extends AppShell {
 
     public $uses = array('Race','RaceCard','RaceDetail','RecentRaceResult');
 
+    public function getOptionParser() {
+        $parser = parent::getOptionParser();
+
+        $parser->addOption(
+            'race_id', array(
+                'help' => 'race_id',
+                'default' => null,
+            )
+        );
+        $parser->addOption(
+            'update', array(
+                'help' => '1:update',
+                'default' => 0,
+            )
+        );
+
+        return $parser;
+    }
+
     public function main() {
     	$msg = "start shell";
     	$this->__log($msg);
 
-    	//race_idを取得
-    	if(empty($this->args[0])){
-    		$this->__log("引数にrace_idを指定してください",true);
-    	}else{
-	    	$raceId = $this->args[0];
-    	}
+        //race_idを取得
+        if(empty($this->params["race_id"])){
+            $this->__log("引数にrace_idを指定してください",true);
+        }else{
+            $raceId = $this->params["race_id"];
+        }
+
+        //updateFlg
+        if($this->params["update"]==1){
+            $updateFlg = true;
+        }else{
+            $updateFlg = false;
+        }
 
 
         if(empty($raceId)||!is_numeric($raceId)){
@@ -37,7 +63,11 @@ class RaceListShell extends AppShell {
         );
         $cardData = $this->RaceCard->find("all",$options);
         if(!empty($cardData)){
-            $this->__log("既に出走表が登録されています。race_id = ".$raceId,true);
+            if($updateFlg==false){
+                $this->__log("既に出走表が登録されています。race_id = ".$raceId,true);
+            }else{
+                $this->__log("既に出走表が存在しますが処理を続けます");
+            }
         }
 
         //htmlを取得
@@ -148,16 +178,31 @@ class RaceListShell extends AppShell {
         $row = 1;
         foreach($horseList as $key=>&$horse){
             $horse["race_id"] = $raceId;
-            $this->RaceCard->create();
-            $this->RaceCard->save($horse);
-            $last_id = $this->RaceCard->getLastInsertID();
-            foreach($recent_5race_results[$row] as $eachResult){
-                $eachResult["race_card_id"] = $last_id;
-                //$eachResult["race_card_id"] = 1;
-                $this->RecentRaceResult->create();
-                $this->RecentRaceResult->save($eachResult);
+
+            if($updateFlg==false){
+                $this->RaceCard->create();
+                $this->RaceCard->save($horse);
+                $last_id = $this->RaceCard->getLastInsertID();
+                foreach($recent_5race_results[$row] as $eachResult){
+                    $eachResult["race_card_id"] = $last_id;
+                    //$eachResult["race_card_id"] = 1;
+                    $this->RecentRaceResult->create();
+                    $this->RecentRaceResult->save($eachResult);
+                }
+                $row++;
+            }else{
+                //RaceCardのみ更新
+                $options = array(
+                    "conditions" => array(
+                        "race_id" => $horse["race_id"],
+                        "name" => $horse["name"]
+                    )
+                );
+                $tmpData = $this->RaceCard->find("first",$options);
+                $tmpData["RaceCard"]["wk"] = $horse["wk"];
+                $tmpData["RaceCard"]["uma"] = $horse["uma"];
+                $this->RaceCard->save($tmpData);
             }
-            $row++;
         }
 
 
