@@ -201,6 +201,8 @@ class RaceListShell extends AppShell {
                 $tmpData = $this->RaceCard->find("first",$options);
                 $tmpData["RaceCard"]["wk"] = $horse["wk"];
                 $tmpData["RaceCard"]["uma"] = $horse["uma"];
+                $tmpData["RaceCard"]["weight"] = $horse["weight"];
+                $tmpData["RaceCard"]["plus"] = $horse["plus"];
                 $this->RaceCard->save($tmpData);
             }
         }
