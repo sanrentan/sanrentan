@@ -40,7 +40,8 @@ class Expectation extends AppModel {
 			}
 			$raceCard = ClassRegistry::init('RaceCard');
 			$options = array(
-				"conditions" => array("RaceCard.id"=>$tmpArray)
+				"conditions" => array("RaceCard.id"=>$tmpArray),
+				'order' => 'RaceCard.uma asc'
 			);
 			$horseData["selectData"] = $raceCard->find("all",$options);
 			$returnData = array_merge($resultData,$horseData);

@@ -7,13 +7,15 @@
 
 		<?php echo $this->Form->create('User',array('type' => 'post','action'=>'/edit_confirm'));?>
 		<fieldset>
-		<p class="inputLabel">ログインID</p>
-		<p><?php echo $postData["User"]["username"];?></p>
-		<?php echo $this->Form->hidden('username' ,array('value' => $postData["User"]["username"]));?>
+		<?php if(empty($postData['User']['twitter_user_id'])):?>
+			<p class="inputLabel">ログインID</p>
+			<p><?php echo $postData["User"]["username"];?></p>
+			<?php echo $this->Form->hidden('username' ,array('value' => $postData["User"]["username"]));?>
 
-		<p class="inputLabel">パスワード</p>
-		<p><?php if(empty($postData["User"]["password"])):?>変更なし<?php else:?>*********<?php endif;?></p>
-		<?php echo $this->Form->hidden('password' ,array('value' => $postData["User"]["password"]));?>
+			<p class="inputLabel">パスワード</p>
+			<p><?php if(empty($postData["User"]["password"])):?>変更なし<?php else:?>*********<?php endif;?></p>
+			<?php echo $this->Form->hidden('password' ,array('value' => $postData["User"]["password"]));?>
+		<?php endif;?>
 
 		<p class="inputLabel">ニックネーム</p>
 		<p><?php echo $postData["User"]["nickname"];?></p>

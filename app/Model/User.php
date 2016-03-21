@@ -29,7 +29,7 @@ class User extends AppModel {
                 'message' => 'ログインIDは4文字以上、20文字以下で入力して下さい',
             ),
             'alpha' => array(
-                'rule' => 'alphaNumeric',
+                'rule' => 'alphaNumericDashUnderscore',
                 'message' => 'ログインIDは半角英数字のみ使用できます'
             ),
 
@@ -140,5 +140,53 @@ class User extends AppModel {
 	    }
 	    return true;
 	}
-    
+
+    //半角英数と_を許可する
+    public function alphaNumericDashUnderscore($check) {
+        // $data 配列はフォームの項目名をキーとして渡される。
+        // この関数が汎用的に使えるように、値を展開する必要がある。
+        $value = array_values($check);
+        $value = $value[0];
+
+        return preg_match('|^[0-9a-zA-Z_-]*$|', $value);
+    }
+
+    public function createSaveDataByToken($token) {
+
+        $data = array(
+            'User' => array(
+                'username' => $token['screen_name'],
+                'nickname' => $token['screen_name'],
+                'password' => Security::hash($token['oauth_token']),
+                'oauth_token' => $token['oauth_token'],
+                'oauth_token_secret' => $token['oauth_token_secret'],
+                'twitter_user_id' => (int)$token['user_id'],
+            ),
+        );
+        return $data;
+    }
+
+    public function updateSaveDataByToken($tmp,$token){
+        $result = array();
+        $result = $tmp;
+
+        $result['User']['password'] = Security::hash($token['oauth_token']);
+        $result['User']['oauth_token'] = $token['oauth_token'];
+        $result['User']['oauth_token_secret'] = $token['oauth_token_secret'];
+
+        return $result;
+    }
+
+    public function findTwitterUser($twitter_user_id){
+        $options = array(
+            "conditions" => array(
+                'twitter_user_id' => $twitter_user_id,
+                'is_deleted' => 0
+            )
+        );
+        $result = $this->find("first",$options);
+        return $result;
+
+    }
+
 }
