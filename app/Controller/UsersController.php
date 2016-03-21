@@ -130,6 +130,9 @@ class UsersController extends AppController {
 
             $this->request->data["User"]["id"]       = $this->user["id"];
             $this->request->data["User"]["username"] = $this->user["username"];
+            if(!empty($this->user["twitter_user_id"])){
+                $this->request->data["User"]["twitter_user_id"] = $this->user["twitter_user_id"];
+            }
 
             //パスワードがpostされなかった場合はバリデーションを消す
             if(empty($this->request->data["User"]["password"])){

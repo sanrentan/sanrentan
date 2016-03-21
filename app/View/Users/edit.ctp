@@ -15,10 +15,12 @@
 	<p class="titleLabel">登録情報の変更</p>
 	<?php echo $this->Form->create('User',array('enctype' => 'multipart/form-data',"name"=>"UserEditForm")); ?>
 		<fieldset>
-			<p>ログインID</p>
-			<?php echo $this->request->data["User"]["username"];?>
-			<p>パスワード (半角英数6文字以上)　※変更する場合は入力</p>
-			<?php echo $this->Form->input('password',array('label'=>false,'required'=>false));?>
+			<?php if(empty($this->request->data["User"]["twitter_user_id"])):?>
+				<p>ログインID</p>
+				<?php echo $this->request->data["User"]["username"];?>
+				<p>パスワード (半角英数6文字以上)　※変更する場合は入力</p>
+				<?php echo $this->Form->input('password',array('label'=>false,'required'=>false));?>
+			<?php endif;?>
 			<p>ニックネーム <span class="red">※必須</span></p>
 			<?php echo $this->Form->input('nickname',array('label'=>false));?>
 			<p>競馬歴</p>
