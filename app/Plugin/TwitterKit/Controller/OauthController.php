@@ -75,7 +75,7 @@ class OauthController extends TwitterKitAppController {
      *
      * @param string $datasource
      */
-    public function authenticate_url($datasource = null) {
+    public function authenticate_url($datasource = null,$redirect_flg=false) {
 
         Configure::write('debug', 0);
 
@@ -84,8 +84,13 @@ class OauthController extends TwitterKitAppController {
 
         // set Authenticate Url
         $url = $this->Twitter->getAuthenticateUrl(null, true);
-        echo json_encode(compact('url'));
-		exit;
+        $url = str_replace('http://', 'https://', $url);
+        if($redirect_flg==false){
+            echo json_encode(compact('url'));
+            exit;
+        }else{
+            return $url;
+        }
     }
 
 
@@ -141,6 +146,7 @@ class OauthController extends TwitterKitAppController {
         }
 
         if($create_flg==true){
+            $data['User']['id'] = $model->getLastInsertId();
             //新規会員登録の際
             $ds = $this->Twitter->getTwitterSource();
             $ds->setToken($data['User']);

@@ -5,6 +5,15 @@
 	<p>会員登録すると、３連単の予想をできるだけでなくこれまでの収支を見ることが可能です。</p>
 	<p><span class="red">※注意事項※</span><br>本サイトはあくまで予想をするだけです。馬券の購入は各自行ってください。</p>
 
+	<div style="margin-bottom:20px;">
+		<p class="titleLabel">Twitterアカウントで登録（簡単）</p>
+		<a href="/twitter_login"><img src="/img/common/twitter_logo.png" width="200"><br>Twitterアカウントで登録</a>
+		<br>
+		<br>
+		※簡単にサイトに登録やログインを行うことが可能です。<br>
+		※登録後に本サイトのプロフィール情報を更新することが可能です。
+	</div>
+
 	<p class="titleLabel">登録情報の入力</p>
 	<?php echo $this->Form->create('User',array('enctype' => 'multipart/form-data')); ?>
 	<fieldset>

@@ -75,6 +75,15 @@
 							<li <?php if($naviType=="login"):?>class="active"<?php endif;?>><a href="/login">ログイン</a></li>
 						<?php endif;?>
 					</ul>
+					<?php if(!empty($user)):?>
+						<div class="pc navi-profileImg"><a href="/users/edit">
+							<?php if(!empty($user["profile_img"])):?>
+								<img src="/img/profileImg/<?php echo $user['profile_img'];?>" width="72">
+							<?php else:?>
+								<img src="/img/common/noimage_person.png" width="72">
+							<?php endif;?>
+						</a></div>
+					<?php endif;?>
 				</div><!--/.nav-collapse -->
 			</div>
 		</div>

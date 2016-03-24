@@ -94,6 +94,16 @@ html,body
 	border-left: 1px solid #CCC;
 }
 
+.navi-profileImg{
+	float:left;
+}
+.navi-profileImg img{
+	background-color: #FFF;
+    border: 1px solid #FFF;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
 
 #mainBannerArea{
 	width:100%;

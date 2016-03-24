@@ -153,14 +153,44 @@ class User extends AppModel {
 
     public function createSaveDataByToken($token) {
 
+        //既にusernameが存在するか？
+        $options = array(
+            'conditions' => array(
+                'username' => $token['screen_name'],
+                'is_deleted' => 0
+            )
+        );
+        $tmp = $this->find('first',$options);
+        if(!empty($tmp)){
+            $username = $token['screen_name'].'_tw';
+        }else{
+            $username = $token['screen_name'];
+        }
+
+        //既にnicknameが存在するか？
+        $options = array(
+            'conditions' => array(
+                'nickname' => $token['screen_name'],
+                'is_deleted' => 0
+            )
+        );
+        $tmp = $this->find('first',$options);
+        if(!empty($tmp)){
+            $nickname = $token['screen_name'].'_tw';
+        }else{
+            $nickname = $token['screen_name'];
+        }
+
+
         $data = array(
             'User' => array(
-                'username' => $token['screen_name'],
-                'nickname' => $token['screen_name'],
+                'username' => $username,
+                'nickname' => $nickname,
                 'password' => Security::hash($token['oauth_token']),
                 'oauth_token' => $token['oauth_token'],
                 'oauth_token_secret' => $token['oauth_token_secret'],
                 'twitter_user_id' => (int)$token['user_id'],
+                'twitter_user_name' => $token['screen_name'],
             ),
         );
         return $data;
