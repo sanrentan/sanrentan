@@ -1,5 +1,6 @@
 <?php
 App::uses('AppController', 'Controller');
+App::uses('TwitterKit.OauthController', 'Controller');
 
 class UsersController extends AppController {
 
@@ -280,5 +281,19 @@ class UsersController extends AppController {
         //$this->redirect('/');
         $this->set("user","");
 	}
+
+
+    //twitterログイン
+    public function twitter_login(){
+        $url = $this->requestAction(
+            array(
+                'controller' => 'twitter_kit/oauth',
+                'action' => 'authenticate_url',
+            ),
+            array('twitter',1)
+        );
+        $this->redirect($url);
+
+    }
 
 }
