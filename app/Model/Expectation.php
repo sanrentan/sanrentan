@@ -210,7 +210,6 @@ class Expectation extends AppModel {
 			}
 		}
 
-		print_R($returnData);exit;
 		return $returnData;
 
     }

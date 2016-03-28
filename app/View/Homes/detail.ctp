@@ -13,6 +13,7 @@
 		<p class="red2"><?php if(!$raceData["Race"]["accepting_flg"]):?>受付開始までお待ちください<?php elseif(empty($myData)):?>下記出走表から５頭選択してください。<?php else:?>既に予想を登録済みです。<?php endif;?></p>
 		<?php if(empty($user)):?><p class="red2">※予想をするためには<a href="/login">ログイン</a>または<a href="/regist">無料会員登録</a>を行ってください。</p><?php endif;?>
 		<?php if(!empty($errorMessage)):?><p class="red2"><?php echo $errorMessage;?></p><?php endif;?>
+		<p style="font-size:80%;">※単勝オッズはリアルタイム更新ではない為ご注意ください。</p>
 	</div>
 	<div id="detailRight">
 		<div class="confirmSelect">
@@ -43,7 +44,9 @@
 <?php echo $this->Form->hidden('Expectation.race_id' ,array('value' => $raceData["Race"]["id"]));?>
 <div id="horseListArea">
 	<table border="1">
-	<tr><?php if(!empty($user)&&empty($myData)&&$raceData["Race"]["accepting_flg"]):?><th>選択</th><?php endif;?><th>枠番</th><th>馬番</th><th>馬名</th><th>性齢</th><th>馬体重</th><th>負担重量/<br>騎手名</th><th class="pc">前走</th><th class="pc">前々走</th><th class="pc">3走前</th><th class="pc">4走前</th><th class="pc">5走前</th></tr>
+
+
+	<tr><?php if(!empty($user)&&empty($myData)&&$raceData["Race"]["accepting_flg"]):?><th>選択</th><?php endif;?><th>枠番</th><th>馬番</th><th>馬名</th><th>性齢</th><th>馬体重</th><th>負担重量/<br>騎手名</th><th>単勝オッズ<br>人気</th><th class="pc">前走</th><th class="pc">前々走</th><th class="pc">3走前</th><th class="pc">4走前</th></tr>
 	<?php foreach($raceData["RaceCard"] as $key=>$data):?>
 		<tr>
 			<?php if(!empty($user)&&empty($myData)&&$raceData["Race"]["accepting_flg"]):?><td align="center"><input type="checkbox" name="data[Expectation][item][]" value="<?php echo $data['id'];?>" <?php if(!empty($this->request->data['Expectation']['item'])&&in_array($data['id'],$this->request->data['Expectation']['item'])):?>checked<?php endif;?>></td><?php endif;?>
@@ -61,40 +64,43 @@
 				<?php endif;?>
 			</td>
 			<td><?php echo $data["j_weight"];?><br><?php echo $data["j_name"];?></td>
+			<td align="center"><?php if(!empty($data['odds'])):?><?php if($data['odds']<10):?><span class="red"><?php endif;?><?php echo $data['odds'];?><?php if($data['odds']<10):?></span><?php endif;?><br><span style="font-size:80%;">(<?php echo $data['ninki'];?>人気)</span><?php else:?>-<?php endif;?></td>
 			<?php if(isset($recentRaceResult[$data['id']])): ?>
 				<?php foreach($recentRaceResult[$data['id']] as $key=>$eachResult): ?>
-					<td class = "pc recentResults <?php if($eachResult['order_of_arrival']==1):?>first<?php elseif($eachResult['order_of_arrival']==2):?>second<?php elseif($eachResult['order_of_arrival']==3):?>third<?php endif;?>">
-					<span class = "lastRaceDate"><?php echo date("y.m.d.",strtotime($eachResult["race_date"])); ?></span>
-					<span class = "lastRacePlace"><?php echo $eachResult['place'] ?></span>
-					<br>
-					<?php if(strstr($eachResult['race_name'],"(")):?>
-						<?php $tmp = explode("(", $eachResult["race_name"]);?>
-						<span class = "lastRaceName"><?php echo $tmp[0];?></span>
-						<?php $tmp = explode(")", $tmp[1]);?>
-							<?php if($tmp[0]=="GI"):?>
-								<span class="g1"><?php echo $tmp[0];?></span>
-							<?php elseif($tmp[0]=="GII"):?>
-								<span class="g2"><?php echo $tmp[0];?></span>
-							<?php elseif($tmp[0]=="GIII"):?>
-								<span class="g3"><?php echo $tmp[0];?></span>
-							<?php endif;?>
+					<?php if($key<4):?>
+						<td class = "pc recentResults <?php if($eachResult['order_of_arrival']==1):?>first<?php elseif($eachResult['order_of_arrival']==2):?>second<?php elseif($eachResult['order_of_arrival']==3):?>third<?php endif;?>">
+						<span class = "lastRaceDate"><?php echo date("y.m.d.",strtotime($eachResult["race_date"])); ?></span>
+						<span class = "lastRacePlace"><?php echo $eachResult['place'] ?></span>
+						<br>
+						<?php if(strstr($eachResult['race_name'],"(")):?>
+							<?php $tmp = explode("(", $eachResult["race_name"]);?>
+							<span class = "lastRaceName"><?php echo $tmp[0];?></span>
+							<?php $tmp = explode(")", $tmp[1]);?>
+								<?php if($tmp[0]=="GI"):?>
+									<span class="g1"><?php echo $tmp[0];?></span>
+								<?php elseif($tmp[0]=="GII"):?>
+									<span class="g2"><?php echo $tmp[0];?></span>
+								<?php elseif($tmp[0]=="GIII"):?>
+									<span class="g3"><?php echo $tmp[0];?></span>
+								<?php endif;?>
 
-					<?php else:?>
-						<span class = "lastRaceName"><?php echo $eachResult['race_name'] ?></span>
+						<?php else:?>
+							<span class = "lastRaceName"><?php echo $eachResult['race_name'] ?></span>
+						<?php endif;?>
+						<br>
+						<span class = "lastOrderOfArrival <?php if($eachResult['order_of_arrival']  === "1"){echo "lastRaceWon";}elseif($eachResult['order_of_arrival'] === "2"){echo "lastRaceSecond";}elseif($eachResult['order_of_arrival'] ==="3"){echo"lastRaceThird";} ?>"><?php if($eachResult['order_of_arrival']==0):?>取消<?php else:?><?php echo $eachResult['order_of_arrival'] ?><?php endif;?></span>
+						&nbsp;
+						<span class = "lastNumberOfHead"><?php echo $eachResult['number_of_heads'] ?>頭</span>
+						<span class = "lastPopularity"><?php echo $eachResult['popularity'] ?>番人気</span>
+						<br>
+
+						<span class = "lastJockey"><?php echo $eachResult['jockey'] ?></span>
+						<br>
+						<span class = "lastCource"><?php echo $eachResult['cource'] ?></span>
+						<span class = "lastBaba"><?php echo $eachResult['baba'] ?></span>
+						<br>
+						</td>
 					<?php endif;?>
-					<br>
-					<span class = "lastOrderOfArrival <?php if($eachResult['order_of_arrival']  === "1"){echo "lastRaceWon";}elseif($eachResult['order_of_arrival'] === "2"){echo "lastRaceSecond";}elseif($eachResult['order_of_arrival'] ==="3"){echo"lastRaceThird";} ?>"><?php if($eachResult['order_of_arrival']==0):?>取消<?php else:?><?php echo $eachResult['order_of_arrival'] ?><?php endif;?></span>
-					&nbsp;
-					<span class = "lastNumberOfHead"><?php echo $eachResult['number_of_heads'] ?>頭</span>
-					<span class = "lastPopularity"><?php echo $eachResult['popularity'] ?>番人気</span>
-					<br>
-
-					<span class = "lastJockey"><?php echo $eachResult['jockey'] ?></span>
-					<br>
-					<span class = "lastCource"><?php echo $eachResult['cource'] ?></span>
-					<span class = "lastBaba"><?php echo $eachResult['baba'] ?></span>
-					<br>
-					</td>
 				<?php endforeach; ?>
 				<?php if(count($recentRaceResult[$data['id']]) < 5): ?>
 					<?php for($i = count($recentRaceResult[$data['id']]); $i < 5 ; $i++): ?>
