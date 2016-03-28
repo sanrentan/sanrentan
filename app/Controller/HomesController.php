@@ -129,8 +129,6 @@ class HomesController extends AppController {
 			echo "race not found ! race_id = ".$raceId;exit;
 		}
 		$this->set("raceData",$raceData);
-		//直近レースの結果
-		//$recentRaceResult= $this->Racee->
 
 		//予想
 		if($this->request->is('post')){
