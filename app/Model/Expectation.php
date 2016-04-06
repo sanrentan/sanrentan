@@ -86,8 +86,23 @@ class Expectation extends AppModel {
 
 			foreach($resultData as $key=>&$data){
 				$tmpArray = array();
+
+				$tmp_arrays = array();
+				$sort = array();
 				for($i=1;$i<=Configure::read('Base.box_count');$i++){
-					$data["selectData"][] = $cardData[$data["Expectation"]["item".$i]];
+					$tmp = array();
+					$card_id = $data['Expectation']['item'.$i];
+					$uma = $cardData[$data['Expectation']['item'.$i]]['RaceCard']['uma'];
+					$tmp['card_id'] = $card_id;
+					$tmp['uma'] = $uma;
+					$tmp_arrays[] = $tmp;
+				    $sort[] = $uma;
+				}
+
+				array_multisort($sort, SORT_ASC, $tmp_arrays);
+
+				for($i=1;$i<=Configure::read('Base.box_count');$i++){
+					$data["selectData"][] = $cardData[$tmp_arrays[($i-1)]['card_id']];
 					$data["User"] = $userData[$data["Expectation"]["user_id"]];
 				}
 			}

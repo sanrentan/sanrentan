@@ -285,14 +285,20 @@ class UsersController extends AppController {
 
     //twitterログイン
     public function twitter_login(){
-        $url = $this->requestAction(
-            array(
-                'controller' => 'twitter_kit/oauth',
-                'action' => 'authenticate_url',
-            ),
-            array('twitter',1)
-        );
-        $this->redirect($url);
+        $user = $this->Auth->user();
+        if(empty($user)){
+            $url = $this->requestAction(
+                array(
+                    'controller' => 'twitter_kit/oauth',
+                    'action' => 'authenticate_url',
+                ),
+                array('twitter',1)
+            );
+            $this->redirect($url);
+        }else{
+            $this->redirect('/');
+        }
+
 
     }
 

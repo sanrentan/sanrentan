@@ -159,6 +159,7 @@ class HomesController extends AppController {
 
 		//みんなの予想を取得
 		$otherExpectData = $this->Expectation->getExpectationOther($raceId);
+//		print_r($otherExpectData[0]['selectData']);exit;
 
 		$this->set(compact("myData","kojiharuData","otherExpectData"));
 

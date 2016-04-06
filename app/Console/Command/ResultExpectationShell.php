@@ -229,6 +229,7 @@ class ResultExpectationShell extends AppShell {
                 $tmpData["RaceResultDetail"]["popularity"] = $data["popularity"];
                 $tmpData["RaceResultDetail"]["result"]  = $data["result"];
                 $tmpData["RaceResultDetail"]["trainer"] = $data["trainer"];
+                $tmpData["RaceResultDetail"]["last_time"] = $data["last_time"];
                 $tmpData["RaceResultDetail"]["modified"] = date("Y-m-d H:i:s");
                 $this->RaceResultDetail->save($tmpData);
             }
