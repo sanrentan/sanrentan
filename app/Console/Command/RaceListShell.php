@@ -23,35 +23,103 @@ class RaceListShell extends AppShell {
             )
         );
 
+        $parser->addOption(
+            'mode', array(
+                'help' => '1:list 2:uma 3:weight 4:odds',
+                'default' => 1,
+            )
+        );
+
+
         return $parser;
     }
 
     public function main() {
-    	$msg = "start shell";
+    	$msg = 'start shell';
     	$this->__log($msg);
 
+        $mode_array = array(1,2,3,4);
+        $mode = $this->params['mode'];
+        if(!in_array($mode, $mode_array)){
+            $this->__log('modeの値が不正です:'.$mode,true);
+        }
+
         //race_idを取得
-        if(empty($this->params["race_id"])){
-            $this->__log("引数にrace_idを指定してください",true);
+        $race_ids = array();
+        if(empty($this->params['race_id'])){
+            //取得する
+            if($mode==1){
+                //5日以内のレースを取得
+                $end_date = date('Y-m-d H:i:s', strtotime("+5 days"));
+            }elseif($mode==2){
+                //4日以内のレースを取得
+                $end_date = date('Y-m-d H:i:s', strtotime("+4 days"));
+            }elseif($mode==3){
+                //本日のレースを取得
+                $end_date = date('Y-m-d').' 17:00:00';
+            }elseif($mode==4){
+                //３日以内のレースを取得
+                $end_date = date('Y-m-d H:i:s', strtotime("+3 days"));
+            }
+
+            $options = array(
+                'fields' => array('id'),
+                'conditions' => array(
+                    'race_date >' => date('Y-m-d H:i:s'),
+                    'race_date <=' => $end_date,
+                    'is_deleted' => 0
+                ),
+                'order' => 'id asc',
+                'recursive' => -1
+            );
+
+            $race_list = $this->Race->find('list',$options);
+            if(!empty($race_list)){
+                foreach($race_list as $key=>$data){
+                    $race_ids[] = $data;
+                }
+
+            }else{
+                $this->__log('対象のレースが存在しません:mode:'.$mode,true);
+            }
+
         }else{
-            $raceId = $this->params["race_id"];
+            if(is_numeric($this->params['race_id'])){
+                $race_ids[] = $this->params['race_id'];
+            }else{
+                $this->__log('race_idの値が不正です:'.$this->params['race_id'],true);
+            }
         }
 
-        //updateFlg
-        if($this->params["update"]==1){
-            $updateFlg = true;
-        }else{
-            $updateFlg = false;
+        foreach($race_ids as $key=>$race_id){
+            if($mode==1){
+                //出走表を取得
+                $this->get_race_data($race_id,$mode);
+            }elseif($mode==2){
+                //枠番馬番を取得
+                $this->get_number_data($race_id,$mode);
+            }elseif($mode==3){
+                //馬体重を取得
+                $this->get_weight_data($race_id,$mode);
+            }elseif($mode==4){
+                //オッズを取得
+                $this->get_odds_data($race_id,$mode);
+            }
         }
 
+    	$this->__log("finish ok!");
 
-        if(empty($raceId)||!is_numeric($raceId)){
-            $raceId = 1;
-        }
+    }
+
+    //出走表を取得
+    public function get_race_data($race_id,$mode){
+
         //対象のレースが存在するか？
-        $raceData = $this->Race->findById($raceId);
+        $raceData = $this->Race->findById($race_id);
         if(empty($raceData)){
-            $this->__log("レースが見つかりません。race_id = ".$raceId,true);
+            $this->__log("レースが見つかりません。race_id = ".$race_id,true);
+        }else{
+            $this->__log("出走表を登録します。race_id = ".$race_id.', '.$raceData['Race']['name']);
         }
 
         //すでに出走表にデータが登録されていないか？
@@ -63,13 +131,87 @@ class RaceListShell extends AppShell {
         );
         $cardData = $this->RaceCard->find("all",$options);
         if(!empty($cardData)){
-            if($updateFlg==false){
-                $this->__log("既に出走表が登録されています。race_id = ".$raceId,true);
-            }else{
-                $this->__log("既に出走表が存在しますが処理を続けます");
-            }
+            $this->__log("既に出走表が登録されています。race_id = ".$race_id,true);
         }
 
+        list($horseList,$recent_5race_results) = $this->__get_html_data($raceData);
+        $this->__save_race_data($mode,$horseList,$recent_5race_results,$race_id);
+
+        //レースを公開する
+        $raceData['Race']['view_flg'] = 1;
+        $raceData['Race']['modified'] = date('Y-m-d H:i:s');
+        $this->Race->save($raceData);
+        $this->__log("出走表を登録し公開しました。race_id = ".$race_id.', '.$raceData['Race']['name']);
+
+    }
+
+    //枠番、馬番等を取得
+    public function get_number_data($race_id,$mode){
+        //対象のレースが存在するか？
+        $raceData = $this->Race->findById($race_id);
+        if(empty($raceData)){
+            $this->__log("レースが見つかりません。race_id = ".$race_id,true);
+        }else{
+            $this->__log("枠番馬番を登録します。race_id = ".$race_id.', '.$raceData['Race']['name']);
+        }
+
+        //すでに出走表にデータが登録されていないか？
+        $options = array(
+            'conditions' => array(
+                'is_deleted' => 0,
+                'race_id' => $raceData["Race"]["id"]
+            )
+        );
+        $cardData = $this->RaceCard->find("all",$options);
+        if(empty($cardData)){
+            $this->__log("まだ出走表が登録されていません。race_id = ".$race_id,true);
+        }
+
+        list($horseList,$recent_5race_results) = $this->__get_html_data($raceData);
+        $this->__save_race_data($mode,$horseList,$recent_5race_results,$race_id);
+
+        //レースを受付開始する
+        $raceData['Race']['view_flg'] = 1;
+        $raceData['Race']['accepting_flg'] = 1;
+        $raceData['Race']['modified'] = date('Y-m-d H:i:s');
+        $this->Race->save($raceData);
+
+        $this->__log("枠番馬番を登録し受付を開始しました。race_id = ".$race_id.', '.$raceData['Race']['name']);
+    }
+
+
+    //馬体重を取得
+    public function get_weight_data($race_id,$mode){
+
+        //対象のレースが存在するか？
+        $raceData = $this->Race->findById($race_id);
+        if(empty($raceData)){
+            $this->__log("レースが見つかりません。race_id = ".$race_id,true);
+        }else{
+            $this->__log("馬体重を登録します。race_id = ".$race_id.', '.$raceData['Race']['name']);
+        }
+
+        //すでに出走表にデータが登録されていないか？
+        $options = array(
+            'conditions' => array(
+                'is_deleted' => 0,
+                'race_id' => $raceData["Race"]["id"]
+            )
+        );
+        $cardData = $this->RaceCard->find("all",$options);
+        if(empty($cardData)){
+            $this->__log("まだ出走表が登録されていません。race_id = ".$race_id,true);
+        }
+
+        list($horseList,$recent_5race_results) = $this->__get_html_data($raceData);
+        $this->__save_race_data($mode,$horseList,$recent_5race_results,$race_id);
+
+        $this->__log("馬体重を登録しました。race_id = ".$race_id.', '.$raceData['Race']['name']);
+
+    }
+
+    //htmlからデータを取得する
+    private function __get_html_data($raceData){
         //htmlを取得
         $html = file_get_html('http://keiba.yahoo.co.jp/race/denma/'.$raceData["Race"]["html_id"].'/');
         
@@ -174,24 +316,31 @@ class RaceListShell extends AppShell {
             }
             $i++;
         }
+        return array($horseList,$recent_5race_results);
+    }
+
+
+    //DBに登録する処理
+    private function __save_race_data($mode,$horseList,$recent_5race_results,$race_id){
+
         //DBに登録
         $row = 1;
         foreach($horseList as $key=>&$horse){
-            $horse["race_id"] = $raceId;
+            $horse["race_id"] = $race_id;
 
-            if($updateFlg==false){
+            if($mode==1){
                 $this->RaceCard->create();
                 $this->RaceCard->save($horse);
                 $last_id = $this->RaceCard->getLastInsertID();
                 foreach($recent_5race_results[$row] as $eachResult){
                     $eachResult["race_card_id"] = $last_id;
-                    //$eachResult["race_card_id"] = 1;
                     $this->RecentRaceResult->create();
                     $this->RecentRaceResult->save($eachResult);
                 }
                 $row++;
-            }else{
-                //RaceCardのみ更新
+
+            }elseif($mode==2){
+               //RaceCardのみ更新
                 $options = array(
                     "conditions" => array(
                         "race_id" => $horse["race_id"],
@@ -201,14 +350,134 @@ class RaceListShell extends AppShell {
                 $tmpData = $this->RaceCard->find("first",$options);
                 $tmpData["RaceCard"]["wk"] = $horse["wk"];
                 $tmpData["RaceCard"]["uma"] = $horse["uma"];
+                $this->RaceCard->save($tmpData);
+
+            }elseif($mode==3){
+                //RaceCardのみ更新
+                $options = array(
+                    "conditions" => array(
+                        "race_id" => $horse["race_id"],
+                        "name" => $horse["name"]
+                    )
+                );
+                $tmpData = $this->RaceCard->find("first",$options);
                 $tmpData["RaceCard"]["weight"] = $horse["weight"];
                 $tmpData["RaceCard"]["plus"] = $horse["plus"];
                 $this->RaceCard->save($tmpData);
+
             }
         }
 
+    }
 
-    	$this->__log("finish ok!.".$raceData["Race"]["name"]);
+    //オッズを登録する処理
+    public function get_odds_data($race_id,$mode){
+
+        //対象のレースが存在するか？
+        $raceData = $this->Race->findById($race_id);
+        if(empty($raceData)){
+            $this->__log("レースが見つかりません。race_id = ".$race_id,true);
+        }else{
+            $this->__log("オッズを登録します。race_id = ".$race_id.', '.$raceData['Race']['name']);
+        }
+
+        //すでに出走表にデータが登録されていないか？
+        $options = array(
+            'conditions' => array(
+                'is_deleted' => 0,
+                'race_id' => $raceData["Race"]["id"]
+            )
+        );
+        $cardData = $this->RaceCard->find("all",$options);
+        if(empty($cardData)){
+            $this->__log("まだ出走表が登録されていません。race_id = ".$race_id,true);
+        }
+
+        //htmlを取得
+        $html = file_get_html('http://keiba.yahoo.co.jp/odds/tfw/'.$raceData["Race"]["html_id"].'/');
+        
+        //trのループ
+        $i=0;
+        $horseList = array();
+
+        foreach($html->find('.layoutCol2L tr') as $key=>$element){
+            //ヘッダー行は飛ばす
+            if($i>0){
+                //tdのループ
+                $tdCounter = 0;
+                foreach($element->find('td') as $key2=>$data){
+                    switch ($tdCounter) {
+ 
+                        case 1://馬番
+                            $uma = $data->plaintext;
+                            $horseList[$uma]["uma"] = $data->plaintext;
+                            break;
+                        case 2://馬名
+                            $horseList[$uma]["name"] = $data->plaintext;
+                            break;
+                        case 3://オッズ
+                            $horseList[$uma]["odds"] = $data->plaintext;
+                            break;
+
+                    } 
+                    $tdCounter++;
+                }
+            }
+            $i++;
+        }
+        $i = 0;
+        foreach($html->find('.layoutCol2R tr') as $key=>$element){
+            //ヘッダー行は飛ばす
+            if($i>0){
+                //tdのループ
+                $tdCounter = 0;
+                foreach($element->find('td') as $key2=>$data){
+                    switch ($tdCounter) {                        
+                        case 1://馬番
+                            $uma = $data->plaintext;
+                            $horseList[$uma]['uma'] = $data->plaintext;
+                            break;
+                        case 2://馬名
+                            $horseList[$uma]['name'] = $data->plaintext;
+                            break;
+                        case 3://オッズ
+                            $horseList[$uma]['odds'] = $data->plaintext;
+                            break;
+                    } 
+                    $tdCounter++;
+                }
+            }
+            $i++;
+        }
+
+        foreach ($horseList as $key => $value){
+            $key_id[$key] = $value['odds'];
+        }
+        $sortArray = array_multisort ( $key_id , SORT_ASC , $horseList);
+
+        $tmpArray = array();
+        foreach($horseList as $key=>&$data){
+            $data['ninki'] = $key+1;
+            $tmpArray[$data['uma']] = $data;
+        }
+
+
+
+        //DBに登録
+        foreach($cardData as $key => &$data){
+            //一応馬名のチェック
+            if($data['RaceCard']['name'] == $tmpArray[$data['RaceCard']['uma']]['name']){
+                $data['RaceCard']['odds'] = $tmpArray[$data['RaceCard']['uma']]['odds'];
+                $data['RaceCard']['ninki'] = $tmpArray[$data['RaceCard']['uma']]['ninki'];
+            }else{
+                $this->__log("ng:".$data["RaceCard"]["name"]);
+            }
+        }
+        if(!$this->RaceCard->saveAll($cardData)){
+            $this->__log("save fail.".$raceData["Race"]["name"]);
+        }
+
+        $this->__log("オッズを登録しました。race_id = ".$race_id.', '.$raceData['Race']['name']);
 
     }
 
