@@ -79,18 +79,18 @@
 
 		<p class="titleLabel light">お知らせ</p>
 		<ul class="information">
-			<li>2016年3月24日　<a href="/users/twitter_login">Twitterアカウント連携</a>を行いました。会員登録やログインが簡単に可能になりました。</li>
-			<li>2016年3月20日　<a href="/result/34">スプリングステークス(G2)</a>でこじはるさんが的中しました。おめでとうございます！</li>
-			<li>2016年3月20日　<a href="/result/34">スプリングステークス(G2)</a>で当サイトから予想的中者がでました。おめでとうござます！</li>
-			<li>2016年3月20日　<a href="/result/33">阪神大賞典(G2)</a>で当サイトから予想的中者がでました。おめでとうござます！</li>
-			<li>2016年3月19日　<a href="/result/32">若葉賞</a>で当サイトから予想的中者がでました。おめでとうござます！</li>
-			<li>2016年3月6日　<a href="/result/26">弥生賞</a>で当サイトから予想的中者がでました。おめでとうござます！</li>
-			<li>2016年2月27日　サイトをオープンしました。</li>
+			<li class="news"> 2016年4月3日　<a href="/result/44">桜花賞(G1)</a>で当サイトから予想的中者がでました。おめでとうござます！</li>
+			<li class="news"> 2016年4月3日　<a href="/result/42">阪神牝馬ステークス(G2)</a>で当サイトから予想的中者がでました。おめでとうござます！</li>
+			<li class="news"> 2016年4月3日　<a href="/result/41">ダービー卿チャレンジトロフィー(G3)</a>で当サイトから予想的中者がでました。おめでとうござます！</li>
+			<li class="news"> 2016年4月3日　<a href="/result/40">産経大阪杯(G2)</a>で当サイトから予想的中者がでました。おめでとうござます！</li>
+			<li class="news"> 2016年3月27日　<a href="/result/38">マーチステークス</a>で当サイトから予想的中者がでました。おめでとうござます！</li>
+			<li class="news"> 2016年3月26日　<a href="/result/36">毎日杯</a>で当サイトから予想的中者がでました。おめでとうござます！</li>
+			<li class="news"> 2016年3月24日　<a href="/users/twitter_login">Twitterアカウント連携</a>を行いました。会員登録やログインが簡単に可能になりました。</li>
 		</ul>
 
 		<?php if(!empty($newsRss)):?>
 			<p class="titleLabel light">競馬ニュース(競馬JAPAN)</p>
-			<ul class="information matomeList">
+			<ul class="information keibajapan">
 				<?php foreach($newsRss as $key=>$data):?>
 					<li class="icontype0">　<a href="<?php echo $data['link'];?>" target="_blank"><?php echo $data['title'];?></a></li>
 				<?php endforeach;?>

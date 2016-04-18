@@ -137,7 +137,7 @@ class Race extends AppModel {
 
 
     public function afterFind($results,$primary = false){
-    	if(!empty($results)&&count($results)==1){
+    	if(!empty($results[0]['RaceCard'])&&count($results)==1){
     		$wkArray = array();
     		foreach($results[0]["RaceCard"] as $key=>&$data){
     			if(!empty($wkArray[$data["wk"]])){

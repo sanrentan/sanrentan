@@ -54,17 +54,17 @@
 				<td rowspan="<?php echo $raceData['wkData'][$data['wk']];?>" class="wk<?php echo $data['wk'];?>" align="center"><?php if($data["wk"]>0):?><?php echo $data["wk"];?><?php else:?>-<?php endif;?></td>
 			<?php endif;?>
 			<td align="center"><?php if($data["uma"]>0):?><?php echo $data["uma"];?><?php else:?>-<?php endif;?></td>
-			<td><?php echo $data["name"];?></td>
-			<td align="center"><?php echo $data["sexage"];?></td>
+			<td><span class='horseName'><?php echo $data["name"];?></span></td>
+			<td align="center"><span class='sexage'><?php echo $data["sexage"];?></span></td>
 			<td align="center">
 				<?php if($data["weight"]>0):?>
-					<?php echo $data["weight"];?><?php echo $data["plus"];?>
+					<span class="umaweight"><?php echo $data["weight"];?><br><?php echo $data["plus"];?></span>
 				<?php else:?>
 					-
 				<?php endif;?>
 			</td>
-			<td><?php echo $data["j_weight"];?><br><?php echo $data["j_name"];?></td>
-			<td align="center"><?php if(!empty($data['odds'])):?><?php if($data['odds']<10):?><span class="red"><?php endif;?><?php echo $data['odds'];?><?php if($data['odds']<10):?></span><?php endif;?><br><span style="font-size:80%;">(<?php echo $data['ninki'];?>人気)</span><?php else:?>-<?php endif;?></td>
+			<td align="center"><span class='jName'><?php echo $data["j_weight"];?><br><?php echo $data["j_name"];?></span></td>
+			<td align="center"><span class='odds'><?php if(!empty($data['odds'])):?><?php if($data['odds']<10):?><span class="red"><?php endif;?><?php echo $data['odds'];?><?php if($data['odds']<10):?></span><?php endif;?><br><span style="font-size:80%;">(<?php echo $data['ninki'];?>人気)</span><?php else:?>-<?php endif;?></span></td>
 			<?php if(isset($recentRaceResult[$data['id']])): ?>
 				<?php foreach($recentRaceResult[$data['id']] as $key=>$eachResult): ?>
 					<?php if($key<4):?>
@@ -103,7 +103,7 @@
 					<?php endif;?>
 				<?php endforeach; ?>
 				<?php if(count($recentRaceResult[$data['id']]) < 5): ?>
-					<?php for($i = count($recentRaceResult[$data['id']]); $i < 5 ; $i++): ?>
+					<?php for($i = count($recentRaceResult[$data['id']]); $i < 4 ; $i++): ?>
 						<td align="center" class="pc">-</td>
 					<?php endfor; ?>
 				<?php endif; ?>
@@ -132,19 +132,31 @@
 	<?php foreach($otherExpectData as $key=>$data):?>
 		<a href="/other/<?php echo $data['User']['id'];?>">
 			<div class="userExpect">
-				<?php if(!empty($data["User"]["profile_img"])):?>
-					<img src="/img/profileImg/<?php echo $data['User']['profile_img'];?>" class="profileImg">
-				<?php else:?>
-					<img src="/img/common/noimage_person.png" class="profileImg">
-				<?php endif;?>
-				<p><?php echo $data["User"]["nickname"];?></p>
-				<p>
-					<span class="wk<?php echo $data["selectData"][0]["RaceCard"]["wk"];?>"><?php echo $data["selectData"][0]["RaceCard"]["uma"];?></span>-
-					<span class="wk<?php echo $data["selectData"][1]["RaceCard"]["wk"];?>"><?php echo $data["selectData"][1]["RaceCard"]["uma"];?></span>-
-					<span class="wk<?php echo $data["selectData"][2]["RaceCard"]["wk"];?>"><?php echo $data["selectData"][2]["RaceCard"]["uma"];?></span>-
-					<span class="wk<?php echo $data["selectData"][3]["RaceCard"]["wk"];?>"><?php echo $data["selectData"][3]["RaceCard"]["uma"];?></span>-
-					<span class="wk<?php echo $data["selectData"][4]["RaceCard"]["wk"];?>"><?php echo $data["selectData"][4]["RaceCard"]["uma"];?></span>
-					</p>
+				<div class="profileImgArea">
+					<?php if(!empty($data["User"]["profile_img"])):?>
+						<img src="/img/profileImg/<?php echo $data['User']['profile_img'];?>" class="profileImg">
+					<?php else:?>
+						<img src="/img/common/noimage_person.png" class="profileImg">
+					<?php endif;?>
+				</div>
+				<div class="profileDetailArea">
+					<p><?php echo $data["User"]["nickname"];?></p>
+					<?php if(!empty($data['User']['span'])):?>
+						<p>競馬歴:<?php echo $data['User']['span'];?></p>
+					<?php endif;?>
+					<?php if(!empty($data['ExpectationResult'])):?>
+						<p><?php echo $data['ExpectationResult']['win'];?>勝<?php echo $data['ExpectationResult']['lose'];?>敗</p>
+					<?php endif;?>
+				</div>
+				<div class="clearfix"></div>
+				<div class="expectArea">
+					<p><span class="wk<?php echo $data["selectData"][0]["RaceCard"]["wk"];?>"><?php echo $data["selectData"][0]["RaceCard"]["uma"];?></span><span class='umaName'><?php echo $data['selectData'][0]['RaceCard']['name'];?></span></p>
+					<p><span class="wk<?php echo $data["selectData"][1]["RaceCard"]["wk"];?>"><?php echo $data["selectData"][1]["RaceCard"]["uma"];?></span><span class='umaName'><?php echo $data['selectData'][1]['RaceCard']['name'];?></span></p>
+					<p><span class="wk<?php echo $data["selectData"][2]["RaceCard"]["wk"];?>"><?php echo $data["selectData"][2]["RaceCard"]["uma"];?></span><span class='umaName'><?php echo $data['selectData'][2]['RaceCard']['name'];?></span></p>
+					<p><span class="wk<?php echo $data["selectData"][3]["RaceCard"]["wk"];?>"><?php echo $data["selectData"][3]["RaceCard"]["uma"];?></span><span class='umaName'><?php echo $data['selectData'][3]['RaceCard']['name'];?></span></p>
+					<p><span class="wk<?php echo $data["selectData"][4]["RaceCard"]["wk"];?>"><?php echo $data["selectData"][4]["RaceCard"]["uma"];?></span><span class='umaName'><?php echo $data['selectData'][4]['RaceCard']['name'];?></span></p>
+						
+				</div>
 			</div>
 		</a>
 	<?php endforeach;?>

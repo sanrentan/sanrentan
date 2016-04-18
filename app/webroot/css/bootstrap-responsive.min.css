@@ -199,6 +199,31 @@
 	    width: 30%;
 	}
 
+	#horseListArea th{
+		font-size:70%;
+	}
+	#horseListArea .horseName{
+		font-size:90%;
+	}
+	#horseListArea .sexage{
+		font-size:70%;
+	}
+	#horseListArea .jName{
+		font-size:80%;
+	}
+	#horseListArea .umaweight{
+		font-size:70%;
+	}
+	#horseListArea .odds{
+		font-size:90%;
+	}
+
+	#horseListArea #resultListArea table td,
+	#horseListArea #resultListArea table th{
+		padding: 5px 2px 5px 2px;
+	}
+
+
 	#aboutContent {
 	    padding: 0 10px 20px 10px;
 	}

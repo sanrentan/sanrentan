@@ -64,22 +64,21 @@
 	<p class="titleLabel">競争成績</p>
 	<div id="resultListArea">
 		<table border="1">
-		<tr><th>着順</th><th>枠</th><th>馬番</th><th>馬名</th><th>性齢</th><th>負担重量</th><th>騎手名</th><th class="pc">タイム</th><th class="pc">着差</th><th class="pc">推定上り</th><th class="pc">馬体重</th><th class="pc">調教師名</th><th>単勝人気</th></tr>
+		<tr><th>着順</th><th>枠</th><th>馬番</th><th>馬名</th><th>性齢</th><th>負担重量<br>騎手名</th><th class="pc">タイム</th><th class="pc">着差</th><th class="pc">推定上り</th><th class="pc">馬体重</th><th class="pc">調教師名</th><th>単勝人気</th></tr>
 		<?php foreach($raceResultData["RaceResultDetail"] as $key=>$data):?>
 			<tr>
 				<td align="center"><?php if($data["result"]!=99):?><?php echo $data["result"];?><?php else:?>-<?php endif;?></td>
 				<td align="center"><span class="wk<?php echo $data['wk'];?>"><?php echo $data["wk"];?></span></td>
 				<td align="center"><?php echo $data["uma"];?></td>
-				<td align="center"><?php echo $data["name"];?></td>
-				<td align="center"><?php echo $data["sexage"];?></td>
-				<td align="center"><?php echo $data["j_weight"];?></td>
-				<td align="center"><?php echo $data["j_name"];?></td>
+				<td align="left"><span class='horseName'><?php echo $data["name"];?></span></td>
+				<td align="center"><span class='sexage'><?php echo $data["sexage"];?></span></td>
+				<td align="center"><span class='jName'><?php echo $data["j_weight"];?><br><?php echo $data["j_name"];?></span></td>
 				<td align="center" class="pc"><?php echo $data["time"];?></td>
 				<td align="center" class="pc"><?php echo $data["difference"];?></td>
 				<td align="center" class="pc"><?php echo $data["last_time"];?></td>
 				<td align="center" class="pc"><?php echo $data["weight"];?></td>
 				<td align="center" class="pc"><?php echo $data["trainer"];?></td>
-				<td align="center"><?php if($data["popularity"]!=0):?><?php echo $data["popularity"];?><?php else:?>-<?php endif;?></td>
+				<td align="center"><span class='odds'><?php if($data["popularity"]!=0):?><?php echo $data["popularity"];?><?php else:?>-<?php endif;?></span></td>
 			</tr>
 		<?php endforeach;?>
 		</table>

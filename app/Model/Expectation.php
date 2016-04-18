@@ -73,7 +73,24 @@ class Expectation extends AppModel {
 			$tmpData = $User->find("all",array("conditions"=>array("User.id"=>$userIds)));
 			$userData = array();
 			foreach($tmpData as $key=>$data){
+				$mlength = 7;
+				if (mb_strlen($data["User"]['nickname']) > $mlength) {	
+			    	$data["User"]['nickname'] = mb_substr($data["User"]['nickname'], 0, $mlength, 'UTF-8').'..';
+			    }
+				$mlength = 4;
+				if (!empty($data['User']['span'])&&mb_strlen($data["User"]['span']) > $mlength) {	
+			    	$data["User"]['span'] = mb_substr($data["User"]['span'], 0, $mlength, 'UTF-8').'..';
+			    }
 				$userData[$data["User"]["id"]] = $data["User"];
+			}
+
+			//ユーザーの成績情報を取得
+			$year = date('Y');
+			$this->ExpectationResult = ClassRegistry::init('ExpectationResult');
+			$tmpData = $this->ExpectationResult->find("all",array("conditions"=>array("user_id"=>$userIds,'year'=>$year)));
+			$userExpectationResult = array();
+			foreach($tmpData as $key=>$data){
+				$userExpectationResult[$data["ExpectationResult"]["user_id"]] = $data["ExpectationResult"];
 			}
 
 			//出走表データを取得
@@ -104,6 +121,10 @@ class Expectation extends AppModel {
 				for($i=1;$i<=Configure::read('Base.box_count');$i++){
 					$data["selectData"][] = $cardData[$tmp_arrays[($i-1)]['card_id']];
 					$data["User"] = $userData[$data["Expectation"]["user_id"]];
+
+					if(!empty($userExpectationResult[$data["Expectation"]["user_id"]])){
+						$data["ExpectationResult"] = $userExpectationResult[$data["Expectation"]["user_id"]];
+					}
 				}
 			}
 		}

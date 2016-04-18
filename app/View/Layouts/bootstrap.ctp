@@ -122,8 +122,13 @@
 					<a href="http://px.a8.net/svt/ejp?a8mat=2NC1FN+C3TD4Y+1JS2+C164X" target="_blank">
 					<img border="0" width="728" height="90" alt="" src="http://www29.a8.net/svt/bgt?aid=160125251732&wid=003&eno=01&mid=s00000007229002021000&mc=1"></a>
 					<img border="0" width="1" height="1" src="http://www18.a8.net/0.gif?a8mat=2NC1FN+C3TD4Y+1JS2+C164X" alt="">
-				<?php endif;?>
 
+					<?php //大川慶次郎 ;?>
+					<a href="http://px.a8.net/svt/ejp?a8mat=2NDV7S+1F7BKQ+2MTC+60OXD" target="_blank">
+					<img border="0" width="728" height="90" alt="" src="http://www21.a8.net/svt/bgt?aid=160210504086&wid=002&eno=01&mid=s00000012288001011000&mc=1"></a>
+					<img border="0" width="1" height="1" src="http://www15.a8.net/0.gif?a8mat=2NDV7S+1F7BKQ+2MTC+60OXD" alt="">
+
+				<?php endif;?>
 			</div>
 
 			<div id="bottomAd" class="sp">
