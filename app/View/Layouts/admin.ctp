@@ -60,7 +60,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 						<li><a href="">掲示板管理</a></li>
 						<li><a href="">こじはる管理</a></li>
 						<li><a href="">お知らせ管理</a></li>
-						<li><a href="">広告管理</a></li>
+						<li><a href="/admin/manageAdTags/">広告管理</a></li>
 						<li><a href="/admin/manages/user">管理者管理</a></li>
 						<li><a href="/" target="_blank">サイトを見る</a></li>
 					</ul>

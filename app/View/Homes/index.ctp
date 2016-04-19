@@ -176,7 +176,7 @@
 				<img border="0" width="320" height="50" alt="" src="http://www24.a8.net/svt/bgt?aid=160125251725&wid=003&eno=01&mid=s00000013626001018000&mc=1"></a>
 				<img border="0" width="1" height="1" src="http://www14.a8.net/0.gif?a8mat=2NC1FN+BZNBWI+2X50+626XT" alt="">
 			</li>
-		<?php elseif($ad3<=3):?>
+		<?php elseif($ad3<=6):?>
 			<li>
 				<?php //競輪２ ?>
 				<a href="http://px.a8.net/svt/ejp?a8mat=2NC1FN+C3TD4Y+1JS2+C9QS1" target="_blank">

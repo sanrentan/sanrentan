@@ -34,6 +34,7 @@ class AdminController extends Controller {
     public $components = array(
         'Session',
         'Flash',
+        'Paginator',
         'Auth' => array(
             'loginAction' => array(
             	'controller' => "manages",
