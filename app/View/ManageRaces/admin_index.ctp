@@ -2,6 +2,13 @@
 
 <p><a href="./race_add" class="btn">新規追加</a></p>
 
+
+<div>
+ここに検索エリアをつける
+</div>
+
+
+<?php echo $this->element('pager'); ?>
 <table>
 	<tr><th>ID</th><th>日付</th><th>場所</th><th>レース名</th><th>正式名称</th><th>情報</th><th>公開状態</th><th>予想受付</th><th>こじはる</th><th>詳細</th><th>編集</th><th>削除</th></tr>
 	<?php foreach($raceList as $key=>$data):?>
@@ -21,3 +28,5 @@
 		</tr>
 	<?php endforeach;?>
 </table>
+
+<?php echo $this->element('pager'); ?>

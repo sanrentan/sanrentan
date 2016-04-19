@@ -44,6 +44,10 @@ class ManageRacesController extends AdminController {
 		'RecentRaceResult',
 	);
 
+	public $components = array(
+		'Paginator','Auth'
+	);
+
 
 	public $kojiharu_id = 3;
 
@@ -57,15 +61,18 @@ class ManageRacesController extends AdminController {
 	public function admin_index(){
 		//TODO 年月による検索をつけたい
 
-		$options = array(
+		$this->Paginator->settings = array(
 			"conditions" => array(
 				"is_deleted" => 0
 			),
 			"order" => "id desc",
-			"recursive" => "-1"
- 		);
-		$raceList = $this->Race->find("all",$options);
-		$this->set("raceList",$raceList);
+			"recursive" => "-1",
+			"limit" => 20
+		);
+		$raceList = $this->Paginator->paginate('Race');
+		$this->set('raceList', $raceList);
+
+
 	}
 
 	//レース詳細
