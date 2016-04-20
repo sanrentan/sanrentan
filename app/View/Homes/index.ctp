@@ -125,98 +125,26 @@
 
 <div class="adArea pc">
 	<ul>
-		<?php $ad1 = rand(1,10);?>
-		<?php if($ad1<=3):?>
+		<?php foreach($adTags2 as $key=>$data):?>
 			<li>
-				<?php //ターフィー競馬クラブ ?>
-				<a href="http://px.a8.net/svt/ejp?a8mat=2NC1FN+BZ1WAQ+3ETY+60OXD" target="_blank">
-				<img border="0" width="300" height="250" alt="" src="http://www21.a8.net/svt/bgt?aid=160125251724&wid=003&eno=01&mid=s00000015919001011000&mc=1"></a>
-				<img border="0" width="1" height="1" src="http://www12.a8.net/0.gif?a8mat=2NC1FN+BZ1WAQ+3ETY+60OXD" alt="">
+				<?php echo $data['AdTag']['tag'];?>
 			</li>
-		<?php elseif($ad1<=6):?>
+		<?php endforeach;?>
+		<?php foreach($adTags3 as $key=>$data):?>
 			<li>
-				<?php //すご馬 ?>			
-				<a href="http://px.a8.net/svt/ejp?a8mat=2NC1FN+C1FMPU+2W2E+62U35" target="_blank">
-				<img border="0" width="300" height="250" alt="" src="http://www29.a8.net/svt/bgt?aid=160125251728&wid=003&eno=01&mid=s00000013487001021000&mc=1"></a>
-				<img border="0" width="1" height="1" src="http://www12.a8.net/0.gif?a8mat=2NC1FN+C1FMPU+2W2E+62U35" alt="">
+				<?php echo $data['AdTag']['tag'];?>
 			</li>
-		<?php else:?>
-			<li>
-				<?php //競馬データベース【KLAN】 ?>
-				<a href="http://px.a8.net/svt/ejp?a8mat=2NDV7S+1990AQ+2KK8+HWAG1" target="_blank">
-				<img border="0" width="350" height="240" alt="" src="http://www22.a8.net/svt/bgt?aid=160210504076&wid=003&eno=01&mid=s00000011996003006000&mc=1"></a>
-				<img border="0" width="1" height="1" src="http://www15.a8.net/0.gif?a8mat=2NDV7S+1990AQ+2KK8+HWAG1" alt="">
-			</li>
-		<?php endif;?>
-
-		<?php $ad2 = rand(1,10);?>
-		<?php if($ad2<=5):?>
-			<li>
-				<?php //乃木坂 ?>
-				<a href="http://px.a8.net/svt/ejp?a8mat=2C0PLP+DG1H4Y+347Q+61C2P" target="_blank">
-				<img border="0" width="300" height="250" alt="" src="http://www22.a8.net/svt/bgt?aid=141120925813&wid=003&eno=01&mid=s00000014543001014000&mc=1"></a>
-				<img border="0" width="1" height="1" src="http://www16.a8.net/0.gif?a8mat=2C0PLP+DG1H4Y+347Q+61C2P" alt="">
-			</li>
-		<?php else:?>
-			<li>
-				<?php //お名前レンタルサーバー ?>
-				<a href="http://px.a8.net/svt/ejp?a8mat=2NC1FG+DE96BM+50+35OAJ5" target="_blank">
-				<img border="0" width="350" height="240" alt="" src="http://www29.a8.net/svt/bgt?aid=160125244810&wid=003&eno=01&mid=s00000000018019093000&mc=1"></a>
-				<img border="0" width="1" height="1" src="http://www15.a8.net/0.gif?a8mat=2NC1FG+DE96BM+50+35OAJ5" alt="">
-			</li>
-		<?php endif;?>
-
-
-
-		<?php $ad3 = rand(1,10);?>
-		<?php if($ad3<=3):?>
-			<li>
-				<?php //競輪 ?>
-				<a href="http://px.a8.net/svt/ejp?a8mat=2NC1FN+BZNBWI+2X50+626XT" target="_blank">
-				<img border="0" width="320" height="50" alt="" src="http://www24.a8.net/svt/bgt?aid=160125251725&wid=003&eno=01&mid=s00000013626001018000&mc=1"></a>
-				<img border="0" width="1" height="1" src="http://www14.a8.net/0.gif?a8mat=2NC1FN+BZNBWI+2X50+626XT" alt="">
-			</li>
-		<?php elseif($ad3<=6):?>
-			<li>
-				<?php //競輪２ ?>
-				<a href="http://px.a8.net/svt/ejp?a8mat=2NC1FN+C3TD4Y+1JS2+C9QS1" target="_blank">
-				<img border="0" width="350" height="80" alt="" src="http://www29.a8.net/svt/bgt?aid=160125251732&wid=003&eno=01&mid=s00000007229002061000&mc=1"></a>
-				<img border="0" width="1" height="1" src="http://www12.a8.net/0.gif?a8mat=2NC1FN+C3TD4Y+1JS2+C9QS1" alt="">
-			</li>
-		<?php else:?>
-			<li>
-				<?php //お名前.comドメイン ?>
-				<a href="http://px.a8.net/svt/ejp?a8mat=1ZOP8H+85IRK2+50+2HK0TD" target="_blank">
-				<img border="0" width="350" height="80" alt="" src="http://www29.a8.net/svt/bgt?aid=120405185493&wid=003&eno=01&mid=s00000000018015042000&mc=1"></a>
-				<img border="0" width="1" height="1" src="http://www16.a8.net/0.gif?a8mat=1ZOP8H+85IRK2+50+2HK0TD" alt="">
-			</li>
-		<?php endif;?>
-
+		<?php endforeach;?>
 
 	</ul>
 	<div class="adheight">
-		<div class="adheightLeft">
-			<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:150px;"><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px 10px 0pt;"><a href="http://px.a8.net/svt/ejp?a8mat=1ZOP8H+82JLJ6+249K+BWGDT&a8ejpredirect=http%3A%2F%2Fwww.amazon.co.jp%2Fdp%2FB00G52HZ50%2F%3Ftag%3Da8-affi-258181-22" target="_blank"><img border="0" alt="" src="http://ecx.images-amazon.com/images/I/51XuX47p2XL._SS140_.jpg" /></a></td></tr><tr style="border-style:none;"><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="http://px.a8.net/svt/ejp?a8mat=1ZOP8H+82JLJ6+249K+BWGDT&a8ejpredirect=http%3A%2F%2Fwww.amazon.co.jp%2Fdp%2FB00G52HZ50%2F%3Ftag%3Da8-affi-258181-22" target="_blank">anan (アンアン) 2016/02/10号[雑誌]</a></p><p style="color:#cc0000; font-weight:bold; margin-top:10px;">新品価格<br/>￥500<span style="font-weight:normal;">から</span><br/><span style="font-size:10px; font-weight:normal;">(2016/2/26 00:10時点)</span></p></td></tr></table>
-			<img border="0" width="1" height="1" src="http://www19.a8.net/0.gif?a8mat=1ZOP8H+82JLJ6+249K+BWGDT" alt="">
-		</div>
-		<div class="adheightLeft">
-			<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:150px;"><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px 10px 0pt;"><a href="http://px.a8.net/svt/ejp?a8mat=1ZOP8H+82JLJ6+249K+BWGDT&a8ejpredirect=http%3A%2F%2Fwww.amazon.co.jp%2Fdp%2F4800238277%2F%3Ftag%3Da8-affi-258181-22" target="_blank"><img border="0" alt="" src="http://ecx.images-amazon.com/images/I/41Q7Uj1kzDL._SS140_.jpg" /></a></td></tr><tr style="border-style:none;"><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="http://px.a8.net/svt/ejp?a8mat=1ZOP8H+82JLJ6+249K+BWGDT&a8ejpredirect=http%3A%2F%2Fwww.amazon.co.jp%2Fdp%2F4800238277%2F%3Ftag%3Da8-affi-258181-22" target="_blank">小嶋陽菜写真集 『どうする?』</a></p><p style="color:#cc0000; font-weight:bold; margin-top:10px;">中古価格<br/>￥1,000<span style="font-weight:normal;">から</span><br/><span style="font-size:10px; font-weight:normal;">(2016/2/26 00:11時点)</span></p></td></tr></table>
-			<img border="0" width="1" height="1" src="http://www16.a8.net/0.gif?a8mat=1ZOP8H+82JLJ6+249K+BWGDT" alt="">			
-		</div>		
-		<div class="clearfix"></div>
 
-		<?php /**		
-		<div class="adheightLeft">
-			<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:150px;"><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px 10px 0pt;"><a href="http://px.a8.net/svt/ejp?a8mat=1ZOP8H+82JLJ6+249K+BWGDT&a8ejpredirect=http%3A%2F%2Fwww.amazon.co.jp%2Fdp%2F4800252377%2F%3Ftag%3Da8-affi-258181-22" target="_blank"><img border="0" alt="" src="http://ecx.images-amazon.com/images/I/514MWcWzGsL._SS140_.jpg" /></a></td></tr><tr style="border-style:none;"><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="http://px.a8.net/svt/ejp?a8mat=1ZOP8H+82JLJ6+249K+BWGDT&a8ejpredirect=http%3A%2F%2Fwww.amazon.co.jp%2Fdp%2F4800252377%2F%3Ftag%3Da8-affi-258181-22" target="_blank">痴人の愛 (宝島社文庫)</a></p><p style="color:#cc0000; font-weight:bold; margin-top:10px;">新品価格<br/>￥702<span style="font-weight:normal;">から</span><br/><span style="font-size:10px; font-weight:normal;">(2016/2/26 00:11時点)</span></p></td></tr></table>
-			<img border="0" width="1" height="1" src="http://www12.a8.net/0.gif?a8mat=1ZOP8H+82JLJ6+249K+BWGDT" alt="">
-		</div>
-		<div class="adheightLeft">
-			<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:150px;"><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px 10px 0pt;"><a href="http://px.a8.net/svt/ejp?a8mat=1ZOP8H+82JLJ6+249K+BWGDT&a8ejpredirect=http%3A%2F%2Fwww.amazon.co.jp%2Fdp%2F4063899527%2F%3Ftag%3Da8-affi-258181-22" target="_blank"><img border="0" alt="" src="http://ecx.images-amazon.com/images/I/51cRPwTn2uL._SS140_.jpg" /></a></td></tr><tr style="border-style:none;"><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="http://px.a8.net/svt/ejp?a8mat=1ZOP8H+82JLJ6+249K+BWGDT&a8ejpredirect=http%3A%2F%2Fwww.amazon.co.jp%2Fdp%2F4063899527%2F%3Ftag%3Da8-affi-258181-22" target="_blank">指原莉乃写真集 スキャンダル中毒 (講談社 MOOK)</a></p><p style="color:#cc0000; font-weight:bold; margin-top:10px;">新品価格<br/>￥1,890<span style="font-weight:normal;">から</span><br/><span style="font-size:10px; font-weight:normal;">(2016/2/26 00:12時点)</span></p></td></tr></table>
-			<img border="0" width="1" height="1" src="http://www13.a8.net/0.gif?a8mat=1ZOP8H+82JLJ6+249K+BWGDT" alt="">
-		</div>		
+		<?php foreach($adTags5 as $key=>$data):?>
+			<div class="adheightLeft">
+				<?php echo $data['AdTag']['tag'];?>
+			</div>
+		<?php endforeach;?>
 		<div class="clearfix"></div>
-		*/?>
-
 
 	</div>
 

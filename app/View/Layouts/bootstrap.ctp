@@ -97,59 +97,15 @@
 
 		<div id="footer">
 			<div id="footerArea">
-
-				<?php $footerAd = rand(1,10);?>
-
-				<?php if($footerAd<=3):?>
-					<?php //yahoo ;?>
-					<a href="http://px.a8.net/svt/ejp?a8mat=2BY5X7+G6VFK2+2VOI+64C3L" target="_blank">
-					<img border="0" width="728" height="90" alt="" src="http://www27.a8.net/svt/bgt?aid=141002107979&wid=003&eno=01&mid=s00000013437001028000&mc=1"></a>
-					<img border="0" width="1" height="1" src="http://www14.a8.net/0.gif?a8mat=2BY5X7+G6VFK2+2VOI+64C3L" alt="">
-
-				<?php elseif($footerAd<=5):?>
-					<?php //さくら ;?>
-					<a href="http://px.a8.net/svt/ejp?a8mat=2HJY3S+72TL8I+D8Y+C7TC1" target="_blank">
-					<img border="0" width="728" height="90" alt="" src="http://www22.a8.net/svt/bgt?aid=150416488428&wid=003&eno=01&mid=s00000001717002052000&mc=1"></a>
-					<img border="0" width="1" height="1" src="http://www12.a8.net/0.gif?a8mat=2HJY3S+72TL8I+D8Y+C7TC1" alt="">				
-
-				<?php elseif($footerAd<=8):?>
-					<?php //KLAN ;?>
-					<a href="http://px.a8.net/svt/ejp?a8mat=2NDV7S+198ZIY+2KK8+HVFKX" target="_blank">
-					<img border="0" width="728" height="90" alt="" src="http://www27.a8.net/svt/bgt?aid=160210504076&wid=003&eno=01&mid=s00000011996003002000&mc=1"></a>
-					<img border="0" width="1" height="1" src="http://www18.a8.net/0.gif?a8mat=2NDV7S+198ZIY+2KK8+HVFKX" alt="">
-				<?php else:?>
-					<?php //オッズパーク ;?>
-					<a href="http://px.a8.net/svt/ejp?a8mat=2NC1FN+C3TD4Y+1JS2+C164X" target="_blank">
-					<img border="0" width="728" height="90" alt="" src="http://www29.a8.net/svt/bgt?aid=160125251732&wid=003&eno=01&mid=s00000007229002021000&mc=1"></a>
-					<img border="0" width="1" height="1" src="http://www18.a8.net/0.gif?a8mat=2NC1FN+C3TD4Y+1JS2+C164X" alt="">
-
-					<?php //大川慶次郎 ;?>
-					<a href="http://px.a8.net/svt/ejp?a8mat=2NDV7S+1F7BKQ+2MTC+60OXD" target="_blank">
-					<img border="0" width="728" height="90" alt="" src="http://www21.a8.net/svt/bgt?aid=160210504086&wid=002&eno=01&mid=s00000012288001011000&mc=1"></a>
-					<img border="0" width="1" height="1" src="http://www15.a8.net/0.gif?a8mat=2NDV7S+1F7BKQ+2MTC+60OXD" alt="">
-
-				<?php endif;?>
+				<?php foreach($adTags1 as $key=>$data):?>
+					<?php echo $data['AdTag']['tag'];?>
+				<?php endforeach;?>
 			</div>
 
 			<div id="bottomAd" class="sp">
-				<?php $ad1 = rand(1,10);?>
-				<?php if($ad1<=3):?>
-						<?php //ターフィー競馬クラブ ?>
-						<a href="http://px.a8.net/svt/ejp?a8mat=2NC1FN+BZ1WAQ+3ETY+60OXD" target="_blank">
-						<img border="0" width="300" height="250" alt="" src="http://www21.a8.net/svt/bgt?aid=160125251724&wid=003&eno=01&mid=s00000015919001011000&mc=1"></a>
-						<img border="0" width="1" height="1" src="http://www12.a8.net/0.gif?a8mat=2NC1FN+BZ1WAQ+3ETY+60OXD" alt="">
-				<?php elseif($ad1<=6):?>
-						<?php //すご馬 ?>			
-						<a href="http://px.a8.net/svt/ejp?a8mat=2NC1FN+C1FMPU+2W2E+62U35" target="_blank">
-						<img border="0" width="300" height="250" alt="" src="http://www29.a8.net/svt/bgt?aid=160125251728&wid=003&eno=01&mid=s00000013487001021000&mc=1"></a>
-						<img border="0" width="1" height="1" src="http://www12.a8.net/0.gif?a8mat=2NC1FN+C1FMPU+2W2E+62U35" alt="">
-				<?php else:?>
-						<?php //競馬データベース【KLAN】 ?>
-						<a href="http://px.a8.net/svt/ejp?a8mat=2NDV7S+1990AQ+2KK8+HWAG1" target="_blank">
-						<img border="0" width="350" height="240" alt="" src="http://www22.a8.net/svt/bgt?aid=160210504076&wid=003&eno=01&mid=s00000011996003006000&mc=1"></a>
-						<img border="0" width="1" height="1" src="http://www15.a8.net/0.gif?a8mat=2NDV7S+1990AQ+2KK8+HWAG1" alt="">
+				<?php if(!empty($adTags2)):?>
+					<?php echo $adTags2[0]['AdTag']['tag'];?>
 				<?php endif;?>
-
 			</div>
 
 			<ul>

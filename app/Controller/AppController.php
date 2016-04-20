@@ -33,6 +33,8 @@ App::uses('CakeEmail', 'Network/Email');
  */
 class AppController extends Controller {
 
+    public $uses = array('AdTag');
+
     public $components = array(
         'Session',
         'Flash',
@@ -122,6 +124,12 @@ class AppController extends Controller {
         }
         $this->set("title_tag",$this->title_tag);
 
+        //広告タグを取得
+        $adTags1 = $this->AdTag->getAdTag(1,1);//横長
+        $adTags2 = $this->AdTag->getAdTag(2,2);//正方形
+        $adTags3 = $this->AdTag->getAdTag(3,1);//ミニバナー
+        $adTags5 = $this->AdTag->getAdTag(5,2);//amazon
+        $this->set(compact("adTags1","adTags2","adTags3","adTags5"));
     }
 
     public function getRss($key,$url,$num=5,$css=1){
