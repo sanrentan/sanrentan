@@ -5,7 +5,7 @@ App::import('Vendor', 'simple_html_dom');
 //レースの予想結果を集計する
 class ResultExpectationShell extends AppShell {
 
-    public $uses = array('Race','RaceResult','RaceResultDetail','User','Expectation','ExpectationResult');
+    public $uses = array('Race','RaceResult','RaceResultDetail','User','Expectation','ExpectationResult','Information');
 
     public function getOptionParser() {
         $parser = parent::getOptionParser();
@@ -313,6 +313,14 @@ class ResultExpectationShell extends AppShell {
         $this->__log($msg);
         $msg = "ng:".$ngCount;
         $this->__log($msg);
+
+
+        //お知らせに追加する
+        if($okCount>0){
+            $this->Information->addRaceResultInfo($race_id);
+        }
+
+
         $this->__log("レース結果を登録が完了しました。race_id = ".$race_id.', '.$raceData['Race']['name']);            
 
     }

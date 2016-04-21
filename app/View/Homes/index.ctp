@@ -79,13 +79,9 @@
 
 		<p class="titleLabel light">お知らせ</p>
 		<ul class="information">
-			<li class="news"> 2016年4月3日　<a href="/result/44">桜花賞(G1)</a>で当サイトから予想的中者がでました。おめでとうござます！</li>
-			<li class="news"> 2016年4月3日　<a href="/result/42">阪神牝馬ステークス(G2)</a>で当サイトから予想的中者がでました。おめでとうござます！</li>
-			<li class="news"> 2016年4月3日　<a href="/result/41">ダービー卿チャレンジトロフィー(G3)</a>で当サイトから予想的中者がでました。おめでとうござます！</li>
-			<li class="news"> 2016年4月3日　<a href="/result/40">産経大阪杯(G2)</a>で当サイトから予想的中者がでました。おめでとうござます！</li>
-			<li class="news"> 2016年3月27日　<a href="/result/38">マーチステークス</a>で当サイトから予想的中者がでました。おめでとうござます！</li>
-			<li class="news"> 2016年3月26日　<a href="/result/36">毎日杯</a>で当サイトから予想的中者がでました。おめでとうござます！</li>
-			<li class="news"> 2016年3月24日　<a href="/users/twitter_login">Twitterアカウント連携</a>を行いました。会員登録やログインが簡単に可能になりました。</li>
+			<?php foreach($infoData as $key=>$data):?>
+				<li class="news"> <?php echo date("Y年m月d日",strtotime($data["Information"]["start_date"]));?><br><?php echo $data['Information']['title'];?></li>
+			<?php endforeach;?>
 		</ul>
 
 		<?php if(!empty($newsRss)):?>

@@ -48,7 +48,8 @@ class HomesController extends AppController {
 		'RaceResultDetail',
 		'RecentRaceResult',
 		'User',
-		'FavoUser'
+		'FavoUser',
+		'Information'
 	);
 
     var $helpers = array('Js');
@@ -87,8 +88,11 @@ class HomesController extends AppController {
 
 		$matomeRss = array_merge($matomeRss,$keibaKyodai,$keibayosou,$umachannel);
 
+		//お知らせを取得
+		$infoData = $this->Information->getInfoList(5);
 
-		$this->set(compact("newsRss", "expectRss","matomeRss"));
+
+		$this->set(compact("newsRss", "expectRss","matomeRss","infoData"));
 
 	}
 
