@@ -44,11 +44,6 @@ class ManageRacesController extends AdminController {
 		'RecentRaceResult',
 	);
 
-	public $components = array(
-		'Paginator','Auth'
-	);
-
-
 	public $kojiharu_id = 3;
 
     public function beforeFilter() {
