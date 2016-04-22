@@ -219,4 +219,23 @@ class User extends AppModel {
 
     }
 
+
+    //金額によるランキング
+    public function getRankingPrice($year){
+        $optionsForRanking = array(
+            'conditions'  => array(
+                'User.is_deleted' => 0,
+                'User.test_flg' => 0,
+                'NOT' => array('ExpectationResult.price' => NULL),
+                'ExpectationResult.price > ' => 0,
+                'ExpectationResult.year' => $year
+            ),
+            'order' => array('ExpectationResult.price' => 'desc'),
+            'limit' => 5
+        );
+
+        $result = $this->find('all',$optionsForRanking);
+        return $result;
+    }
+
 }

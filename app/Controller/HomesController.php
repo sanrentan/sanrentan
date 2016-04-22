@@ -88,11 +88,15 @@ class HomesController extends AppController {
 
 		$matomeRss = array_merge($matomeRss,$keibaKyodai,$keibayosou,$umachannel);
 
+		//ランキング
+		$rankedUsers = $this->User->getRankingPrice(date('Y'));//金額
+
+
 		//お知らせを取得
 		$infoData = $this->Information->getInfoList(5);
 
 
-		$this->set(compact("newsRss", "expectRss","matomeRss","infoData"));
+		$this->set(compact("newsRss", "expectRss","matomeRss","infoData","rankedUsers"));
 
 	}
 

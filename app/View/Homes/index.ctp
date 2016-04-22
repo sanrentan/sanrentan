@@ -4,19 +4,22 @@
 	</div>
 	<div id="mainBannerAreaRight" class="pc">
 		<p class="titleLabelKojiharu">最新のこじはる予想！</p>
-		<div id="recentKojiharuArea">
+		<div id="recentKojiharuArea" style="display:block;float:left;width:200px;">
 			<p><?php echo date("m月d日",strtotime($recentKojiharu["Race"]["race_date"]));?> <a href="/detail/<?php echo $recentKojiharu['Race']['id'];?>"><?php echo $recentKojiharu["Race"]["name"];?><?php if($recentKojiharu['Race']['grade']>0):?> (G<?php echo $recentKojiharu['Race']['grade'];?>)<?php endif;?></a></p>
 			<?php foreach($recentKojiharu["Expectation"]["view"] as $key=>$data):?>
 				<p><span class="wk<?php echo $data['wk'];?>"><?php echo $data["uma"];?></span><?php echo $data["name"];?></p>
 			<?php endforeach;?>
+
+
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.sanrentan-box.com" data-text="<?php echo $recentKojiharu['Race']['name'];?>の３連単予想！「<?php foreach($recentKojiharu["Expectation"]["view"] as $key=>$data):?><?php if($key==0):?><?php echo $data["uma"];?><?php else:?>-<?php echo $data["uma"];?><?php endif;?><?php endforeach;?>
+	」" data-via="sanrentan_box" data-lang="ja" data-size="large" data-hashtags="こじはる３連単予想">ツイート</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 		</div>
-
-		<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.sanrentan-box.com" data-text="<?php echo $recentKojiharu['Race']['name'];?>の３連単予想！「<?php foreach($recentKojiharu["Expectation"]["view"] as $key=>$data):?><?php if($key==0):?><?php echo $data["uma"];?><?php else:?>-<?php echo $data["uma"];?><?php endif;?><?php endforeach;?>
-」" data-via="sanrentan_box" data-lang="ja" data-size="large" data-hashtags="こじはる３連単予想">ツイート</a>
-		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+		<div id="subBannerArea" style="float:right; padding-right:10px;padding-top:20px;"><img src="/img/common/umairasto.png" style="max-width:90px;"></div>	
+		<div class="clearfix"></div>
 
 
-		<div id="subBannerArea"><img src="/img/common/umairasto.png" style="max-width:150px;"></div>	
+
 	</div>
 	<div class="clearfix"></div>
 </div>
@@ -112,11 +115,30 @@
 	</div>
 	<div id="rightContent">
 
+	<p class="titleLabel">ユーザーランキング(2016年)</p>
+	<div class="ranking">
+		<table class="table">
+				<th>順位</th><th>ユーザー</th><th>収支・勝敗</th>
+				<?php foreach($rankedUsers as $rank => $rankedUser): ?>
+					<tr>
+						<td><?php echo $rank + 1 ?></td>
+						<td>
+							<a href="/other/<?php echo $rankedUser['User']['id'];?>"><?php if(!empty($rankedUser['User']['profile_img'])): ?><img src="/img/profileImg/<?php echo $rankedUser['User']['profile_img'] ; ?>" alt=""><?php else: ?><img src="/img/common/noimage_person.png" alt=""><?php endif ?><br><?php echo $rankedUser['User']['nickname'] ?></a>
+						</td>
+						<td><?php echo number_format($rankedUser['ExpectationResult']['price']); ?>円<br><?php echo $rankedUser['ExpectationResult']['win'] ?>勝<?php echo $rankedUser['ExpectationResult']['lose'] ?>敗</td>
+					</tr>
+				<?php endforeach; ?>
+		</table>
+
+	</div>
+
+
 <p class="titleLabel light sp">公式Twitter</p>
 <div class="twitterArea">
 	<a class="twitter-timeline" href="https://twitter.com/sanrentan_box" data-widget-id="695993921566932996">@sanrentan_boxさんのツイート</a>
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 </div>
+
 
 
 <div class="adArea pc">

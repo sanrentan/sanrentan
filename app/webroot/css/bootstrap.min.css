@@ -828,6 +828,18 @@ ul.information.keibajapan{
 	margin:0 0 0 auto;
 }
 
+.ranking img{
+	max-width: 100px;
+	max-height:50px;
+}
+.ranking td{
+	text-align: center;
+	vertical-align: middle;
+}
+.ranking th{
+	text-align: center;
+}
+
 .adArea{
 	width:300px;
 }
