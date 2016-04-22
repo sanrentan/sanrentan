@@ -75,7 +75,7 @@ class OauthController extends TwitterKitAppController {
      *
      * @param string $datasource
      */
-    public function authenticate_url($datasource = null) {
+    public function authenticate_url($datasource = null,$redirect_flg=false) {
 
         Configure::write('debug', 0);
 
@@ -84,8 +84,13 @@ class OauthController extends TwitterKitAppController {
 
         // set Authenticate Url
         $url = $this->Twitter->getAuthenticateUrl(null, true);
-        echo json_encode(compact('url'));
-		exit;
+        $url = str_replace('http://', 'https://', $url);
+        if($redirect_flg==false){
+            echo json_encode(compact('url'));
+            exit;
+        }else{
+            return $url;
+        }
     }
 
 
@@ -118,18 +123,81 @@ class OauthController extends TwitterKitAppController {
             $model = ClassRegistry::init('TwitterUser');
         } else {
             /* @var $model TwitterKitUser */
-            $model = ClassRegistry::init('TwitterKit.TwitterKitUser');
+            //$model = ClassRegistry::init('TwitterKit.TwitterKitUser');
+            $model = ClassRegistry::init('User');
         }
 
-        // 保存データの作成
-        $data = $model->createSaveDataByToken($token);
+        $create_flg = false;
 
-        if (!$model->save($data)) {
+        //既に登録済みか？
+        $tmp = $model->findTwitterUser($token['user_id']);
+        if(!empty($tmp)){
+            $data = $model->updateSaveDataByToken($tmp,$token);
+        }else{
+            // 保存データの作成
+            $data = $model->createSaveDataByToken($token);
+            $model->create();
+            $create_flg = true;
+        }
+
+        if (!$model->save($data,false)) {
             $this->flash(__d('twitter_kit', 'The user could not be saved'), array('plugin' => 'twitter_kit', 'controller' => 'users', 'action' => 'login'), 5);
             return;
         }
 
-        $this->Auth->login($data);
+        if($create_flg==true){
+            $data['User']['id'] = $model->getLastInsertId();
+            //新規会員登録の際
+            $ds = $this->Twitter->getTwitterSource();
+            $ds->setToken($data['User']);
+
+            //プロフィール画像の取得
+            $params = array();
+            $params['id'] = $data['User']['twitter_user_id'];
+            $result = $ds->users_show($data['User']['twitter_user_id']);
+            if(!empty($result['profile_image_url'])){
+                $image_url = str_replace("_normal", "", $result['profile_image_url']);
+                $image_data = file_get_contents($image_url);
+                //MIMEタイプの取得
+                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                $mime_type = finfo_buffer($finfo, $image_data);
+                finfo_close($finfo);
+                //出力
+                switch ($mime_type) {
+                    case 'image/gif':
+                        $ext = "gif";
+                        break;
+                    case 'image/png':
+                        $ext = "png";
+                        break;
+                    case 'image/jpg':
+                    case 'image/jpeg':
+                        $ext = "jpg";
+                        break;
+                        
+                }
+                $file_name = md5(date("YmdHis").$data['User']['id']).".".$ext;
+                file_put_contents(IMAGES.'profileImg/'.$file_name,$image_data);
+
+                //profile_imgを更新
+                $model->id = $data['User']['id'];
+                $model->saveField('profile_img',$file_name);
+                $data['User']['profile_img'] = $file_name;
+            }
+
+            //メール送信
+            $email = new CakeEmail('smtp'); 
+            $email->to('info@sanrentan-box.com');
+            $email->subject( 'twitterから会員登録がありました');
+            $email->emailFormat('text');
+            $email->template('regist');
+            $postData['User']['nickname'] = $data['User']['nickname'];
+            $email->viewVars(compact('postData'));
+            $email->send();
+        }
+
+
+        $this->Auth->login($data['User']);
 
         // Redirect
         if (ini_get('session.referer_check') && env('HTTP_REFERER')) {
@@ -137,7 +205,12 @@ class OauthController extends TwitterKitAppController {
             return;
         }
 
-        $this->redirect($this->Auth->redirect());
+        //$this->redirect($this->Auth->redirect());
+        if($create_flg==true){
+            $this->redirect("/users/edit");
+        }else{
+            $this->redirect("/");
+        }
 
     }
 

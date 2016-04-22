@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="jp">
 <head>
 	<meta charset="utf-8">
-	<title>
-		<?php echo __('CakePHP: the rapid development php framework:'); ?>
-		<?php echo $title_for_layout; ?>
-	</title>
+	<title><?php if(!empty($title_tag)):?><?php echo $title_tag; ?>｜こじはる３連単５頭ボックス<?php else:?>こじはる３連単５頭ボックス<?php endif;?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author" content="">
+	<meta name="description" content="<?php echo $meta_description;?>">
+	<meta name="keywords" content="<?php echo $meta_keywords;?>">
+	<meta name="author" content="yamaty">
 
 	<!-- Le styles -->
 	<?php echo $this->Html->css('bootstrap.min'); ?>
@@ -18,7 +16,6 @@
 	}
 	</style>
 	<?php echo $this->Html->css('bootstrap-responsive.min'); ?>
-
 	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -37,6 +34,18 @@
 	echo $this->fetch('css');
 	?>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<?php echo $this->html->meta('icon','/ico/favicon.ico');?>
+
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-73854308-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
 </head>
 
 <body>
@@ -51,6 +60,7 @@
 					<span class="icon-bar"></span>
 				</a>
 				<a class="brand" href="/"><img src="/img/common/logo.png" width="200" alt="3連単5頭BOXならだいたい当たる"></a>
+				<?php if(!empty($user)):?><p class="sp navi-nickname"><?php echo $user["nickname"];?>さん</p><?php endif;?>
 				<div class="nav-collapse">
 					<ul class="nav">
 						<li <?php if($naviType=="top"):?>class="active"<?php endif;?>><a href="/">Home</a></li>
@@ -65,6 +75,15 @@
 							<li <?php if($naviType=="login"):?>class="active"<?php endif;?>><a href="/login">ログイン</a></li>
 						<?php endif;?>
 					</ul>
+					<?php if(!empty($user)):?>
+						<div class="pc navi-profileImg"><a href="/users/edit">
+							<?php if(!empty($user["profile_img"])):?>
+								<img src="/img/profileImg/<?php echo $user['profile_img'];?>" width="72">
+							<?php else:?>
+								<img src="/img/common/noimage_person.png" width="72">
+							<?php endif;?>
+						</a></div>
+					<?php endif;?>
 				</div><!--/.nav-collapse -->
 			</div>
 		</div>
@@ -78,11 +97,16 @@
 
 		<div id="footer">
 			<div id="footerArea">
-				<a href="http://px.a8.net/svt/ejp?a8mat=2BY5X7+G6VESA+2VOI+65EOH" target="_blank">
-<img border="0" width="728" height="90" alt="" src="http://www22.a8.net/svt/bgt?aid=141002107979&wid=002&eno=01&mid=s00000013437001033000&mc=1"></a>
-<img border="0" width="1" height="1" src="http://www17.a8.net/0.gif?a8mat=2BY5X7+G6VESA+2VOI+65EOH" alt="">
+				<?php foreach($adTags1 as $key=>$data):?>
+					<?php echo $data['AdTag']['tag'];?>
+				<?php endforeach;?>
 			</div>
 
+			<div id="bottomAd" class="sp">
+				<?php if(!empty($adTags2)):?>
+					<?php echo $adTags2[0]['AdTag']['tag'];?>
+				<?php endif;?>
+			</div>
 
 			<ul>
 				<a href="/"><li>HOME</li></a>
@@ -97,6 +121,9 @@
 			</ul>
 			<div class="clearfix"></div>
 			<p>Copyright © yamaty. All Rights Reserved.</p>
+
+
+			
 		</div>
 
 	</div> <!-- /container -->

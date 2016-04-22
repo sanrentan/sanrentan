@@ -11,8 +11,8 @@
 
 			<div class="buttonArea">
 				<ul>
-					<li><a href="/mypage" class="btn">戻る</a></li>
-					<li><input type="submit" class="btn btn-primary" value="退会する"></li>
+					<li><a href="/mypage" class="btn btn-block-sp">戻る</a></li>
+					<li><input type="submit" class="btn btn-primary btn-block-sp" value="退会する"></li>
 				</ul>
 				<?php echo $this->Form->end();?>
 				<div class="clearfix"></div>
@@ -21,7 +21,7 @@
 	<?php else:?>
 		<div class="userForm">
 			<p>退会処理が完了しました。<br>またのお越しをお待ちしております！</p>
-			<a href="/" class="btn btn-primary">トップページへ</a>
+			<a href="/" class="btn btn-primary btn-block-sp">トップページへ</a>
 		</div>
 	<?php endif;?>
 </div>

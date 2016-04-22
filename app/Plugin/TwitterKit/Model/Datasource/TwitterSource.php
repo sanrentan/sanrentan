@@ -2595,8 +2595,10 @@ class TwitterSource extends DataSource {
      */
     public function oauth_request_token($oauth_callback = null) {
 
-        $url    = 'http://api.twitter.com/oauth/request_token';
-        $method = 'GET';
+        //$url    = 'http://api.twitter.com/oauth/request_token';
+        //$method = 'GET';
+        $url    = 'https://api.twitter.com/oauth/request_token';
+        $method = 'POST';
 
         // get Request param
         $params = $this->_buildRequest($url, $method);
@@ -2680,7 +2682,7 @@ class TwitterSource extends DataSource {
      */
     public function oauth_access_token($oauth_token, $oauth_verifier) {
 
-        $url    = 'http://api.twitter.com/oauth/access_token';
+        $url    = 'https://api.twitter.com/oauth/access_token';
         $method = 'POST';
 
         // get Request param

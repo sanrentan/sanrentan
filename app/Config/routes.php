@@ -46,6 +46,7 @@
 	Router::connect('/regist_complete', array('controller' => 'users', 'action' => 'regist_complete'));
 	Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
 	Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
+	Router::connect('/twitter_login', array('controller' => 'users', 'action' => 'twitter_login'));
 
 
 

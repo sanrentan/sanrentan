@@ -1,0 +1,43 @@
+.clearfix{
+	clear:both;
+}
+
+.red{
+	color:#FF0000;
+}
+
+.titleLabel{
+	font-size:140%;
+}
+
+#header{
+	display: block;
+}
+.adminNavi{
+	display: block;
+}
+
+.adminNavi ul li{
+	list-style: none;
+	float: left;
+	margin-right:1px;
+	margin-left:10px;
+	background-color: #FFF;
+	color:#000;
+	padding: 10px;
+}
+
+.adminNavi ul li a{
+	color:#000 !important;
+	text-decoration: underline;
+}
+
+.userForm p{
+	margin-bottom:0;
+}
+
+.userForm input, 
+.userForm textarea{
+	font-size:120%;
+	padding:5px;
+}

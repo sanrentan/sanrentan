@@ -40,7 +40,8 @@ class Expectation extends AppModel {
 			}
 			$raceCard = ClassRegistry::init('RaceCard');
 			$options = array(
-				"conditions" => array("RaceCard.id"=>$tmpArray)
+				"conditions" => array("RaceCard.id"=>$tmpArray),
+				'order' => 'RaceCard.uma asc'
 			);
 			$horseData["selectData"] = $raceCard->find("all",$options);
 			$returnData = array_merge($resultData,$horseData);
@@ -49,13 +50,15 @@ class Expectation extends AppModel {
     }
 
    //みんなのレースの予想を取得
-    public function getExpectationOther($race_id,$limit = 5){
+    public function getExpectationOther($race_id,$limit = 50){
 		$options = array(
 			'conditions' => array(
 				'Expectation.cancel_flg' => 0,
 				'Expectation.race_id' => $race_id,
+				'Expectation.user_id >' => 100,
 			),
-			'limit' => $limit
+			'limit' => $limit,
+			'order' => "id desc"
 		);
 		$resultData = $this->find("all",$options);
 
@@ -70,7 +73,24 @@ class Expectation extends AppModel {
 			$tmpData = $User->find("all",array("conditions"=>array("User.id"=>$userIds)));
 			$userData = array();
 			foreach($tmpData as $key=>$data){
+				$mlength = 7;
+				if (mb_strlen($data["User"]['nickname']) > $mlength) {	
+			    	$data["User"]['nickname'] = mb_substr($data["User"]['nickname'], 0, $mlength, 'UTF-8').'..';
+			    }
+				$mlength = 4;
+				if (!empty($data['User']['span'])&&mb_strlen($data["User"]['span']) > $mlength) {	
+			    	$data["User"]['span'] = mb_substr($data["User"]['span'], 0, $mlength, 'UTF-8').'..';
+			    }
 				$userData[$data["User"]["id"]] = $data["User"];
+			}
+
+			//ユーザーの成績情報を取得
+			$year = date('Y');
+			$this->ExpectationResult = ClassRegistry::init('ExpectationResult');
+			$tmpData = $this->ExpectationResult->find("all",array("conditions"=>array("user_id"=>$userIds,'year'=>$year)));
+			$userExpectationResult = array();
+			foreach($tmpData as $key=>$data){
+				$userExpectationResult[$data["ExpectationResult"]["user_id"]] = $data["ExpectationResult"];
 			}
 
 			//出走表データを取得
@@ -83,9 +103,28 @@ class Expectation extends AppModel {
 
 			foreach($resultData as $key=>&$data){
 				$tmpArray = array();
+
+				$tmp_arrays = array();
+				$sort = array();
 				for($i=1;$i<=Configure::read('Base.box_count');$i++){
-					$data["selectData"][] = $cardData[$data["Expectation"]["item".$i]];
+					$tmp = array();
+					$card_id = $data['Expectation']['item'.$i];
+					$uma = $cardData[$data['Expectation']['item'.$i]]['RaceCard']['uma'];
+					$tmp['card_id'] = $card_id;
+					$tmp['uma'] = $uma;
+					$tmp_arrays[] = $tmp;
+				    $sort[] = $uma;
+				}
+
+				array_multisort($sort, SORT_ASC, $tmp_arrays);
+
+				for($i=1;$i<=Configure::read('Base.box_count');$i++){
+					$data["selectData"][] = $cardData[$tmp_arrays[($i-1)]['card_id']];
 					$data["User"] = $userData[$data["Expectation"]["user_id"]];
+
+					if(!empty($userExpectationResult[$data["Expectation"]["user_id"]])){
+						$data["ExpectationResult"] = $userExpectationResult[$data["Expectation"]["user_id"]];
+					}
 				}
 			}
 		}
@@ -162,13 +201,11 @@ class Expectation extends AppModel {
 				'Expectation.cancel_flg' => 0,
 				'Expectation.race_id' => $race_id,
 				'Expectation.result' => 1,
+				'Expectation.user_id >' => 100 
 			),
 			'order' => "id asc"
 		);
 		$winData = $this->find("all",$options);
-
-		//あとで消す
-		$winData = array_merge($winData,$winData,$winData,$winData,$winData,$winData,$winData,$winData,$winData,$winData,$winData,$winData,$winData,$winData,$winData);
 
 		$userIds = array();
 		if(!empty($winData)){
@@ -209,7 +246,6 @@ class Expectation extends AppModel {
 			}
 		}
 
-		print_R($returnData);exit;
 		return $returnData;
 
     }

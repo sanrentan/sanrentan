@@ -16,8 +16,8 @@
 	</fieldset>
 	<div class="buttonArea">
 		<ul>
-			<li><?php echo $this->Form->button('戻る',array('onclick'=>'history.back()','class'=>"btn"));?></li>
-			<li><input type="submit" class="btn btn-primary" value="送信する"></li>
+			<li><input type="submit" class="btn btn-primary btn-block-sp" value="送信する"></li>
+			<li><?php echo $this->Form->button('戻る',array('onclick'=>'history.back()','class'=>"btn btn-block-sp"));?></li>
 		</ul>
 		<?php echo $this->Form->end();?>
 		<div class="clearfix"></div>

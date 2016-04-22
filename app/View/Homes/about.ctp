@@ -4,8 +4,8 @@
 <div id="aboutContent">
 
 	<div id="imgArea">
-		<img src="/img/common/keiba1.jpg" width="400">
-		<img src="/img/common/keiba2.jpg" width="400">
+		<img src="/img/common/keiba1.jpg" class="img1">
+		<img src="/img/common/keiba2.jpg" class="img2">
 	</div>
 	<p class="txtTitle">３連単５頭ボックスとは？？</p>
 	<p class="txtContent">３連単の正式名称は、「馬番号三連勝単式勝馬投票法」。１着、２着、３着となる馬の馬番号を着順通りに的中させる投票法。

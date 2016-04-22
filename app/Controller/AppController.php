@@ -20,6 +20,7 @@
  */
 
 App::uses('Controller', 'Controller');
+App::uses('CakeEmail', 'Network/Email');
 
 /**
  * Application Controller
@@ -32,17 +33,20 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
+    public $uses = array('AdTag');
+
     public $components = array(
         'Session',
         'Flash',
         'Auth' => array(
             'authenticate' => array(
-                'all' => array(
+                'Form' => array(
                     'fields' => array(
                         'username' => 'username',
                         'password' => 'password',
                     ),
                     'scope' => array('is_deleted' => 0),
+                    'passwordHasher' => 'Blowfish'
                 ),
                 'TwitterKit.TwitterOauth',
             ),
@@ -103,6 +107,30 @@ class AppController extends Controller {
 
         $this->set("naviType","top");
    	}
+
+    function beforeRender(){
+        if(empty($this->meta_description)){
+            $this->meta_description = "こじはるさんと一緒に競馬の３連単５頭ボックスを当てましょう。こじはるさんやみんなの３連単予想をみて、是非予想してみましょう。目指せ万馬券！当サイトでは最新予想はもちろん、過去のこじはるさんの予想結果も見ることが可能です。";
+        }
+        $this->set("meta_description",$this->meta_description);
+
+        if(empty($this->meta_keywords)){
+            $this->meta_keywords = "３連単,ボックス,こじはる,競馬";
+        }
+        $this->set("meta_keywords",$this->meta_keywords);
+
+        if(empty($this->title_tag)){
+            $this->title_tag = null;
+        }
+        $this->set("title_tag",$this->title_tag);
+
+        //広告タグを取得
+        $adTags1 = $this->AdTag->getAdTag(1,1);//横長
+        $adTags2 = $this->AdTag->getAdTag(2,2);//正方形
+        $adTags3 = $this->AdTag->getAdTag(3,1);//ミニバナー
+        $adTags5 = $this->AdTag->getAdTag(5,2);//amazon
+        $this->set(compact("adTags1","adTags2","adTags3","adTags5"));
+    }
 
     public function getRss($key,$url,$num=5,$css=1){
 

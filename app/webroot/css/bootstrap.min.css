@@ -94,6 +94,16 @@ html,body
 	border-left: 1px solid #CCC;
 }
 
+.navi-profileImg{
+	float:left;
+}
+.navi-profileImg img{
+	background-color: #FFF;
+    border: 1px solid #FFF;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
 
 #mainBannerArea{
 	width:100%;
@@ -161,7 +171,9 @@ html,body
 	padding:10px 0 10px;
 }
 
-ul.information.matomeList{
+ul.information,
+ul.information.matomeList,
+ul.information.keibajapan{
 	margin-left:10px;
 	margin-right:10px;
 	margin-bottom:20px;
@@ -185,9 +197,35 @@ ul.information.matomeList{
 	background-image: url("../img/icon/flag_yellow.png");
 }
 
-.information.matomeList li a{
+.information li{
+	list-style: none;
+	background-repeat: no-repeat;
+	background-size: 15px;
+	background-position: 5px center;
+	padding-left:20px;
+	padding:5px 5px 5px 20px;
+}
+
+.information li.news{
+	background-image: url("../img/icon/news1.png");
+	padding-left:30px;
+}
+
+.information.matomeList li a,
+.information.keibajapan li a{
 	font-size:80%;
 }
+
+.information.keibajapan li{
+	list-style: none;
+	background-image: url("../img/icon/flag.png");
+	background-repeat: no-repeat;
+	background-size: 15px;
+	background-position: 5px center;
+	padding:5px 5px 5px 10px;
+}
+
+
 
 .wk1,.wk2,.wk3,.wk4,.wk5,.wk6,.wk7,.wk8
 {
@@ -232,6 +270,11 @@ ul.information.matomeList{
 	width:95%;
 	margin:0 auto 0 auto;
 }
+
+#horseListArea table th{
+	background-color: #D9D9B0;
+}
+
 
 #raceDetailTxt{
 	padding:5px 0 20px 30px;
@@ -324,7 +367,7 @@ ul.information.matomeList{
 	width:15%;
 }
 #horseListArea #winUserArea .winUser img{
-	width:100px;
+	//width:100px;
 }
 #horseListArea #winUserArea .winUser .profileLeft .profileImg,
 #horseListArea #winUserArea .winUser .profileRight .profileMessage{
@@ -335,6 +378,7 @@ ul.information.matomeList{
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
+	max-height:76px;
 }
 #horseListArea #winUserArea .winUser .profileRight p{
 	text-align: center;
@@ -357,19 +401,39 @@ ul.information.matomeList{
 	display:block;
 	float:left;
 	width:20%;
-	min-height: 160px;
+	min-height: 240px;
+	max-width: 184px;
 }
 .userExpect img{
-	width: 72px;
+	//width: 72px;
 	margin:10px;
 	background-color: #FFF;
 	border:1px solid #FFF;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
+	//max-height:76px;
+	max-height:55px;
+	max-width:55px;
 }
 
-
+.userExpect .profileImgArea{
+	float:left;
+}
+.userExpect .profileDetailArea{
+	float:left;
+	margin-top:10px;
+}
+.userExpect .profileDetailArea p{
+	margin-bottom: 0;
+}
+.userExpect .expectArea p{
+	margin:10px;
+}
+.userExpect .expectArea .umaName{
+	font-size:90%;
+	padding-left:10px;
+}
 
 #confirmArea{
 	padding-left:30px;
@@ -470,6 +534,13 @@ ul.information.matomeList{
 	padding-right:25px;
 }
 
+#mypage #resultArea #imgArea .img1{
+	width:400px;
+}
+#mypage #resultArea #imgArea .img2{
+	max-height:250px;
+}
+
 #mypage #resultArea p{
 	font-size:120%;
 }
@@ -483,6 +554,14 @@ ul.information.matomeList{
 {
 	padding:10px 10px 10px 10px;
 }
+
+#mypage #resultArea table td p.resultUmaName{
+	font-size:100%;
+}
+#mypage #resultArea table td p.resultUmaName.last{
+	margin-bottom:0;
+}
+
 
 #mypage #resultArea table tr.row2{
 	background-color:#f6f7f2;
@@ -506,13 +585,54 @@ ul.information.matomeList{
 .recentResults{
 	font-size: 0.8em;
 }
-.lastRaceName{
+#horseListArea table td.recentResults{
+	vertical-align: top;
 }
+#horseListArea table td.first{
+	background-color: #eecece;
+}
+#horseListArea table td.second{
+	background-color: #e2def7;
+}
+#horseListArea table td.third{
+	background-color: #c3f2c8;
+}
+
+
+#horseListArea table td .lastRaceName{
+	color: -webkit-link;
+	text-decoration: underline;
+	font-size:120%;
+}
+
+#horseListArea table td .g1,
+#horseListArea table td .g2,
+#horseListArea table td .g3
+{
+	margin-left: 10px;
+	color:#FFF;
+	padding:2px 5px 2px 5px;
+}
+#horseListArea table td .g1
+{
+	background-color: #4169E1;
+}
+#horseListArea table td .g2
+{
+	background-color: #DC143C;
+}
+#horseListArea table td .g3
+{
+	background-color: #3CB371;
+}
+
+
 .lastRaceDate{
 	font-size: 0.5em;
 }
 .lastRacePlace{
 	font-size: 0.5em;
+	text-align: right;
 
 }
 .lastCource{
@@ -529,10 +649,9 @@ ul.information.matomeList{
 }
 .lastOdds{
 
-<<<<<<< HEAD
 }
 .lastOrderOfArrival{
-	font-size: 1.2em;
+	font-size: 130%;
 }
 .lastJockey{
 
@@ -560,6 +679,12 @@ ul.information.matomeList{
 
 #aboutContent #imgArea{
 	margin-bottom:20px;
+}
+#aboutContent #imgArea .img1{
+	width:400px;
+}
+#aboutContent #imgArea .img2{
+	width:400px;
 }
 
 
@@ -699,11 +824,13 @@ ul.information.matomeList{
 }
 
 .twitterArea{
-	width:270px;
+	width:300px;
 	margin:0 0 0 auto;
 }
+
 .ranking img{
-	max-width: 80px;
+	max-width: 100px;
+	max-height:50px;
 }
 .ranking td{
 	text-align: center;
@@ -712,3 +839,22 @@ ul.information.matomeList{
 .ranking th{
 	text-align: center;
 }
+
+.adArea{
+	width:300px;
+}
+.adArea ul{
+	margin-left:0;
+}
+
+.adArea .adheight{
+	margin-bottom: 10px;
+}
+.adArea .adheight .adheightLeft{
+	float:left;
+}
+.adArea .adheight .adheightRight{
+	float:right;	
+}
+
+

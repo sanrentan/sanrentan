@@ -48,7 +48,8 @@ class HomesController extends AppController {
 		'RaceResultDetail',
 		'RecentRaceResult',
 		'User',
-		'FavoUser'
+		'FavoUser',
+		'Information'
 	);
 
     var $helpers = array('Js');
@@ -56,9 +57,10 @@ class HomesController extends AppController {
 
 	public $kojiharu_id = 3;
 
-	//レースを表示
+	//トップページ
 	public function index(){
-		$this->set("message","こんにちわ。レース一覧を表示します。");
+		//$this->meta_description = "test";
+		//$this->meta_keywords = "test";
 
 		//受付中のレース
 		$acceptingRace = $this->Race->getAcceptingRace();
@@ -87,23 +89,21 @@ class HomesController extends AppController {
 		$matomeRss = array_merge($matomeRss,$keibaKyodai,$keibayosou,$umachannel);
 
 		//ランキング
-		$optionsForRanking = array(
-			'conditions'  => array(
-				'NOT' => array(
-					'ExpectationResult.price' => NULL)
-				),
-			'order' => array('ExpectationResult.price' => 'desc'),
-			'limit' => 5
-			);
-		$rankedUsers = $this->User->find("all", $optionsForRanking);
+		$rankedUsers = $this->User->getRankingPrice(date('Y'));//金額
 
-		$this->set(compact("newsRss", "expectRss","matomeRss", "rankedUsers"));
+
+		//お知らせを取得
+		$infoData = $this->Information->getInfoList(5);
+
+
+		$this->set(compact("newsRss", "expectRss","matomeRss","infoData","rankedUsers"));
 
 	}
 
 
 	//レース詳細
 	public function detail($raceId){
+
 		$this->set("message","出走表");
 		$RecentRaceResult = array();
 
@@ -137,8 +137,6 @@ class HomesController extends AppController {
 			echo "race not found ! race_id = ".$raceId;exit;
 		}
 		$this->set("raceData",$raceData);
-		//直近レースの結果
-		//$recentRaceResult= $this->Racee->
 
 		//予想
 		if($this->request->is('post')){
@@ -149,9 +147,9 @@ class HomesController extends AppController {
 			}else{
 
 				if(empty($this->request->data["Expectation"]["item"])){
-					$errorMessage = '※'.Configure::read('Base.box_count').'つ選択してください。';
+					$errorMessage = '※'.Configure::read('Base.box_count').'頭選択してください。';
 				}else{
-					$errorMessage = '※'.Configure::read('Base.box_count').'つ選択してください。('.count($this->request->data["Expectation"]["item"])."頭選択されました)";
+					$errorMessage = '※'.Configure::read('Base.box_count').'頭選択してください。('.count($this->request->data["Expectation"]["item"])."頭選択されました)";
 				}
 				$this->set("errorMessage",$errorMessage);
 			}
@@ -169,15 +167,22 @@ class HomesController extends AppController {
 
 		//みんなの予想を取得
 		$otherExpectData = $this->Expectation->getExpectationOther($raceId);
+//		print_r($otherExpectData[0]['selectData']);exit;
 
 		$this->set(compact("myData","kojiharuData","otherExpectData"));
 
+		//metaタグ設定
+        $this->meta_description = "こじはるさんの「".$raceData["Race"]["name"]."」の３連単５頭ボックスの予想です。参考にして是非みなさんも予想してみましょう。目指せ万馬券！";
+		$this->meta_keywords = "こじはる,予想,出走表,".$raceData["Race"]["name"];
+		$this->title_tag = $raceData["Race"]["name"]." 出走表";
 
 	}
 
 	//確認画面
 	public function confirm(){
-		$this->set("message","確認画面");
+		//metaタグ設定
+		$this->title_tag = "予想登録の確認画面";
+
 		$postData = $this->Session->read("expectation");
 		$raceData = $this->Race->findById($postData["Expectation"]["race_id"]);
 
@@ -193,10 +198,13 @@ class HomesController extends AppController {
 		}
 
 		$this->set(compact("postData", "raceData","selectArray","kojiharuData"));
+
 	}
 
 	//登録機能
 	public function complete(){
+		//metaタグ設定
+		$this->title_tag = "予想完了";
 
 		if(!empty($this->user["id"])&&count($this->request->data['Expectation']['item'])==Configure::read('Base.box_count')){
 			//既に予想していないか？
@@ -215,7 +223,11 @@ class HomesController extends AppController {
 
 			    //
 				$raceData = $this->Race->findById($this->request->data['Expectation']['race_id']);
+		
+				$myData = $this->Expectation->getExpectationData($this->request->data['Expectation']['race_id'],$this->user["id"]);
+
 				$this->set("raceData",$raceData);
+				$this->set("expectationData",$myData);
 			}else{
 				$this->Session->setFlash(__('※不正な遷移です。'));
 				$this->redirect('/');
@@ -225,6 +237,7 @@ class HomesController extends AppController {
 			$this->Session->setFlash(__('※不正な遷移です。'));
 			$this->redirect('/');
 		}
+
 	}
 
 	//結果ページ
@@ -258,11 +271,22 @@ class HomesController extends AppController {
 		$winUser = $this->Expectation->getWinUsers($raceId);
 
 		$this->set(compact("raceData","raceResultData","myData","kojiharuData","winUser"));
+
+		//metaタグ設定
+        $this->meta_description = "こじはるさんの「".$raceData["Race"]["name"]."」の３連単５頭ボックスのレース結果です。みなさんの予想も当たったかどうか確認してください。";
+		$this->meta_keywords = "こじはる,３連単,レース結果,".$raceData["Race"]["name"];
+		$this->title_tag = $raceData["Race"]["name"]." レース結果";
+
 	}
 
 
 	//マイページ
 	public function mypage(){
+		//metaタグ設定
+        $this->meta_description = "マイページです。これまでの予想結果の確認や、登録情報の変更、お気に入りユーザーの確認が可能です。";
+		$this->meta_keywords = "マイページ";
+		$this->title_tag = "マイページ";
+
 		$this->set("naviType","mypage");
 		
 		if(empty($this->user["id"])){
@@ -308,6 +332,10 @@ class HomesController extends AppController {
 
 	//こじはるの予想一覧
 	public function kojiharu_list(){
+        $this->meta_description = "こじはるさんのこれまでの３連単５頭ボックスの予想一覧です。だいたい当たっています。みなさんもこじはるさんと一緒に是非予想してみましょう。";
+		$this->meta_keywords = "こじはる,３連単,5頭ボックス,予想";
+		$this->title_tag = "予想一覧";
+
 		$this->set("naviType","kojiharu");
 		
 		$year = date("Y");//TODO 引数で受け取りたい
@@ -344,15 +372,26 @@ class HomesController extends AppController {
 			
 		if(!empty($this->user["id"])){
 			$this->set("user",$this->user);
+		}else{
+			//ログインしていない場合は見れません
+			$this->render("nonmember");
+			return;
 		}
 
 		if(empty($user_id)||!is_numeric($user_id)){
 			echo "user_id is wrong";exit;
 		}
 
-		$otherUser = $this->User->find("first",array("conditions"=>array("User.id"=>$user_id)));
+		$conditions = array(
+			"User.id" => $user_id,
+			"User.is_deleted" => 0,
+			"User.test_flg" => 0
+		);
+		$otherUser = $this->User->find("first",array("conditions"=>$conditions));
 		if(empty($otherUser)){
-			echo "user is not exist!";exit;
+			$this->set("message","ユーザーが存在しません。または既に退会しています。");
+			$this->render("error");
+			return;
 		}
 
 		$year = date("Y");//TODO 引数で受け取りたい
@@ -408,6 +447,7 @@ class HomesController extends AppController {
 			}
 		}
 
+		$this->title_tag = $otherUser["User"]["nickname"]."さんの予想一覧";
 
 
 		$this->set(compact("year","raceData", "raceResultData","myData","myResultData","otherUser","favoFlg"));
@@ -417,11 +457,13 @@ class HomesController extends AppController {
 
 	//当サイトについて
 	public function about(){
+		$this->title_tag = "当サイトについて";
 		$this->set("naviType","about");
 	}
 
 	//お問い合わせ
 	public function contact(){
+		$this->title_tag = "お問い合わせ";
 		$this->set("naviType","contact");
 
 		if($this->request->is('post')){
@@ -446,13 +488,22 @@ class HomesController extends AppController {
 
 	//お問い合わせ確認画面
 	public function contact_confirm(){
+		$this->title_tag = "お問い合わせ確認画面";
     	$this->set("naviType","contact");
 
     	$data = $this->Session->read('contact');
     	$this->set("data",$data);
 
-		if($this->request->is('post')){
+		if($this->request->is('post')&&!empty($data)){
 	    	//メール送信
+	    	$email = new CakeEmail('smtp'); 
+		    $email->to($data["email"]);
+		    $email->bcc('info@sanrentan-box.com');
+		    $email->subject( 'お問い合わせ頂きありがとうございます');
+			$email->emailFormat('text');
+		    $email->template('contact');
+		    $email->viewVars(compact('data'));
+		    $email->send();
 
 	    	//sessionから削除
 	        $this->Session->write('contact', "");
@@ -464,160 +515,12 @@ class HomesController extends AppController {
 
 	//お問い合わせ完了ページ
 	public function contact_complete(){
+		$this->title_tag = "お問い合わせ確認完了";
     	$this->set("naviType","contact");
 
-	}
+    	$this->Session->write('contact','');
 
 
-
-	//後ほどシェルにする
-	//URLからデータを取得する場合
-	//参考URL http://www.junk-port.com/php/php-simple-html-dom-parser/
-	public function index2($raceId=null){
-		if(empty($raceId)||!is_numeric($raceId)){
-			$raceId = 1;
-		}
-		//対象のレースが存在するか？
-		$raceData = $this->Race->findById($raceId);
-		if(empty($raceData)){
-			echo "race not found ! race_id = ".$raceId;exit;
-		}
-
-		//すでに出走表にデータが登録されていないか？
-		$options = array(
-			'conditions' => array(
-				'is_deleted' => 0,
-				'race_id' => $raceData["Race"]["id"]
-			)
-		);
-		$cardData = $this->RaceCard->find("all",$options);
-		if(!empty($cardData)){
-			echo "raceCard already exists! race_id = ".$raceId;
-			exit;
-		}
-
-		//htmlを取得
-		$html = file_get_html('http://keiba.yahoo.co.jp/race/denma/'.$raceData["Race"]["html_id"].'/');
-		
-		//trのループ
-		$i=0;
-		$horseList = array();
-
-		$recent_5race_results = array();
-
-		foreach($html->find('.denmaLs tr') as $key=>$element){
-			//ヘッダー行は飛ばす
-			if($i>0){
-				//tdのループ
-				$tdCounter = 0;
-				foreach($element->find('td') as $key2=>$data){
-					switch ($tdCounter) {
-						
-						case 0://枠
-							$horseList[$i]["wk"] = $data->plaintext;
-							break;
-						case 1://馬番
-							$horseList[$i]["uma"] = $data->plaintext;
-							break;
-						case 2://馬名,性齢
-							$horseList[$i]["name"] = $data->find("strong")[0]->plaintext;
-							$tmp = $data->find("span")[0]->plaintext;
-							$horseList[$i]["sexage"] = explode('/',$tmp)[0];
-
-							//ここから直近レースの結果を取得する
-							$horseUrl = $data->find("a")[0]->href;
-							$horseHtml = file_get_html("http://keiba.yahoo.co.jp/".$horseUrl);
-							$j = 0;
-							foreach($horseHtml->find('#resultLs tr') as $key3 => $rowElements){
-								if($j > 0 && $j < 6){
-									echo $j;
-									$tdCounter2 = 0;
-									foreach($rowElements->find('td') as $key4 => $tdData){
-										switch($tdCounter2){
-
-											case 0 :
-												$recent_5race_results[$i][$j]["race_date"] =  $tdData->plaintext;
-												break;
-											case 1:
-												$recent_5race_results[$i][$j]["race_name"] =  $tdData->plaintext;
-												break;
-											case 2:
-												$recent_5race_results[$i][$j]["place"] = $tdData->find("span")[0]->plaintext;
-												break;
-											case 3:
-												$recent_5race_results[$i][$j]["cource"] =  $tdData->find("span")[0]->plaintext;
-												break;
-											case 4:
-												$recent_5race_results[$i][$j]["baba"] =  $tdData->find("span")[0]->plaintext;
-												break;
-											case 5:
-												$recent_5race_results[$i][$j]["number_of_heads"] = $tdData->plaintext;
-												break;
-											case 6:
-												$recent_5race_results[$i][$j]["wk"] = $tdData->plaintext;
-												break;
-											case 7:
-												$recent_5race_results[$i][$j]["uma"] = $tdData->plaintext;
-												break;
-											case 8:
-												$recent_5race_results[$i][$j]["popularity"] = $tdData->plaintext;
-												break;
-											case 9:
-												$recent_5race_results[$i][$j]["odds"] = $tdData->plaintext;
-												break;
-											case 10:
-												$recent_5race_results[$i][$j]["order_of_arrival"] = $tdData->plaintext;	
-												break;
-											case 11:
-												$recent_5race_results[$i][$j]["jockey"] = $tdData->plaintext;
-												break;
-										}
-										$tdCounter2++;
-									}
-									
-								}
-								$j++;
-							}
-
-
-							break;
-						case 3://馬体重、増減
-							$horseList[$i]["weight"] = substr($data->plaintext, 1,3); 
-							$horseList[$i]["plus"] = substr($data->plaintext, 4); 
-							break;
-						case 4://騎手名、斤量
-							$horseList[$i]["j_name"]   = $data->find("a")[0]->plaintext;
-							$horseList[$i]["j_weight"]   = substr($data->plaintext, -5); 
-							break;
-						case 5://父馬、母馬、母父馬
-							//$tmp = explode(" ",$data->plaintext);
-							//$horseList[$i]["father"]   = ""; 
-							//$horseList[$i]["mother"]   = "";
-							//$horseList[$i]["m_father"] = "";
-
-					} 
-					$tdCounter++;
-				}
-			}
-			$i++;
-		}
-		//DBに登録
-		$row = 1;
-		foreach($horseList as $key=>&$horse){
-			$horse["race_id"] = $raceId;
-			$this->RaceCard->create();
-			$this->RaceCard->save($horse);
-			$last_id = $this->RaceCard->getLastInsertID();
-			foreach($recent_5race_results[$row] as $eachResult){
-				$eachResult["race_card_id"] = $last_id;
-				//$eachResult["race_card_id"] = 1;
-				$this->RecentRaceResult->create();
-				$this->RecentRaceResult->save($eachResult);
-			}
-			$row++;
-		}
-		$this->set("horseList",$horseList);
-		//$this->response->charset('Shift_JIS');
 	}
 
 
@@ -706,6 +609,7 @@ class HomesController extends AppController {
 
 	//お気に入り一覧
 	public function favorite(){
+		$this->title_tag = "お気に入り一覧";
 		if(empty($this->user["id"])){
 			$this->redirect("/");
 		}

@@ -1,9 +1,9 @@
-<p class="titleLabel"><?php echo $raceData["Race"]["place"];?>　<?php echo $raceData["Race"]["full_name"];?> (G<?php echo $raceData["Race"]["grade"];?>)</p>
+<p class="titleLabel"><?php echo $raceData["Race"]["place"];?>　<?php echo $raceData["Race"]["full_name"];?><?php if($raceData["Race"]["grade"]>=1):?> (G<?php echo $raceData["Race"]["grade"];?>)<?php endif;?></p>
 
 <div id="raceDetailTxt">
 	<div id="detailLeft">
 		<p><?php echo date("Y年m月d日",strtotime($raceData["Race"]["race_date"]));?>　</p>
-		<p><?php echo $raceData["Race"]["place"];?>　<?php echo $raceData["Race"]["full_name"];?> (G<?php echo $raceData["Race"]["grade"];?>)　<?php echo $typeArr[$raceData["Race"]["type"]];?>　<?php echo $raceData["Race"]["distance"];?>m　<?php echo $turnArr[$raceData["Race"]["turn"]];?></p>
+		<p><?php echo $raceData["Race"]["place"];?>　<?php echo $raceData["Race"]["full_name"];?><?php if($raceData["Race"]["grade"]>=1):?> (G<?php echo $raceData["Race"]["grade"];?>)<?php endif;?>　<?php echo $typeArr[$raceData["Race"]["type"]];?>　<?php echo $raceData["Race"]["distance"];?>m　<?php echo $turnArr[$raceData["Race"]["turn"]];?></p>
 		<p><?php echo $raceData["Race"]["note"];?></p>
 		<p>発走時刻：<?php echo date("H時i分",strtotime($raceData["Race"]["race_date"]));?></p>
 		<p><a href="http://keiba.yahoo.co.jp/race/result/<?php echo $raceData['Race']['html_id'];?>/" target="_blank">レース詳細（外部サイト)</a></p>
@@ -64,22 +64,21 @@
 	<p class="titleLabel">競争成績</p>
 	<div id="resultListArea">
 		<table border="1">
-		<tr><th>着順</th><th>枠</th><th>馬番</th><th>馬名</th><th>性齢</th><th>負担重量</th><th>騎手名</th><th>タイム</th><th>着差</th><th>推定上り</th><th>馬体重</th><th>調教師名</th><th>単勝人気</th></tr>
+		<tr><th>着順</th><th>枠</th><th>馬番</th><th>馬名</th><th>性齢</th><th>負担重量<br>騎手名</th><th class="pc">タイム</th><th class="pc">着差</th><th class="pc">推定上り</th><th class="pc">馬体重</th><th class="pc">調教師名</th><th>単勝人気</th></tr>
 		<?php foreach($raceResultData["RaceResultDetail"] as $key=>$data):?>
 			<tr>
 				<td align="center"><?php if($data["result"]!=99):?><?php echo $data["result"];?><?php else:?>-<?php endif;?></td>
 				<td align="center"><span class="wk<?php echo $data['wk'];?>"><?php echo $data["wk"];?></span></td>
 				<td align="center"><?php echo $data["uma"];?></td>
-				<td align="center"><?php echo $data["name"];?></td>
-				<td align="center"><?php echo $data["sexage"];?></td>
-				<td align="center"><?php echo $data["j_weight"];?></td>
-				<td align="center"><?php echo $data["j_name"];?></td>
-				<td align="center"><?php echo $data["time"];?></td>
-				<td align="center"><?php echo $data["difference"];?></td>
-				<td align="center"><?php echo $data["last_time"];?></td>
-				<td align="center"><?php echo $data["weight"];?></td>
-				<td align="center"><?php echo $data["trainer"];?></td>
-				<td align="center"><?php echo $data["popularity"];?></td>
+				<td align="left"><span class='horseName'><?php echo $data["name"];?></span></td>
+				<td align="center"><span class='sexage'><?php echo $data["sexage"];?></span></td>
+				<td align="center"><span class='jName'><?php echo $data["j_weight"];?><br><?php echo $data["j_name"];?></span></td>
+				<td align="center" class="pc"><?php echo $data["time"];?></td>
+				<td align="center" class="pc"><?php echo $data["difference"];?></td>
+				<td align="center" class="pc"><?php echo $data["last_time"];?></td>
+				<td align="center" class="pc"><?php echo $data["weight"];?></td>
+				<td align="center" class="pc"><?php echo $data["trainer"];?></td>
+				<td align="center"><span class='odds'><?php if($data["popularity"]!=0):?><?php echo $data["popularity"];?><?php else:?>-<?php endif;?></span></td>
 			</tr>
 		<?php endforeach;?>
 		</table>
@@ -109,7 +108,6 @@
 					</div>
 				</a>
 				<?php if(($key+1)%6==0):?>
-					<div class="clearfix"></div>
 				<?php endif;?>
 			<?php endforeach;?>
 			<div class="clearfix"></div>
