@@ -15,9 +15,20 @@
 	」" data-via="sanrentan_box" data-lang="ja" data-size="large" data-hashtags="こじはる３連単予想">ツイート</a>
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 		</div>
-		<div id="subBannerArea" style="float:right; padding-right:10px;padding-top:20px;"><img src="/img/common/umairasto.png" style="max-width:90px;"></div>	
+		<div id="subBannerArea" style="float:right; padding-right:10px;padding-top:20px;"><img src="/img/common/umairasto.png" style="max-width:90px;"></div>
 		<div class="clearfix"></div>
 
+
+		<div class="adArea pc tag3">
+			<ul>
+				<?php foreach($adTags3 as $key=>$data):?>
+					<li>
+						<?php echo $data['AdTag']['tag'];?>
+					</li>
+				<?php endforeach;?>
+
+			</ul>
+		</div>
 
 
 	</div>
@@ -148,12 +159,6 @@
 				<?php echo $data['AdTag']['tag'];?>
 			</li>
 		<?php endforeach;?>
-		<?php foreach($adTags3 as $key=>$data):?>
-			<li>
-				<?php echo $data['AdTag']['tag'];?>
-			</li>
-		<?php endforeach;?>
-
 	</ul>
 	<div class="adheight">
 

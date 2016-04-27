@@ -286,6 +286,8 @@ class ResultExpectationShell extends AppShell {
                 $data["Expectation"]["result"] = 1;
                 $userExpectation["ExpectationResult"]["win"]++;
                 $userExpectation["ExpectationResult"]["price"]+= ($resultData["RaceResult"]["sanrentan_price"]-$basePrice);
+                $userExpectation["ExpectationResult"]["modified"] = date('Y-m-d H:i:s');
+
 
                 //最高当選か
                 if($resultData["RaceResult"]["sanrentan_price"]>=$userExpectation["ExpectationResult"]["max_price"]){
@@ -298,6 +300,7 @@ class ResultExpectationShell extends AppShell {
                 $data["Expectation"]["result"] = 2;
                 $userExpectation["ExpectationResult"]["lose"]++;
                 $userExpectation["ExpectationResult"]["price"]-= $basePrice;
+                $userExpectation["ExpectationResult"]["modified"] = date('Y-m-d H:i:s');
                 $ngCount++;
             }
 

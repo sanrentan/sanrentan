@@ -78,9 +78,9 @@
 					<?php if(!empty($user)):?>
 						<div class="pc navi-profileImg"><a href="/users/edit">
 							<?php if(!empty($user["profile_img"])):?>
-								<img src="/img/profileImg/<?php echo $user['profile_img'];?>" width="72">
+								<img src="/img/profileImg/<?php echo $user['profile_img'];?>" style="max-height:58px;">
 							<?php else:?>
-								<img src="/img/common/noimage_person.png" width="72">
+								<img src="/img/common/noimage_person.png" style="max-height:58px;">
 							<?php endif;?>
 						</a></div>
 					<?php endif;?>

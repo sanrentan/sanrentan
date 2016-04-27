@@ -91,7 +91,10 @@ class AutoExpectationShell extends AppShell {
 
             $expectData = array();
 
-            foreach(Configure::read('test_users') as $user_id){
+            $test_users = Configure::read('test_users');
+            shuffle($test_users);
+
+            foreach($test_users as $user_id){
 
                 //その人が既に予想していないか？
                 $options = array(

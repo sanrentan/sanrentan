@@ -824,8 +824,9 @@ ul.information.keibajapan{
 }
 
 .twitterArea{
-	width:300px;
-	margin:0 0 0 auto;
+	width:298px;
+	margin:0 0 10px auto;
+	border:1px dotted #CCC;
 }
 
 .ranking img{
@@ -846,6 +847,9 @@ ul.information.keibajapan{
 .adArea ul{
 	margin-left:0;
 }
+.adArea li{
+	list-style: none;
+}
 
 .adArea .adheight{
 	margin-bottom: 10px;
@@ -857,4 +861,13 @@ ul.information.keibajapan{
 	float:right;	
 }
 
+.adArea.tag3{
+	margin-top:43px;
+}
+.adArea.tag3 ul{
+	margin-bottom:0;
+}
+.adArea.tag3 li{
+	line-height: 0;
+}
 
