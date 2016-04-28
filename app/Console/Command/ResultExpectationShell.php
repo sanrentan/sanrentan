@@ -38,7 +38,7 @@ class ResultExpectationShell extends AppShell {
     	$msg = "start shell";
     	$this->__log($msg);
 
-        $mode_array = array(1,2);
+        $mode_array = array(1,2,3,4);
         $mode = $this->params['mode'];
         if(!in_array($mode, $mode_array)){
             $this->__log('modeの値が不正です:'.$mode,true);
@@ -91,9 +91,16 @@ class ResultExpectationShell extends AppShell {
             if($mode==1){
                 //レース結果を取得し、予想結果を生成
                 $this->get_race_result($race_id,$mode);
+                $this->get_race_result_detail($race_id,$mode);
             }elseif($mode==2){
                 //レース結果の追加情報を取得
                 $this->get_race_result_add($race_id,$mode);
+            }elseif($mode==3){
+                //緊急時 レース結果のみ
+                $this->get_race_result($race_id,$mode);
+            }elseif($mode==4){
+                //緊急時 レース結果詳細のみ
+                $this->get_race_result_detail($race_id,$mode);
             }
         }
 
@@ -101,6 +108,7 @@ class ResultExpectationShell extends AppShell {
 
     }
 
+    //レース結果を取得
     public function get_race_result($race_id,$mode){
 
     	//raceデータを取得
@@ -113,9 +121,8 @@ class ResultExpectationShell extends AppShell {
 
     	$year = substr($raceData["Race"]["race_date"],0,4);
 
+        //配当金を取得        //すでに結果データが登録されていないか？
 
-        //配当金を取得
-        //すでに結果データが登録されていないか？
         $options = array(
             'conditions' => array(
                 'race_id' => $raceData["Race"]["id"]
@@ -180,6 +187,11 @@ class ResultExpectationShell extends AppShell {
              $resultData["horse3"] = $sanrentan[2];
              $resultData["race_id"] = $race_id;
 
+            if(empty($resultData['sanrentan_popularity'])||$resultData['sanrentan_popularity']==0){
+                $this->__log("レース結果がまだ出ていない可能性があります。race_id = ".$race_id.', '.$raceData['Race']['name']);
+                return;
+            }
+
              $this->RaceResult->create();
              $this->RaceResult->save($resultData);
 
@@ -190,34 +202,12 @@ class ResultExpectationShell extends AppShell {
          }
 
 
-        //次にレース結果詳細テーブル
-        //すでに結果詳細データが登録されていないか？
-        $options = array(
-            'conditions' => array(
-                'race_id' => $raceData["Race"]["id"]
-            )
-        );
-        $resultDetail = $this->RaceResultDetail->find("all",$options);
-        if(!empty($resultDetail)){
-            $this->__log("resultDetail already exists!",true);
-        }
-
-        $resultData = $this->__get_html_data($raceData);
-
-        foreach ($resultData as $key => $data) {
-            //新規登録
-            $data["race_id"] = $race_id;
-            $this->RaceResultDetail->create();
-            $this->RaceResultDetail->save($data);
-        }
-        $this->__log("RaceResultDetail OK");
-
-
         //以下予想結果を判定
         //race結果データを取得
         $resultData = $this->RaceResult->find("first",array("conditions"=>array("race_id"=>$race_id)));
         if(empty($resultData)){
-            $this->__log("まだレース結果が出ていません. race_id:".$race_id,true);
+            $this->__log("まだレース結果が出ていません. race_id:".$race_id);
+            return;
         }
 
         //予想データを取得
@@ -323,8 +313,49 @@ class ResultExpectationShell extends AppShell {
             $this->Information->addRaceResultInfo($race_id);
         }
 
+        $this->__log("レース結果と予想結果の登録が完了しました。race_id = ".$race_id.', '.$raceData['Race']['name']);            
 
-        $this->__log("レース結果を登録が完了しました。race_id = ".$race_id.', '.$raceData['Race']['name']);            
+     }
+
+    //レース結果詳細テーブルを取得
+    public function get_race_result_detail($race_id,$mode){
+
+        //raceデータを取得
+        $raceData = $this->Race->findById($race_id);
+        if(empty($raceData)){
+            $this->__log("レースデータが存在しません. race_id:".$race_id,true);
+        }else{
+            $this->__log("レース結果詳細を登録します。race_id = ".$race_id.', '.$raceData['Race']['name']);            
+        }
+
+        //次にレース結果詳細テーブル
+        //すでに結果詳細データが登録されていないか？
+        $options = array(
+            'conditions' => array(
+                'race_id' => $raceData["Race"]["id"]
+            )
+        );
+        $resultDetail = $this->RaceResultDetail->find("all",$options);
+        if(!empty($resultDetail)){
+            $this->__log("既にレース結果詳細が存在します。race_id = ".$race_id.', '.$raceData['Race']['name']);
+            return;
+        }
+
+        $resultData = $this->__get_html_data($raceData);
+
+        if(count($resultData)==count($raceData['RaceCard'])){
+            foreach ($resultData as $key => $data) {
+                //新規登録
+                $data["race_id"] = $race_id;
+                $this->RaceResultDetail->create();
+                $this->RaceResultDetail->save($data);
+            }
+        }else{
+            $this->__log("まだレース結果詳細が出ていない可能性があります。race_id = ".$race_id.', '.$raceData['Race']['name']);
+            return;
+        }
+
+        $this->__log("レース結果詳細の登録が完了しました。race_id = ".$race_id.', '.$raceData['Race']['name']);            
 
     }
 
@@ -347,7 +378,8 @@ class ResultExpectationShell extends AppShell {
         );
         $resultDetail = $this->RaceResultDetail->find("all",$options);
         if(empty($resultDetail)){
-            $this->__log("レースデータが存在しません. race_id:".$race_id,true);
+            $this->__log("レース結果詳細が登録されていません race_id:".$race_id);
+            return;
         }
 
         $resultData = $this->__get_html_data($raceData);
