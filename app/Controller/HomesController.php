@@ -109,6 +109,12 @@ class HomesController extends AppController {
 
 		$raceData = $this->Race->findById($raceId);
 
+		//存在しない場合はTOPページへ
+		if(empty($raceData)){
+			$this->redirect('/');
+		}
+
+
 		$raceCardData = $raceData['RaceCard'];
 		$raceCardId = array();
 		foreach($raceCardData as $data ){
@@ -131,11 +137,6 @@ class HomesController extends AppController {
 			array_push($eachRaceCardIdResult[$eachRace['RecentRaceResult']['race_card_id']], $eachRace['RecentRaceResult']);
 		}
 		$this->set('recentRaceResult', $eachRaceCardIdResult);
-		
-
-		if(empty($raceData)){
-			echo "race not found ! race_id = ".$raceId;exit;
-		}
 		$this->set("raceData",$raceData);
 
 		//予想
@@ -167,9 +168,15 @@ class HomesController extends AppController {
 
 		//みんなの予想を取得
 		$otherExpectData = $this->Expectation->getExpectationOther($raceId);
-//		print_r($otherExpectData[0]['selectData']);exit;
 
-		$this->set(compact("myData","kojiharuData","otherExpectData"));
+
+		//レースの開始時間が過ぎていないか？
+		$timeOver = false;//falseレース前、trueレース受付終了
+		if(date('Y-m-d H:i:s')>=$raceData['Race']['race_date']){
+			$timeOver = true;
+		}
+
+		$this->set(compact("myData","kojiharuData","otherExpectData","timeOver"));
 
 		//metaタグ設定
         $this->meta_description = "こじはるさんの「".$raceData["Race"]["name"]."」の３連単５頭ボックスの予想です。参考にして是非みなさんも予想してみましょう。目指せ万馬券！";
@@ -185,6 +192,11 @@ class HomesController extends AppController {
 
 		$postData = $this->Session->read("expectation");
 		$raceData = $this->Race->findById($postData["Expectation"]["race_id"]);
+
+		//レースの開始時間が過ぎていないか？
+		if(date('Y-m-d H:i:s')>=$raceData['Race']['race_date']){
+			$this->redirect('/');
+		}
 
 		//こじはるの情報を取得
 		$kojiharuData = $this->Expectation->getExpectationData($postData["Expectation"]["race_id"]);
@@ -206,6 +218,12 @@ class HomesController extends AppController {
 		//metaタグ設定
 		$this->title_tag = "予想完了";
 
+		$raceData = $this->Race->findById($this->request->data['Expectation']['race_id']);
+		//レースの開始時間が過ぎていないか？
+		if(date('Y-m-d H:i:s')>=$raceData['Race']['race_date']){
+			$this->redirect('/');
+		}
+
 		if(!empty($this->user["id"])&&count($this->request->data['Expectation']['item'])==Configure::read('Base.box_count')){
 			//既に予想していないか？
 			$exceptionData = $this->Expectation->getExpectationData($this->request->data['Expectation']['race_id'],$this->user["id"]);
@@ -220,14 +238,19 @@ class HomesController extends AppController {
 				$this->Expectation->create();
 				$this->Expectation->save($expectationData);
 			    $this->Session->write('expectation', "");
-
-			    //
-				$raceData = $this->Race->findById($this->request->data['Expectation']['race_id']);
 		
 				$myData = $this->Expectation->getExpectationData($this->request->data['Expectation']['race_id'],$this->user["id"]);
 
 				$this->set("raceData",$raceData);
 				$this->set("expectationData",$myData);
+
+
+				//こじはるが予想した場合は、こじはるフラグをONにする
+				if($this->user['id']==$this->kojiharu_id){
+					$this->Race->id = $this->request->data['Expectation']['race_id'];
+					$this->Race->saveField('kojiharu_flg',1);
+				}
+
 			}else{
 				$this->Session->setFlash(__('※不正な遷移です。'));
 				$this->redirect('/');
