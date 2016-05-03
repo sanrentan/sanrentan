@@ -32,7 +32,7 @@ class Information extends AppModel {
 			$raceName.= '(G'.$raceData['Race']['grade'].')';
 		}
 
-		$title = '<a href="/result/'.$raceData['Race']['id'].'">'.$raceName.'</a>で当サイトから予想的中者がでました。おめでとうござます！';
+		$title = '<a href="/result/'.$raceData['Race']['id'].'">'.$raceName.'</a>で当サイトから予想的中者がでました。おめでとうございます！';
 
 		$infoData = array(
 			'title' => $title,
