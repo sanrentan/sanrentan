@@ -13,17 +13,23 @@
 			<?php if(!empty($myData)):?>
 				<ul class="selectList">
 					<p id="myList">あなたの予想</p>
-					<?php foreach($myData["selectData"] as $key=>$data):?>
-						<li><span class="wk<?php echo $data["RaceCard"]['wk'];?>"><?php echo $data["RaceCard"]["uma"];?></span> <?php echo $data["RaceCard"]["name"];?></li>
-					<?php endforeach;?>
+					<dl>
+						<?php foreach($myData["selectData"] as $key=>$data):?>
+							<dt class="wk<?php echo $data["RaceCard"]['wk'];?>"><?php echo $data["RaceCard"]["uma"];?></dt><dd class="wkname"><?php echo $data["RaceCard"]["name"];?></dd>
+						<?php endforeach;?>
+					</dl>
+					<div class="clearfix"></div>
 				</ul>
 			<?php endif;?>
 			<?php if(!empty($kojiharuData)):?>
 				<ul class="selectList">
 					<p id="kojiharuList">こじはるの予想</p>
-					<?php foreach($kojiharuData["selectData"] as $key=>$data):?>
-						<li><span class="wk<?php echo $data["RaceCard"]['wk'];?>"><?php echo $data["RaceCard"]["uma"];?></span> <?php echo $data["RaceCard"]["name"];?></li>
-					<?php endforeach;?>
+					<dl>
+						<?php foreach($kojiharuData["selectData"] as $key=>$data):?>
+							<dt class="wk<?php echo $data["RaceCard"]['wk'];?>"><?php echo $data["RaceCard"]["uma"];?></dt><dd class="wkname"><?php echo $data["RaceCard"]["name"];?></dd>
+						<?php endforeach;?>
+					</dl>
+					<div class="clearfix"></div>
 				</ul>
 			<?php endif;?>
 			<div class="clearfix"></div>

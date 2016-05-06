@@ -227,39 +227,63 @@ ul.information.keibajapan{
 
 
 
-.wk1,.wk2,.wk3,.wk4,.wk5,.wk6,.wk7,.wk8
-{
+.wk1,.wk2,.wk3,.wk4,.wk5,.wk6,.wk7,.wk8{
 	padding:5px;
+	width:20px;
+	float:left;
+	clear:left;
+	text-align: center;
+	margin-bottom:3px;
 }
-.wk1{
+.wkname{
+	float: left;
+	padding: 5px 0 5px;
+	margin-left: 7px;
+}
+
+.wk1,
+.wk1_pre{
 	border:1px solid #000000;
 	background-color: #FFFFFF;
+	width:18px;
 }
-.wk2{
+.wk2,
+.wk2_pre{
 	color:#FFFFFF;
 	background-color: #000000;
 }
-.wk3{
+.wk3,
+.wk3_pre{
 	color:#FFFFFF;
 	background-color: #FF0000;
 }
-.wk4{
+.wk4,
+.wk4_pre{
 	color:#FFFFFF;
 	background-color: #0000FF;
 }
-.wk5{
+.wk5,
+.wk5_pre{
 	background-color: #FFF000;
 }
-.wk6{
+.wk6,
+.wk6_pre{
 	color:#FFFFFF;
 	background-color: #008000;
 }
-.wk7{
+.wk7,
+.wk7_pre{
 	background-color: #FFA500;
 }
-.wk8{
+.wk8,
+.wk8_pre{
 	background-color: #FFC0CB;
 }
+
+.wk1_pre,.wk2_pre,.wk3_pre,.wk4_pre,.wk5_pre,.wk6_pre,.wk7_pre,.wk8_pre{
+	padding:5px;
+}
+
 
 #horseListArea{
 	width:100%;
@@ -401,7 +425,7 @@ ul.information.keibajapan{
 	display:block;
 	float:left;
 	width:20%;
-	min-height: 240px;
+	min-height: 270px;
 	max-width: 184px;
 }
 .userExpect img{
@@ -419,6 +443,7 @@ ul.information.keibajapan{
 
 .userExpect .profileImgArea{
 	float:left;
+	min-height: 77px;
 }
 .userExpect .profileDetailArea{
 	float:left;
@@ -433,6 +458,13 @@ ul.information.keibajapan{
 .userExpect .expectArea .umaName{
 	font-size:90%;
 	padding-left:10px;
+}
+
+.userExpect dl{
+	margin:10px;
+}
+.userExpect dd{
+	font-size:90%;
 }
 
 #confirmArea{
@@ -862,7 +894,7 @@ ul.information.keibajapan{
 }
 
 .adArea.tag3{
-	margin-top:43px;
+	margin-top:12px;
 }
 .adArea.tag3 ul{
 	margin-bottom:0;

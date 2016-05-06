@@ -74,7 +74,7 @@
 		width: 100%;
 	}
 	#mainBannerAreaRight #recentKojiharuArea{
-		margin:10px;
+		margin:0 10px 10px 10px;
 	}
 	#mainBannerAreaRight #recentKojiharuArea{
 		font-size:110%;
@@ -123,6 +123,11 @@
 	#footer ul a{
 		color:#777;
 	}
+
+	.wk1,.wk2,.wk3,.wk4,.wk5,.wk6,.wk7,.wk8{
+		font-weight: normal;
+	}
+
 
 
 	#aboutContent #imgArea .img1,
@@ -285,6 +290,9 @@
 		width:45%;
 	}
 	#userListArea .userExpect p{
+		font-size:85%;
+	}
+	.userExpect dd{
 		font-size:85%;
 	}
 

@@ -15,17 +15,23 @@
 	<div class="confirmSelect">
 		<ul class="selectList">
 			<p id="myList">あなたの予想</p>
+			<dl>
 			<?php foreach($selectArray as $key=>$data):?>
-				<li><span class="wk<?php echo $data['wk'];?>"><?php echo $data["uma"];?></span> <?php echo $data["name"];?></li>
+				<dt class="wk<?php echo $data['wk'];?>"><?php echo $data["uma"];?></dt><dd class="wkname"><?php echo $data["name"];?></dd>
 				<?php echo $this->Form->hidden('item][',array("value"=>$data["id"]));?>
 			<?php endforeach;?>
+			</dl>
+			<div class="clearfix"></div>
 		</ul>
 		<?php if(!empty($kojiharuData)):?>
 			<ul class="selectList">
 				<p id="kojiharuList">こじはるの予想</p>
-				<?php foreach($kojiharuData["selectData"] as $key=>$data):?>
-					<li><span class="wk<?php echo $data["RaceCard"]['wk'];?>"><?php echo $data["RaceCard"]["uma"];?></span> <?php echo $data["RaceCard"]["name"];?></li>
-				<?php endforeach;?>
+				<dl>
+					<?php foreach($kojiharuData["selectData"] as $key=>$data):?>
+						<dt class="wk<?php echo $data["RaceCard"]['wk'];?>"><?php echo $data["RaceCard"]["uma"];?></dt><dd class="wkname"><?php echo $data["RaceCard"]["name"];?></dd>
+					<?php endforeach;?>
+				</dl>
+				<div class="clearfix"></div>
 			</ul>
 		<?php endif;?>
 		<div class="clearfix"></div>

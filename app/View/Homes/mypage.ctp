@@ -13,16 +13,19 @@
 
 		<p>レース詳細</p>
 		<table border="1" class="pc">
-			<tr><th>日付</th><th>レース名</th><th>結果<br>１着/２着/３着</th><th>配当金</th><th>あなたの予想</th><th>結果</th></tr>
+			<tr><th width="80">日付</th><th>レース名</th><th width="180">結果<br>１着/２着/３着</th><th width="100">配当金</th><th>あなたの予想</th><th>結果</th></tr>
 			<?php foreach($raceData as $key=>$data):?>
 				<tr <?php if($key%2==0):?>class="row2"<?php endif;?>>
 					<th><?php echo date("m月d日",strtotime($data["Race"]["race_date"]));?></th>
 					<td><a href="/result/<?php echo $data['Race']['id'];?>"><?php echo $data["Race"]["full_name"];?></a></td>
 					<td>
 						<?php if(!empty($raceResultData[$data["Race"]["id"]])):?>
-							<p class="resultUmaName"><span class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][0]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["uma"];?></span> <?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["name"];?></p>
-							<p class="resultUmaName"><span class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][1]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["uma"];?></span> <?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["name"];?></p>
-							<p class="resultUmaName last"><span class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][2]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["uma"];?></span> <?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["name"];?></p>
+							<dl>
+								<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][0]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["name"];?></dd>
+								<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][1]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["name"];?></dd>
+								<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][2]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["name"];?></dd>
+							</dl>
+							<div class="clearfix"></div>
 						<?php else:?>
 							結果前
 						<?php endif;?>
@@ -72,9 +75,12 @@
 						
 						<?php if(!empty($raceResultData[$data["Race"]["id"]])):?>
 								<p>レース結果：</p>
-								<p><span class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][0]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["uma"];?></span> <?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["name"];?></p>
-								<p><span class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][1]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["uma"];?></span> <?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["name"];?></p>
-								<p><span class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][2]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["uma"];?></span> <?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["name"];?></p>
+								<dl>
+									<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][0]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["name"];?></dd>
+									<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][1]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["name"];?></dd>
+									<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][2]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["name"];?></dd>
+								</dl>
+								<div class="clearfix"></div>
 
 								<p>配当金：
 								<?php if(!empty($raceResultData[$data['Race']['id']])):?>
