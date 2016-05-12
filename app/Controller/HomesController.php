@@ -323,6 +323,67 @@ class HomesController extends AppController {
 
 
 		//対象の年のレースを取得
+		$tmpRaceData = $this->Race->getRaceListYear($year);
+
+		$raceIdArr = array();
+		foreach($tmpRaceData as $key=>$data){
+			$raceIdArr[] = $data["Race"]["id"];
+		}
+
+		//レース結果を取得
+		$options = array("conditions"=>array("race_id"=>$raceIdArr));
+		$tmpData = $this->RaceResult->find("all",$options);
+		$raceResultData = array();
+		foreach($tmpData as $key=>$data){
+			$raceResultData[$data["RaceResult"]["race_id"]] = $data;
+		}
+
+
+		//こじはるの予想一覧を取得
+		$myData = $this->Expectation->getExpectaionList($user['id'],$raceIdArr);
+		//こじはるの結果を取得
+		$myResultData = $this->ExpectationResult->getResultData($user['id'],$year);
+
+
+		//予想したレースだけ取得
+		$raceData = array();
+		$raceIdArr = array();
+		if(!empty($myData)){
+			foreach($myData as $key=>$data){
+				$raceIdArr[] = $data['Expectation']['race_id'];
+			}
+
+			foreach($tmpRaceData as $key=>$data){
+				if(in_array($data['Race']['id'], $raceIdArr)){
+					$raceData[] = $data;
+				}
+			}
+		}
+
+		$this->set(compact("year","raceData", "raceResultData","myData","myResultData"));
+
+	}
+
+	//過去のレース
+	public function mypage_result(){
+		//metaタグ設定
+        $this->meta_description = "マイページです。これまでの予想結果の確認や、登録情報の変更、お気に入りユーザーの確認が可能です。";
+		$this->meta_keywords = "マイページ,レース結果";
+		$this->title_tag = "過去のレース結果";
+
+		$this->set("naviType","result");
+		
+		if(empty($this->user["id"])){
+			//ログインページへリダイレクト
+			$this->redirect('/login');
+		}else{
+			$user = $this->user;
+		}
+
+		$year = date("Y");//TODO 引数で受け取りたい
+
+
+		//対象の年のレースを取得
 		$raceData = $this->Race->getRaceListYear($year);
 
 		$raceIdArr = array();

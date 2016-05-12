@@ -2,7 +2,7 @@
 
 <div id="mypage">
 
-	<?php echo $this->element('mypageNavi',array("active"=>"index")); ?>
+	<?php echo $this->element('mypageNavi',array("active"=>"result")); ?>
 
 	<div id="resultArea">
 		<?php if(!empty($myResultData)):?>
