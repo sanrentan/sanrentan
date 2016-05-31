@@ -21,7 +21,7 @@
  **/
 class OauthController extends TwitterKitAppController {
 
-    public $uses = array();
+    public $uses = array('LoginHistory');
 
     public $components = array('TwitterKit.Twitter');
 
@@ -204,6 +204,9 @@ class OauthController extends TwitterKitAppController {
             $this->flash(__d('twiter_kit', 'Redirect to %s', Router::url($this->Auth->redirect(), true) . ini_get('session.referer_check')), $this->Auth->redirect(), 0);
             return;
         }
+
+        //ログイン履歴を保存
+        $this->LoginHistory->saveLoginHistory($data['User']['id'],$this->request);
 
         //$this->redirect($this->Auth->redirect());
         if($create_flg==true){
