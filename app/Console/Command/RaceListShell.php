@@ -339,6 +339,12 @@ class RaceListShell extends AppShell {
                 $this->RaceCard->create();
                 $this->RaceCard->save($horse);
                 $last_id = $this->RaceCard->getLastInsertID();
+
+                if(empty($recent_5race_results)){
+                    $this->__log("過去5レースが登録されていません。race_card_id:".$last_id);
+                    continue;
+                }
+
                 foreach($recent_5race_results[$row] as $eachResult){
                     $eachResult["race_card_id"] = $last_id;
                     $this->RecentRaceResult->create();

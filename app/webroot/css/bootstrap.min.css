@@ -299,7 +299,10 @@ ul.information.keibajapan{
 	background-color: #D9D9B0;
 }
 
-
+#horseListArea table td{
+	height:107px;
+}
+	
 #raceDetailTxt{
 	padding:5px 0 20px 30px;
 }

@@ -114,7 +114,7 @@
 					<?php endfor; ?>
 				<?php endif; ?>
 			<?php else: ?>
-				<td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td>
+				<td align="center" class="pc">-</td><td align="center" class="pc">-</td><td align="center" class="pc">-</td><td align="center" class="pc">-</td>
 			<?php endif; ?>
 		</tr>
 	<?php endforeach;?>

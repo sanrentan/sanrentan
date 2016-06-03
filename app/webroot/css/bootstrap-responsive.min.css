@@ -207,6 +207,9 @@
 	#horseListArea th{
 		font-size:70%;
 	}
+	#horseListArea table td{
+		height:40px;
+	}
 	#horseListArea .horseName{
 		font-size:90%;
 	}
