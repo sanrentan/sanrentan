@@ -33,7 +33,7 @@ App::uses('CakeEmail', 'Network/Email');
  */
 class AppController extends Controller {
 
-    public $uses = array('AdTag');
+    public $uses = array('AdTag','Expectation','User');
 
     public $components = array(
         'Session',
@@ -130,6 +130,16 @@ class AppController extends Controller {
         $adTags3 = $this->AdTag->getAdTag(3,1);//ミニバナー
         $adTags5 = $this->AdTag->getAdTag(5,2);//amazon
         $this->set(compact("adTags1","adTags2","adTags3","adTags5"));
+
+
+        //最新のこじはる予想
+        $recentKojiharu = $this->Expectation->getRecentKojiharu();
+
+        //ランキング
+        $rankedUsers = $this->User->getRankingPrice(date('Y'));//金額
+
+        $this->set(compact("recentKojiharu","rankedUsers"));
+
     }
 
     public function getRss($key,$url,$num=5,$css=1){

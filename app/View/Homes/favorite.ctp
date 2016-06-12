@@ -58,53 +58,58 @@
 
 </script>
 
-<p class="titleLabel">お気に入り</p>
+<?php echo $this->element('mypageNavi',array("active"=>"favorite","title"=>"お気に入り")); ?>
 
-<div id="mypage">
-
-	<?php echo $this->element('mypageNavi',array("active"=>"favorite")); ?>
-
-	<div id="favoUserList">
-
-		<?php if(!empty($favoList)):?>
-			<p>お気に入りユーザー</p>
-			<?php foreach($favoList as $key=>$data):?>
-				<div class="favoUser">
-					<div class="favoUserImg">
-						<a href="/other/<?php echo $data['User']['id'];?>">
-							<?php if($data['User']['profile_img']):?>
-								<img src="/img/profileImg/<?php echo $data['User']['profile_img'];?>">
-							<?php else:?>
-								<img src="/img/common/noimage_person.png">
-							<?php endif;?>
-						</a>
-					</div>
-					<div class="favoBtn">
-						<p class="favo_btn<?php echo $data['User']['id'];?>" style="display:none;"><a href="#" onclick="add_favorite(<?php echo $data['User']['id'];?>);return false;" class="btn btn-danger">＋フォロー</a>	
-						<p class="favo_send<?php echo $data['User']['id'];?>" style="display:none;"><a href="#" class="btn btn-info" >送信中..</a></p>
-						<p class="favo_end<?php echo $data['User']['id'];?>"><a href="#" onclick="delete_favorite(<?php echo $data['User']['id'];?>);return false;" class="btn btn-warning" onmouseover="this.className='btn btn-danger';this.innerText='　解除　　';this.class='fabo_btn'" onmouseout="this.className='btn btn-warning';this.innerText='フォロー中'">フォロー中</a></p>
-					</div>
+<div id="mainContent">
+	<div id="leftContent">
+		<div id="userArea">
+			<p class="titleLabel">お気に入りユーザーリスト</p>
+			<div id="favoUserList">
+				<?php if(!empty($favoList)):?>
+					<?php foreach($favoList as $key=>$data):?>
+						<div class="favoUser type<?php echo $key%3;?>">
+							<div class="favoUserImg">
+								<a href="/other/<?php echo $data['User']['id'];?>">
+									<?php if($data['User']['profile_img']):?>
+										<img src="/img/profileImg/<?php echo $data['User']['profile_img'];?>">
+									<?php else:?>
+										<img src="/img/common/noimage_person.png">
+									<?php endif;?>
+								</a>
+							</div>
+							<div class="favoBtn">
+								<p class="favo_btn<?php echo $data['User']['id'];?>" style="display:none;"><a href="#" onclick="add_favorite(<?php echo $data['User']['id'];?>);return false;" class="btn btn-danger">＋フォロー</a>	
+								<p class="favo_send<?php echo $data['User']['id'];?>" style="display:none;"><a href="#" class="btn btn-info" >送信中..</a></p>
+								<p class="favo_end<?php echo $data['User']['id'];?>"><a href="#" onclick="delete_favorite(<?php echo $data['User']['id'];?>);return false;" class="btn btn-warning" onmouseover="this.className='btn btn-danger';this.innerText='　解除　　';this.class='fabo_btn'" onmouseout="this.className='btn btn-warning';this.innerText='フォロー中'">フォロー中</a></p>
+							</div>
+							<div class="clearfix"></div>
+							<div class="favoUserName"><a href="/other/<?php echo $data['User']['id'];?>"><?php echo $data["User"]["nickname"];?></a></div>
+							<div class="favoUserDetail">
+								今年の戦績：
+								<?php if($data["ExpectationResult"]["win"]!=0||$data["ExpectationResult"]["lose"]!=0):?>
+									<?php echo $data["ExpectationResult"]["win"];?>勝
+									<?php echo $data["ExpectationResult"]["lose"];?>敗
+									<?php if($data["ExpectationResult"]["price"]>0):?>+<?php endif;?><?php echo number_format($data["ExpectationResult"]["price"]);?>円
+								<?php else:?>
+									なし
+								<?php endif;?>
+							</div>
+							<div class="favoUserMessage">
+								<?php echo $data["User"]["message"];?>
+							</div>
+						</div>
+					<?php endforeach;?>
 					<div class="clearfix"></div>
-					<div class="favoUserName"><a href="/other/<?php echo $data['User']['id'];?>"><?php echo $data["User"]["nickname"];?></a></div>
-					<div class="favoUserDetail">
-						今年の戦績：
-						<?php if($data["ExpectationResult"]["win"]!=0||$data["ExpectationResult"]["lose"]!=0):?>
-							<?php echo $data["ExpectationResult"]["win"];?>勝
-							<?php echo $data["ExpectationResult"]["lose"];?>敗
-							<?php if($data["ExpectationResult"]["price"]>0):?>+<?php endif;?><?php echo number_format($data["ExpectationResult"]["price"]);?>円
-						<?php else:?>
-							なし
-						<?php endif;?>
-					</div>
-					<div class="favoUserMessage">
-						<?php echo $data["User"]["message"];?>
-					</div>
-				</div>
-			<?php endforeach;?>
-			<div class="clearfix"></div>
-		<?php else:?>
-			<p>※お気に入りユーザーが登録されていません。</p>
-		<?php endif;?>
-	</div>
+				<?php else:?>
+					<p>※お気に入りユーザーが登録されていません。</p>
+				<?php endif;?>
+			</div>
+		</div>
 
+	</div>
+	<div id="rightContent">
+		<?php //公式twitter ?>
+		<?php echo $this->element('twitter_timeline'); ?>
+	</div>
+	<div class="clearfix"></div>
 </div>

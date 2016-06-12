@@ -1,27 +1,40 @@
-<p class="titleLabel">ログイン</p>
+<div id="mainContent">
+	<div id="leftContent">
+		<div id="userArea">
+			<p class="titleLabel">ログイン</p>
+			<div class="mainContent2">
+				<?php echo $this->Flash->render('auth'); ?>
+				<?php echo $this->Form->create('User'); ?>
+				<p>既に会員登録済みの方や、Twitterアカウントでログインする方は下記からお願いします。</p>
+				    <fieldset>
+						<p class="titleLabel">ID・パスワードでログイン</p>
+				    	<div class="tableArea">
+					        <?php if(!empty($errorMsg)):?><p class="red"><?php echo $errorMsg;?></p><?php endif;?>
+							<p>ログインID</p>
+							<?php echo $this->Form->input('username',array('label'=>false));?>
+							<p>パスワード</p>
+							<?php echo $this->Form->input('password',array('label'=>false));?>
+						    <input type="submit" class="btn btn-primary btn-block-sp" value="ログイン">
+						</div>
+						<p class="titleLabel">Twitterのアカウントでログイン</p>
+				    	<div class="tableArea">
+							<a href="/twitter_login"><img src="/img/common/twitter_logo.png" width="200"><br>Twitterアカウントでログイン</a>
+						</div>
+						<p class="titleLabel">新規会員登録の方</p>
+				    	<div class="tableArea">
+					        <a href="/regist">会員登録ページへ</a>
+						</div>
+				    </fieldset>
+				<?php echo $this->Form->end();?>
 
-<div class="userForm">
-	<?php echo $this->Flash->render('auth'); ?>
-	<?php echo $this->Form->create('User'); ?>
-	    <fieldset>
-	        <legend>
-	            <?php echo __('Twitterのアカウントでログイン'); ?>
-	        </legend>
-			<a href="/twitter_login"><img src="/img/common/twitter_logo.png" width="200"><br>Twitterアカウントでログイン</a>
-			<br>
-			<br>
+			</div>
+		</div>
 
+	</div>
+	<div id="rightContent">
+		<?php //公式twitter ?>
+		<?php echo $this->element('twitter_timeline'); ?>
+	</div>
+	<div class="clearfix"></div>
+</div>	
 
-	        <legend>
-	            <?php echo __('ID・パスワードでログイン'); ?>
-	        </legend>
-	        <?php if(!empty($errorMsg)):?><p class="red"><?php echo $errorMsg;?></p><?php endif;?>
-			<p>ログインID</p>
-			<?php echo $this->Form->input('username',array('label'=>false));?>
-			<p>パスワード</p>
-			<?php echo $this->Form->input('password',array('label'=>false));?>
-	    </fieldset>
-	    <input type="submit" class="btn btn-primary btn-block-sp" value="ログイン">
-	<?php echo $this->Form->end();?>
-
-</div>

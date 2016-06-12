@@ -1,8 +1,5 @@
-<p class="titleLabel">マイページ</p>
-
-<div id="mypage">
-
-	<?php echo $this->element('mypageNavi',array("active"=>"result")); ?>
+<?php echo $this->element('mypageNavi',array("active"=>"result","title"=>"過去のレース結果")); ?>
+<div id="mainContent">
 
 	<div id="resultArea">
 		<?php if(!empty($myResultData)):?>
@@ -12,59 +9,63 @@
 		<?php endif;?>
 
 		<p>レース詳細</p>
-		<table border="1" class="pc">
-			<tr><th width="80">日付</th><th>レース名</th><th width="180">結果<br>１着/２着/３着</th><th width="100">配当金</th><th width="150">あなたの予想</th><th width="80">結果</th></tr>
-			<?php foreach($raceData as $key=>$data):?>
-				<tr <?php if($key%2==0):?>class="row2"<?php endif;?>>
-					<th><?php echo date("m月d日",strtotime($data["Race"]["race_date"]));?></th>
-					<td><a href="/result/<?php echo $data['Race']['id'];?>"><?php echo $data["Race"]["full_name"];?></a></td>
-					<td>
-						<?php if(!empty($raceResultData[$data["Race"]["id"]])):?>
-							<dl>
-								<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][0]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["name"];?></dd>
-								<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][1]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["name"];?></dd>
-								<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][2]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["name"];?></dd>
-							</dl>
-							<div class="clearfix"></div>
-						<?php else:?>
-							結果前
-						<?php endif;?>
-					</td>
-					<td align="center">
-						<?php if(!empty($raceResultData[$data['Race']['id']])):?>
-							<?php echo number_format($raceResultData[$data['Race']['id']]["RaceResult"]["sanrentan_price"]);?>円<br>
-							<?php echo number_format($raceResultData[$data['Race']['id']]["RaceResult"]["sanrentan_popularity"]);?>人気
-						<?php endif;?>
-					</td>
-					<td align="center">
-						<?php if(!empty($myData[$data["Race"]["id"]])):?>
-							<?php echo $myData[$data['Race']['id']]['Expectation']['item1_uma'];?>-
-							<?php echo $myData[$data['Race']['id']]['Expectation']['item2_uma'];?>-
-							<?php echo $myData[$data['Race']['id']]['Expectation']['item3_uma'];?>-
-							<?php echo $myData[$data['Race']['id']]['Expectation']['item4_uma'];?>-
-							<?php echo $myData[$data['Race']['id']]['Expectation']['item5_uma'];?>
-						<?php elseif($data["Race"]["accepting_flg"]==1):?>
-							<a href="/detail/<?php echo $data['Race']['id'];?>">予想する</a>
-						<?php else:?>
-							-
-						<?php endif;?>
-					</td>
-					<td align="center">
-						<?php if(!empty($myData[$data["Race"]["id"]])):?>
-							<?php if($myData[$data["Race"]["id"]]["Expectation"]["result"]==1):?>
-								<span class="winmark">当たり</span>
-							<?php elseif($myData[$data["Race"]["id"]]["Expectation"]["result"]==2):?>
-								外れ
+		<div class="tableArea">
+			<table border="1" class="pc">
+				<tr><th width="80">日付</th><th>レース名</th><th width="180">結果<br>１着/２着/３着</th><th width="100">配当金</th><th width="150">あなたの予想</th><th width="80">結果</th></tr>
+				<?php foreach($raceData as $key=>$data):?>
+					<tr <?php if($key%2==0):?>class="row2"<?php endif;?>>
+						<th><?php echo date("m月d日",strtotime($data["Race"]["race_date"]));?></th>
+						<td><a href="/result/<?php echo $data['Race']['id'];?>"><?php echo $data["Race"]["full_name"];?></a></td>
+						<td>
+							<?php if(!empty($raceResultData[$data["Race"]["id"]])):?>
+								<dl>
+									<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][0]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["name"];?></dd>
+									<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][1]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["name"];?></dd>
+									<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][2]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["name"];?></dd>
+								</dl>
+								<div class="clearfix"></div>
 							<?php else:?>
 								結果待ち
 							<?php endif;?>
-						<?php else:?>
-							-
-						<?php endif;?>
-					</td>
-				</tr>
-			<?php endforeach;?>
-		</table>
+						</td>
+						<td align="center">
+							<?php if(!empty($raceResultData[$data['Race']['id']])):?>
+								<?php echo number_format($raceResultData[$data['Race']['id']]["RaceResult"]["sanrentan_price"]);?>円<br>
+								<?php echo number_format($raceResultData[$data['Race']['id']]["RaceResult"]["sanrentan_popularity"]);?>人気
+							<?php else:?>
+								結果待ち
+							<?php endif;?>
+						</td>
+						<td align="center">
+							<?php if(!empty($myData[$data["Race"]["id"]])):?>
+								<?php echo $myData[$data['Race']['id']]['Expectation']['item1_uma'];?>-
+								<?php echo $myData[$data['Race']['id']]['Expectation']['item2_uma'];?>-
+								<?php echo $myData[$data['Race']['id']]['Expectation']['item3_uma'];?>-
+								<?php echo $myData[$data['Race']['id']]['Expectation']['item4_uma'];?>-
+								<?php echo $myData[$data['Race']['id']]['Expectation']['item5_uma'];?>
+							<?php elseif($data["Race"]["accepting_flg"]==1):?>
+								<a href="/detail/<?php echo $data['Race']['id'];?>">予想する</a>
+							<?php else:?>
+								-
+							<?php endif;?>
+						</td>
+						<td align="center">
+							<?php if(!empty($myData[$data["Race"]["id"]])):?>
+								<?php if($myData[$data["Race"]["id"]]["Expectation"]["result"]==1):?>
+									<span class="winmark">当たり</span>
+								<?php elseif($myData[$data["Race"]["id"]]["Expectation"]["result"]==2):?>
+									外れ
+								<?php else:?>
+									結果待ち
+								<?php endif;?>
+							<?php else:?>
+								-
+							<?php endif;?>
+						</td>
+					</tr>
+				<?php endforeach;?>
+			</table>
+		</div>
 
 		<div class="sp_resultArea sp">
 			<ul>

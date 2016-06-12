@@ -67,11 +67,7 @@ class HomesController extends AppController {
 
 		//過去５レース
 		$recentRace = $this->Race->getRecentRace();
-
-		//最新のこじはる予想
-		$recentKojiharu = $this->Expectation->getRecentKojiharu();
-
-		$this->set(compact("acceptingRace", "recentRace","recentKojiharu"));
+		$this->set(compact("acceptingRace", "recentRace"));
 
 		//RSS 競馬ニュース
 		$newsRss = $this->getRss("keiba_news","http://keiba.jp/rss/news.xml");
@@ -88,15 +84,11 @@ class HomesController extends AppController {
 
 		$matomeRss = array_merge($matomeRss,$keibaKyodai,$keibayosou,$umachannel);
 
-		//ランキング
-		$rankedUsers = $this->User->getRankingPrice(date('Y'));//金額
-
-
 		//お知らせを取得
 		$infoData = $this->Information->getInfoList(5);
 
 
-		$this->set(compact("newsRss", "expectRss","matomeRss","infoData","rankedUsers"));
+		$this->set(compact("newsRss", "expectRss","matomeRss","infoData"));
 
 	}
 
@@ -719,6 +711,11 @@ class HomesController extends AppController {
 			}
 
 			foreach($favoList as $key=>&$data){
+				$mlength = 25;
+				if (mb_strlen($userData[$data["FavoUser"]["other_user_id"]]["User"]['message']) > $mlength) {	
+			    	$userData[$data["FavoUser"]["other_user_id"]]["User"]['message'] = mb_substr($userData[$data["FavoUser"]["other_user_id"]]["User"]['message'], 0, $mlength, 'UTF-8').'..';
+			    }
+
 				$data["User"] = $userData[$data["FavoUser"]["other_user_id"]]["User"];
 				$data["ExpectationResult"] = $userData[$data["FavoUser"]["other_user_id"]]["ExpectationResult"];
 			}

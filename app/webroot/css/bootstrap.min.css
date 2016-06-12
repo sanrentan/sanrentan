@@ -12,6 +12,8 @@
 html,body
 {
 	font-family:"メイリオ","ヒラギノ角ゴ Pro W3",Osaka,Arial,Verdana,"ＭＳ Ｐゴシック",sans-serif;
+	padding-top:0 !important;
+	background-color: #FFF;
 }
 
 .sp{
@@ -19,10 +21,15 @@ html,body
 }
 
 
+.containerBg{
+	background-image: url("../img/bg/container_bg.png");
+}
+
 .container{
 	//border:1px solid #CCC;
 	width:1000px !important;
-	background-color:#FFF;
+	padding-top: 30px;
+	padding-bottom:20px;
 }
 
 .clearfix{
@@ -45,34 +52,74 @@ html,body
 	font-size:120%;
 }
 
+.navbar{
+	background-image: url("../img/common/line_green.png");
+	background-repeat:repeat-x;
+	padding-top:10px;
+	margin-bottom: 0 !important;
+}
+
+.navbar #naviTop{
+	width: 1000px;
+	margin:0 auto 2px auto;
+}
+.navbar #naviTop #logoArea{
+	float: left;
+}
+.navbar #naviTop .navi-profileImg{
+	float:right;
+	margin-right: 20px;
+}
+
 
 .navbar .brand {
     display: block;
-    float: left;
+    float: none;
     padding: 0 10px 0;
     margin-left: -10px;
     font-size: 20px;
     font-weight: 200;
     color: #777;
     text-shadow: 0 1px 0 #fff;
+
+
+}
+
+.navbar-inner2{
+	width: 100%;	
+}
+
+.navi-collapse{
+	width: 100%;
+	background-image: url("../img/bg/navi_bg.png");
+}
+.navbar ul{
+	width: 1000px;
+	margin:0 auto 0 auto;
+}
+.navbar .navi li{
+	list-style: none;
+	float: left;
 }
 
 .titleLabel{
 	font-size:18px;
 	padding:10px;
-	padding-left:45px;
-	background-color:#2c4ebe;
+	padding-left:27px;
 	color:#FFF;
-	background-image: url("../img/icon/horse.png");
+	background-image: url("../img/common/label_title.png");
 	background-repeat: no-repeat;
-	background-size: 30px;
-	background-position: 5px center;
 }
 .titleLabel.note{
-	background-image: url("../img/icon/note.png");
+	//background-image: url("../img/icon/note.png");
 }
 .titleLabel.light{
-	background-image: url("../img/icon/light.png");
+	//background-image: url("../img/icon/light.png");
+}
+
+.titleLabel.full{
+	background-image: url("../img/common/label_title_full.png");
+	padding-left:30px;
 }
 
 
@@ -89,9 +136,13 @@ html,body
 	background-position: 5px center;
 }
 
+.nav-collapse ul{
+	margin:0 auto 0 auto !important;
+}
+
 .nav-collapse .nav li{
 	line-height:40px;
-	border-left: 1px solid #CCC;
+	//border-left: 1px solid #CCC;
 }
 
 .navi-profileImg{
@@ -114,13 +165,167 @@ html,body
 #mainBannerArea #mainBannerAreaLeft{
 	float:left;
 	display:block;
+	background-color: #FFF;
+    border: 1px solid #3ac048;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
 }
+#mainBannerArea #mainBannerAreaLeft2{
+	float:left;
+	display:block;
+	background-color: #FFF;
+    border: 1px solid #3ac048;
+    width:670px;
+}
+#mainBannerArea #mainBannerAreaLeftDetail{
+	float:left;
+	display:block;
+	background-color: #FFF;
+    border: 1px solid #3ac048;
+    width:670px;
+    height:250px;
+}
+
+#mainBannerArea #mainBannerAreaLeft img{
+	padding: 10px;
+	width: 650px;
+}
+
+#mainBannerArea #mainBannerAreaLeft2 img{
+	padding:10px;
+}
+
+#mainBannerArea #mainBannerAreaLeft2 p{
+	margin-bottom: 0;
+}
+
+#mainBannerArea #mainBannerAreaLeftDetail #detailInfoText{
+	padding:10px;
+}
+
+
 #mainBannerArea #mainBannerAreaRight{
 	float:right;
 	display:block;
-	padding-left:10px;
 	width:300px;
+	height:386px;
+	background-image: url("../img/bg/right_big_bg.png");
+
+   -moz-border-radius: 10px;    /* 古いFirefox */
+   -webkit-border-radius: 10px; /* 古いSafari,Chrome */
+   border-radius: 10px;         /* CSS3 */
+
+   border: 1px #FFF solid;     /* 枠線の装飾 */
 }
+#mainBannerArea #mainBannerAreaRight2{
+	float:right;
+	display:block;
+	width:300px;
+	height:92px;
+	background-image: url("../img/bg/right_big_bg.png");
+
+   -moz-border-radius: 10px;    /* 古いFirefox */
+   -webkit-border-radius: 10px; /* 古いSafari,Chrome */
+   border-radius: 10px;         /* CSS3 */
+
+   border: 1px #FFF solid;     /* 枠線の装飾 */
+
+}
+
+#mainBannerArea #mainBannerAreaRightDetail{
+	float:right;
+	display:block;
+	width:300px;
+	height:252px;
+	background-image: url("../img/bg/right_big_bg.png");
+
+   -moz-border-radius: 10px;    /* 古いFirefox */
+   -webkit-border-radius: 10px; /* 古いSafari,Chrome */
+   border-radius: 10px;         /* CSS3 */
+
+   border: 1px #FFF solid;     /* 枠線の装飾 */
+}
+
+
+#mainBannerArea #mainBannerAreaRight .label1{
+	position: relative;
+	top:-21px;
+	right: 32px;
+}
+#mainBannerArea #mainBannerAreaRightDetail .label1{
+	position: relative;
+	top:0px;
+	right: 11px;
+	z-index: 999;
+}
+
+#mainBannerArea #mainBannerAreaRight .view_btn1{
+	position: relative;
+    top: -35px;
+    right: -129px;
+}
+
+ 
+#mainBannerArea #mainBannerAreaRight #recentKojiharuArea{
+   border: 1px #FFF solid;     /* 枠線の装飾 */
+   margin:20px;
+}
+#mainBannerArea #mainBannerAreaRightDetail #recentYourArea{
+   	border: 1px #FFF solid;     /* 枠線の装飾 */
+    margin:20px;
+	position: relative;
+    top: -33px;
+}
+
+#mainBannerArea #mainBannerAreaRight #recentKojiharuArea .expectArea{
+	background-color: #FFFFFF;
+	margin:0 10px 0 10px;
+	padding:10px;
+    position: relative;
+    top: -20px;
+}
+#mainBannerArea #mainBannerAreaRightDetail #recentYourArea .expectArea{
+	background-color: #FFFFFF;
+	margin:10px 10px 10px 10px;
+	padding:10px;
+    position: relative;
+    min-height: 170px;
+}
+
+#mainBannerArea #mainBannerAreaRight #recentKojiharuArea .expectArea .expect{
+	background-image: url("../img/common/line_pink.png");
+	background-repeat: no-repeat;
+	position: relative;
+	background-position: 0 34px;
+	margin-bottom:3px;
+	height:42px;
+}
+
+#mainBannerArea #mainBannerAreaRightDetail #recentYourArea .expectArea .expect{
+	background-image: url("../img/common/line_pink.png");
+	background-repeat: no-repeat;
+	position: relative;
+	background-position: 0 24px;
+}
+
+#mainBannerArea #mainBannerAreaRightDetail #recentYourArea dl {
+	margin-top: 5px;
+	margin-bottom:0;
+}
+#mainBannerArea #mainBannerAreaRight #recentYourArea .expectArea .expect{
+	background-image: url("../img/common/line_pink.png");
+	background-repeat: no-repeat;
+	position: relative;
+	background-position: 0 34px;
+	margin-bottom:3px;
+	height:42px;
+}
+#mainBannerArea #mainBannerAreaRight #recentKojiharuArea .expectArea dl{
+	margin-bottom: 0;
+	margin-top: 15px;
+}
+
 
 
 
@@ -132,8 +337,8 @@ html,body
 #mainContent #leftContent{
 	display:block;
 	float:left;
-	padding-left:10px;
-	width: 660px;
+	//padding-left:10px;
+	width: 670px;
 }
 #mainContent #rightContent{
 	display:block;
@@ -152,10 +357,25 @@ html,body
 
 }
 
+#mainContent #leftContent #leftContentMain{
+	background-color: #FFF;
+}
+
+#mainContent #leftContent #leftContentMain .listArea{
+	border:1px solid #3ac048;
+	margin-bottom: 10px;
+}
+
+#mainContent #leftContent #leftContentMain ul{
+	margin:10px;
+	border:2px solid #f1ce27;
+	padding:10px 20px 10px 20px;
+}
+
 .raceList li{
 	list-style: none;
-	border-bottom:1px solid #CCC;
 	padding:10px 0 10px;
+	border-bottom:1px dotted #df8a8c;
 }
 
 .raceList .raceName{
@@ -285,16 +505,6 @@ ul.information.keibajapan{
 }
 
 
-#horseListArea{
-	width:100%;
-	margin-bottom:20px;
-}
-
-#horseListArea table{
-	width:95%;
-	margin:0 auto 0 auto;
-}
-
 #horseListArea table th{
 	background-color: #D9D9B0;
 }
@@ -328,9 +538,6 @@ ul.information.keibajapan{
 	padding:10px;
 }
 
-#horseListArea #priceArea{
-	margin-bottom:30px;
-}
 #horseListArea #priceArea table{
 	width:100%;
 	cellpadding:10px;
@@ -356,17 +563,12 @@ ul.information.keibajapan{
 
 #horseListArea #priceArea #leftPriceTable{
 	float:left;
-	width:400px;
-	margin-left:25px;
+	width:464px;
 }
 #horseListArea #priceArea #rightPriceTable{
 	float:left;
-	width:400px;
-	margin-left:20px;
-}
-
-#horseListArea #resultListArea{
-	margin-bottom: 20px;
+	width:464px;
+	margin-left:15px;
 }
 
 #horseListArea #resultListArea table td,
@@ -374,27 +576,26 @@ ul.information.keibajapan{
 	padding: 5px 8px 5px 8px;
 }
 
-#horseListArea #winUserArea p{
+#winUserArea p{
 	padding:20px;
 }
 
-#horseListArea #winUserArea .winUser{
+#winUserArea .winUser{
 	margin-left:10px;
 	margin-bottom:20px;
 	background-color: #FFEFD5;
-	border:2px solid #FFEFD5;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 	display:block;
 	float:left;
-	width:15%;
+	width:122px;
 }
-#horseListArea #winUserArea .winUser img{
+#winUserArea .winUser img{
 	//width:100px;
 }
-#horseListArea #winUserArea .winUser .profileLeft .profileImg,
-#horseListArea #winUserArea .winUser .profileRight .profileMessage{
+#winUserArea .winUser .profileLeft .profileImg,
+#winUserArea .winUser .profileRight .profileMessage{
 	margin:10px auto 10px auto;
 	display: block;
 	background-color: #FFF;
@@ -404,30 +605,34 @@ ul.information.keibajapan{
 	border-radius: 10px;
 	max-height:76px;
 }
-#horseListArea #winUserArea .winUser .profileRight p{
+#winUserArea .winUser .profileRight p{
 	text-align: center;
 	padding:0;
 }
 
-#horseListArea #winUserArea .winUser .listBr{
+#winUserArea .winUser .listBr{
 	clear:left;
 	margin:bottom:10px;
 }
 
 .userExpect{
-	margin-left:10px;
-	margin-bottom:20px;
+	//margin-left:10px;
+	margin-bottom:15px;
 	background-color: #FFEFD5;
-	border:2px solid #FFEFD5;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 	display:block;
 	float:left;
-	width:20%;
 	min-height: 270px;
-	max-width: 184px;
+	width: 209px;
 }
+.userExpect.type1,
+.userExpect.type2{
+	margin-left:10px;
+}
+
+
 .userExpect img{
 	//width: 72px;
 	margin:10px;
@@ -515,13 +720,27 @@ ul.information.keibajapan{
 
 /**マイページ**/
 #mypageNavi{
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
+#mypageNavi ul{
+	margin:0;
+}
+
 #mypageNavi ul li{
 	float:left;
 	list-style: none;
-	padding:10px 5px 10px 10px;
+	//padding:10px 5px 10px 10px;
 	//background-color: #FFE4E1;
+	padding:10px 0 0 22px;
+}
+#mypageNavi ul li img{
+	padding:0 !important;
+}
+
+
+#mypageNavi .btn_mymenu{
+	height:30px;
+	width:140px !important;
 }
 
 #mypageNavi ul li.active{
@@ -531,23 +750,52 @@ ul.information.keibajapan{
 	color:#000000;
 }
 
+
+#myProfileArea #myIconArea{
+	float: left;
+	padding:10px;
+} 
+#myProfileArea #myIconArea img{
+    max-width: 72px;
+    max-height:72px;
+    border: 1px solid #3ac048;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}	
+
+#myProfileArea #myNameArea{
+	float: left;
+	background-color: #FFFFFF;
+	margin: 10px;	
+	height:65px;
+	width:160px;
+	padding:5px;
+} 
+#myProfileArea #myNameArea p{
+    margin-bottom: 0;
+    padding:0 5px 5px 5px;
+}
+
 #mypage{
 	padding-bottom:20px;
 }
 
-#mypage #profileArea{
+#profileArea{
 	margin:10px;
 	background-color: #FFEFD5;
 	border:2px solid #FFEFD5;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
+	height:322px;
 }
-#mypage #profileArea #profileLeft{
+#profileArea #profileLeft{
 	float:left;
 }
-#mypage #profileArea #profileLeft img{
-	width:150px;
+#profileArea #profileLeft img{
+	max-width:100px;
+	max-height:100px;
     background-color: #FFF;
     border: 1px solid #FFF;
     -webkit-border-radius: 10px;
@@ -555,50 +803,119 @@ ul.information.keibajapan{
     border-radius: 10px;
     margin: 10px;
 }
-#mypage #profileArea #profileRight{
+#profileArea #profileRight{
 	float:left;
-	margin-left:30px;
+	margin-left:10px;
+	width: 320px;
+}
+#profileArea #profileRight p{
+	margin:10px 0 10px;
+}
+
+#profileArea #profileFavo{
+	float:left;
+	margin-top:10px;
+}
+
+#profileArea #messageArea{
+	margin:0 20px 10px 20px;
 }
 
 
-#mypage #resultArea{
-	padding-left:25px;
-	padding-right:25px;
+
+#mainContent #resultArea,
+#mainContent #horseListArea,
+#mainContent #aboutContent{
+	border: 1px solid #3ac048;
+	padding: 10px;
+	//padding-left:10px;
+	//padding-right:10px;
+	//border: 2px solid #f1ce27;
+	background-color: #FFF;
 }
 
-#mypage #resultArea #imgArea .img1{
-	width:400px;
-}
-#mypage #resultArea #imgArea .img2{
-	max-height:250px;
+#mainContent #contactArea,
+#mainContent #userArea{	
+	border: 1px solid #3ac048;
+	background-color: #FFF;	
 }
 
-#mypage #resultArea p{
+#mainContent .mainContent2{
+	padding: 10px;
+}
+
+
+#mainContent #contactArea .tableArea{
+	padding: 20px;
+    border: 2px solid #f1ce27;
+}
+
+#mainContent #userArea .mainContent2 .titleLabel{
+	margin-top: 20px;
+}
+
+#mainContent #userArea .tableArea{
+	padding: 20px;
+    border: 2px solid #f1ce27;
+}
+
+
+#mainContent #resultArea p{
 	font-size:120%;
 }
 
-#mypage #resultArea table{
-	width:100%;
+#mainContent #resultArea .tableArea{
+	padding: 10px;
+    border: 2px solid #f1ce27;
 }
 
-#mypage #resultArea table th,
-#mypage #resultArea table td
+#mainContent #horseListArea{
+	margin-bottom: 20px;
+}
+
+
+#mainContent #horseListArea form{
+	margin-bottom: 0;
+}
+
+
+#mainContent #horseListArea .tableArea table{
+	width: 100%;
+}
+
+#mainContent #horseListArea .tableArea{
+	padding: 10px;
+    border: 2px solid #f1ce27;
+}
+
+
+#mainContent #resultArea table{
+	width:100%;
+	background-color: #FFF;
+}
+
+#mainContent #resultArea table th,
+#mainContent #resultArea table td
 {
 	padding:10px 10px 10px 10px;
 }
 
-#mypage #resultArea table td p.resultUmaName{
+#mainContent #resultArea table td p.resultUmaName{
 	font-size:100%;
 }
 #mypage #resultArea table td p.resultUmaName.last{
 	margin-bottom:0;
 }
 
+#mainContent #resultArea table tr{
+	height:145px;
+	background-color:#FFFFF;
+}
 
-#mypage #resultArea table tr.row2{
+#mainContent #resultArea table tr.row2{
 	background-color:#f6f7f2;
 }
-#mypage #resultArea table td .winmark{
+#mainContent #resultArea table td .winmark{
 	background-image:url("../img/icon/okan.png");
 	background-repeat: no-repeat;
 	background-size: 20px;
@@ -607,7 +924,7 @@ ul.information.keibajapan{
 	padding:5px 5px 5px 25px;
 }
 
-#mypage #resultArea .subtitle{
+#mainContent #resultArea .subtitle{
 	margin-bottom:20px;
 	font-size:120%;
 	font-weight:bold;
@@ -750,36 +1067,74 @@ ul.information.keibajapan{
 
 
 #footer{
-	text-align: center;
-	padding:20px 10px 0 10px;
-	position: relative; 
+	padding-top:20px;
  	overflow: hidden;
- 	border-top:1px solid #CCC;
- 	background-color: #fafafa;
+ 
+	width: 100%;
+    background-image: url("../img/bg/right_big_bg.png");
+	color:#FFF;
+}
+
+#footer a{
+	color:#FFF;
 }
 
 #footer #footerArea{
 	margin-bottom:20px;
 }
 
+#footer #footerContent{
+	margin:0 auto 0 auto;
+	width:1000px;	
+	display: block;
+}
+
+#footer #footerContent ul{
+	margin:0 10px 0 auto;
+	display: block;
+	text-align: right;
+}
+
+#footer li{
+	float: left;
+	list-style: none;
+	margin-left: 15px;
+	margin-right: 20px;
+	background-image: url("../img/icon/orange_right.png");
+	background-repeat: no-repeat;
+	background-size: 20px;
+	padding-left:23px;
+}
+
+#footer #footerContent p{
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+
+
+
 @media(min-width:768px){
 
-	#footer ul{
+	#footer2 ul{
 		position: relative;
 	 	left: 50%;
 	 	float:left;
 	}
-	#footer ul li{
+	#footer2 ul li{
 		position: relative;
 		left: -50%; 
 		float:left;
 		list-style: none;
 		margin-left:10px;
 		text-decoration: underline;
+		background-image: url("../img/icon/orange_right.png");
+		background-repeat: no-repeat;
+		background-size: 10px 10px;
 	}
-	#footer ul a{
+	#footer2 ul a{
 		text-decoration: underline;
-		color:#777;
 	}
 
 }
@@ -806,11 +1161,10 @@ ul.information.keibajapan{
 }
 
 
-#mypage #favoUserList{
+#mainContent #favoUserList{
 	padding:10px;
 }
-#mypage #favoUserList .favoUser{
-	margin-left:14px;
+#mainContent #favoUserList .favoUser{
 	margin-bottom:20px;
 	background-color: #f5f8fa;
 	border:2px solid #CCC;
@@ -820,12 +1174,22 @@ ul.information.keibajapan{
 	display:block;
 	float:left;
 	width:31%;
-	height:200px;
+	min-height:235px;
+	width:205px;
 }
-#mypage #favoUserList .favoUserImg{
+#mainContent #favoUserList .favoUser.type1{
+	margin-left:10px;
+}
+#mainContent #favoUserList .favoUser.type2{
+	margin-left:10px;
+}
+
+
+
+#mainContent #favoUserList .favoUserImg{
 	float:left;
 }
-#mypage #favoUserList .favoUserImg img{
+#mainContent #favoUserList .favoUserImg img{
 	width:72px;
 	margin: 10px;
     background-color: #FFF;
@@ -835,30 +1199,58 @@ ul.information.keibajapan{
     border-radius: 10px;
 }
 
-#mypage #favoUserList .favoBtn{
+#mainContent #favoUserList .favoBtn{
 	float:right;
-	padding:10px;
+	padding:10px 7px;
 }
-#mypage #favoUserList .favoUserName{
+#mainContent #favoUserList .favoUserName{
 	padding-left:10px;
 	font-size:120%;
 }
-#mypage #favoUserList .favoUserName a{
+#mainContent #favoUserList .favoUserName a{
 	color:#000000;
 }
-#mypage #favoUserList .favoUserMessage{
+#mainContent #favoUserList .favoUserMessage{
 	padding:10px;
 	color:#66757f;
 }
-#mypage #favoUserList .favoUserDetail{
+#mainContent #favoUserList .favoUserDetail{
 	padding:10px;
 	color:#66757f;
 }
 
-.twitterArea{
-	width:298px;
-	margin:0 0 10px auto;
-	border:1px dotted #CCC;
+.rightContentArea{
+	background-image: url("../img/bg/blue_big_bg.png");
+	padding: 15px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.rightContentArea .rightMainContent{
+	padding:10px;
+    border: 2px solid #f1ce27;
+    background-color: #FFF;
+}
+
+
+#rightContent .ranking{
+	background-image: url("../img/bg/blue_big_bg.png");
+	padding: 15px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+#rightContent .ranking #rankingContent{
+	padding:10px;
+    border: 2px solid #f1ce27;
+    background-color: #FFF;
+}
+#rightContent .ranking #rankingContent table{
+	margin-bottom: 0;
 }
 
 .ranking img{
@@ -868,13 +1260,14 @@ ul.information.keibajapan{
 .ranking td{
 	text-align: center;
 	vertical-align: middle;
+	padding:6px;
 }
 .ranking th{
 	text-align: center;
 }
 
 .adArea{
-	width:300px;
+	//width:300px;
 }
 .adArea ul{
 	margin-left:0;
@@ -885,6 +1278,7 @@ ul.information.keibajapan{
 
 .adArea .adheight{
 	margin-bottom: 10px;
+	background-color: #FFF;
 }
 .adArea .adheight .adheightLeft{
 	float:left;

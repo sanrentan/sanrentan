@@ -217,6 +217,14 @@ class Expectation extends AppModel {
 			$tmpData = $User->find("all",array("conditions"=>array("User.id"=>$userIds)));
 			$userData = array();
 			foreach($tmpData as $key=>$data){
+				$mlength = 7;
+				if (mb_strlen($data["User"]['nickname']) > $mlength) {	
+			    	$data["User"]['nickname'] = mb_substr($data["User"]['nickname'], 0, $mlength, 'UTF-8').'..';
+			    }
+				$mlength = 4;
+				if (!empty($data['User']['span'])&&mb_strlen($data["User"]['span']) > $mlength) {	
+			    	$data["User"]['span'] = mb_substr($data["User"]['span'], 0, $mlength, 'UTF-8').'..';
+			    }
 				$userData[$data["User"]["id"]] = $data["User"];
 			}
 
