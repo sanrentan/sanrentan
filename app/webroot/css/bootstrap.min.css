@@ -178,14 +178,30 @@ html,body
     border: 1px solid #3ac048;
     width:670px;
 }
-#mainBannerArea #mainBannerAreaLeftDetail{
+#mainBannerArea .mainBannerAreaLeftDetail{
 	float:left;
 	display:block;
 	background-color: #FFF;
     border: 1px solid #3ac048;
     width:670px;
-    height:250px;
+    height:300px;
 }
+
+#mainBannerArea .mainBannerAreaLeftDetail #note2{
+	padding:10px;
+}
+#mainBannerArea .mainBannerAreaLeftDetail #note2 p{
+	font-size:110%;
+	margin-bottom:5px;
+}
+
+#mainBannerArea .mainBannerAreaLeftDetail.type2{
+	margin-top:20px;
+}
+#mainBannerArea .mainBannerAreaRightDetail.type2{
+	margin-top:20px;
+}
+
 
 #mainBannerArea #mainBannerAreaLeft img{
 	padding: 10px;
@@ -200,7 +216,7 @@ html,body
 	margin-bottom: 0;
 }
 
-#mainBannerArea #mainBannerAreaLeftDetail #detailInfoText{
+#mainBannerArea .mainBannerAreaLeftDetail #detailInfoText{
 	padding:10px;
 }
 
@@ -233,11 +249,11 @@ html,body
 
 }
 
-#mainBannerArea #mainBannerAreaRightDetail{
+#mainBannerArea .mainBannerAreaRightDetail{
 	float:right;
 	display:block;
 	width:300px;
-	height:252px;
+	height:300px;
 	background-image: url("../img/bg/right_big_bg.png");
 
    -moz-border-radius: 10px;    /* 古いFirefox */
@@ -247,13 +263,23 @@ html,body
    border: 1px #FFF solid;     /* 枠線の装飾 */
 }
 
+#mainBannerArea .mainBannerAreaRightDetail.confirm1{
+	float:left;
+	margin-left:20px;
+}
+#mainBannerArea .mainBannerAreaRightDetail.confirm2{
+	float:left;
+	margin-left:20px;
+}
+
+
 
 #mainBannerArea #mainBannerAreaRight .label1{
 	position: relative;
 	top:-21px;
 	right: 32px;
 }
-#mainBannerArea #mainBannerAreaRightDetail .label1{
+#mainBannerArea .mainBannerAreaRightDetail .label1{
 	position: relative;
 	top:0px;
 	right: 11px;
@@ -271,7 +297,7 @@ html,body
    border: 1px #FFF solid;     /* 枠線の装飾 */
    margin:20px;
 }
-#mainBannerArea #mainBannerAreaRightDetail #recentYourArea{
+#mainBannerArea .mainBannerAreaRightDetail .recentYourArea{
    	border: 1px #FFF solid;     /* 枠線の装飾 */
     margin:20px;
 	position: relative;
@@ -285,12 +311,12 @@ html,body
     position: relative;
     top: -20px;
 }
-#mainBannerArea #mainBannerAreaRightDetail #recentYourArea .expectArea{
+#mainBannerArea .mainBannerAreaRightDetail .recentYourArea .expectArea{
 	background-color: #FFFFFF;
 	margin:10px 10px 10px 10px;
 	padding:10px;
     position: relative;
-    min-height: 170px;
+    min-height: 215px;
 }
 
 #mainBannerArea #mainBannerAreaRight #recentKojiharuArea .expectArea .expect{
@@ -302,18 +328,20 @@ html,body
 	height:42px;
 }
 
-#mainBannerArea #mainBannerAreaRightDetail #recentYourArea .expectArea .expect{
-	background-image: url("../img/common/line_pink.png");
-	background-repeat: no-repeat;
-	position: relative;
-	background-position: 0 24px;
+#mainBannerArea .mainBannerAreaRightDetail .recentYourArea .expectArea .expect{
+background-image: url("../img/common/line_pink.png");
+    background-repeat: no-repeat;
+    position: relative;
+    background-position: 0 34px;
+    margin-bottom: 3px;
+    height: 39px;
 }
 
-#mainBannerArea #mainBannerAreaRightDetail #recentYourArea dl {
+#mainBannerArea .mainBannerAreaRightDetail .recentYourArea dl {
 	margin-top: 5px;
 	margin-bottom:0;
 }
-#mainBannerArea #mainBannerAreaRight #recentYourArea .expectArea .expect{
+#mainBannerArea #mainBannerAreaRight .recentYourArea .expectArea .expect{
 	background-image: url("../img/common/line_pink.png");
 	background-repeat: no-repeat;
 	position: relative;
@@ -462,40 +490,48 @@ ul.information.keibajapan{
 }
 
 .wk1,
+.wk1_note,
 .wk1_pre{
 	border:1px solid #000000;
 	background-color: #FFFFFF;
 	width:18px;
 }
 .wk2,
+.wk2_note,
 .wk2_pre{
 	color:#FFFFFF;
 	background-color: #000000;
 }
 .wk3,
+.wk3_note,
 .wk3_pre{
 	color:#FFFFFF;
 	background-color: #FF0000;
 }
 .wk4,
+.wk4_note,
 .wk4_pre{
 	color:#FFFFFF;
 	background-color: #0000FF;
 }
 .wk5,
+.wk5_note,
 .wk5_pre{
 	background-color: #FFF000;
 }
 .wk6,
+.wk6_note,
 .wk6_pre{
 	color:#FFFFFF;
 	background-color: #008000;
 }
 .wk7,
+.wk7_note,
 .wk7_pre{
 	background-color: #FFA500;
 }
 .wk8,
+.wk8_note,
 .wk8_pre{
 	background-color: #FFC0CB;
 }
@@ -504,14 +540,22 @@ ul.information.keibajapan{
 	padding:5px;
 }
 
+.wk1_note,.wk2_note,.wk3_note,.wk4_note,.wk5_note,.wk6_note,.wk7_note,.wk8_note{
+	padding:5px;
+	margin:0 8px;
+}
+
 
 #horseListArea table th{
 	background-color: #D9D9B0;
 }
 
-
+.detailArea  table td{
+	height:107px;
+}
+	
 #raceDetailTxt{
-	padding:5px 0 20px 30px;
+	padding:10px;
 }
 
 #raceDetailTxt #detailLeft{
@@ -673,7 +717,7 @@ ul.information.keibajapan{
 }
 
 #confirmArea{
-	padding-left:30px;
+	padding:10px;
 }
 .selectList {
 	float:left;

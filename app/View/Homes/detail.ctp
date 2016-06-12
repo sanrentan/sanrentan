@@ -1,5 +1,5 @@
 <div id="mainBannerArea">
-	<div id="mainBannerAreaLeftDetail">
+	<div class="mainBannerAreaLeftDetail">
 		<p class="titleLabel"><?php echo $raceData["Race"]["place"];?>　<?php echo $raceData["Race"]["full_name"];?><?php if($raceData["Race"]["grade"]>=1):?> (G<?php echo $raceData["Race"]["grade"];?>)<?php endif;?></p>
 		<div id="detailInfoText">
 			<p><?php echo date("Y年m月d日",strtotime($raceData["Race"]["race_date"]));?>　</p>
@@ -8,14 +8,14 @@
 			<p>発走時刻：<?php echo date("H時i分",strtotime($raceData["Race"]["race_date"]));?></p>
 			<p><a href="http://keiba.yahoo.co.jp/race/denma/<?php echo $raceData['Race']['html_id'];?>/" target="_blank">レース詳細（外部サイト)</a></p>
 			<p class="red2"><?php if($timeOver):?>予想受付が終了しました。<?php elseif(!$raceData["Race"]["accepting_flg"]):?>受付開始までお待ちください<?php elseif(empty($myData)):?>下記出走表から５頭選択してください。<?php else:?>既に予想を登録済みです。<?php endif;?></p>
-			<?php if(empty($user)):?><p class="red2">※予想をするためには<a href="/login">ログイン</a>または<a href="/regist">無料会員登録</a>を行ってください。</p><?php endif;?>
+			<?php if(!$timeOver&&empty($user)):?><p class="red2">※予想をするためには<a href="/login">ログイン</a>または<a href="/regist">無料会員登録</a>を行ってください。</p><?php endif;?>
 			<?php if(!empty($errorMessage)):?><p class="red2"><?php echo $errorMessage;?></p><?php endif;?>
 			<p style="font-size:80%;">※単勝オッズはリアルタイム更新ではない為ご注意ください。</p>
 		</div>
 	</div>
-	<div id="mainBannerAreaRightDetail" class="pc">
+	<div class="mainBannerAreaRightDetail" class="pc">
 		<img src="/img/common/label_your_expect.png" class="label1">
-		<div id="recentYourArea">
+		<div class="recentYourArea">
 			<div class="expectArea">
 				<?php if(!empty($myData["selectData"])):?>
 					<dl>
@@ -36,7 +36,39 @@
 
 	</div>
 	<div class="clearfix"></div>
+
+	<?php if($raceData['Race']['kojiharu_flg']==1):?>
+		<div class="mainBannerAreaLeftDetail type2">
+			<p class="titleLabel">こじはるさんの３連単５頭ボックス</p>
+			<div id="note2">
+				<p><?php echo nl2br($raceData['Race']['note2']);?></p>
+			</div>
+		</div>
+		<div class="mainBannerAreaRightDetail type2" class="pc">	
+			<img src="/img/common/label_kojiharu_expect2.png" class="label1">
+			<div class="recentYourArea">
+				<div class="expectArea">
+					<?php if(!empty($kojiharuData["selectData"])):?>
+						<dl>
+							<?php foreach($kojiharuData["selectData"] as $key=>$data):?>
+								<div class="expect">
+									<dt class="wk<?php echo $data["RaceCard"]['wk'];?>"><?php echo $data["RaceCard"]["uma"];?></dt><dd class="wkname"><?php echo $data["RaceCard"]["name"];?></dd>
+								</div>
+							<?php endforeach;?>
+						</dl>
+						<div class="clearfix"></div>
+					<?php endif;?>
+				</div>
+			</div>
+			<!--<div id="subBannerArea" style="float:right; padding-right:10px;padding-top:20px;"><img src="/img/common/umairasto.png" style="max-width:90px;"></div>-->
+			<div class="clearfix"></div>
+
+		</div>
+		<div class="clearfix"></div>
+	<?php endif;?>
+
 </div>
+
 
 <!--
 <div id="raceDetailTxt">
@@ -85,7 +117,6 @@
 
 <div id="mainContent">
 	<div id="horseListArea">
-
 		<p class="subtitle" style="font-size:120%;font-weight:bold;">出走表：<?php echo $raceData['Race']['name'];?></p>
 
 		<?php echo $this->Form->create('Expectation',array('type' => 'post','name'=>"ExpectationDetailForm"));?>

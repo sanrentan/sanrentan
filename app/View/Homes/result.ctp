@@ -1,5 +1,5 @@
 <div id="mainBannerArea">
-	<div id="mainBannerAreaLeftDetail">
+	<div class="mainBannerAreaLeftDetail">
 		<p class="titleLabel"><?php echo $raceData["Race"]["place"];?>　<?php echo $raceData["Race"]["full_name"];?><?php if($raceData["Race"]["grade"]>=1):?> (G<?php echo $raceData["Race"]["grade"];?>)<?php endif;?></p>
 		<div id="detailInfoText">
 			<p><?php echo date("Y年m月d日",strtotime($raceData["Race"]["race_date"]));?>　</p>
@@ -11,9 +11,9 @@
 			<?php if(!empty($errorMessage)):?><p class="red2"><?php echo $errorMessage;?></p><?php endif;?>
 		</div>
 	</div>
-	<div id="mainBannerAreaRightDetail" class="pc">
+	<div class="mainBannerAreaRightDetail" class="pc">
 		<img src="/img/common/label_your_expect.png" class="label1">
-		<div id="recentYourArea">
+		<div class="recentYourArea">
 			<div class="expectArea">
 				<?php if(!empty($myData["selectData"])):?>
 					<dl>

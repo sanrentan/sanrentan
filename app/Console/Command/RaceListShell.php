@@ -168,6 +168,13 @@ class RaceListShell extends AppShell {
         }
 
         list($horseList,$recent_5race_results) = $this->__get_html_data($raceData);
+        
+        //この地点で出走馬数に変更がある場合は、エラーとする
+        if(count($horseList)!=count($raceData['RaceCard'])){
+            $this->__log("[エラー]:取り消しの馬がいるため、枠番馬番を登録を行いませんでした。確認後再度実行してください。race_id = ".$race_id.', '.$raceData['Race']['name']);
+            return;
+        }
+
         $this->__save_race_data($mode,$horseList,$recent_5race_results,$race_id);
 
         //レースを受付開始する
@@ -332,6 +339,12 @@ class RaceListShell extends AppShell {
                 $this->RaceCard->create();
                 $this->RaceCard->save($horse);
                 $last_id = $this->RaceCard->getLastInsertID();
+
+                if(empty($recent_5race_results)){
+                    $this->__log("過去5レースが登録されていません。race_card_id:".$last_id);
+                    continue;
+                }
+
                 foreach($recent_5race_results[$row] as $eachResult){
                     $eachResult["race_card_id"] = $last_id;
                     $this->RecentRaceResult->create();
@@ -350,6 +363,7 @@ class RaceListShell extends AppShell {
                 $tmpData = $this->RaceCard->find("first",$options);
                 $tmpData["RaceCard"]["wk"] = $horse["wk"];
                 $tmpData["RaceCard"]["uma"] = $horse["uma"];
+                $tmpData["RaceCard"]["modified"] = date("Y-m-d H:i:s");
                 $this->RaceCard->save($tmpData);
 
             }elseif($mode==3){
@@ -363,6 +377,7 @@ class RaceListShell extends AppShell {
                 $tmpData = $this->RaceCard->find("first",$options);
                 $tmpData["RaceCard"]["weight"] = $horse["weight"];
                 $tmpData["RaceCard"]["plus"] = $horse["plus"];
+                $tmpData["RaceCard"]["modified"] = date("Y-m-d H:i:s");
                 $this->RaceCard->save($tmpData);
 
             }

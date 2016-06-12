@@ -5,6 +5,11 @@ App::uses('TwitterKit.OauthController', 'Controller');
 class UsersController extends AppController {
 
 
+    public $uses = array(
+        'User','LoginHistory',
+    );
+
+
     public function beforeFilter() {
         parent::beforeFilter();
 	    $this->Auth->allow('add', 'logout');
@@ -108,6 +113,10 @@ class UsersController extends AppController {
                 $result = $this->Auth->login($postData['User']);
                 $this->user = $this->Auth->user();
                 $this->set("user",$this->user);
+
+                //ログイン履歴を保存
+                $this->LoginHistory->saveLoginHistory($this->user['id'],$this->request);
+
             }else{
                 $this->Session->setFlash(__('※不正な遷移です。'));
             }
@@ -265,6 +274,10 @@ class UsersController extends AppController {
         $this->set("naviType","login");
 	    if ($this->request->is('post')) {
 	        if ($this->Auth->login()) {
+                $this->user = $this->Auth->user();
+                //ログイン履歴を保存
+                $this->LoginHistory->saveLoginHistory($this->user['id'],$this->request);
+                //トップページへリダイレクト
 				$this->redirect('/');
 	            //$this->redirect($this->Auth->redirect());
 	        } else {

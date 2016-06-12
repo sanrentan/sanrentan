@@ -32,6 +32,7 @@
 			<?php echo $this->Form->input('html_id',array("type"=>"text","label"=>"html_id"));?>
 
 			<?php echo $this->Form->input('note',array("label"=>"備考欄","required"=>false));?>
+			<?php echo $this->Form->input('note2',array("label"=>"レースコメント","required"=>false));?>
 
 		    <input type="submit" class="btn" value="登録">
 	    </fieldset>

@@ -221,6 +221,7 @@ class ResultExpectationShell extends AppShell {
         $expectationData = $this->Expectation->find("all",$options);
         if(empty($expectationData)){
             $raceData["Race"]["accepting_flg"] = 0;
+            $raceData["Race"]["modified"] = date('Y-m-d H:i:s');
             $this->Race->save($raceData);
             $this->__log("予想データがありませんが終了フラグをたてました. race_id:".$race_id,true);
         }
@@ -229,10 +230,21 @@ class ResultExpectationShell extends AppShell {
         $okCount = 0;
         $ngCount = 0;
 
+
+        //本当に馬番があっているか念のため確認する
+        $horse1uma = $raceData["RaceCard"][$resultData["RaceResult"]["horse1"]-1]["uma"];
+        $horse2uma = $raceData["RaceCard"][$resultData["RaceResult"]["horse2"]-1]["uma"];
+        $horse3uma = $raceData["RaceCard"][$resultData["RaceResult"]["horse3"]-1]["uma"];
+        if($horse1uma!=$resultData["RaceResult"]["horse1"] || $horse2uma!=$resultData["RaceResult"]["horse2"] || $horse3uma!=$resultData["RaceResult"]["horse3"]){
+            $this->__log("[エラー]異常が発生しました。レースデータを確認してください. race_id:".$race_id);
+            return;
+        }
+
         //レース結果をrace_card_idに変換
         $horse1 = $raceData["RaceCard"][$resultData["RaceResult"]["horse1"]-1]["id"];
         $horse2 = $raceData["RaceCard"][$resultData["RaceResult"]["horse2"]-1]["id"];
         $horse3 = $raceData["RaceCard"][$resultData["RaceResult"]["horse3"]-1]["id"];
+
 
         //一人一人当たったかどうか確認する
         foreach($expectationData as $key=>$data){
