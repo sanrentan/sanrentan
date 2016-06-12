@@ -48,7 +48,7 @@
 
 <?php echo $this->Form->create('Expectation',array('type' => 'post','name'=>"ExpectationDetailForm"));?>
 <?php echo $this->Form->hidden('Expectation.race_id' ,array('value' => $raceData["Race"]["id"]));?>
-<div id="horseListArea">
+<div id="horseListArea" class="detailArea">
 	<table border="1">
 
 
