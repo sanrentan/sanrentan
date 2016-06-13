@@ -1,6 +1,10 @@
 <div id="mainBannerArea">
 	<div class="mainBannerAreaLeftDetail">
 		<p class="titleLabel"><?php echo $raceData["Race"]["place"];?>　<?php echo $raceData["Race"]["full_name"];?><?php if($raceData["Race"]["grade"]>=1):?> (G<?php echo $raceData["Race"]["grade"];?>)<?php endif;?></p>
+		<p id="list_result">
+			<a href="/detail/<?php echo $raceData['Race']['id'];?>"><img src="/img/button/btn_race_list2.png"></a>
+			<img src="/img/button/btn_race_Result.png">
+		</p>
 		<div id="detailInfoText">
 			<p><?php echo date("Y年m月d日",strtotime($raceData["Race"]["race_date"]));?>　</p>
 			<p><?php echo $raceData["Race"]["place"];?>　<?php echo $raceData["Race"]["full_name"];?><?php if($raceData["Race"]["grade"]>=1):?> (G<?php echo $raceData["Race"]["grade"];?>)<?php endif;?>　<?php echo $typeArr[$raceData["Race"]["type"]];?>　<?php echo $raceData["Race"]["distance"];?>m　<?php echo $turnArr[$raceData["Race"]["turn"]];?></p>

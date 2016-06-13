@@ -8,7 +8,7 @@
 					また、お問い合わせ内容によってはご返信をいたしかねる場合がございますので、予めご了承ください。
 				</p>
 				<p>今後とも当サイトをよろしくお願い致します。</p>
-				<a href="/" class="btn btn-primary btn-block-sp">トップページへ</a>
+				<a href="/"><img src="/img/button/btn_top.png" alt="トップページ" class="web_btn"></a>
 			</div>
 		</div>
 	</div>

@@ -52,6 +52,10 @@ html,body
 	font-size:120%;
 }
 
+.web_btn{
+	height:30px!important;
+}
+
 .navbar{
 	background-image: url("../img/common/line_green.png");
 	background-repeat:repeat-x;
@@ -218,7 +222,18 @@ html,body
 
 #mainBannerArea .mainBannerAreaLeftDetail #detailInfoText{
 	padding:10px;
+	margin-top: -50px;
 }
+
+#mainBannerArea .mainBannerAreaLeftDetail #list_result{
+	text-align: right;
+	padding-right:10px;
+	min-height:37px
+}
+#mainBannerArea .mainBannerAreaLeftDetail #list_result img{
+	width:70px;
+}
+
 
 
 #mainBannerArea #mainBannerAreaRight{
@@ -1088,7 +1103,6 @@ ul.information.keibajapan{
 #aboutContent .txtContent{
 	padding:0 10px 0 10px;
 	margin-bottom:30px;
-	max-width: 80%;
 }
 
 #aboutContent #kojiProfileArea{
@@ -1098,12 +1112,19 @@ ul.information.keibajapan{
 #aboutContent #kojiProfileArea #profileLeft{
 	float:left;
 	display: block;
+	width:200px;
+}
+#aboutContent #kojiProfileArea #profileLeft p{
+	padding:10px 0 0 10px;
+	margin-bottom:0;
+	font-size:100%;
+	text-decoration: underline;
 }
 #aboutContent #kojiProfileArea #profileRight{
-	width:600px;
+	width:400px;
 	float:left;
 	display: block;
-	padding: 10px 10px 10px 30px;
+	padding: 0 10px 10px 30px;
 }
 #aboutContent #kojiProfileArea #profileRight p{
 	max-width: 100%;

@@ -14,7 +14,8 @@
 							<?php echo $this->Form->input('username',array('label'=>false));?>
 							<p>パスワード</p>
 							<?php echo $this->Form->input('password',array('label'=>false));?>
-						    <input type="submit" class="btn btn-primary btn-block-sp" value="ログイン">
+							<input type="image" src="/img/button/btn_login1.png" class="web_btn pc">
+						    <input type="submit" class="sp" value="ログイン">
 						</div>
 						<p class="titleLabel">Twitterのアカウントでログイン</p>
 				    	<div class="tableArea">
@@ -22,7 +23,7 @@
 						</div>
 						<p class="titleLabel">新規会員登録の方</p>
 				    	<div class="tableArea">
-					        <a href="/regist">会員登録ページへ</a>
+					        <a href="/regist"><img src="/img/button/btn_regist.png" alt="会員登録" class="web_btn"></a>
 						</div>
 				    </fieldset>
 				<?php echo $this->Form->end();?>

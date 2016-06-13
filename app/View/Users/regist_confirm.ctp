@@ -51,19 +51,16 @@
 
 					<div class="buttonArea">
 						<ul>
-							<li><input type="submit" class="btn btn-primary btn-block-sp" value="登録する"></li>
+							<li>
+								<input type="image" src="/img/button/btn_regist_end.png" class="web_btn pc">
+								<input type="submit" class="btn btn-primary btn-block-sp sp" value="登録する">
+							</li>
 							<li><?php echo $this->Form->button('戻る',array('onclick'=>'history.back()','class'=>"btn btn-default btn-block-sp"));?></li>
 						</ul>
 						<?php echo $this->Form->end();?>
 						<div class="clearfix"></div>
 					</div>
 				</div>
-
-
-
-
-
-
 
 			</div>
 

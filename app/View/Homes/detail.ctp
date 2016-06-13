@@ -1,6 +1,13 @@
 <div id="mainBannerArea">
 	<div class="mainBannerAreaLeftDetail">
 		<p class="titleLabel"><?php echo $raceData["Race"]["place"];?>　<?php echo $raceData["Race"]["full_name"];?><?php if($raceData["Race"]["grade"]>=1):?> (G<?php echo $raceData["Race"]["grade"];?>)<?php endif;?></p>
+		<p id="list_result">
+			<?php if(!empty($raceResultData)):?>
+				<img src="/img/button/btn_race_list.png">
+				<a href="/result/<?php echo $raceData['Race']['id'];?>"><img src="/img/button/btn_race_Result2.png"></a>
+			<?php endif;?>
+		</p>
+
 		<div id="detailInfoText">
 			<p><?php echo date("Y年m月d日",strtotime($raceData["Race"]["race_date"]));?>　</p>
 			<p><?php echo $raceData["Race"]["place"];?>　<?php echo $raceData["Race"]["full_name"];?><?php if($raceData["Race"]["grade"]>=1):?> (G<?php echo $raceData["Race"]["grade"];?>)<?php endif;?>　<?php echo $typeArr[$raceData["Race"]["type"]];?>　<?php echo $raceData["Race"]["distance"];?>m　<?php echo $turnArr[$raceData["Race"]["turn"]];?></p>
@@ -195,7 +202,7 @@
 
 			<?php if(!empty($user["id"])):?>	
 				<?php if(!$timeOver&&empty($myData)&&$raceData["Race"]["accepting_flg"]):?>
-					<p style="padding:10px 0 0 25px;" class="pc"><input type="submit" class="btn btn-primary" value="予想する"></p>
+					<p style="padding:10px 0 0 25px;" class="pc"><input type="image" src="/img/button/btn_expect.png" class="web_btn"></p>
 					<p class="sp"><input type="submit" class="btn btn-primary btn-block-sp" value="予想する"></p>
 					<?php echo $this->Form->end();?>
 				<?php endif;?>

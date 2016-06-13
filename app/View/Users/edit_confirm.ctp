@@ -44,7 +44,10 @@
 
 					<div class="buttonArea">
 						<ul>
-							<li><input type="submit" class="btn btn-primary btn-block-sp" value="変更する"></li>
+							<li>
+								<input type="image" src="/img/button/btn_regist_end.png" class="web_btn pc">
+								<input type="submit" class="btn btn-primary btn-block-sp sp" value="登録する">
+							</li>
 							<li><?php echo $this->Form->button('戻る',array('onclick'=>'history.back()','class'=>"btn btn-block-sp"));?></li>
 						</ul>
 						<?php echo $this->Form->end();?>			

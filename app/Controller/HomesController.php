@@ -168,7 +168,10 @@ class HomesController extends AppController {
 			$timeOver = true;
 		}
 
-		$this->set(compact("myData","kojiharuData","otherExpectData","timeOver"));
+		//レース結果が出ているか？
+		$raceResultData = $this->RaceResult->findById($raceId);
+
+		$this->set(compact("myData","kojiharuData","otherExpectData","timeOver","raceResultData"));
 
 		//metaタグ設定
         $this->meta_description = "こじはるさんの「".$raceData["Race"]["name"]."」の３連単５頭ボックスの予想です。参考にして是非みなさんも予想してみましょう。目指せ万馬券！";

@@ -21,7 +21,8 @@
 					<span style="color:#b94a48;"><?php echo $this->Form->error('message');?></span>
 					<?php echo $this->Form->textarea('message', array('cols' => 40, 'rows' => 10,'required'=>false));?>
 					</fieldset>
-					<input type="submit" class="btn btn-primary btn-block-sp" value="確認画面へ">
+					<input type="image" src="/img/button/btn_next.png" class="web_btn pc">
+					<input type="submit" class="btn btn-primary btn-block-sp sp" value="確認画面へ">
 					<?php echo $this->Form->end(); ?>
 
 				</div>

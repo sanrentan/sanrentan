@@ -5,7 +5,7 @@
 			<div class="mainContent2">
 				<p>登録情報の変更が完了しました。</p>
 				<p>是非、３連単５頭ボックスの予想をしましょう！</p>
-				<a href="/" class="btn btn-primary btn-block-sp">トップページへ</a>
+				<a href="/"><img src="/img/button/btn_top.png" alt="トップページ" class="web_btn"></a>
 			</div>
 		</div>
 	</div>

@@ -17,7 +17,7 @@
 						<a href="https://twitter.com/share" class="twitter-share-button btn-block-sp" data-url="http://www.sanrentan-box.com/detail/<?php echo $raceData['Race']['id'];?>" data-text="<?php echo $raceData['Race']['name'];?>の３連単予想！「<?php foreach($expectationData["selectData"] as $key=>$data):?><?php if($key==0):?><?php echo $data["RaceCard"]["uma"];?><?php else:?>-<?php echo $data["RaceCard"]["uma"];?><?php endif;?><?php endforeach;?>」" data-lang="ja" data-size="large" data-hashtags="３連単予想">ツイート</a>
 						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 					</li>
-					<li><a href="/" class="btn btn-primary btn-block-sp">トップページへ</a></li>
+					<li><a href="/"><img src="/img/button/btn_top.png" alt="トップページ" class="web_btn"></a></li>
 				</ul>
 				<div class="clearfix"></div>
 			</div>
