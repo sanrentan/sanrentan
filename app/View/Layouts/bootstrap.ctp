@@ -77,18 +77,51 @@
 				</div>
 
 				<?php if(!empty($user)):?><p class="sp navi-nickname"><?php echo $user["nickname"];?>さん</p><?php endif;?>
-				<div class="navi-collapse">
+				<div class="navi-collapse pc">
 					<ul class="navi">
-						<li <?php if($naviType=="top"):?>class="active"<?php endif;?>><a href="/"><img src="/img/common/navi1.png"></a></li>
-						<li <?php if($naviType=="kojiharu"):?>class="active"<?php endif;?>><a href="/kojiharu_list"><img src="/img/common/navi2.png"></a></li>
-						<li <?php if($naviType=="about"):?>class="active"<?php endif;?>><a href="/about"><img src="/img/common/navi3.png"></a></li>
-						<li <?php if($naviType=="contact"):?>class="active"<?php endif;?>><a href="/contact"><img src="/img/common/navi4.png"></a></li>
+						<li><a href="/"><img src="/img/common/navi1.png"></a></li>
+						<li><a href="/kojiharu_list"><img src="/img/common/navi2.png"></a></li>
+						<li><a href="/about"><img src="/img/common/navi3.png"></a></li>
+						<li class="pc"><a href="/contact"><img src="/img/common/navi4.png"></a></li>
 						<?php if(!empty($user["id"])):?>
-							<li <?php if($naviType=="mypage"):?>class="active"<?php endif;?>><a href="/mypage"><img src="/img/common/navi_mypage.png"></a></a></li>
+							<li><a href="/mypage"><img src="/img/common/navi_mypage.png"></a></a></li>
 							<li><a href="/logout"><img src="/img/common/navi_logout.png"></a></a></li>
 						<?php else:?>
-							<li <?php if($naviType=="regist"):?>class="active"<?php endif;?>><a href="/regist"><img src="/img/common/navi5.png"></a></li>
-							<li <?php if($naviType=="login"):?>class="active"<?php endif;?>><a href="/login"><img src="/img/common/navi6.png"></a></li>
+							<li><a href="/regist"><img src="/img/common/navi5.png"></a></li>
+							<li><a href="/login"><img src="/img/common/navi6.png"></a></li>
+						<?php endif;?>
+						<div class="clearfix"></div>
+					</ul>
+				</div><!--/.nav-collapse -->
+				<div class="nav-collapse sp">
+					<ul class="navi">
+						<a href="/"><li>HOME</li></a>
+						<a href="/kojiharu_list"><li>こじはる予想</li></a>
+						<a href="/about"><li>当サイトについて</li></a>
+						<a href="/contact"><li>お問い合わせ</li></a>
+						<?php if(!empty($user["id"])):?>
+							<a href="/mypage"><li>マイページ</li></a>
+							<a href="/logout"><li>ログアウト</li></a>
+						<?php else:?>
+							<a href="/regist"><li>無料会員登録</li></a>
+							<a href="/login"><li>ログイン</li></a>
+							<a href="/twitter_login"><li>Twitter簡単ログイン</li></a>
+						<?php endif;?>
+						<div class="clearfix"></div>
+					</ul>
+				</div><!--/.nav-collapse -->
+				<div class="navi-collapse2 sp">
+					<ul class="navi2">
+						<li class="pc"><a href="/"><img src="/img/common/navi1.png"></a></li>
+						<li><a href="/kojiharu_list"><img src="/img/common/navi2.png"></a></li>
+						<li><a href="/about"><img src="/img/common/navi3.png"></a></li>
+						<li class="pc"><a href="/contact"><img src="/img/common/navi4.png"></a></li>
+						<?php if(!empty($user["id"])):?>
+							<li><a href="/mypage"><img src="/img/common/navi_mypage.png"></a></a></li>
+							<li class="pc"><a href="/logout"><img src="/img/common/navi_logout.png"></a></a></li>
+						<?php else:?>
+							<li class="pc"><a href="/regist"><img src="/img/common/navi5.png"></a></li>
+							<li><a href="/login"><img src="/img/common/navi6.png"></a></li>
 						<?php endif;?>
 						<div class="clearfix"></div>
 					</ul>
@@ -106,6 +139,7 @@
 		</div> <!-- /container -->
 	</div>
 
+	<p class="titleLabel sp">メニュー</p>
 	<div id="footer">
 
 		<!--

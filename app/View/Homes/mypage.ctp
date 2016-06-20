@@ -8,8 +8,8 @@
 		<?php endif;?>
 
 		<p>レース結果</p>
-		<div class="tableArea">
-			<table border="1" class="pc">
+		<div class="tableArea pc">
+			<table border="1">
 				<tr><th width="80">日付</th><th>レース名</th><th width="180">結果<br>１着/２着/３着</th><th width="100">配当金</th><th width="150">あなたの予想</th><th width="80">結果</th></tr>
 				<?php foreach($raceData as $key=>$data):?>
 					<tr <?php if($key%2==0):?>class="row2"<?php endif;?>>
@@ -67,13 +67,28 @@
 		</div>
 
 
-		<div class="sp_resultArea sp">
+		<div class="tableArea sp">
 			<ul>
 				<?php foreach($raceData as $key=>$data):?>
 					<li>
 						<?php echo date("m月d日",strtotime($data["Race"]["race_date"]));?>
 						<a href="/result/<?php echo $data['Race']['id'];?>"><?php echo $data["Race"]["full_name"];?>(G<?php echo $data["Race"]["grade"];?>)</a>	
-						
+
+						<p>
+							あなたの予想：
+							<?php if(!empty($myData[$data["Race"]["id"]])):?>
+								<?php echo $myData[$data['Race']['id']]['Expectation']['item1_uma'];?>-
+								<?php echo $myData[$data['Race']['id']]['Expectation']['item2_uma'];?>-
+								<?php echo $myData[$data['Race']['id']]['Expectation']['item3_uma'];?>-
+								<?php echo $myData[$data['Race']['id']]['Expectation']['item4_uma'];?>-
+								<?php echo $myData[$data['Race']['id']]['Expectation']['item5_uma'];?>
+							<?php elseif($data["Race"]["accepting_flg"]==1):?>
+								<a href="/detail/<?php echo $data['Race']['id'];?>">予想する</a>
+							<?php else:?>
+								-
+							<?php endif;?>
+						</p>
+
 						<?php if(!empty($raceResultData[$data["Race"]["id"]])):?>
 								<p>レース結果：</p>
 								<dl>
@@ -91,20 +106,6 @@
 								</p>
 						<?php endif;?>
 
-						<p>
-							あなたの予想：
-							<?php if(!empty($myData[$data["Race"]["id"]])):?>
-								<?php echo $myData[$data['Race']['id']]['Expectation']['item1_uma'];?>-
-								<?php echo $myData[$data['Race']['id']]['Expectation']['item2_uma'];?>-
-								<?php echo $myData[$data['Race']['id']]['Expectation']['item3_uma'];?>-
-								<?php echo $myData[$data['Race']['id']]['Expectation']['item4_uma'];?>-
-								<?php echo $myData[$data['Race']['id']]['Expectation']['item5_uma'];?>
-							<?php elseif($data["Race"]["accepting_flg"]==1):?>
-								<a href="/detail/<?php echo $data['Race']['id'];?>">予想する</a>
-							<?php else:?>
-								-
-							<?php endif;?>
-						</p>
 						<p>
 							結果：
 							<?php if(!empty($myData[$data["Race"]["id"]])):?>

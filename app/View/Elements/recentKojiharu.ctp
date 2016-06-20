@@ -1,6 +1,6 @@
 		<!--<p class="titleLabelKojiharu">最新のこじはる予想！</p>-->
 		<div id="recentKojiharuArea">
-			<img src="/img/common/label_kojiharu_expect.png" class="label1">
+			<img src="/img/common/label_kojiharu_expect.png" class="label1 pc">
 			<div class="expectArea">
 				<p><?php echo date("m月d日",strtotime($recentKojiharu["Race"]["race_date"]));?><br><span style="font-size:115%;"><a href="/result/<?php echo $recentKojiharu['Race']['id'];?>"><?php echo $recentKojiharu["Race"]["name"];?><?php if($recentKojiharu['Race']['grade']>0):?> (G<?php echo $recentKojiharu['Race']['grade'];?>)<?php endif;?></a></span></p>
 				<dl>
@@ -19,7 +19,7 @@
 				</div>
 			</div>
 		</div>
-		<a href="/kojiharu_list"><img src="/img/button/btn_view_list.png" class="view_btn1"></a>
+		<a href="/kojiharu_list" class="pc"><img src="/img/button/btn_view_list.png" class="view_btn1"></a>
 		<!--<div id="subBannerArea" style="float:right; padding-right:10px;padding-top:20px;"><img src="/img/common/umairasto.png" style="max-width:90px;"></div>-->
 		<div class="clearfix"></div>
 
