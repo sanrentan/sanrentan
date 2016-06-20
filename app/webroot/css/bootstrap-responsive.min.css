@@ -37,6 +37,10 @@
 		margin:15px auto 0 auto;
 	}
 
+	.navbar #naviTop{
+		width: 100%;
+	}
+
 	.navbar ul{
 		width: 100%;		
 	}
@@ -126,6 +130,12 @@
 	#mainBannerAreaRight #subBannerArea{
 		float:right;
 		margin-right:10px;
+	}
+
+	#mainContent{
+		width:98%;
+		margin-left: auto;
+		margin-right: auto;
 	}
 
 	#mainContent #leftContent{
