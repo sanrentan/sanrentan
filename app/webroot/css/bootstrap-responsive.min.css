@@ -25,6 +25,7 @@
 
 	.container{
 		width:100% !important;
+		padding-top: 20px;
 	}
 
 	.btn-block-sp{
@@ -282,19 +283,19 @@
 
 	#horseListArea #priceArea #leftPriceTable {
 	    float: none;
-	    width: 95%;
+	    width: 100%;
 	    margin-left: 0;
 	    margin: 0 auto 0 auto;
 	}
 
 	#horseListArea #priceArea #rightPriceTable {
 	    float: none;
-	    width: 95%;
+	    width: 100%;
 	    margin: 10px auto 0 auto;
 	}
 
 
-	#horseListArea #winUserArea .winUser {
+	#userArea #winUserArea .winUser {
 	    margin-left: 1%;
 	    margin-right: 1%;
 	    margin-bottom: 20px;
@@ -308,6 +309,17 @@
 	    width: 30%;
 	}
 
+
+	#userArea #winUserArea .winUser .profileRight p{
+		font-size: 90%;
+	}
+
+
+	#mainContent #horseListArea .tableArea{
+		padding:0;
+		border: none;
+	}
+
 	#horseListArea th{
 		font-size:70%;
 	}
@@ -315,7 +327,7 @@
 		height:40px;
 	}
 	#horseListArea .horseName{
-		font-size:90%;
+		font-size:85%;
 	}
 	#horseListArea .sexage{
 		font-size:70%;
@@ -450,17 +462,17 @@
 
 	
 	.userExpect.sp_type0{
-		width:46%;
-		margin-left:2% !important;
-		margin-right:4% !important;
-	}
-	.userExpect.sp_type1{
-		width:46%;		
+		width:48%;
+		margin-left:1% !important;
 		margin-right:2% !important;
 	}
+	.userExpect.sp_type1{
+		width:48%;		
+		margin-right:1% !important;
+	}
 	#mainContent .mainContent2{
-		padding-left:2% !important;
-		padding-right:2% !important;
+		padding-left:0 !important;
+		padding-right:0 !important;
 	}
 
 	.adArea{
@@ -472,5 +484,9 @@
 		height: auto;
 		text-align: center;
 		margin-bottom: 10px;
+	}
+
+	.navi-profileImg img{
+		max-height: 50px !important;
 	}
 }

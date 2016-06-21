@@ -3,7 +3,7 @@
 		<p class="titleLabel"><?php echo $raceData["Race"]["place"];?>　<?php echo $raceData["Race"]["full_name"];?><?php if($raceData["Race"]["grade"]>=1):?> (G<?php echo $raceData["Race"]["grade"];?>)<?php endif;?></p>
 		<p id="list_result">
 			<a href="/detail/<?php echo $raceData['Race']['id'];?>"><img src="/img/button/btn_race_list2.png"></a>
-			<img src="/img/button/btn_race_Result.png">
+			<img src="/img/button/btn_race_result.png">
 		</p>
 		<div id="detailInfoText">
 			<p><?php echo date("Y年m月d日",strtotime($raceData["Race"]["race_date"]));?>　</p>
@@ -78,7 +78,7 @@
 	<div id="horseListArea">
 
 		<p class="titleLabel full">払戻金</p>
-		<div class="tableArea" style="padding:15px;margin-bottom:20px;">
+		<div class="tableArea" style="margin-bottom:20px;">
 			<div id="priceArea">
 				<div id="leftPriceTable">
 					<table border="1">
@@ -105,7 +105,7 @@
 		</div>
 
 		<p class="titleLabel full">競争成績</p>
-		<div class="tableArea" style="padding:15px;">
+		<div class="tableArea">
 
 			<div id="resultListArea">
 				<table border="1">

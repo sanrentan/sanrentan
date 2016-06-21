@@ -62,11 +62,11 @@
 					<div id="logoArea">
 						<a class="brand" href="/"><img src="/img/common/logo.png" width="200" alt="3連単5頭BOXならだいたい当たる"></a>
 					</div>
-					<div class="pc navi-profileImg">
+					<div class="navi-profileImg">
 						<?php if(!empty($user)):?>
 							<a href="/users/edit">
 								<?php if(!empty($user["profile_img"])):?>
-									<img src="/img/profileImg/<?php echo $user['profile_img'];?>" style="max-height:58px;">
+									<img src="/img/profileImg/<?php echo $user['profile_img'];?>">
 								<?php else:?>
 									<img src="/img/common/noimage_person.png" style="max-height:58px;">
 								<?php endif;?>
@@ -76,7 +76,6 @@
 					<div class="clearfix"></div>
 				</div>
 
-				<?php if(!empty($user)):?><p class="sp navi-nickname"><?php echo $user["nickname"];?>さん</p><?php endif;?>
 				<div class="navi-collapse pc">
 					<ul class="navi">
 						<li><a href="/"><img src="/img/common/navi1.png"></a></li>

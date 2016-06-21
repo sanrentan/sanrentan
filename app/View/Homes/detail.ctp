@@ -4,7 +4,7 @@
 		<p id="list_result">
 			<?php if(!empty($raceResultData)):?>
 				<img src="/img/button/btn_race_list.png">
-				<a href="/result/<?php echo $raceData['Race']['id'];?>"><img src="/img/button/btn_race_Result2.png"></a>
+				<a href="/result/<?php echo $raceData['Race']['id'];?>"><img src="/img/button/btn_race_result2.png"></a>
 			<?php endif;?>
 		</p>
 
