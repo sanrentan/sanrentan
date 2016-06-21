@@ -64,7 +64,19 @@
 		border:1px solid #CCC;
 		margin: 0 1% 2px 1%;
 		border-radius: 5px;
+
+		background-image: url("../img/icon/orange_right.png");
+	    background-repeat: no-repeat;
+    	background-size: 20px;
+		background-position: 10px;
+		padding-left:40px;
 	}
+	.nav-collapse .navi a{
+		color:#777;
+		text-decoration: none;
+	}
+
+
 
 	.navi-nickname{
 		padding-top:10px;
@@ -98,10 +110,12 @@
 
 	#mainBannerArea #mainBannerAreaRight{
 		float:none;
-		width:100%;
+		width:98%;
 		display: block;
 		margin-bottom:20px;
 		height:100%;
+		margin-left: auto;
+		margin-right: auto;
 	}
 
 	#mainBannerAreaRight #recentKojiharuArea{
@@ -109,6 +123,10 @@
 		font-size:110%;
 		margin-bottom:20px;
 		float:none;
+	}
+
+	#mainBannerArea #mainBannerAreaRight #recentKojiharuArea{
+		margin:15px;
 	}
 
 	#mainBannerArea #mainBannerAreaRight #recentKojiharuArea .expectArea {
@@ -132,6 +150,23 @@
 		margin-right:10px;
 	}
 
+	#mainBannerArea .mainBannerAreaLeftDetail{
+		width:98%;
+		margin-right:auto;
+		margin-left:auto;
+		float: none;
+		height:auto;
+		margin-bottom: 10px;
+	}
+	#mainBannerArea .mainBannerAreaRightDetail{
+		float:none;
+		width: 98%;
+		margin-right:auto;
+		margin-left:auto;
+		margin-bottom: 10px;
+	}
+
+
 	#mainContent{
 		width:98%;
 		margin-left: auto;
@@ -139,8 +174,12 @@
 	}
 
 	#mainContent #leftContent{
-		width:100%;
+		width:98%;
 		padding-left:0;
+		margin-bottom: 10px;
+		margin-right:auto;
+		margin-left:auto;
+		float:none;
 	}
 
 	#mainContent #rightContent{
@@ -354,9 +393,6 @@
 		margin: 0 auto 20px auto;
 	}
 
-	#userListArea .userExpect{
-		width:45%;
-	}
 	#userListArea .userExpect p{
 		font-size:85%;
 	}
@@ -405,5 +441,36 @@
 		font-weight: bold;
 	}
 
+	.userExpect.sp_type0,
+	.userExpect.sp_type1,
+	.userExpect.sp_type2{
+		margin-left:0 !important;
+		margin-right:0 !important;
+	}
 
+	
+	.userExpect.sp_type0{
+		width:46%;
+		margin-left:2% !important;
+		margin-right:4% !important;
+	}
+	.userExpect.sp_type1{
+		width:46%;		
+		margin-right:2% !important;
+	}
+	#mainContent .mainContent2{
+		padding-left:2% !important;
+		padding-right:2% !important;
+	}
+
+	.adArea{
+		width: 96%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.adArea li{
+		height: auto;
+		text-align: center;
+		margin-bottom: 10px;
+	}
 }

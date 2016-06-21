@@ -100,36 +100,9 @@
 		<?php //公式twitter ?>
 		<?php echo $this->element('twitter_timeline'); ?>
 
+		<?php //広告 ?>
+		<?php echo $this->element('ad'); ?>
 
-
-		<div class="rightContentArea">
-			<div class="rightMainContent">
-
-				<div class="adArea pc">
-					<ul>
-						<?php foreach($adTags2 as $key=>$data):?>
-							<li>
-								<?php echo $data['AdTag']['tag'];?>
-							</li>
-						<?php endforeach;?>
-					</ul>
-				</div>
-			</div>
-		</div>
-
-		<!--
-		<div class="adArea">
-			<div class="adheight">
-
-				<?php foreach($adTags5 as $key=>$data):?>
-					<div class="adheightLeft">
-						<?php echo $data['AdTag']['tag'];?>
-					</div>
-				<?php endforeach;?>
-				<div class="clearfix"></div>
-			</div>
-		</div>
-		-->
 	</div>
 	<div class="clearfix"></div>
 </div>

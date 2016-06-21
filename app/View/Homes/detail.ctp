@@ -20,7 +20,7 @@
 			<p style="font-size:80%;">※単勝オッズはリアルタイム更新ではない為ご注意ください。</p>
 		</div>
 	</div>
-	<div class="mainBannerAreaRightDetail" class="pc">
+	<div class="mainBannerAreaRightDetail pc">
 		<img src="/img/common/label_your_expect.png" class="label1">
 		<div class="recentYourArea">
 			<div class="expectArea">
@@ -222,7 +222,7 @@
 					<div id="userListArea">
 					<?php foreach($otherExpectData as $key=>$data):?>
 						<a href="/other/<?php echo $data['User']['id'];?>">
-							<div class="userExpect type<?php echo $key%3;?>">
+							<div class="userExpect type<?php echo $key%3;?> sp_type<?php echo $key%2;?>">
 								<div class="profileImgArea">
 									<?php if(!empty($data["User"]["profile_img"])):?>
 										<img src="/img/profileImg/<?php echo $data['User']['profile_img'];?>" class="profileImg">
