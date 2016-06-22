@@ -44,14 +44,14 @@
 	</div>
 	<div class="clearfix"></div>
 
-	<?php if($raceData['Race']['kojiharu_flg']==1):?>
+	<?php if($raceData['Race']['kojiharu_flg']==1 && !empty($raceData['Race']['note2'])):?>
 		<div class="mainBannerAreaLeftDetail type2">
 			<p class="titleLabel">こじはるさんの３連単５頭ボックス</p>
 			<div id="note2">
 				<p><?php echo nl2br($raceData['Race']['note2']);?></p>
 			</div>
 		</div>
-		<div class="mainBannerAreaRightDetail type2" class="pc">	
+		<div class="mainBannerAreaRightDetail type2">	
 			<img src="/img/common/label_kojiharu_expect2.png" class="label1">
 			<div class="recentYourArea">
 				<div class="expectArea">

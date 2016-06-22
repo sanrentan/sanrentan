@@ -193,11 +193,11 @@ html,body
 }
 
 #mainBannerArea .mainBannerAreaLeftDetail #note2{
-	padding:10px;
+	padding:0 10px 10px 10px;
 }
 #mainBannerArea .mainBannerAreaLeftDetail #note2 p{
-	font-size:110%;
-	margin-bottom:5px;
+	font-size:100%;
+	margin-bottom: 0;
 }
 
 #mainBannerArea .mainBannerAreaLeftDetail.type2{
@@ -558,7 +558,7 @@ ul.information.keibajapan{
 
 .wk1_note,.wk2_note,.wk3_note,.wk4_note,.wk5_note,.wk6_note,.wk7_note,.wk8_note{
 	padding:5px;
-	margin:0 8px;
+	margin:0 2px;
 }
 
 
