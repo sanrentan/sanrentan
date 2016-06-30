@@ -159,7 +159,7 @@ class Expectation extends AppModel {
 				$result["Expectation"]["view"][] = $data;
 			}
 		}
-
+ 
 		$resultData = array_merge($result,$raceData);
 		return $resultData;
     }
@@ -176,10 +176,11 @@ class Expectation extends AppModel {
 		);
 		$raceData = $this->find("all",$options);
 
-		//Expectationの馬idから馬番を得る
+		//Expectationの馬idから馬番、枠番、馬の名前を得る
 		$RaceCard = ClassRegistry::init('RaceCard');
 		$umaData = $RaceCard->find("list",array("conditions"=>array("race_id"=>$race_id),"fields"=>array("uma")));
 		$wkData  = $RaceCard->find("list",array("conditions"=>array("race_id"=>$race_id),"fields"=>array("wk")));
+		$umaName = $RaceCard->find("list",array("conditions"=>array("race_id"=>$race_id),"fields"=>array("name")));
 
 		$returnData = array();
 		if(!empty($raceData)){
@@ -187,6 +188,7 @@ class Expectation extends AppModel {
 				for($i=1;$i<=5;$i++){
 					$data["Expectation"]["item".$i."_uma"] = $umaData[$data["Expectation"]["item".$i]];
 					$data["Expectation"]["item".$i."_wk"] = $wkData[$data["Expectation"]["item".$i]];
+					$data["Expectation"]["item".$i."_name"] = $umaName[$data["Expectation"]["item".$i]];
 				}
 				$returnData[$data["Expectation"]["race_id"]] =$data;
 			}
