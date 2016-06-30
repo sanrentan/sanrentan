@@ -49,84 +49,133 @@
 </head>
 
 <body>
-
-	<div class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
+	<div class="navbar navbar-fixed-top2">
+		<div class="navbar-inner2">
 				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-				<a class="brand" href="/"><img src="/img/common/logo.png" width="200" alt="3連単5頭BOXならだいたい当たる"></a>
-				<?php if(!empty($user)):?><p class="sp navi-nickname"><?php echo $user["nickname"];?>さん</p><?php endif;?>
-				<div class="nav-collapse">
-					<ul class="nav">
-						<li <?php if($naviType=="top"):?>class="active"<?php endif;?>><a href="/">Home</a></li>
-						<li <?php if($naviType=="kojiharu"):?>class="active"<?php endif;?>><a href="/kojiharu_list">こじはる予想</a></li>
-						<li <?php if($naviType=="about"):?>class="active"<?php endif;?>><a href="/about">当サイトについて</a></li>
-						<li <?php if($naviType=="contact"):?>class="active"<?php endif;?>><a href="/contact">お問い合わせ</a></li>
-						<?php if(!empty($user["id"])):?>
-							<li <?php if($naviType=="mypage"):?>class="active"<?php endif;?>><a href="/mypage">マイページ</a></li>
-							<li><a href="/logout">ログアウト</a></li>
-						<?php else:?>
-							<li <?php if($naviType=="regist"):?>class="active"<?php endif;?>><a href="/regist">無料会員登録</a></li>
-							<li <?php if($naviType=="login"):?>class="active"<?php endif;?>><a href="/login">ログイン</a></li>
+
+				<div id="naviTop">
+					<div id="logoArea">
+						<a class="brand" href="/"><img src="/img/common/logo.png" width="200" alt="3連単5頭BOXならだいたい当たる"></a>
+					</div>
+					<div class="navi-profileImg">
+						<?php if(!empty($user)):?>
+							<a href="/users/edit">
+								<?php if(!empty($user["profile_img"])):?>
+									<img src="/img/profileImg/<?php echo $user['profile_img'];?>">
+								<?php else:?>
+									<img src="/img/common/noimage_person.png" style="max-height:58px;">
+								<?php endif;?>
+							</a>
 						<?php endif;?>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+
+				<div class="navi-collapse pc">
+					<ul class="navi">
+						<li><a href="/"><img src="/img/common/navi1.png"></a></li>
+						<li><a href="/kojiharu_list"><img src="/img/common/navi2.png"></a></li>
+						<li><a href="/about"><img src="/img/common/navi3.png"></a></li>
+						<li class="pc"><a href="/contact"><img src="/img/common/navi4.png"></a></li>
+						<?php if(!empty($user["id"])):?>
+							<li><a href="/mypage"><img src="/img/common/navi_mypage.png"></a></a></li>
+							<li><a href="/logout"><img src="/img/common/navi_logout.png"></a></a></li>
+						<?php else:?>
+							<li><a href="/regist"><img src="/img/common/navi5.png"></a></li>
+							<li><a href="/login"><img src="/img/common/navi6.png"></a></li>
+						<?php endif;?>
+						<div class="clearfix"></div>
 					</ul>
-					<?php if(!empty($user)):?>
-						<div class="pc navi-profileImg"><a href="/users/edit">
-							<?php if(!empty($user["profile_img"])):?>
-								<img src="/img/profileImg/<?php echo $user['profile_img'];?>" style="max-height:58px;">
-							<?php else:?>
-								<img src="/img/common/noimage_person.png" style="max-height:58px;">
-							<?php endif;?>
-						</a></div>
-					<?php endif;?>
 				</div><!--/.nav-collapse -->
-			</div>
+				<div class="nav-collapse sp">
+					<ul class="navi">
+						<a href="/"><li>HOME</li></a>
+						<a href="/kojiharu_list"><li>こじはる予想</li></a>
+						<a href="/about"><li>当サイトについて</li></a>
+						<a href="/contact"><li>お問い合わせ</li></a>
+						<?php if(!empty($user["id"])):?>
+							<a href="/mypage"><li>マイページ</li></a>
+							<a href="/logout"><li>ログアウト</li></a>
+						<?php else:?>
+							<a href="/regist"><li>無料会員登録</li></a>
+							<a href="/login"><li>ログイン</li></a>
+							<a href="/twitter_login"><li>Twitter簡単ログイン</li></a>
+						<?php endif;?>
+						<div class="clearfix"></div>
+					</ul>
+				</div><!--/.nav-collapse -->
+				<div class="navi-collapse2 sp">
+					<ul class="navi2">
+						<li class="pc"><a href="/"><img src="/img/common/navi1.png"></a></li>
+						<li><a href="/kojiharu_list"><img src="/img/common/navi2.png"></a></li>
+						<li><a href="/about"><img src="/img/common/navi3.png"></a></li>
+						<li class="pc"><a href="/contact"><img src="/img/common/navi4.png"></a></li>
+						<?php if(!empty($user["id"])):?>
+							<li><a href="/mypage"><img src="/img/common/navi_mypage.png"></a></a></li>
+							<li class="pc"><a href="/logout"><img src="/img/common/navi_logout.png"></a></a></li>
+						<?php else:?>
+							<li class="pc"><a href="/regist"><img src="/img/common/navi5.png"></a></li>
+							<li><a href="/login"><img src="/img/common/navi6.png"></a></li>
+						<?php endif;?>
+						<div class="clearfix"></div>
+					</ul>
+				</div><!--/.nav-collapse -->
 		</div>
 	</div>
 
-	<div class="container">
+	<div class="containerBg">
+		<div class="container">
 
-		<?php echo $this->Session->flash(); ?>
+			<?php echo $this->Session->flash(); ?>
 
-		<?php echo $this->fetch('content'); ?>
+			<?php echo $this->fetch('content'); ?>
 
-		<div id="footer">
-			<div id="footerArea">
-				<?php foreach($adTags1 as $key=>$data):?>
-					<?php echo $data['AdTag']['tag'];?>
-				<?php endforeach;?>
+			<div class="sp">
+				<?php echo $this->element('ad'); ?>
 			</div>
+		</div> <!-- /container -->
+	</div>
 
-			<div id="bottomAd" class="sp">
-				<?php if(!empty($adTags2)):?>
-					<?php echo $adTags2[0]['AdTag']['tag'];?>
-				<?php endif;?>
-			</div>
+	<p class="titleLabel sp">メニュー</p>
+	<div id="footer">
 
-			<ul>
-				<a href="/"><li>HOME</li></a>
-				<a href="/kojiharu_list"><li>こじはる予想</li></a>
-				<a href="/about"><li>当サイトについて</li></a>
-				<a href="/contact"><li>お問い合わせ</li></a>
-				<a href="/mypage" class="sp"><li>マイページ</li></a>
-				<a href="/regist" class="sp"><li>無料会員登録</li></a>
-				<a href="/login" class="sp"><li>ログイン</li></a>
-				<a href="http://www.jra.go.jp/"  target="_blank"><li>JRA(外部サイト)</li></a>
-				<a href="http://www.akb48.co.jp/" target="_blanl"><li>AKB公式サイト(外部サイト)</li></a>
-			</ul>
-			<div class="clearfix"></div>
-			<p>Copyright © yamaty. All Rights Reserved.</p>
-
-
-			
+		<!--
+		<div id="footerArea">
+			<?php foreach($adTags1 as $key=>$data):?>
+				<?php echo $data['AdTag']['tag'];?>
+			<?php endforeach;?>
 		</div>
 
-	</div> <!-- /container -->
+		<div id="bottomAd" class="sp">
+			<?php if(!empty($adTags2)):?>
+				<?php echo $adTags2[0]['AdTag']['tag'];?>
+			<?php endif;?>
+		</div>
+		-->
+		<div id="footerContent">
+			<div style="margin-bottom:10px">
+				<ul>
+					<a href="/"><li>HOME</li></a>
+					<a href="/kojiharu_list"><li>こじはる予想</li></a>
+					<a href="/about"><li>当サイトについて</li></a>
+					<a href="/contact"><li>お問い合わせ</li></a>
+					<a href="/mypage" class="sp"><li>マイページ</li></a>
+					<a href="/regist" class="sp"><li>無料会員登録</li></a>
+					<a href="/login" class="sp"><li>ログイン</li></a>
+					<a href="http://www.jra.go.jp/"  target="_blank"><li>JRA(外部サイト)</li></a>
+					<a href="http://www.akb48.co.jp/" target="_blanl"><li>AKB公式サイト(外部サイト)</li></a>			
+					<div class="clearfix"></div>
+				</ul>
+			</div>
+			<img src="/img/common/line_green_white.png">
+			<p>Copyright © yamaty. All Rights Reserved.</p>
+		</div>
+	</div> <!-- /footer -->
 
 	<!-- Le javascript
     ================================================== -->
