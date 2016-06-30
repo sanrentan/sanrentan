@@ -126,7 +126,7 @@ class AppController extends Controller {
 
         //広告タグを取得
         //$adTags1 = $this->AdTag->getAdTag(1,1);//横長
-        $adTags2 = $this->AdTag->getAdTag(2,2);//正方形
+        $adTags2 = $this->AdTag->getAdTag(2,1);//正方形
         //$adTags3 = $this->AdTag->getAdTag(3,1);//ミニバナー
         //$adTags5 = $this->AdTag->getAdTag(5,2);//amazon
 

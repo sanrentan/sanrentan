@@ -15,29 +15,60 @@
 			<?php if(!empty($errorMessage)):?><p class="red2"><?php echo $errorMessage;?></p><?php endif;?>
 		</div>
 	</div>
-	<div class="mainBannerAreaRightDetail" class="pc">
-		<img src="/img/common/label_your_expect.png" class="label1">
-		<div class="recentYourArea">
-			<div class="expectArea">
-				<?php if(!empty($myData["selectData"])):?>
-					<dl>
-						<?php foreach($myData["selectData"] as $key=>$data):?>
-							<div class="expect">
-								<dt class="wk<?php echo $data["RaceCard"]['wk'];?>"><?php echo $data["RaceCard"]["uma"];?></dt><dd class="wkname"><?php echo $data["RaceCard"]["name"];?></dd>
-							</div>
-						<?php endforeach;?>
-					</dl>
-					<div class="clearfix"></div>
-				<?php else:?>
-					予想をしていません。
-				<?php endif;?>
+	<?php if(!empty($kojiharuData)):?>
+		<div class="mainBannerAreaRightDetail">
+			<img src="/img/common/label_kojiharu_expect2.png" class="label1">
+			<div class="recentYourArea">
+				<div class="expectArea">
+					<?php if(!empty($kojiharuData["selectData"])):?>
+						<dl>
+							<?php foreach($kojiharuData["selectData"] as $key=>$data):?>
+								<div class="expect">
+									<dt class="wk<?php echo $data["RaceCard"]['wk'];?>"><?php echo $data["RaceCard"]["uma"];?></dt><dd class="wkname"><?php echo $data["RaceCard"]["name"];?></dd>
+								</div>
+							<?php endforeach;?>
+						</dl>
+						<div class="clearfix"></div>
+					<?php else:?>
+						予想をしていません。
+					<?php endif;?>
+				</div>
 			</div>
+			<!--<div id="subBannerArea" style="float:right; padding-right:10px;padding-top:20px;"><img src="/img/common/umairasto.png" style="max-width:90px;"></div>-->
+			<div class="clearfix"></div>
 		</div>
-		<!--<div id="subBannerArea" style="float:right; padding-right:10px;padding-top:20px;"><img src="/img/common/umairasto.png" style="max-width:90px;"></div>-->
 		<div class="clearfix"></div>
 
-	</div>
-	<div class="clearfix"></div>
+	<?php else:?>
+		<?php if(empty($myData["selectData"])):?>
+			<div class="pc">
+		<?php endif;?>
+			<div class="mainBannerAreaRightDetail">
+				<img src="/img/common/label_your_expect.png" class="label1">
+				<div class="recentYourArea">
+					<div class="expectArea">
+						<?php if(!empty($myData["selectData"])):?>
+							<dl>
+								<?php foreach($myData["selectData"] as $key=>$data):?>
+									<div class="expect">
+										<dt class="wk<?php echo $data["RaceCard"]['wk'];?>"><?php echo $data["RaceCard"]["uma"];?></dt><dd class="wkname"><?php echo $data["RaceCard"]["name"];?></dd>
+									</div>
+								<?php endforeach;?>
+							</dl>
+							<div class="clearfix"></div>
+						<?php else:?>
+							予想をしていません。
+						<?php endif;?>
+					</div>
+				</div>
+				<!--<div id="subBannerArea" style="float:right; padding-right:10px;padding-top:20px;"><img src="/img/common/umairasto.png" style="max-width:90px;"></div>-->
+			</div>
+
+		<?php if(empty($myData["selectData"])):?>
+			</div>
+		<?php endif;?>
+		<div class="clearfix"></div>
+	<?php endif;?>
 </div>
 
 <!--

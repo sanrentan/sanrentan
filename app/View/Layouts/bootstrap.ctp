@@ -135,6 +135,9 @@
 
 			<?php echo $this->fetch('content'); ?>
 
+			<div class="sp">
+				<?php echo $this->element('ad'); ?>
+			</div>
 		</div> <!-- /container -->
 	</div>
 
