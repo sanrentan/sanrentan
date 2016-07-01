@@ -57,10 +57,9 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-
 				<div id="naviTop">
 					<div id="logoArea">
-						<a class="brand" href="/"><img src="/img/common/logo.png" width="200" alt="3連単5頭BOXならだいたい当たる"></a>
+						<h1><a class="brand" href="/"><img src="/img/common/logo.png" width="200" alt="AKBこじはる３連単５頭ボックス｜競馬予想<?php if(!empty($h1tag)):?>｜<?php echo $h1tag;?><?php endif;?>"></a></h1>
 					</div>
 					<div class="navi-profileImg">
 						<?php if(!empty($user)):?>

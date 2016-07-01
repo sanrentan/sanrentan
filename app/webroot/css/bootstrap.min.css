@@ -36,6 +36,26 @@ html,body
 	clear:both;
 }
 
+h1,h2{
+	font-size: 80%;
+	margin: 0;
+	line-height: 10px;
+}
+h3{
+	margin: 0;
+}
+h3.titleLabel{
+	padding-top:0;
+	padding-bottom:0;
+}
+
+h3.subtitle{
+	line-height: 2;
+}
+h3.full{
+	margin-bottom:10px !important;
+}
+
 .red,
 .red a,
 .red2 a{

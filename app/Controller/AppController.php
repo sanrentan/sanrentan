@@ -115,7 +115,7 @@ class AppController extends Controller {
         $this->set("meta_description",$this->meta_description);
 
         if(empty($this->meta_keywords)){
-            $this->meta_keywords = "３連単,ボックス,こじはる,競馬";
+            $this->meta_keywords = "３連単,ボックス,こじはる,競馬,AKB";
         }
         $this->set("meta_keywords",$this->meta_keywords);
 

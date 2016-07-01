@@ -17,7 +17,7 @@
 	</div>
 	<?php if(!empty($kojiharuData)):?>
 		<div class="mainBannerAreaRightDetail">
-			<img src="/img/common/label_kojiharu_expect2.png" class="label1">
+			<h2><img src="/img/common/label_kojiharu_expect2.png" class="label1" alt="AKBこじはるの競馬予想"></h2>
 			<div class="recentYourArea">
 				<div class="expectArea">
 					<?php if(!empty($kojiharuData["selectData"])):?>
@@ -108,7 +108,7 @@
 <div id="mainContent">
 	<div id="horseListArea">
 
-		<p class="titleLabel full">払戻金</p>
+		<h3 class="titleLabel full">払戻金</h3>
 		<div class="tableArea" style="margin-bottom:20px;">
 			<div id="priceArea">
 				<div id="leftPriceTable">
@@ -135,7 +135,7 @@
 			</div>
 		</div>
 
-		<p class="titleLabel full">競争成績</p>
+		<h3 class="titleLabel full">競争成績</h3>
 		<div class="tableArea">
 
 			<div id="resultListArea">
@@ -166,7 +166,7 @@
 
 	<div id="leftContent">
 		<div id="userArea">
-			<p class="titleLabel">予想的中者</p>
+			<h3 class="titleLabel">予想的中者</h3>
 			<div id="winUserArea">
 				<?php if(!empty($winUser)):?>
 					<?php foreach($winUser as $key=>$data):?>

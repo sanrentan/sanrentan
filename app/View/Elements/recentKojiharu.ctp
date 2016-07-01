@@ -1,6 +1,6 @@
 		<!--<p class="titleLabelKojiharu">最新のこじはる予想！</p>-->
 		<div id="recentKojiharuArea">
-			<img src="/img/common/label_kojiharu_expect.png" class="label1 pc">
+			<h2><img src="/img/common/label_kojiharu_expect.png" class="label1 pc" alt="AKBこじはるの最新予想"></h2>
 			<div class="expectArea">
 				<p><?php echo date("m月d日",strtotime($recentKojiharu["Race"]["race_date"]));?><br><span style="font-size:115%;"><a href="/result/<?php echo $recentKojiharu['Race']['id'];?>"><?php echo $recentKojiharu["Race"]["name"];?><?php if($recentKojiharu['Race']['grade']>0):?> (G<?php echo $recentKojiharu['Race']['grade'];?>)<?php endif;?></a></span></p>
 				<dl>

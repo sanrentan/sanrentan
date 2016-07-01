@@ -175,8 +175,10 @@ class HomesController extends AppController {
 
 		//metaタグ設定
         $this->meta_description = "こじはるさんの「".$raceData["Race"]["name"]."」の３連単５頭ボックスの予想です。参考にして是非みなさんも予想してみましょう。目指せ万馬券！";
-		$this->meta_keywords = "こじはる,予想,出走表,".$raceData["Race"]["name"];
+		$this->meta_keywords = "３連単,こじはる,予想,".$raceData["Race"]["name"];
 		$this->title_tag = $raceData["Race"]["name"]." 出走表";
+
+		$this->set('h1tag',$raceData['Race']['name']);
 
 	}
 
@@ -295,6 +297,8 @@ class HomesController extends AppController {
 		$this->meta_keywords = "こじはる,３連単,レース結果,".$raceData["Race"]["name"];
 		$this->title_tag = $raceData["Race"]["name"]." レース結果";
 
+		$this->set('h1tag',$raceData['Race']['name']);
+
 	}
 
 
@@ -411,8 +415,8 @@ class HomesController extends AppController {
 
 	//こじはるの予想一覧
 	public function kojiharu_list(){
-        $this->meta_description = "こじはるさんのこれまでの３連単５頭ボックスの予想一覧です。だいたい当たっています。みなさんもこじはるさんと一緒に是非予想してみましょう。";
-		$this->meta_keywords = "こじはる,３連単,5頭ボックス,予想";
+        $this->meta_description = "AKBこじはるさんのこれまでの３連単５頭ボックスの競馬予想一覧です。だいたい当たっています。みなさんもこじはるさんと一緒に是非予想してみましょう。";
+		$this->meta_keywords = "こじはる,３連単,5頭ボックス,競馬,予想,AKB";
 		$this->title_tag = "予想一覧";
 
 		$this->set("naviType","kojiharu");

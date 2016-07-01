@@ -51,8 +51,8 @@
 				<p><?php echo nl2br($raceData['Race']['note2']);?></p>
 			</div>
 		</div>
-		<div class="mainBannerAreaRightDetail type2">	
-			<img src="/img/common/label_kojiharu_expect2.png" class="label1">
+		<div class="mainBannerAreaRightDetail type2">
+			<h2><img src="/img/common/label_kojiharu_expect2.png" class="label1" alt="AKBこじはるの競馬予想"></h2>			
 			<div class="recentYourArea">
 				<div class="expectArea">
 					<?php if(!empty($kojiharuData["selectData"])):?>
@@ -124,7 +124,7 @@
 
 <div id="mainContent">
 	<div id="horseListArea">
-		<p class="subtitle" style="font-size:120%;font-weight:bold;">出走表：<?php echo $raceData['Race']['name'];?></p>
+		<h3 class="subtitle" style="font-size:120%;font-weight:bold;">出走表：<?php echo $raceData['Race']['name'];?></h3>
 
 		<?php echo $this->Form->create('Expectation',array('type' => 'post','name'=>"ExpectationDetailForm"));?>
 		<?php echo $this->Form->hidden('Expectation.race_id' ,array('value' => $raceData["Race"]["id"]));?>

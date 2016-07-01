@@ -13,7 +13,7 @@
 
 		<div id="leftContentMain">
 			<div class="listArea">
-				<p class="titleLabel">現在受付中のレース（※当サイト受付分のみ)</p>
+				<h3 class="titleLabel">現在受付中のレース（※当サイト受付分のみ)</h3>
 				<ul class="raceList">
 					<?php if(!empty($acceptingRace)):?>
 						<?php foreach($acceptingRace as $key=>$data):?>
@@ -45,7 +45,7 @@
 			</div>
 
 			<div class="listArea">
-				<p class="titleLabel note">過去５レースの結果（※当サイト受付分のみ）</p>
+				<h3 class="titleLabel">過去５レースの結果（※当サイト受付分のみ）</h3>
 				<ul class="raceList pc">
 					<?php foreach($recentRace as $key=>$data):?>
 						<li>
@@ -77,7 +77,7 @@
 			</div>
 
 			<div class="listArea">
-				<p class="titleLabel light">お知らせ</p>
+				<h3 class="titleLabel">お知らせ</h3>
 				<ul class="raceList">
 					<?php foreach($infoData as $key=>$data):?>
 						<li class="news"> <?php echo date("Y年m月d日",strtotime($data["Information"]["start_date"]));?><br>&nbsp;<?php echo $data['Information']['title'];?></li>
@@ -85,28 +85,19 @@
 				</ul>
 			</div>
 
-			<div class="listArea">
-				<?php if(!empty($newsRss)):?>
-					<p class="titleLabel light">競馬ニュース(競馬JAPAN)</p>
-					<ul class="information keibajapan">
-						<?php foreach($newsRss as $key=>$data):?>
-							<li class="icontype0">　<a href="<?php echo $data['link'];?>" target="_blank"><?php echo $data['title'];?></a></li>
-						<?php endforeach;?>
-					</ul>
-				<?php endif;?>
-			</div>
-
-			<!--
-			<p class="titleLabel light">競馬予想</p>
-			<ul class="information">
-				<?php foreach($expectRss as $key=>$data):?>
-					<li><a href="<?php echo $data['link'];?>" target="_blank"><?php echo $data['title'];?>(<?php echo $data["blogTitle"];?>)</a></li>
-				<?php endforeach;?>
-			</ul>
-			-->
+			<?php if(!empty($newsRss)):?>
+				<div class="listArea">
+						<h3 class="titleLabel">競馬ニュース(競馬JAPAN)</h3>
+						<ul class="information keibajapan">
+							<?php foreach($newsRss as $key=>$data):?>
+								<li class="icontype0">　<a href="<?php echo $data['link'];?>" target="_blank"><?php echo $data['title'];?></a></li>
+							<?php endforeach;?>
+						</ul>
+				</div>
+			<?php endif;?>
 
 			<div class="listArea">
-				<p class="titleLabel light">まとめサイト</p>
+				<h3 class="titleLabel">まとめサイト</h3>
 				<ul class="information matomeList">
 					<?php foreach($matomeRss as $key=>$data):?>
 						<li class="icontype<?php echo $data['css'];?>"><a href="<?php echo $data['link'];?>" target="_blank"><?php echo $data['title'];?>(<?php echo $data["blogTitle"];?>)</a></li>
