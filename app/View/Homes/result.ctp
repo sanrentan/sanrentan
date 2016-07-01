@@ -166,7 +166,7 @@
 
 	<div id="leftContent">
 		<div id="userArea">
-			<h3 class="titleLabel">予想的中者</h3>
+			<h3 class="titleLabel" style="margin-bottom:10px;">予想的中者</h3>
 			<div id="winUserArea">
 				<?php if(!empty($winUser)):?>
 					<?php foreach($winUser as $key=>$data):?>
