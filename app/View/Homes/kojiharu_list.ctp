@@ -179,19 +179,6 @@
 			</div>
 		</div>
 
-		<!--
-		<div class="adArea">
-			<div class="adheight">
-
-				<?php foreach($adTags5 as $key=>$data):?>
-					<div class="adheightLeft">
-						<?php echo $data['AdTag']['tag'];?>
-					</div>
-				<?php endforeach;?>
-				<div class="clearfix"></div>
-			</div>
-		</div>
-		-->
 	</div>
 	<div class="clearfix"></div>
 

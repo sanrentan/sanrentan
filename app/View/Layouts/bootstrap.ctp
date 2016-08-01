@@ -143,19 +143,6 @@
 	<p class="titleLabel sp">メニュー</p>
 	<div id="footer">
 
-		<!--
-		<div id="footerArea">
-			<?php foreach($adTags1 as $key=>$data):?>
-				<?php echo $data['AdTag']['tag'];?>
-			<?php endforeach;?>
-		</div>
-
-		<div id="bottomAd" class="sp">
-			<?php if(!empty($adTags2)):?>
-				<?php echo $adTags2[0]['AdTag']['tag'];?>
-			<?php endif;?>
-		</div>
-		-->
 		<div id="footerContent">
 			<div style="margin-bottom:10px">
 				<ul>

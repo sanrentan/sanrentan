@@ -1,6 +1,7 @@
 <div id="mainBannerArea">
 	<div class="mainBannerAreaLeftDetail">
-		<p class="titleLabel"><?php echo $raceData["Race"]["place"];?>　<?php echo $raceData["Race"]["full_name"];?><?php if($raceData["Race"]["grade"]>=1):?> (G<?php echo $raceData["Race"]["grade"];?>)<?php endif;?></p>
+		<p class="titleLabel pc"><?php echo $raceData["Race"]["place"];?>　<?php echo $raceData["Race"]["full_name"];?><?php if($raceData["Race"]["grade"]>=1):?> (G<?php echo $raceData["Race"]["grade"];?>)<?php endif;?></p>
+		<p class="titleLabel sp"><?php echo $raceData["Race"]["name"];?><?php if($raceData["Race"]["grade"]>=1):?> (G<?php echo $raceData["Race"]["grade"];?>)<?php endif;?></p>
 		<p id="list_result">
 			<?php if(!empty($raceResultData)):?>
 				<img src="/img/button/btn_race_list.png">
@@ -129,7 +130,7 @@
 		<?php echo $this->Form->create('Expectation',array('type' => 'post','name'=>"ExpectationDetailForm"));?>
 		<?php echo $this->Form->hidden('Expectation.race_id' ,array('value' => $raceData["Race"]["id"]));?>
 
-		<div class="tableArea">
+		<div class="tableArea raceListTable">
 			<table border="1">
 				<tr><?php if(!$timeOver&&!empty($user)&&empty($myData)&&$raceData["Race"]["accepting_flg"]):?><th>選択</th><?php endif;?><th>枠番</th><th>馬番</th><th>馬名</th><th>性齢</th><th>馬体重</th><th>負担重量/<br>騎手名</th><th>単勝オッズ<br>人気</th><th class="pc">前走</th><th class="pc">前々走</th><th class="pc">3走前</th><th class="pc">4走前</th></tr>
 				<?php foreach($raceData["RaceCard"] as $key=>$data):?>
@@ -193,7 +194,7 @@
 								<?php endfor; ?>
 							<?php endif; ?>
 						<?php else: ?>
-							<td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td>
+							<td align="center" class="pc">-</td><td align="center" class="pc">-</td><td align="center" class="pc">-</td><td align="center" class="pc">-</td>
 						<?php endif; ?>
 					</tr>
 				<?php endforeach;?>

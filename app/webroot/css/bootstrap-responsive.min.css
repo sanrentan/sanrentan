@@ -323,17 +323,21 @@
 	#horseListArea th{
 		font-size:70%;
 	}
+
+	#horseListArea .raceListTable table td{
+		height:40px;
+	}
 	#horseListArea table td{
 		height:40px;
 	}
 	#horseListArea .horseName{
-		font-size:85%;
+		font-size:80%;
 	}
 	#horseListArea .sexage{
 		font-size:70%;
 	}
 	#horseListArea .jName{
-		font-size:80%;
+		font-size:75%;
 	}
 	#horseListArea .umaweight{
 		font-size:70%;

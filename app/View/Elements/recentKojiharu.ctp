@@ -23,16 +23,3 @@
 		<!--<div id="subBannerArea" style="float:right; padding-right:10px;padding-top:20px;"><img src="/img/common/umairasto.png" style="max-width:90px;"></div>-->
 		<div class="clearfix"></div>
 
-
-		<!--
-		<div class="adArea pc tag3">
-			<ul>
-				<?php foreach($adTags3 as $key=>$data):?>
-					<li>
-						<?php echo $data['AdTag']['tag'];?>
-					</li>
-				<?php endforeach;?>
-
-			</ul>
-		</div>
-		-->

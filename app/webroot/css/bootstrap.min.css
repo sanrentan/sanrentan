@@ -585,6 +585,9 @@ ul.information.keibajapan{
 #horseListArea table th{
 	background-color: #D9D9B0;
 }
+#horseListArea .raceListTable table td{
+	height:107px;
+}
 
 .detailArea  table td{
 	height:107px;
@@ -1125,6 +1128,16 @@ ul.information.keibajapan{
 	padding:0 10px 0 10px;
 	margin-bottom:30px;
 }
+
+#aboutContent .txtContent dt{
+	font-size: 110%;
+}
+
+#aboutContent .txtContent dd{
+	margin-bottom: 10px;
+	border-bottom:1px dotted #CCC;
+}
+
 
 #aboutContent #kojiProfileArea{
 	width:100%;
