@@ -11,3 +11,7 @@ CakePHP 2
 /vendors/*
 
 /app/webroot/img/profileImg/*
+/app/Config/*
+
+.htpasswd
+
