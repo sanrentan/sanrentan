@@ -77,6 +77,7 @@ class ManageRacesController extends AdminController {
 		} 
 
 		//レース
+		$raceData = $this->Race->findById($id);
 
 		//出走表
 
@@ -85,6 +86,8 @@ class ManageRacesController extends AdminController {
 		//配当金
 
 		//レース結果
+
+		$this->set(compact('raceData'));
 
 	}
 
