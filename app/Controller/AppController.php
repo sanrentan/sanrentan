@@ -149,20 +149,7 @@ class AppController extends Controller {
     public function getRss($key,$url,$num=5,$css=1){
 
         $cache = Cache::read($key,"rss");
-        if($cache){
-            //キャッシュがあれば
-            $xml = simplexml_load_string($cache, 'SimpleXMLElement', LIBXML_NOCDATA);
-        }else{
-            //なければRSSを取得
-            $fileData = file_get_contents($url);
-            if(!empty($fileData)){
-                Cache::write($key,$fileData,"rss");
-                $cache = Cache::read($key,"rss");
-                $xml = simplexml_load_string($cache, 'SimpleXMLElement', LIBXML_NOCDATA);
-            }else{
-                return null;
-            }
-        }
+        $xml = simplexml_load_string($cache, 'SimpleXMLElement', LIBXML_NOCDATA);
         $json = json_encode($xml);
         $tmpArray = json_decode($json,TRUE);
 
