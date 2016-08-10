@@ -28,6 +28,17 @@ class LoginHistory extends AppModel {
 		$this->create();
 		$this->save($loginData);
 
-		//TODO この後にユーザーのログイン回数を更新したい
+		//ユーザーのログイン回数の更新
+		$this->User = ClassRegistry::init('User');
+		$user = $this->User->findById($user_id);
+
+		if(empty($user['User']['login_count'])){
+			$login_count = 1;
+		}else{
+			$login_count = $user['User']['login_count']+1;
+		}
+
+		$this->User->id = $user_id;
+		$this->User->saveField('login_count',$login_count);
 	}
 }
