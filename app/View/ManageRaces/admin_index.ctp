@@ -22,9 +22,9 @@
 			<td><?php echo $viewArr[$data["Race"]["view_flg"]];?></td>
 			<td><?php echo $acceptArr[$data["Race"]["accepting_flg"]];?></td>
 			<td><?php echo $kojiharuArr[$data["Race"]["kojiharu_flg"]];?></td>
-			<td><a href="./race_view/<?php echo $data['Race']['id'];?>">詳細</a></td>
-			<td><a href="./race_edit/<?php echo $data['Race']['id'];?>">編集</a></td>
-			<td><?php echo $this->Html->link('削除', './race_delete/'.$data['Race']['id'], array('title'=>'削除'), '削除しますがよろしいですか？');?></td>
+			<td><a href="/admin/manageRaces/race_view/<?php echo $data['Race']['id'];?>">詳細</a></td>
+			<td><a href="/admin/manageRaces/race_edit/<?php echo $data['Race']['id'];?>">編集</a></td>
+			<td><?php echo $this->Html->link('削除', '/admin/manageRaces/race_delete/'.$data['Race']['id'], array('title'=>'削除'), '削除しますがよろしいですか？');?></td>
 		</tr>
 	<?php endforeach;?>
 </table>
