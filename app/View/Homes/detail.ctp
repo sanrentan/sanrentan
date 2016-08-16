@@ -75,53 +75,20 @@
 		<div class="clearfix"></div>
 	<?php endif;?>
 
+	<?php //広告 ?>
+	<div class="sp">
+		<?php echo $this->element('adMini'); ?>
+	</div>
+
+
 </div>
 
 
-<!--
-<div id="raceDetailTxt">
-	<div id="detailLeft">
-		<p><?php echo date("Y年m月d日",strtotime($raceData["Race"]["race_date"]));?>　</p>
-		<p><?php echo $raceData["Race"]["place"];?>　<?php echo $raceData["Race"]["full_name"];?><?php if($raceData["Race"]["grade"]>=1):?> (G<?php echo $raceData["Race"]["grade"];?>)<?php endif;?>　<?php echo $typeArr[$raceData["Race"]["type"]];?>　<?php echo $raceData["Race"]["distance"];?>m　<?php echo $turnArr[$raceData["Race"]["turn"]];?></p>
-		<p><?php echo $raceData["Race"]["note"];?></p>
-		<p>発走時刻：<?php echo date("H時i分",strtotime($raceData["Race"]["race_date"]));?></p>
-		<p><a href="http://keiba.yahoo.co.jp/race/denma/<?php echo $raceData['Race']['html_id'];?>/" target="_blank">レース詳細（外部サイト)</a></p>
-		<p class="red2"><?php if($timeOver):?>予想受付が終了しました。<?php elseif(!$raceData["Race"]["accepting_flg"]):?>受付開始までお待ちください<?php elseif(empty($myData)):?>下記出走表から５頭選択してください。<?php else:?>既に予想を登録済みです。<?php endif;?></p>
-		<?php if(empty($user)):?><p class="red2">※予想をするためには<a href="/login">ログイン</a>または<a href="/regist">無料会員登録</a>を行ってください。</p><?php endif;?>
-		<?php if(!empty($errorMessage)):?><p class="red2"><?php echo $errorMessage;?></p><?php endif;?>
-		<p style="font-size:80%;">※単勝オッズはリアルタイム更新ではない為ご注意ください。</p>
-	</div>
-	<div id="detailRight">
-		<div class="confirmSelect">
-			<?php if(!empty($myData)):?>
-				<ul class="selectList">
-					<p id="myList">あなたの予想</p>
-					<dl>
-						<?php foreach($myData["selectData"] as $key=>$data):?>
-							<dt class="wk<?php echo $data["RaceCard"]['wk'];?>"><?php echo $data["RaceCard"]["uma"];?></dt><dd class="wkname"><?php echo $data["RaceCard"]["name"];?></dd>
-						<?php endforeach;?>
-					</dl>
-					<div class="clearfix"></div>
-				</ul>
-			<?php endif;?>
-			<?php if(!empty($kojiharuData)):?>
-				<ul class="selectList">
-					<p id="kojiharuList">こじはるの予想</p>
-					<dl>
-						<?php foreach($kojiharuData["selectData"] as $key=>$data):?>
-							<dt class="wk<?php echo $data["RaceCard"]['wk'];?>"><?php echo $data["RaceCard"]["uma"];?></dt><dd class="wkname"><?php echo $data["RaceCard"]["name"];?></dd>
-						<?php endforeach;?>
-					</dl>
-					<div class="clearfix"></div>
-				</ul>
-			<?php endif;?>
-			<div class="clearfix"></div>
-		</div>
-
-	</div>
-	<div class="clearfix"></div>
+<div class="pc">
+		<?php //広告よこなが ?>
+	<?php echo $this->element('adWidth'); ?>
 </div>
--->
+
 
 <div id="mainContent">
 	<div id="horseListArea">
@@ -217,7 +184,7 @@
 	<div id="leftContent">
 		<div id="userArea">
 			<p class="titleLabel" style="margin-bottom:5px;">みんなの予想</p>
-			<div class="mainContent2">
+			<div class="mainContent2 detailpage">
 
 				<?php if(!empty($otherExpectData)):?>
 					<div id="userListArea">
@@ -269,6 +236,10 @@
 
 		<?php //公式twitter ?>
 		<?php echo $this->element('twitter_timeline'); ?>
+
+		<?php //PR ?>
+		<?php echo $this->element('pr'); ?>
+
 	</div>
 	<div class="clearfix"></div>
 

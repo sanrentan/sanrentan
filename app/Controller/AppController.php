@@ -125,14 +125,14 @@ class AppController extends Controller {
         $this->set("title_tag",$this->title_tag);
 
         //広告タグを取得
-        //$adTags1 = $this->AdTag->getAdTag(1,1);//横長
-        $adTags2 = $this->AdTag->getAdTag(2,1);//正方形
-        //$adTags3 = $this->AdTag->getAdTag(3,1);//ミニバナー
+        $adTags1 = $this->AdTag->getAdTag(1,1);//横長
+        $adTags2 = $this->AdTag->getAdTag(2,2);//正方形
+        $adTags3 = $this->AdTag->getAdTag(3,1);//ミニバナー
         //$adTags5 = $this->AdTag->getAdTag(5,2);//amazon
 
         //$adType = array(1,2,3);
         //$adTags = $this->AdTag->getAdTag($adType,2);//フリー
-        $this->set(compact("adTags2"));
+        $this->set(compact("adTags1","adTags2","adTags3"));
         //$this->set(compact("adTags1","adTags2","adTags3","adTags5"));
 
 

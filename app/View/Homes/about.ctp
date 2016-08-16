@@ -6,6 +6,12 @@
 	<div id="mainBannerAreaRight" class="pc">
 		<?php echo $this->element('recentKojiharu'); ?>
 	</div>
+
+	<?php //広告 ?>
+	<div class="sp">
+		<?php echo $this->element('adMini'); ?>
+	</div>
+
 	<div class="clearfix"></div>
 </div>
 
@@ -76,10 +82,20 @@
 		</div>
 	</div>
 	<div id="rightContent">
+
+		<?php //広告 ?>
+		<div class="pc">
+			<?php echo $this->element('ad'); ?>
+		</div>
+
 		<?php echo $this->element('ranking'); ?>
 
 		<?php //公式twitter ?>
 		<?php echo $this->element('twitter_timeline'); ?>
+
+		<?php //PR ?>
+		<?php echo $this->element('pr'); ?>
+
 	</div>
 	<div class="clearfix"></div>
 </div>

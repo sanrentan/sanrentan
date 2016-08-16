@@ -1,5 +1,9 @@
 <div id="mainContent">
 	<div id="leftContent">
+		<div class="sp">
+				<?php //広告mini ?>
+			<?php echo $this->element('adMini'); ?>
+		</div>
 		<div id="userArea">
 			<p class="titleLabel">ログイン</p>
 			<div class="mainContent2">
@@ -33,8 +37,14 @@
 
 	</div>
 	<div id="rightContent">
+		<?php //ad ?>
+		<div class="pc">
+			<?php echo $this->element('ad'); ?>
+		</div>
 		<?php //公式twitter ?>
 		<?php echo $this->element('twitter_timeline'); ?>
+		<?php //PR ?>
+		<?php echo $this->element('pr'); ?>
 	</div>
 	<div class="clearfix"></div>
 </div>	

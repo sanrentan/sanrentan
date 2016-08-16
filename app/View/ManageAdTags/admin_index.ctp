@@ -11,6 +11,9 @@
 	</select>
 </form>
 
+
+<p style="color:#FF0000;">※ランクを0にすると表示しません</p>
+
 <?php echo $this->element('pager'); ?>
 <table>
 	<tr><th>ID</th><th>名前</th><th>タイプ</th><th>ランク</th><th>メモ</th><th>登録日</th><th>編集</th><th>削除</th></tr>

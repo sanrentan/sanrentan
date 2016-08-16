@@ -33,8 +33,14 @@
 	</div>
 
 	<div id="rightContent">
+		<?php //ad ?>
+		<div class="pc">
+			<?php echo $this->element('ad'); ?>
+		</div>
 		<?php //公式twitter ?>
 		<?php echo $this->element('twitter_timeline'); ?>
+		<?php //PR ?>
+		<?php echo $this->element('pr'); ?>
 	</div>
 	<div class="clearfix"></div>
 </div>

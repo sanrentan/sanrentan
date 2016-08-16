@@ -69,41 +69,20 @@
 		<?php endif;?>
 		<div class="clearfix"></div>
 	<?php endif;?>
-</div>
 
-<!--
-<div id="raceDetailTxt">
-	<div id="detailRight">
-		<div class="confirmSelect">
-			<?php if(!empty($myData)):?>
-				<ul class="selectList">
-					<p id="myList">あなたの予想</p>
-					<dl>
-						<?php foreach($myData["selectData"] as $key=>$data):?>
-							<dt class="wk<?php echo $data["RaceCard"]['wk'];?>"><?php echo $data["RaceCard"]["uma"];?></dt><dd class="wkname"><?php echo $data["RaceCard"]["name"];?></dd>
-						<?php endforeach;?>
-					</dl>
-					<div class="clearfix"></div>
-				</ul>
-			<?php endif;?>
-			<?php if(!empty($kojiharuData)):?>
-				<ul class="selectList">
-					<p id="kojiharuList">こじはるの予想</p>
-					<dl>
-						<?php foreach($kojiharuData["selectData"] as $key=>$data):?>
-							<dt class="wk<?php echo $data["RaceCard"]['wk'];?>"><?php echo $data["RaceCard"]["uma"];?></dt><dd class="wkname"><?php echo $data["RaceCard"]["name"];?></dd>
-						<?php endforeach;?>
-					</dl>
-					<div class="clearfix"></div>
-				</ul>
-			<?php endif;?>
-			<div class="clearfix"></div>
-		</div>
 
+	<?php //広告 ?>
+	<div class="sp">
+		<?php echo $this->element('adMini'); ?>
 	</div>
-	<div class="clearfix"></div>
+
 </div>
--->
+
+<div class="pc">
+		<?php //広告よこなが ?>
+	<?php echo $this->element('adWidth'); ?>
+</div>
+
 
 <div id="mainContent">
 	<div id="horseListArea">
@@ -205,6 +184,11 @@
 
 		<?php //公式twitter ?>
 		<?php echo $this->element('twitter_timeline'); ?>
+
+		<?php //PR ?>
+		<?php echo $this->element('pr'); ?>
+
+
 	</div>
 	<div class="clearfix"></div>
 </div>

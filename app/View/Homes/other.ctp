@@ -59,7 +59,20 @@
 
 </script>
 
+
 <div id="mainBannerArea">
+
+	<div class="mypageAd">
+		<div class="pc">
+			<?php //広告よこなが ?>
+			<?php echo $this->element('adWidth'); ?>
+		</div>
+		<div class="sp">
+			<?php //広告mini ?>
+			<?php echo $this->element('adMini'); ?>
+		</div>
+	</div>
+
 	<div id="mainBannerAreaLeft2">
 		<p class="titleLabel"><?php echo $otherUser["User"]["nickname"];?>さんの予想記録</p>
 		<div id="profileArea">
@@ -101,8 +114,8 @@
 		<?php if(!empty($myResultData)):?>
 			<p class="subtitle"><?php echo $year;?>年の戦績：<?php echo $myResultData["ExpectationResult"]["win"];?>勝<?php echo $myResultData["ExpectationResult"]["lose"];?>敗　収支 <?php if($myResultData["ExpectationResult"]["price"]>0):?>+<?php endif;?><?php echo number_format($myResultData["ExpectationResult"]["price"]);?>円</p>
 
-			<div class="tableArea">
-				<table border="1" class="pc">
+			<div class="tableArea pc">
+				<table border="1">
 					<tr><th>No.</th><th width="80">日付</th><th>レース名</th><th width="180">結果<br>１着/２着/３着</th><th width="100">配当金</th><th width="130">予想</th><th width="80">結果</th></tr>
 					<?php foreach($raceData as $key=>$data):?>
 						<tr <?php if($key%2==0):?>class="row2"<?php endif;?>>
@@ -164,7 +177,7 @@
 			</div>
 
 
-			<div class="sp_resultArea sp">
+			<div class="tableArea sp">
 				<ul>
 					<?php foreach($raceData as $key=>$data):?>
 						<li>
@@ -229,5 +242,14 @@
 			まだ今年のレースの予想をしていません。
 		<?php endif;?>
 	</div>
+	<div id="rightContent" class="sp">
+		<?php //ranking ?>
+		<?php echo $this->element('ranking'); ?>
+		<?php //公式twitter ?>
+		<?php echo $this->element('twitter_timeline'); ?>
+		<?php //PR ?>
+		<?php echo $this->element('pr'); ?>
+	</div>
+	<div class="clearfix"></div>
 
 </div>

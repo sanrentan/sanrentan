@@ -67,7 +67,7 @@
 			<div id="favoUserList">
 				<?php if(!empty($favoList)):?>
 					<?php foreach($favoList as $key=>$data):?>
-						<div class="favoUser type<?php echo $key%3;?>">
+						<div class="favoUser type<?php echo $key%3;?> sp_type<?php echo $key%2;?>">
 							<div class="favoUserImg">
 								<a href="/other/<?php echo $data['User']['id'];?>">
 									<?php if($data['User']['profile_img']):?>
@@ -84,7 +84,7 @@
 							</div>
 							<div class="clearfix"></div>
 							<div class="favoUserName"><a href="/other/<?php echo $data['User']['id'];?>"><?php echo $data["User"]["nickname"];?></a></div>
-							<div class="favoUserDetail">
+							<div class="favoUserDetail pc">
 								今年の戦績：
 								<?php if($data["ExpectationResult"]["win"]!=0||$data["ExpectationResult"]["lose"]!=0):?>
 									<?php echo $data["ExpectationResult"]["win"];?>勝
@@ -94,7 +94,18 @@
 									なし
 								<?php endif;?>
 							</div>
-							<div class="favoUserMessage">
+							<div class="favoUserDetail sp">
+								今年の戦績<br>
+								<?php if($data["ExpectationResult"]["win"]!=0||$data["ExpectationResult"]["lose"]!=0):?>
+									<?php echo $data["ExpectationResult"]["win"];?>勝
+									<?php echo $data["ExpectationResult"]["lose"];?>敗<br>
+									収支：
+									<?php if($data["ExpectationResult"]["price"]>0):?>+<?php endif;?><?php echo number_format($data["ExpectationResult"]["price"]);?>円
+								<?php else:?>
+									なし
+								<?php endif;?>
+							</div>
+							<div class="favoUserMessage pc">
 								<?php echo $data["User"]["message"];?>
 							</div>
 						</div>
@@ -108,8 +119,12 @@
 
 	</div>
 	<div id="rightContent">
+		<?php //ranking ?>
+		<?php echo $this->element('ranking'); ?>
 		<?php //公式twitter ?>
 		<?php echo $this->element('twitter_timeline'); ?>
+		<?php //PR ?>
+		<?php echo $this->element('pr'); ?>
 	</div>
 	<div class="clearfix"></div>
 </div>

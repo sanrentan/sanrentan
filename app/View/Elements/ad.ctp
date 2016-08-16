@@ -1,9 +1,7 @@
-		<div class="adArea">
+		<div class="adArea main">
 				<ul>
-					<?php foreach($adTags2 as $key=>$data):?>
-						<li>
-							<?php echo $data['AdTag']['tag'];?>
-						</li>
-					<?php endforeach;?>
+					<li>
+						<?php echo $adTags2[0]['AdTag']['tag'];?>
+					</li>
 				</ul>
 		</div>

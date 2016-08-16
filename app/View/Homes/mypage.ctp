@@ -130,4 +130,11 @@
 
 	</div>
 
+	<div id="rightContent" class="sp">
+		<?php echo $this->element('twitter_timeline'); ?>
+		<?php //PR ?>
+		<?php echo $this->element('pr'); ?>
+	</div>
+	<div class="clearfix"></div>
+
 </div>

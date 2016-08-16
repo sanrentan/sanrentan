@@ -8,7 +8,18 @@
 	<div id="mainBannerAreaRight">
 		<?php echo $this->element('recentKojiharu'); ?>
 	</div>
+
+	<?php //広告 ?>
+	<div class="sp">
+		<?php echo $this->element('adMini'); ?>
+	</div>
+
 	<div class="clearfix"></div>
+</div>
+
+<div class="pc">
+		<?php //広告よこなが ?>
+	<?php echo $this->element('adWidth'); ?>
 </div>
 
 
@@ -163,23 +174,16 @@
 
 		<?php //公式twitter ?>
 		<?php echo $this->element('twitter_timeline'); ?>
-
-		<div class="rightContentArea">
-			<div class="rightMainContent">
-
-				<div class="adArea pc">
-					<ul>
-						<?php foreach($adTags2 as $key=>$data):?>
-							<li>
-								<?php echo $data['AdTag']['tag'];?>
-							</li>
-						<?php endforeach;?>
-					</ul>
-				</div>
-			</div>
-		</div>
+		<?php //広告正方形 ?>
+		<?php echo $this->element('pr'); ?>
 
 	</div>
 	<div class="clearfix"></div>
 
+</div>
+
+
+<div class="pc">
+		<?php //広告よこなが ?>
+	<?php echo $this->element('adWidth'); ?>
 </div>

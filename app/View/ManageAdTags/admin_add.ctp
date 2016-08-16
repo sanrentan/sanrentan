@@ -1,5 +1,5 @@
 <p class="titleLabel">広告登録</p>
-
+<p style="color:#FF0000;">※ランクを0にすると表示しません</p>
 <div class="userForm">
 	<?php echo $this->Form->create('AdTag'); ?>
 	    <fieldset>

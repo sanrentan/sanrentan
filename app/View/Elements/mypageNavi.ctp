@@ -1,4 +1,17 @@
 <div id="mainBannerArea">
+
+	<div class="mypageAd">
+		<div class="pc">
+			<?php //広告よこなが ?>
+			<?php echo $this->element('adWidth'); ?>
+		</div>
+		<div class="sp">
+			<?php //広告mini ?>
+			<?php echo $this->element('adMini'); ?>
+		</div>
+	</div>
+
+	
 	<div id="mainBannerAreaLeft2">
 		<p class="titleLabel"><?php echo $title;?></p>
 		<div id="mypageNavi">
@@ -41,6 +54,7 @@
 		</div>
 
 	</div>
+
 	<div class="clearfix"></div>
 </div>
 

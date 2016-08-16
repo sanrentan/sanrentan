@@ -866,8 +866,8 @@ ul.information.keibajapan{
 
 #profileArea{
 	margin:10px;
-	background-color: #FFEFD5;
-	border:2px solid #FFEFD5;
+	background-color: #f5f8fa;
+	border:2px solid #f5f8fa;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
@@ -916,6 +916,7 @@ ul.information.keibajapan{
 	//border: 2px solid #f1ce27;
 	background-color: #FFF;
 }
+
 
 #mainContent #contactArea,
 #mainContent #userArea{	
@@ -1296,6 +1297,7 @@ ul.information.keibajapan{
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
+    max-height: 93px;
 }
 
 #mainContent #favoUserList .favoBtn{
@@ -1308,6 +1310,7 @@ ul.information.keibajapan{
 }
 #mainContent #favoUserList .favoUserName a{
 	color:#000000;
+	text-decoration: underline;
 }
 #mainContent #favoUserList .favoUserMessage{
 	padding:10px;
@@ -1350,6 +1353,10 @@ ul.information.keibajapan{
 }
 #rightContent .ranking #rankingContent table{
 	margin-bottom: 0;
+}
+
+#rightContent .ranking #rankingContent table td{
+	max-width: 106px;
 }
 
 .ranking img{
@@ -1400,3 +1407,21 @@ ul.information.keibajapan{
 	margin-bottom: 10px;
 }
 
+
+.blogAdWidth{
+	text-align:center;
+	margin-top:20px;
+}
+
+.mypageAd .blogAdWidth{
+	margin-top:0 !important;
+	margin-bottom:25px;
+}
+
+.blogAdWidth ul{
+	margin-left:0 !important;
+}
+
+.blogAdWidth li{
+	list-style: none;
+}
