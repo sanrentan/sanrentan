@@ -46,6 +46,12 @@
 	  ga('send', 'pageview');
 
 	</script>
+
+
+	<script type="text/javascript">
+	var nend_params = {"media":41672,"site":225960,"spot":644214,"type":2,"oriented":1};
+	</script>
+	<script type="text/javascript" src="https://js1.nend.net/js/nendAdLoader.js"></script>	
 </head>
 
 <body>
