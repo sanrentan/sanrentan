@@ -306,6 +306,8 @@ class ResultExpectationShell extends AppShell {
                 $ngCount++;
             }
 
+            $data['Expectation']['modified'] = date('Y-m-d H:i:s');
+
             $this->Expectation->save($data);
             $this->ExpectationResult->save($userExpectation);
         }
