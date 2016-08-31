@@ -919,7 +919,8 @@ ul.information.keibajapan{
 
 
 #mainContent #contactArea,
-#mainContent #userArea{	
+#mainContent #userArea,	
+#mainContent #articleContent{	
 	border: 1px solid #3ac048;
 	background-color: #FFF;	
 }
@@ -1424,4 +1425,23 @@ ul.information.keibajapan{
 
 .blogAdWidth li{
 	list-style: none;
+}
+
+
+
+#articleContent p{
+	padding:0 10px 0 10px;
+	margin-bottom:30px;
+	font-size: 16px;
+	color:#444444;
+}
+
+#articleContent .titleLabel{
+	font-size: 18px;
+    padding: 10px !important;
+    padding-left: 27px !important;
+    color: #FFF;
+    background-image: url("../img/common/label_title.png");
+    background-repeat: no-repeat;
+    margin-bottom: 20px;
 }
