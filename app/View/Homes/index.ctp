@@ -50,6 +50,15 @@
 			</div>
 
 			<div class="listArea">
+				<h3 class="titleLabel">特集</h3>
+				<ul class="raceList">
+						<li>
+							<span class="racePlace"><a href="/article/1">8月のこじはる３連単５頭ボックス&ランキング発表！</a> <span class="kojiharuRace">NEW</span></span><br>
+						</li>
+				</ul>
+			</div>
+
+			<div class="listArea">
 				<h3 class="titleLabel">過去５レースの結果（※当サイト受付分のみ）</h3>
 				<ul class="raceList pc">
 					<?php foreach($recentRace as $key=>$data):?>

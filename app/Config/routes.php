@@ -50,6 +50,8 @@
 	Router::connect('/twitter_login', array('controller' => 'users', 'action' => 'twitter_login'));
 
 
+	Router::connect('/article/*', array('controller' => 'article', 'action' => 'index'));
+
 
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
