@@ -14,7 +14,7 @@
 	<?php foreach($raceList as $key=>$data):?>
 		<tr>
 			<td><?php echo $data["Race"]["id"];?></td>
-			<td><?php echo date("Y年m月d日",strtotime($data["Race"]["race_date"]));?></td>
+			<td><?php echo date("Y年m月d日 H時i分",strtotime($data["Race"]["race_date"]));?></td>
 			<td><?php echo $data["Race"]["place"];?></td>
 			<td><?php echo $data["Race"]["name"];?><?php if($data["Race"]["grade"]>=1):?>(G<?php echo $data["Race"]["grade"];?>)<?php endif;?></td>
 			<td><?php echo $data["Race"]["full_name"];?></td>
