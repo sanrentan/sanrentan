@@ -28,9 +28,10 @@ class MonthlyResultShell extends AppShell {
         }else{
             $target_month = $this->params["month"];
         }
+        $this->__log('target:'.$target_month);
 
         $start = date('Y-m-d', strtotime('first day of ' . $target_month))." 00:00:00";
-        $end = date('Y-m-d', strtotime('last day of ' . $target_month))." 23:59:59";
+        $end   = date('Y-m-d', strtotime('last day of ' . $target_month))." 23:59:59";
 
         //対象月のレースを取得
         $options = array(
@@ -43,11 +44,15 @@ class MonthlyResultShell extends AppShell {
             'recursive' => -1,
         );
         $race_list = $this->Race->find('list',$options);
-        //count($race_list);レース数
 
+        if(empty($race_list)){
+            $this->__log('レースが存在しません',true);
+        }
 
-        $result_data = array();
-
+        //最低このレース数の予想が必要（半分）
+        $target_race_count = floor(count($race_list)/2);
+        $target_race_count = 2;
+        $target_race_count = 2;
 
         //レース結果を取得
         $options = array(
@@ -59,8 +64,11 @@ class MonthlyResultShell extends AppShell {
           );
         $race_result = $this->RaceResult->find('list',$options);
 
-        print_r($race_result);
+        if(empty($race_result)){
+            $this->__log('レース結果が存在しません',true);
+        }
 
+        print_R($race_result);
 
         //予想データを取得
         $options = array(
@@ -112,9 +120,14 @@ class MonthlyResultShell extends AppShell {
 
         $user_array = array();
         foreach($result_data as $key => $data){
-            if($key>=5){
+            if(count($user_array)>=5){
                 break;
             }
+
+            if($data['count'] < $target_race_count){
+                continue;
+            }
+
             //ユーザーの取得
             $user = $this->User->findById($data['user_id']);
             $tmp_data = array(
