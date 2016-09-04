@@ -537,9 +537,15 @@
 		text-align: center;
 	}
 
+	.blogAdWidth{
+		height: auto;
+		margin-top: 0;
+		margin-bottom: 10px;
+	}
+
 	.blogAdWidth ul{
 		margin-left:0;
-		margin-bottom:20px;
+		margin-bottom:0;
 	}
 
 	#profileArea{

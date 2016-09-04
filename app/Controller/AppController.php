@@ -144,6 +144,13 @@ class AppController extends Controller {
 
         $this->set(compact("recentKojiharu","rankedUsers"));
 
+
+        $this->set('ad_ad',Configure::read('Base.ad_ad'));
+        $this->set('ad_pr',Configure::read('Base.ad_pr'));
+        $this->set('ad_mini',Configure::read('Base.ad_mini'));
+        $this->set('ad_width',Configure::read('Base.ad_width'));
+
+
     }
 
     public function getRss($key,$url,$num=5,$css=1){

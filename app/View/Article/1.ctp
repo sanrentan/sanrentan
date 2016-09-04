@@ -1,7 +1,12 @@
 <div id="mainContent">
 	<div id="leftContent">
+		<div class="sp">
+				<?php //広告mini ?>
+			<?php echo $this->element('adMini'); ?>
+		</div>
 		<div id="articleContent">
-			<p class="titleLabel">2016年8月のAKBこじはる3連単5頭ボックス</p>
+			<p class="titleLabel pc">2016年8月のAKBこじはる3連単5頭ボックス</p>
+			<p class="titleLabel sp" style="font-size:110%;">2016年8月のAKBこじはる3連単5頭ボックス</p>
 			<p>暑かった8月が終わります！リオ五輪も競馬も盛り上がりました！<br>夏競馬もいよいよ今週末の新潟記念を残すのみです！</p>
 			<p>さて当サイトの初の特集記事です！<br>競馬といえばレース前に予想する記事が多いですが、<br>当サイトでは8月の競馬を振り返りたいと思います。笑<br>(今更・・・と言わないで!!笑)</p>
 			<p>まずはAKBのこじはるさん！</p>
