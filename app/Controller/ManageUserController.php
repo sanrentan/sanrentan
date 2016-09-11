@@ -102,20 +102,37 @@ class ManageUserController extends AdminController {
 
 	}
 
-	//レース削除
-	public function admin_race_delete($id){
-        $this->Race->id = $id;
-        if (!$this->Race->exists()) {
-	    	$this->Session->setFlash("レースが存在しません");
-            return $this->redirect("./index");
-        }
+	//集計
+	public function admin_report($year=null){
+		if(empty($year)){
+			$year = date('Y');
+		}
 
-		$this->Race->saveField('is_deleted', 1);  
-		$this->Race->saveField('deleted_date', date("Y-m-d H:i:s"));  
-        $this->Flash->success(__('削除しました'));
-        return $this->redirect("./index");
-	}
+		$start = $year.'-01-01 00:00:00';
+		$end   = $year.'-12-31 23:59:59';
 
 
+		$this->set('year',$year);
+
+
+		$options = array(
+			'fields' => array('id','created'),
+			'conditions' => array(
+				'id >= ' => 1000,
+				'username not like' => '%yama%',
+				'created between ? and ?' => array($start,$end),
+			),
+			'recursive' => -1,
+			'order' => 'id asc'
+		);
+		$users = $this->User->find('all',$options);
+
+		$result = array();
+		foreach($users as $key=>$data){
+			$result[substr($data['User']['created'], 0, 7)]++;
+		}
+		$this->set('result',$result);
+		$this->set('total',count($users));
+	} 
 
 }

@@ -4,6 +4,13 @@
 
 
 <div>
+	<a href="/admin/manageUser/report">集計(負荷かかるので注意)</a>
+</div>
+
+<br>
+<br>
+
+<div>
 ここに検索エリアをつける
 </div>
 
