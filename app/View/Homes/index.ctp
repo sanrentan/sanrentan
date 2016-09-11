@@ -50,11 +50,14 @@
 			</div>
 
 			<div class="listArea">
-				<h3 class="titleLabel">特集</h3>
+				<h3 class="titleLabel">特集記事</h3>
 				<ul class="raceList">
+					<?php foreach($articleData as $key=>$data):?>
 						<li>
-							<span class="racePlace"><a href="/article/1">8月のこじはる３連単５頭ボックス&ランキング発表！</a> <span class="kojiharuRace">NEW</span></span><br>
+							<?php $target = date("Y-m-d H:i:s",strtotime("+6 day" ,strtotime($data['Article']['start_date'])));?>
+							<span class="racePlace"><a href="/article/<?php echo $data['Article']['id'];?>"><?php echo $data['Article']['title'];?></a><?php if($target>=date('Y-m-d H:i:s')):?> <span class="kojiharuRace">NEW</span><?php endif;?></span><br>
 						</li>
+					<?php endforeach;?>
 				</ul>
 			</div>
 

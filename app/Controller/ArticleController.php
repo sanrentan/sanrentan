@@ -38,20 +38,105 @@ class ArticleController extends AppController {
  * @var array
  */
     public $uses = array(
+        'Article', 'ArticleCategory', 'Race'
     );
 
+    public $components = array(
+        'Paginator',
+    );
 
-    //トップページ
+    //ブログページ
     public function index(){
-        $this->meta_description = "AKBこじはるさんの3連単5頭ボックスの予想サイトです。当ページでは2016年8月の予想結果と会員様のランキングを発表し8月の競馬を振り返りたいと思います。";
-        $this->meta_keywords = "こじはる,3連単,競馬予想,2016年8月";
 
-        //print_R($this->request->params);exit;
+        $this->meta_keywords = "３連単,こじはる,競馬予想";
 
 
+        if(empty($this->request->params['id'])||!is_numeric($this->request->params['id'])){
+            //トップページへリダイレクト
+            $this->redirect('/');
+        }
 
-        //$this->set(compact("newsRss", "expectRss","matomeRss","infoData"));
-        $this->render(1);
+        $article_id = $this->request->params['id'];
+
+        //記事を取得
+        $article = $this->Article->getArticle($article_id);
+
+        if(empty($article)){
+            //トップページへリダイレクト
+            $this->redirect('/');
+        }
+
+        //カテゴリーを取得
+        $article_category = $this->ArticleCategory->findById($article['Article']['article_category_id']);
+
+        $this->meta_keywords .= ','.$article_category['ArticleCategory']['name'];
+        $this->meta_description = $article['Article']['title'].' 当サイトオリジナル記事、こじはるさんの３連単５頭ボックスの'.$article_category['ArticleCategory']['name'].'ページです。';
+
+        //レース取得
+        if(!empty($article['Article']['race_id'])){
+            $options = array(
+                'fields' => array('id','name'),
+                'conditions' => array(
+                    'id' => $article['Article']['race_id']
+                ),
+                'recursive' => -1
+            );
+
+            $race = $this->Race->find('first',$options);
+            $this->set('race', $race);
+    
+            $this->title_tag = $race['Race']['name'].' '.$article_category['ArticleCategory']['name'];
+            $this->meta_keywords .= ','.$race['Race']['name'];
+            $this->meta_description = $article['Article']['title'].' 当サイトオリジナル記事、こじはるさんの３連単５頭ボックスの'.$race['Race']['name'].'の'.$article_category['ArticleCategory']['name'].'ページです。';
+        }
+
+
+        $this->set(compact('article', 'article_category'));
+        //$this->render(1);
+    }
+
+    //カテゴリーの記事一覧
+    public function category($category_id=null){
+
+        if(empty($category_id)||!is_numeric($category_id)){
+            //トップページへリダイレクト
+            $this->redirect('/');
+        }
+
+        //対象のカテゴリーが存在するか？
+        $category = $this->ArticleCategory->findById($category_id);
+        if(empty($category)){
+            //トップページへリダイレクト
+            $this->redirect('/');
+        }
+
+        //対象のカテゴリ内の記事一覧を取得
+        $this->Paginator->settings = array(
+            'fields' => array('id', 'title', 'start_date', 'race_id'),
+            'conditions' => array(
+                'article_category_id' => $category_id,
+                'view_flg' => 1,
+                'is_deleted' => 0,
+                'start_date <=' => date('Y-m-d H:i:s')
+            ),
+            "order" => "id desc",
+            "recursive" => "-1",
+            "limit" => 20
+        );
+        $articleList = $this->Paginator->paginate('Article');
+
+        //記事が存在しない場合
+        if(empty($articleList)){
+            //トップページへリダイレクト
+            $this->redirect('/');
+        }
+        
+        $this->title_tag = $category['ArticleCategory']['name'].'一覧';
+        $this->meta_keywords = "３連単,こじはる,競馬予想,".$category['ArticleCategory']['name'];
+        $this->meta_description = '当サイトオリジナル記事、こじはるさんの３連単５頭ボックスの'.$category['ArticleCategory']['name'].'一覧ページです。';
+
+        $this->set(compact('category', 'articleList'));
+
     }
 
 }

@@ -1445,3 +1445,62 @@ ul.information.keibajapan{
     background-repeat: no-repeat;
     margin-bottom: 20px;
 }
+
+#articleContent p.articleTag{
+	font-size: 100%;
+	margin-bottom:20px;
+	color:#999;
+}
+#articleContent .articleTag a{
+	color:#999;
+	text-decoration: underline;
+}
+
+#articleContent .articleList{
+	padding-left:20px;
+	font-size: 120%;
+}
+#articleContent .articleList dt{
+	font-size: 90%;
+	color:#999;
+}
+#articleContent .articleList dd{
+	margin-bottom: 20px;
+}
+#articleContent .articleList dd a{
+	text-decoration: underline;
+	color:#444444;
+}
+#articleContent .articleList .new{
+    font-weight: bold;
+    background-color: #FFF000;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+
+
+#rightContent .article{
+	background-image: url("../img/bg/blue_big_bg.png");
+	padding: 15px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+#rightContent .article #articleContent{
+	padding:10px;
+    border: 2px solid #f1ce27;
+    background-color: #FFF;
+}
+#rightContent .article #articleContent ul{
+	margin:0 0 0 20px;
+}
+#rightContent .article #articleContent li{
+	font-size:120%;
+	margin-bottom: 20px;
+}
+#rightContent .article #articleContent li a{
+	text-decoration:underline;
+}
