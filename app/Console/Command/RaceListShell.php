@@ -471,12 +471,16 @@ class RaceListShell extends AppShell {
         $sortArray = array_multisort ( $key_id , SORT_ASC , $horseList);
 
         $tmpArray = array();
+        $ninki = 1;
         foreach($horseList as $key=>&$data){
-            $data['ninki'] = $key+1;
-            $tmpArray[$data['uma']] = $data;
+            if(is_numeric($data['odds'])){
+                $data['ninki'] = $ninki;
+                $ninki++;
+                $tmpArray[$data['uma']] = $data;
+            }else{
+                $this->__log("オッズが存在しない:". print_r($data,true));
+            }
         }
-
-
 
         //DBに登録
         foreach($cardData as $key => &$data){
