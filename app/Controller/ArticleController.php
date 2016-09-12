@@ -75,7 +75,7 @@ class ArticleController extends AppController {
         //レース取得
         if(!empty($article['Article']['race_id'])){
             $options = array(
-                'fields' => array('id','name'),
+                'fields' => array('id','name','view_flg'),
                 'conditions' => array(
                     'id' => $article['Article']['race_id']
                 ),

@@ -1478,6 +1478,13 @@ ul.information.keibajapan{
     padding-right:10px;
 }
 
+#articleContent p.horseName{
+	margin-bottom:10px;
+	font-size: 140%;
+}
+#articleContent a{
+	text-decoration: underline;
+}
 
 
 #rightContent .article{
