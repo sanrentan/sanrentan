@@ -38,7 +38,7 @@ class ArticleController extends AppController {
  * @var array
  */
     public $uses = array(
-        'Article', 'ArticleCategory', 'Race'
+        'Article', 'ArticleCategory', 'Race', 'ArticleLog'
     );
 
     public $components = array(
@@ -90,6 +90,15 @@ class ArticleController extends AppController {
             $this->meta_description = $article['Article']['title'].' 当サイトオリジナル記事、こじはるさんの３連単５頭ボックスの'.$race['Race']['name'].'の'.$article_category['ArticleCategory']['name'].'ページです。';
         }
 
+	//ログを書き込む
+	$log_data = array();
+	$log_data['article_id'] = $article_id;
+	if(!empty($this->user['id'])){
+		$log_data['user_id'] = $this->user['id'];
+	}
+	$this->ArticleLog->create();
+	$this->ArticleLog->save($log_data);
+	
 
         $this->set(compact('article', 'article_category'));
         //$this->render(1);
