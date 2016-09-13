@@ -50,7 +50,8 @@
 	Router::connect('/twitter_login', array('controller' => 'users', 'action' => 'twitter_login'));
 
 
-	Router::connect('/article/*', array('controller' => 'article', 'action' => 'index'));
+	Router::connect('/article/:id', array('controller' => 'article', 'action' => 'index'),array("id"=>"[0-9]+"));
+	Router::connect('/article/category', array('controller' => 'article', 'action' => 'category'));
 
 
 /**

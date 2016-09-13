@@ -49,7 +49,8 @@ class HomesController extends AppController {
 		'RecentRaceResult',
 		'User',
 		'FavoUser',
-		'Information'
+		'Information',
+		'Article'
 	);
 
     var $helpers = array('Js');
@@ -87,8 +88,10 @@ class HomesController extends AppController {
 		//お知らせを取得
 		$infoData = $this->Information->getInfoList(5);
 
+		//記事を取得取得
+		$articleData = $this->Article->getRecentArticleList(5);
 
-		$this->set(compact("newsRss", "expectRss","matomeRss","infoData"));
+		$this->set(compact('newsRss', 'expectRss', 'matomeRss', 'infoData', 'articleData'));
 
 	}
 

@@ -101,6 +101,7 @@
 					<ul class="navi">
 						<a href="/"><li>HOME</li></a>
 						<a href="/kojiharu_list"><li>こじはる予想</li></a>
+						<a href="/article/category/2"><li>レース特集</li></a>
 						<a href="/about"><li>当サイトについて</li></a>
 						<a href="/contact"><li>お問い合わせ</li></a>
 						<?php if(!empty($user["id"])):?>
