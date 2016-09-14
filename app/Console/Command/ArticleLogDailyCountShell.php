@@ -4,7 +4,7 @@ App::uses('CakeEmail', 'Network/Email');
 //記事の日別アクセス数
 class ArticleLogDailyCountShell extends AppShell {
 
-    public $uses = array('Race', 'Article', 'ArticleLog');
+    public $uses = array('Race', 'Article', 'ArticleLog', 'ArticleDailyCount');
 
     public function getOptionParser() {
         $parser = parent::getOptionParser();
@@ -41,12 +41,32 @@ class ArticleLogDailyCountShell extends AppShell {
             $this->__log("finish ok!");
         }
 
+        $total = 0;
         foreach($logs as $key=>&$data){
             //Articleを取得
             $article = $this->Article->findById($data['ArticleLog']['article_id']);
             $data['ArticleLog']['name'] = $article['Article']['title'];
-        }
 
+            //全体合計
+            $total += $data['ArticleLog']['cnt'];
+
+            //dailyのログテーブルへの保存(すでにあればupdate)
+            $dailyCount = array();
+            $options = array(
+                'conditions' => array(
+                    'article_id' => $data['ArticleLog']['article_id'],
+                    'target_date' => $target_date,
+                )
+            );
+            $dailyCount = $this->ArticleDailyCount->find('first',$options);
+            if(empty($dailyCount)){
+                $this->ArticleDailyCount->create();
+            }
+            $dailyCount['ArticleDailyCount']['article_id'] = $data['ArticleLog']['article_id'];
+            $dailyCount['ArticleDailyCount']['cnt'] = $data['ArticleLog']['cnt'];
+            $dailyCount['ArticleDailyCount']['target_date'] = $target_date;
+            $this->ArticleDailyCount->save($dailyCount);
+        }
 
         //メール送信
         $email = new CakeEmail('smtp'); 
@@ -54,7 +74,7 @@ class ArticleLogDailyCountShell extends AppShell {
         $email->subject( '['.$target_date.'] 記事閲覧数');
         $email->emailFormat('text');
         $email->template('article_daily_log');
-        $email->viewVars(compact('logs', 'target_date'));
+        $email->viewVars(compact('logs', 'target_date', 'total'));
         $email->send();
 
     	$this->__log("finish ok!");
