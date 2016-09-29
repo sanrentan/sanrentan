@@ -18,7 +18,7 @@
 
 			<?php if($article_category['ArticleCategory']['id']==2):?>
 				<?php if($race['Race']['view_flg']==1):?>
-					<p><?php echo $race['Race']['name'];?>の出走表は<a href="/detial/<?php echo $race['Race']['id'];?>">こちら</a>。予想登録も可能です。</p>
+					<p><?php echo $race['Race']['name'];?>の出走表は<a href="/detail/<?php echo $race['Race']['id'];?>">こちら</a>。予想登録も可能です。</p>
 				<?php endif;?>
 				
 				<p class="titleLabel">お知らせ</p>
@@ -33,6 +33,17 @@
 			<p>ぜひ拡散してください*\(^o^)/*</p>
 			<p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.sanrentan-box.com/article/<?php echo $article['Article']['id'];?>" data-text="<?php echo $article['Article']['title'];?>" data-lang="ja" data-size="large" data-hashtags="こじはる３連単">ツイート</a>
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+			</p>
+
+			<p style="text-align:center;">
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<ins class="adsbygoogle"
+			     style="display:inline-block;width:300px;height:250px"
+			     data-ad-client="ca-pub-3842502310763816"
+			     data-ad-slot="8403630688"></ins>
+			<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
 			</p>
 
 		</div>
@@ -50,7 +61,7 @@
 		<?php echo $this->element('twitter_timeline'); ?>
 
 		<?php //PR ?>
-		<?php echo $this->element('pr'); ?>
+		<?php //echo $this->element('pr'); ?>
 
 	</div>
 	<div class="clearfix"></div>

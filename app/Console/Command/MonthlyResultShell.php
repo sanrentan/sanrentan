@@ -68,7 +68,12 @@ class MonthlyResultShell extends AppShell {
             $this->__log('レース結果が存在しません',true);
         }
 
-        print_R($race_result);
+        foreach($race_result as $key=>$data){            
+            $race = $this->Race->findById($key);
+            echo $race['Race']['name'].'(G'.$race['Race']['grade'].') ：　'.$data.'円'.PHP_EOL;
+        }
+
+
 
         //予想データを取得
         $options = array(
