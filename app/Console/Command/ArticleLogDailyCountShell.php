@@ -39,6 +39,7 @@ class ArticleLogDailyCountShell extends AppShell {
         $logs = $this->ArticleLog->find('all',$options);
         if(empty($logs)){
             $this->__log("finish ok!");
+            return;
         }
 
         $total = 0;
@@ -66,6 +67,11 @@ class ArticleLogDailyCountShell extends AppShell {
             $dailyCount['ArticleDailyCount']['cnt'] = $data['ArticleLog']['cnt'];
             $dailyCount['ArticleDailyCount']['target_date'] = $target_date;
             $this->ArticleDailyCount->save($dailyCount);
+
+
+            //Articleのアクセス数を更新
+            $article['Article']['cnt'] += $data['ArticleLog']['cnt'];
+            $this->Article->save($article);
         }
 
         //メール送信
