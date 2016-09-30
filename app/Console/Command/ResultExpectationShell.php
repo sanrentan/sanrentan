@@ -38,7 +38,7 @@ class ResultExpectationShell extends AppShell {
     	$msg = "start shell";
     	$this->__log($msg);
 
-        $mode_array = array(1,2,3,4);
+        $mode_array = array(1,2,3,4,5);
         $mode = $this->params['mode'];
         if(!in_array($mode, $mode_array)){
             $this->__log('modeの値が不正です:'.$mode,true);
@@ -55,6 +55,10 @@ class ResultExpectationShell extends AppShell {
             }elseif($mode==2){
                 //３日以内のレースを取得
                 $start_date = date('Y-m-d H:i:s', strtotime("-3 days"));
+                $end_date   = date('Y-m-d').' 23:59:59';
+            }elseif($mode==5){
+                //本日のレースを取得
+                $start_date = date('Y-m-d').' 00:00:00';
                 $end_date   = date('Y-m-d').' 23:59:59';
             }
 
@@ -87,6 +91,7 @@ class ResultExpectationShell extends AppShell {
             }
         }
 
+
         foreach($race_ids as $key=>$race_id){
             if($mode==1){
                 //レース結果を取得し、予想結果を生成
@@ -101,6 +106,9 @@ class ResultExpectationShell extends AppShell {
             }elseif($mode==4){
                 //緊急時 レース結果詳細のみ
                 $this->get_race_result_detail($race_id,$mode);
+            }elseif($mode==5){
+                //予想数集計のみ
+                $this->calcExpectation($race_id);
             }
         }
 
@@ -327,7 +335,10 @@ class ResultExpectationShell extends AppShell {
             $this->Information->addRaceResultInfo($race_id);
         }
 
-        $this->__log("レース結果と予想結果の登録が完了しました。race_id = ".$race_id.', '.$raceData['Race']['name']);            
+        $this->__log("レース結果と予想結果の登録が完了しました。race_id = ".$race_id.', '.$raceData['Race']['name']);
+
+        //ここまできたら予想人数を更新する
+        $this->calcExpectation($race_id);
 
      }
 
@@ -369,7 +380,7 @@ class ResultExpectationShell extends AppShell {
             return;
         }
 
-        $this->__log("レース結果詳細の登録が完了しました。race_id = ".$race_id.', '.$raceData['Race']['name']);            
+        $this->__log("レース結果詳細の登録が完了しました。race_id = ".$race_id.', '.$raceData['Race']['name']);         
 
     }
 
@@ -487,6 +498,63 @@ class ResultExpectationShell extends AppShell {
 
     }
 
+    //レース予想人数を集計
+    public function calcExpectation($race_id){
+        //レース情報を取得
+        $raceData = $this->Race->findById($race_id);
 
+        if(empty($raceData)){
+            $this->__log('レース情報が存在しません.race_id='.$race_id);
+            return;
+        }
+
+        //レース結果を取得
+        $raceResult = $this->RaceResult->findById($race_id);
+        if(empty($raceResult['RaceResult'])){
+            $this->__log('レース結果が存在しません.race_id='.$race_id);
+            return;
+        }
+
+        //testuserを除外する
+        $test_users = Configure::read('test_users2');
+
+
+        //予想情報を取得
+        $this->Expectation->virtualFields['cnt'] = 0;//これを追加
+        $options = array(
+            'fields' => array('race_id','result','count(*) as Expectation__cnt'),
+            'conditions' => array(
+                'race_id' => $race_id,
+                'not' => array(
+                    'user_id' => $test_users
+                ),
+                'cancel_flg' => 0,
+            ),
+            'group' => array('result')
+        );
+        $expectData = $this->Expectation->find('all',$options);
+
+        $total = 0;
+        $raceResult['RaceResult']['expectation_ok'] = 0;
+        $raceResult['RaceResult']['expectation_ng'] = 0;
+
+        foreach($expectData as $key=>$data){
+
+            if($data['Expectation']['result']==1){
+                $raceResult['RaceResult']['expectation_ok'] = $data['Expectation']['cnt'];
+                $total += $data['Expectation']['cnt'];
+            }elseif($data['Expectation']['result']==2){
+                $raceResult['RaceResult']['expectation_ng'] = $data['Expectation']['cnt'];
+                $total += $data['Expectation']['cnt'];
+            }
+        }
+        $raceResult['RaceResult']['expectation_cnt'] = $total;
+
+        if($this->RaceResult->save($raceResult)){
+            $this->__log('レース予想人数を保存しました.race_id='.$race_id);
+        }else{
+            $this->__log('レース予想人数の保存に失敗しました.race_id='.$race_id);
+        }
+    }
 
 }
