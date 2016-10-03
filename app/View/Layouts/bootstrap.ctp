@@ -48,10 +48,28 @@
 	</script>
 
 
-	<script type="text/javascript">
-	var nend_params = {"media":41672,"site":225960,"spot":644214,"type":2,"oriented":1};
-	</script>
-	<script type="text/javascript" src="https://js1.nend.net/js/nendAdLoader.js"></script>	
+	<?php $adbottomType=1;?>
+	<?php if($adbottomType==0):?>
+		<?php //adsense ?>
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<script>
+		  (adsbygoogle = window.adsbygoogle || []).push({
+		    google_ad_client: "ca-pub-3842502310763816",
+		    enable_page_level_ads: true
+		  });
+		</script>
+
+	<?php else:?>
+		<?php //nend ?>
+		<script type="text/javascript">
+		var nend_params = {"media":41672,"site":225960,"spot":644214,"type":2,"oriented":1};
+		</script>
+		<script type="text/javascript" src="https://js1.nend.net/js/nendAdLoader.js"></script>	
+
+	<?php endif;?>
+
+
+
 </head>
 
 <body>

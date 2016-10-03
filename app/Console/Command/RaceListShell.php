@@ -92,6 +92,12 @@ class RaceListShell extends AppShell {
         }
 
         foreach($race_ids as $key=>$race_id){
+
+            //海外レースは何もしない
+            if(in_array($race_id, Configure::read('sp_race'))){
+                continue;
+            }
+
             if($mode==1){
                 //出走表を取得
                 $this->get_race_data($race_id,$mode);

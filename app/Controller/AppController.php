@@ -139,6 +139,11 @@ class AppController extends Controller {
         //最新のこじはる予想
         $recentKojiharu = $this->Expectation->getRecentKojiharu();
 
+        //海外レースの予想取得(凱旋門賞対策)
+        $recentKojiharuSpecial = $this->Expectation->getRecentKojiharuSpecial();
+        $this->set('recentKojiharuSpecial', $recentKojiharuSpecial);
+
+
         //ランキング
         $rankedUsers = $this->User->getRankingPrice(date('Y'));//金額
 

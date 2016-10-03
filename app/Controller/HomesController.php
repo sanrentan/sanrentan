@@ -89,7 +89,9 @@ class HomesController extends AppController {
 		$infoData = $this->Information->getInfoList(5);
 
 		//記事を取得取得
-		$articleData = $this->Article->getRecentArticleList(5);
+		$articleData = $this->Article->getRecentArticleList(4,2);
+		$articleData2 = $this->Article->getRecentArticleList(1,1);
+		$articleData = array_merge($articleData, $articleData2);
 
 		$this->set(compact('newsRss', 'expectRss', 'matomeRss', 'infoData', 'articleData'));
 
@@ -183,6 +185,11 @@ class HomesController extends AppController {
 
 		$this->set('h1tag',$raceData['Race']['name']);
 
+		//凱旋門賞対応
+		if(in_array($raceId, Configure::read('sp_race'))){
+			$this->render('detail_special_race');
+		}
+
 	}
 
 	//確認画面
@@ -210,6 +217,12 @@ class HomesController extends AppController {
 		}
 
 		$this->set(compact("postData", "raceData","selectArray","kojiharuData"));
+
+		//凱旋門賞対応
+		if(in_array($postData["Expectation"]["race_id"], Configure::read('sp_race'))){
+			$this->render('confirm_special_race');
+		}
+
 
 	}
 
@@ -301,6 +314,11 @@ class HomesController extends AppController {
 		$this->title_tag = $raceData["Race"]["name"]." レース結果";
 
 		$this->set('h1tag',$raceData['Race']['name']);
+
+		//凱旋門賞対応
+		if(in_array($raceId, Configure::read('sp_race'))){
+			$this->render('result_special_race');
+		}
 
 	}
 

@@ -46,9 +46,20 @@
 						<td>
 							<?php if(!empty($raceResultData[$data["Race"]["id"]])):?>
 								<dl>
-									<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][0]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["name"];?></dd>
-									<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][1]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["name"];?></dd>
-									<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][2]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["name"];?></dd>
+									<?php if($data['Race']['id']==97):?>
+
+										<dt></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["name"];?></dd>
+										<dt></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["name"];?></dd>
+										<dt></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["name"];?></dd>
+
+									<?php else:?>
+
+										<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][0]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["name"];?></dd>
+										<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][1]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["name"];?></dd>
+										<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][2]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["name"];?></dd>
+
+									<?php endif;?>
+
 								</dl>
 								<div class="clearfix"></div>
 							<?php else:?>
@@ -69,11 +80,22 @@
 						<td>
 							<?php if(!empty($myData[$data["Race"]["id"]])):?>
 								<dl>
-									<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item1_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item1_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item1_name'];?></dd>
-									<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item2_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item2_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item2_name'];?></dd>
-									<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item3_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item3_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item3_name'];?></dd>
-									<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item4_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item4_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item4_name'];?></dd>
-									<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item5_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item5_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item5_name'];?></dd>
+									<?php if($data['Race']['id']==97):?>
+										<dt class="wk1"><?php echo $myData[$data['Race']['id']]['Expectation']['item1_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item1_name'];?></dd>
+										<dt class="wk1"><?php echo $myData[$data['Race']['id']]['Expectation']['item2_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item2_name'];?></dd>
+										<dt class="wk1"><?php echo $myData[$data['Race']['id']]['Expectation']['item3_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item3_name'];?></dd>
+										<dt class="wk1"><?php echo $myData[$data['Race']['id']]['Expectation']['item4_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item4_name'];?></dd>
+										<dt class="wk1"><?php echo $myData[$data['Race']['id']]['Expectation']['item5_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item5_name'];?></dd>
+
+
+									<?php else:?>
+										<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item1_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item1_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item1_name'];?></dd>
+										<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item2_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item2_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item2_name'];?></dd>
+										<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item3_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item3_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item3_name'];?></dd>
+										<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item4_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item4_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item4_name'];?></dd>
+										<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item5_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item5_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item5_name'];?></dd>
+
+									<?php endif;?>
 								</dl>
 								<div class="clearfix"></div>
 							<?php elseif($data["Race"]["accepting_flg"]==1):?>
@@ -113,11 +135,22 @@
 							こじはる予想：
 							<?php if(!empty($myData[$data["Race"]["id"]])):?>
 								<dl>
-									<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item1_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item1_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item1_name'];?></dd>
-									<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item2_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item2_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item2_name'];?></dd>
-									<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item3_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item3_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item3_name'];?></dd>
-									<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item4_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item4_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item4_name'];?></dd>
-									<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item5_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item5_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item5_name'];?></dd>
+									<?php if($data['Race']['id']==97):?>
+										<dt class="wk1"><?php echo $myData[$data['Race']['id']]['Expectation']['item1_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item1_name'];?></dd>
+										<dt class="wk1"><?php echo $myData[$data['Race']['id']]['Expectation']['item2_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item2_name'];?></dd>
+										<dt class="wk1"><?php echo $myData[$data['Race']['id']]['Expectation']['item3_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item3_name'];?></dd>
+										<dt class="wk1"><?php echo $myData[$data['Race']['id']]['Expectation']['item4_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item4_name'];?></dd>
+										<dt class="wk1"><?php echo $myData[$data['Race']['id']]['Expectation']['item5_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item5_name'];?></dd>
+
+									<?php else:?>
+										<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item1_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item1_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item1_name'];?></dd>
+										<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item2_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item2_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item2_name'];?></dd>
+										<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item3_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item3_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item3_name'];?></dd>
+										<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item4_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item4_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item4_name'];?></dd>
+										<dt class="wk<?php echo $myData[$data['Race']['id']]['Expectation']['item5_wk'];?>"><?php echo $myData[$data['Race']['id']]['Expectation']['item5_uma'];?></dt><dd class="wkname"><?php echo $myData[$data['Race']['id']]['Expectation']['item5_name'];?></dd>
+
+									<?php endif;?>
+
 								</dl>
 								<div class="clearfix"></div>
 							<?php elseif($data["Race"]["accepting_flg"]==1):?>
@@ -131,9 +164,18 @@
 						<?php if(!empty($raceResultData[$data["Race"]["id"]])):?>
 								<p style="margin-top:25px;font-size:100%;">レース結果：</p>
 								<dl>
-									<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][0]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["name"];?></dd>
-									<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][1]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["name"];?></dd>
-									<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][2]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["name"];?></dd>
+									<?php if($data['Race']['id']==97):?>
+										<dt class="wk1"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["name"];?></dd>
+										<dt class="wk1"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["name"];?></dd>
+										<dt class="wk1"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["name"];?></dd>
+
+									<?php else:?>
+										<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][0]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][0]["name"];?></dd>
+										<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][1]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][1]["name"];?></dd>
+										<dt class="wk<?php echo $raceResultData[$data['Race']['id']]['RaceResultDetail'][2]['wk'];?>"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["uma"];?></dt><dd class="wkname"><?php echo $raceResultData[$data["Race"]["id"]]["RaceResultDetail"][2]["name"];?></dd>
+
+									<?php endif;?>
+
 								</dl>
 								<div class="clearfix"></div>
 

@@ -134,10 +134,14 @@ class Expectation extends AppModel {
 
 	//最新のこじはるの予想を取得
     public function getRecentKojiharu(){
+
 		$options = array(
 			'conditions' => array(
-				'Expectation.cancel_flg' => 0,
 				'Expectation.user_id' => $this->kojiharu_id,
+				'Expectation.cancel_flg' => 0,
+				'NOT' => array(
+					'Expectation.race_id' => Configure::read('sp_race') //海外レースは取得しない
+				),
 			),
 			'order' => array("Expectation.id desc"),
 			'limit' => 1
@@ -163,6 +167,43 @@ class Expectation extends AppModel {
 		$resultData = array_merge($result,$raceData);
 		return $resultData;
     }
+
+
+	//最新のこじはるの予想を取得
+    public function getRecentKojiharuSpecial(){
+
+		$options = array(
+			'conditions' => array(
+				'Expectation.race_id' => 97, //2016年凱旋門
+				'Expectation.user_id' => $this->kojiharu_id,
+				'Expectation.cancel_flg' => 0,
+			),
+			'order' => array("Expectation.id desc"),
+			'limit' => 1
+		);
+
+		$result = $this->find("first",$options);
+
+		$tmpArray = array();
+		for($i=1;$i<=Configure::read('Base.box_count');$i++){
+			$tmpArray[] = $result["Expectation"]["item".$i];
+		}
+
+		$race = ClassRegistry::init('Race');
+		$raceData = $race->findById($result["Expectation"]["race_id"]);
+
+		//表示用
+		foreach($raceData["RaceCard"] as $key=>$data){
+			if(in_array($data["id"], $tmpArray)){
+				$result["Expectation"]["view"][] = $data;
+			}
+		}
+ 
+		$resultData = array_merge($result,$raceData);
+		return $resultData;
+    }
+
+
 
     //指定したレースの自分の予想一覧を返す（複数レース）race_idは配列指定
     public function getExpectaionList($user_id,$race_id){
