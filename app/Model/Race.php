@@ -153,19 +153,17 @@ class Race extends AppModel {
     	return $results;
     }
 
-	//受付中のレースを取得
+    //受付中のレースを取得
     public function getAcceptingRace(){
-		$options = array(
-			'conditions' => array(
-				'Race.is_deleted' => 0,
-				'Race.view_flg' => 1,
-				'Race.accepting_flg' => 1,//accepting_flgはshellで0(終了にしている)かつ、viewで時間を見ている
+        $options = array(
+            'conditions' => array(
+                'Race.accepting_flg' => 1,//accepting_flgはshellで0(終了にしている)かつ、viewで時間を見ている'Race.view_flg' => 1,
+                'Race.is_deleted' => 0,
                 //'Race.race_date >=' => date("Y-m-d H:i:s")
-			),
-			'order' => array("Race.race_date asc")
-		);
-
-		return $this->find("all",$options);
+            ),
+            'order' => array("Race.list_order desc,Race.race_date asc")
+        );
+        return $this->find("all",$options);
     }
 
     //直近のレースを取得
