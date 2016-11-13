@@ -140,8 +140,9 @@ class AppController extends Controller {
         $recentKojiharu = $this->Expectation->getRecentKojiharu();
 
         //海外レースの予想取得(凱旋門賞対策)
-        $recentKojiharuSpecial = $this->Expectation->getRecentKojiharuSpecial();
-        $this->set('recentKojiharuSpecial', $recentKojiharuSpecial);
+        //今は使わないのでコメントアウトしておく
+        //$recentKojiharuSpecial = $this->Expectation->getRecentKojiharuSpecial();
+        //$this->set('recentKojiharuSpecial', $recentKojiharuSpecial);
 
 
         //ランキング
