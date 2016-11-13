@@ -34,7 +34,8 @@ class ArticleLogDailyCountShell extends AppShell {
             'conditions' => array(
                 'created between ? and ?' => array($start, $end),
             ),
-            'group' => array('article_id')
+            'group' => array('article_id'),
+            'order' => 'article_id desc',
         );
         $logs = $this->ArticleLog->find('all',$options);
         if(empty($logs)){
