@@ -186,7 +186,7 @@
 				</ul>
 			</div>
 			<img src="/img/common/line_green_white.png">
-			<p>Copyright © yamaty. All Rights Reserved.</p>
+			<p>Copyright © teiya. All Rights Reserved.</p>
 		</div>
 	</div> <!-- /footer -->
 

@@ -673,6 +673,7 @@ ul.information.keibajapan{
 	display:block;
 	float:left;
 	width:122px;
+	min-height: 148px;
 }
 #winUserArea .winUser img{
 	//width:100px;

@@ -1,6 +1,7 @@
 <div id="mainBannerArea">
 	<div class="mainBannerAreaLeftDetail">
-		<p class="titleLabel"><?php echo $raceData["Race"]["place"];?>　<?php echo $raceData["Race"]["full_name"];?><?php if($raceData["Race"]["grade"]>=1):?> (G<?php echo $raceData["Race"]["grade"];?>)<?php endif;?></p>
+		<p class="titleLabel pc"><?php echo $raceData["Race"]["place"];?>　<?php echo $raceData["Race"]["full_name"];?><?php if($raceData["Race"]["grade"]>=1):?> (G<?php echo $raceData["Race"]["grade"];?>)<?php endif;?></p>
+		<p class="titleLabel sp"><?php echo $raceData["Race"]["name"];?><?php if($raceData["Race"]["grade"]>=1):?> (G<?php echo $raceData["Race"]["grade"];?>)<?php endif;?></p>
 		<p id="list_result">
 			<a href="/detail/<?php echo $raceData['Race']['id'];?>"><img src="/img/button/btn_race_list2.png"></a>
 			<img src="/img/button/btn_race_result.png">

@@ -11,7 +11,7 @@
 			<?php elseif($ad_mini==2):?>
 				<?php //adsense?>
 				<li>
-					<?php $testdata = 1;?>
+					<?php $testdata = 2;?>
 					<?php if($testdata==1):?>
 							<?php //以下 adsenseのpcメイン;?>
 							<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

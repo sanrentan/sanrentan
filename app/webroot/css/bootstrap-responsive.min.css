@@ -307,6 +307,7 @@
 	    display: block;
 	    float: left;
 	    width: 30%;
+	    min-height: 148px;
 	}
 
 
