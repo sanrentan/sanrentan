@@ -50,7 +50,7 @@ class Expectation extends AppModel {
     }
 
    //みんなのレースの予想を取得
-    public function getExpectationOther($race_id,$limit = 50){
+    public function getExpectationOther($race_id,$limit = 500){
 		$options = array(
 			'conditions' => array(
 				'Expectation.cancel_flg' => 0,
@@ -264,7 +264,7 @@ class Expectation extends AppModel {
 				if (mb_strlen($data["User"]['nickname']) > $mlength) {	
 			    	$data["User"]['nickname'] = mb_substr($data["User"]['nickname'], 0, $mlength, 'UTF-8').'..';
 			    }
-				$mlength = 4;
+				$mlength = 3;
 				if (!empty($data['User']['span'])&&mb_strlen($data["User"]['span']) > $mlength) {	
 			    	$data["User"]['span'] = mb_substr($data["User"]['span'], 0, $mlength, 'UTF-8').'..';
 			    }
