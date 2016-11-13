@@ -159,8 +159,8 @@ class Race extends AppModel {
 			'conditions' => array(
 				'Race.is_deleted' => 0,
 				'Race.view_flg' => 1,
-				//'Race.accepting_flg' => 1,
-                'Race.race_date >=' => date("Y-m-d H:i:s")
+				'Race.accepting_flg' => 1,//accepting_flgはshellで0(終了にしている)かつ、viewで時間を見ている
+                //'Race.race_date >=' => date("Y-m-d H:i:s")
 			),
 			'order' => array("Race.race_date asc")
 		);
