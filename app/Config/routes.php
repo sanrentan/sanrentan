@@ -28,7 +28,6 @@
 	//Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 	Router::connect('/', array('controller' => 'homes', 'action' => 'index'));
 	Router::connect('/index2/*', array('controller' => 'homes', 'action' => 'index2'));
-	Router::connect('/detail/*', array('controller' => 'homes', 'action' => 'detail'));
 	Router::connect('/result/*', array('controller' => 'homes', 'action' => 'result'));
 	Router::connect('/confirm/*', array('controller' => 'homes', 'action' => 'confirm'));
 	Router::connect('/expectations/complete', array('controller' => 'homes', 'action' => 'complete'));
@@ -48,6 +47,10 @@
 	Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
 	Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
 	Router::connect('/twitter_login', array('controller' => 'users', 'action' => 'twitter_login'));
+
+
+	Router::connect('/detail/:race_id', array('controller' => 'homes', 'action' => 'detail'));
+	Router::connect('/detail/:race_id/:page', array('controller' => 'homes', 'action' => 'detail'));
 
 
 	Router::connect('/article/:id', array('controller' => 'article', 'action' => 'index'),array("id"=>"[0-9]+"));

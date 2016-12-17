@@ -1512,3 +1512,26 @@ ul.information.keibajapan{
 #rightContent .article #articleContent li a{
 	text-decoration:underline;
 }
+
+#userListAreaPager{
+	margin: 0 auto 0 auto;
+}
+
+#userListAreaPager li{
+	list-style: none;
+	float: left;
+	border:1px solid #CCC;
+	padding:10px 15px 10px 15px;
+	margin-left:5px;
+	background-color: #FFCC33;
+}
+
+#userListAreaPager .active{
+	background-color: #FFF;
+	color: #000;
+}
+
+#userListAreaPager a{
+	color: #FFF;
+	text-decoration: underline;
+}

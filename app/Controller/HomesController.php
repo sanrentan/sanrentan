@@ -99,7 +99,19 @@ class HomesController extends AppController {
 
 
 	//レース詳細
-	public function detail($raceId){
+	public function detail(){
+
+		//パラメータのチェック
+		if(empty($this->request->params['race_id']) || !is_numeric($this->request->params['race_id'])){
+			$this->redirect('/');			
+		}
+		$raceId = $this->request->params['race_id'];
+
+		//パラメータのチェック
+		if(!empty($this->request->params['page']) && !is_numeric($this->request->params['page'])){
+			$this->redirect('/');			
+		}
+
 
 		$this->set("message","出走表");
 		$RecentRaceResult = array();
@@ -163,8 +175,32 @@ class HomesController extends AppController {
 		$kojiharuData = $this->Expectation->getExpectationData($raceId);
 
 
-		//みんなの予想を取得
-		$otherExpectData = $this->Expectation->getExpectationOther($raceId);
+		//みんなの予想を取得(件数を取得)
+		$otherExpectCount = $this->Expectation->getExpectationOtherCount($raceId);
+
+		//ページング機能
+		$page = 1;//ページ番号
+		if(!empty($this->request->params['page'])){
+			$page = $this->request->params['page'];
+		}else{
+			$page = 1;
+		}
+		$limit = 18;//1ページの表示件数
+		$offset = $page*18-$limit;//スタート位置
+		$otherExpectData = $this->Expectation->getExpectationOther($raceId, $offset, $limit);
+
+		//ページ数は？
+		if($otherExpectCount == 0){
+			$page_num = 0;
+		}else{
+			if($otherExpectCount%$limit == 0){
+				//+1しちゃだめ
+				$page_num = $otherExpectCount/$limit;
+			}else{
+				$page_num = $otherExpectCount/$limit + 1;
+			}
+		}
+		$this->set(compact('page', 'otherExpectCount', 'page_num'));
 
 
 		//レースの開始時間が過ぎていないか？

@@ -50,7 +50,7 @@ class Expectation extends AppModel {
     }
 
    //みんなのレースの予想を取得
-    public function getExpectationOther($race_id,$limit = 500){
+    public function getExpectationOther($race_id, $offset = 0, $limit = 500){
 		$options = array(
 			'conditions' => array(
 				'Expectation.cancel_flg' => 0,
@@ -58,6 +58,7 @@ class Expectation extends AppModel {
 				'Expectation.user_id >' => 100,
 			),
 			'limit' => $limit,
+			'offset' => $offset,
 			'order' => "id desc"
 		);
 		$resultData = $this->find("all",$options);
@@ -130,6 +131,19 @@ class Expectation extends AppModel {
 		}
 		return $resultData;
     }
+
+
+   //みんなのレースの予想を取得（件数のみ)
+    public function getExpectationOtherCount($race_id){
+		$options = array(
+			'conditions' => array(
+				'Expectation.cancel_flg' => 0,
+				'Expectation.race_id' => $race_id,
+				'Expectation.user_id >' => 100,
+			),
+		);
+		return $this->find("count",$options);
+	}
 
 
 	//最新のこじはるの予想を取得

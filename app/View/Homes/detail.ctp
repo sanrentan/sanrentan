@@ -223,6 +223,24 @@
 					<?php endforeach;?>
 					</div>
 					<div class="clearfix"></div>
+					<?php if($page_num>1):?>
+						<div id="userListAreaPager">
+							<ul>
+								<?php for($i=1;$i<=$page_num;$i++):?>
+									<?php if($i!=$page):?>
+										<?php if($i!=1):?>
+											<a href="/detail/<?php echo $raceData['Race']['id'];?>/<?php echo h($i);?>"><li><?php echo h($i);?></li></a>
+										<?php else:?>
+											<a href="/detail/<?php echo $raceData['Race']['id'];?>"><li><?php echo h($i);?></li></a>
+										<?php endif;?>
+									<?php else:?>
+										<li class="active"><?php echo h($i);?></li>
+									<?php endif;?>
+								<?php endfor;?>
+								<div class="clearfix"></div>
+							</ul>		
+						</div>
+					<?php endif;?>
 				<?php else:?>
 					<p style="padding-left:20px;">まだ予想がありません</p>
 				<?php endif;?>
