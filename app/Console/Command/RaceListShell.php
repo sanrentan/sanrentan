@@ -257,7 +257,7 @@ class RaceListShell extends AppShell {
                             $horseUrl = $data->find("a")[0]->href;
                             $horseHtml = file_get_html("http://keiba.yahoo.co.jp/".$horseUrl);
                             $j = 0;
-                            foreach($horseHtml->find('#resultLs tr') as $key3 => $rowElements){
+                            foreach($horseHtml->find('#stakes tr') as $key3 => $rowElements){
                                 if($j > 0 && $j < 6){
                                     $tdCounter2 = 0;
                                     foreach($rowElements->find('td') as $key4 => $tdData){
@@ -267,37 +267,30 @@ class RaceListShell extends AppShell {
                                                 $recent_5race_results[$i][$j]["race_date"] =  $tdData->plaintext;
                                                 break;
                                             case 1:
-                                                $recent_5race_results[$i][$j]["race_name"] =  $tdData->plaintext;
+                                                $tmp_race_name = explode(' ', $tdData->plaintext);
+                                                $recent_5race_results[$i][$j]["race_name"] =  $tmp_race_name[4];
+                                                $recent_5race_results[$i][$j]["cource"]    =  $tmp_race_name[9];
+                                                $recent_5race_results[$i][$j]["baba"]      =  $tmp_race_name[10];
+                                                $recent_5race_results[$i][$j]["place"]     =  mb_substr(strstr($tmp_race_name[8], '頭', false),1);
+                                                $recent_5race_results[$i][$j]["number_of_heads"] = strstr($tmp_race_name[8], '頭', true).'頭';
                                                 break;
                                             case 2:
-                                                $recent_5race_results[$i][$j]["place"] = $tdData->find("span")[0]->plaintext;
+                                                $recent_5race_results[$i][$j]["order_of_arrival"] = $tdData->plaintext;
                                                 break;
                                             case 3:
-                                                $recent_5race_results[$i][$j]["cource"] =  $tdData->find("span")[0]->plaintext;
-                                                break;
-                                            case 4:
-                                                $recent_5race_results[$i][$j]["baba"] =  $tdData->find("span")[0]->plaintext;
-                                                break;
-                                            case 5:
-                                                $recent_5race_results[$i][$j]["number_of_heads"] = $tdData->plaintext;
-                                                break;
-                                            case 6:
                                                 $recent_5race_results[$i][$j]["wk"] = $tdData->plaintext;
                                                 break;
-                                            case 7:
+                                            case 4:
                                                 $recent_5race_results[$i][$j]["uma"] = $tdData->plaintext;
                                                 break;
-                                            case 8:
+                                            case 5:
+                                                $recent_5race_results[$i][$j]["jockey"] = substr($tdData->plaintext, 0, -5);
+                                                break;
+                                            case 6:
                                                 $recent_5race_results[$i][$j]["popularity"] = $tdData->plaintext;
                                                 break;
-                                            case 9:
+                                            case 7:
                                                 $recent_5race_results[$i][$j]["odds"] = $tdData->plaintext;
-                                                break;
-                                            case 10:
-                                                $recent_5race_results[$i][$j]["order_of_arrival"] = $tdData->plaintext; 
-                                                break;
-                                            case 11:
-                                                $recent_5race_results[$i][$j]["jockey"] = $tdData->plaintext;
                                                 break;
                                         }
                                         $tdCounter2++;

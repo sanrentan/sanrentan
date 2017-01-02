@@ -446,7 +446,7 @@ class ResultExpectationShell extends AppShell {
         $resultData = array();
         $i = 0;
 
-        foreach($html->find('#resultLs tr') as $key=>$element){
+        foreach($html->find('#raceScore tr') as $key=>$element){
             $tdCounter = 0;
             foreach($element->find('td') as $key2=>$data){
                 switch ($tdCounter) {
@@ -465,33 +465,33 @@ class ResultExpectationShell extends AppShell {
                         $resultData[$i]["uma"] = $data->plaintext;
                         break;
                     case 3://馬名
-                        $resultData[$i]["name"] = $data->plaintext;
+                        $tmp_name = explode(' ', $data->plaintext);
+                        $resultData[$i]["name"] = $tmp_name[0];
+
+                        $tmp_name2 = explode('/', $tmp_name[1]);
+
+                        //性齢
+                        $resultData[$i]["sexage"] = $tmp_name2[0];
+                        //体重
+                        $resultData[$i]["weight"] = $tmp_name2[1];
                         break;
-                    case 4://性齢
-                        $resultData[$i]["sexage"] = $data->plaintext;
+                    case 4://time,着差
+                        $resultData[$i]["time"] = substr($data->plaintext,0,6);
+                        $resultData[$i]["difference"] = substr($data->plaintext,6);
                         break;
-                    case 5://騎手名
-                        $resultData[$i]["j_name"] = $data->plaintext;
+
+                    case 5://ラスト３ハロン
+                        $resultData[$i]["last_time"] = substr($data->plaintext,-5);
                         break;
-                    case 6://time
-                        $resultData[$i]["time"] = $data->plaintext;
+                    case 6://騎手名、斤量
+                        $resultData[$i]["j_name"] = mb_substr($data->plaintext,0,mb_strlen($data->plaintext)-5);
+                        $resultData[$i]["j_weight"] = substr($data->plaintext,-5);
                         break;
-                    case 7://着差
-                        $resultData[$i]["difference"] = $data->plaintext;
+                    case 7://単勝人気（TODO オッズも取れるけど今後)
+                        $odds = explode('(', $data->plaintext);
+                        $resultData[$i]["popularity"] = $odds[0];
                         break;
-                    case 9://ラスト３ハロン
-                        $resultData[$i]["last_time"] = $data->plaintext;
-                        break;
-                    case 10://斤量
-                        $resultData[$i]["j_weight"] = $data->plaintext;
-                        break;
-                    case 11://体重
-                        $resultData[$i]["weight"] = $data->plaintext;
-                        break;
-                    case 12://人気
-                        $resultData[$i]["popularity"] = $data->plaintext;
-                        break;
-                    case 15://調教師
+                    case 8://調教師
                         $resultData[$i]["trainer"] = $data->plaintext;
                         break;
                 }
@@ -499,7 +499,6 @@ class ResultExpectationShell extends AppShell {
             }
             $i++;
         }
-
         return $resultData;
 
     }

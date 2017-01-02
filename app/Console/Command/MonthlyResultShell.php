@@ -51,7 +51,7 @@ class MonthlyResultShell extends AppShell {
 
         //最低このレース数の予想が必要（半分）
         $target_race_count = floor(count($race_list)/2);
-        $target_race_count = 6;
+        $target_race_count = 4;
         //$target_race_count = 2;
 
         //レース結果を取得

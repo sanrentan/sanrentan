@@ -91,7 +91,7 @@ class MetimesShell extends AppShell {
         );
         $pageData = $this->Page->find('all',$options);
 
-        $mode=3;
+        $mode=2;
 
         //postを登録（contents以外)
         if($mode=="1"){
@@ -187,7 +187,15 @@ class MetimesShell extends AppShell {
                             break;
                         
                         case 'image-text':
-                            $message .= '<div class="half-image-block" data-role="local"><img id="'.$oldData['PagePart']['id'].'" src="/wp-content/uploads/images/'.$oldData['PagePart']['image_url'].'" class="single-image" data-raw="'.$oldData['PagePart']['image_url'].'" data-source="local"><p class="half-text">'.$oldData['PagePart']['content_formatted'].'</p></div>';
+                            $message .= '<div class="half-image-block" data-role="local">';
+                            $message .= '<div class="half-image-block-img"><img id="'.$oldData['PagePart']['id'].'" src="/wp-content/uploads/images/'.$oldData['PagePart']['image_url'].'" class="single-image" data-raw="'.$oldData['PagePart']['image_url'].'" data-source="local">';
+
+                            if(!empty($oldData['PagePart']['source_url'])){
+                                $message .= '<p>出典：'.str_replace("http://", "", $oldData['PagePart']['source_url']).'</p>';
+                            }
+                            $content = str_replace(array("\r\n", "\r", "\n"), '', $oldData['PagePart']['content']);
+                            $message .= '</div><p class="half-text">'.$content.'</p>';
+                            $message .= '</div><div style="clear:both;"></div>';
                             break;
                         
                         case 'h2':
@@ -210,7 +218,7 @@ class MetimesShell extends AppShell {
                             break;
 
                         case 'link':
-                            $message .= '<p class="link-large" data-raw="'.$oldData['PagePart']['content'].'" data-role="'.$oldData['PagePart']['content'].'"><i class="fa fa-external-link-square "></i><a href="'.$oldData['PagePart']['content'].'" rel="nofollow" target="_blank">'.$oldData['PagePart']['content'].'</a></p>';
+                            $message .= '<p class="link-large" data-raw="'.$oldData['PagePart']['content'].'" data-role="'.$oldData['PagePart']['content'].'"><i class="fa fa-external-link-square "></i><a href="'.$oldData['PagePart']['source_url'].'" rel="nofollow" target="_blank">'.$oldData['PagePart']['content'].'</a></p>';
                             break;
 
                         case 'quote':
