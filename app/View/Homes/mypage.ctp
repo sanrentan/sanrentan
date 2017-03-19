@@ -2,10 +2,12 @@
 <div id="mainContent">
 	<div id="resultArea">
 		<?php if(!empty($myResultData)):?>
-			<p>今年の戦績：<?php echo $myResultData["ExpectationResult"]["win"];?>勝<?php echo $myResultData["ExpectationResult"]["lose"];?>敗　収支 <?php if($myResultData["ExpectationResult"]["price"]>0):?>+<?php endif;?><?php echo number_format($myResultData["ExpectationResult"]["price"]);?>円</p>
+			<p><?php echo h($year);?>年の戦績：<?php echo $myResultData["ExpectationResult"]["win"];?>勝<?php echo $myResultData["ExpectationResult"]["lose"];?>敗　収支 <?php if($myResultData["ExpectationResult"]["price"]>0):?>+<?php endif;?><?php echo number_format($myResultData["ExpectationResult"]["price"]);?>円</p>
 		<?php else:?>
-			<p>今年の戦績：まだ予想をしていません</p>
+			<p><?php echo h($year);?>年の戦績：まだ予想をしていません</p>
 		<?php endif;?>
+
+		<p><a href="/mypage">2017年</a>｜<a href="/mypage?year=2016">2016年</a></p>
 
 		<p>レース結果</p>
 		<div class="tableArea pc">

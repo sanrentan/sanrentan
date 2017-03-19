@@ -49,6 +49,7 @@
 				</ul>
 			</div>
 
+			<!--
 			<div class="listArea">
 				<h3 class="titleLabel">特集記事</h3>
 				<ul class="raceList">
@@ -60,6 +61,7 @@
 					<?php endforeach;?>
 				</ul>
 			</div>
+			-->
 
 			<div class="listArea">
 				<h3 class="titleLabel">過去５レースの結果（※当サイト受付分のみ）</h3>

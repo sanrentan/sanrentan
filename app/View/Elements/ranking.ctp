@@ -1,4 +1,4 @@
-		<p class="titleLabel">ユーザーランキング(2016年)</p>
+		<p class="titleLabel">ユーザーランキング(<?php echo $ranking_year;?>年)</p>
 		<div class="ranking">
 			<div id="rankingContent">
 				<table class="table">

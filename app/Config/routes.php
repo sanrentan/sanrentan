@@ -35,6 +35,7 @@
 	Router::connect('/race_result_list', array('controller' => 'homes', 'action' => 'mypage_result'));
 	Router::connect('/favorite', array('controller' => 'homes', 'action' => 'favorite'));
 	Router::connect('/kojiharu_list', array('controller' => 'homes', 'action' => 'kojiharu_list'));
+	Router::connect('/kojiharu_list/:year', array('controller' => 'homes', 'action' => 'kojiharu_list'));
 	Router::connect('/about', array('controller' => 'homes', 'action' => 'about'));
 	Router::connect('/contact', array('controller' => 'homes', 'action' => 'contact'));
 	Router::connect('/contact_confirm', array('controller' => 'homes', 'action' => 'contact_confirm'));

@@ -234,7 +234,15 @@ class HomesController extends AppController {
 		$this->title_tag = "予想登録の確認画面";
 
 		$postData = $this->Session->read("expectation");
+		if(empty($postData["Expectation"]["race_id"])){
+			$this->redirect('/');			
+		}
+
 		$raceData = $this->Race->findById($postData["Expectation"]["race_id"]);
+
+		if(empty($raceData)){
+			$this->redirect('/');			
+		}
 
 		//レースの開始時間が過ぎていないか？
 		if(date('Y-m-d H:i:s')>=$raceData['Race']['race_date']){
@@ -266,6 +274,10 @@ class HomesController extends AppController {
 	public function complete(){
 		//metaタグ設定
 		$this->title_tag = "予想完了";
+
+		if(empty($this->request->data['Expectation']['race_id'])){
+			$this->redirect('/');			
+		}
 
 		$raceData = $this->Race->findById($this->request->data['Expectation']['race_id']);
 		//レースの開始時間が過ぎていないか？
@@ -375,8 +387,11 @@ class HomesController extends AppController {
 			$user = $this->user;
 		}
 
-		$year = date("Y");//TODO 引数で受け取りたい
-
+		if(!empty($this->request->query['year']) && is_numeric($this->request->query['year'])){
+			$year = $this->request->query['year'];
+		}else{
+			$year = date("Y");
+		}
 
 		//対象の年のレースを取得
 		$tmpRaceData = $this->Race->getRaceListYear($year);
@@ -436,7 +451,11 @@ class HomesController extends AppController {
 			$user = $this->user;
 		}
 
-		$year = date("Y");//TODO 引数で受け取りたい
+		if(!empty($this->request->query['year']) && is_numeric($this->request->query['year'])){
+			$year = $this->request->query['year'];
+		}else{
+			$year = date("Y");
+		}
 
 
 		//対象の年のレースを取得
@@ -465,7 +484,7 @@ class HomesController extends AppController {
 		//こじはるの結果を取得
 		$kojiharuResultData = $this->ExpectationResult->getResultData($this->kojiharu_id,$year);
 
-		$this->set(compact("raceData", "raceResultData","myData","myResultData","kojiharuData","kojiharuResultData"));
+		$this->set(compact("year","raceData", "raceResultData","myData","myResultData","kojiharuData","kojiharuResultData"));
 
 	}
 
@@ -478,7 +497,11 @@ class HomesController extends AppController {
 
 		$this->set("naviType","kojiharu");
 		
-		$year = date("Y");//TODO 引数で受け取りたい
+		if(!empty($this->request->params['year'])&& is_numeric($this->request->params['year'])){
+			$year = $this->request->params['year'];
+		}else{
+			$year = date("Y");//TODO 引数で受け取りたい
+		}
 
 		//対象の年のレースを取得
 		$raceData = $this->Race->getRaceListYear($year,1);
@@ -534,7 +557,11 @@ class HomesController extends AppController {
 			return;
 		}
 
-		$year = date("Y");//TODO 引数で受け取りたい
+		if(!empty($this->request->query['year']) && is_numeric($this->request->query['year'])){
+			$year = $this->request->query['year'];
+		}else{
+			$year = date("Y");
+		}
 
 		//対象の年のレースを取得
 		$raceData = $this->Race->getRaceListYear($year);
@@ -590,7 +617,7 @@ class HomesController extends AppController {
 		$this->title_tag = $otherUser["User"]["nickname"]."さんの予想一覧";
 
 
-		$this->set(compact("year","raceData", "raceResultData","myData","myResultData","otherUser","favoFlg"));
+		$this->set(compact("year","raceData", "raceResultData","myData","myResultData","otherUser","favoFlg","other_user_id"));
 
 	}
 

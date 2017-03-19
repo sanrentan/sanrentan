@@ -146,9 +146,10 @@ class AppController extends Controller {
 
 
         //ランキング
-        $rankedUsers = $this->User->getRankingPrice(date('Y'));//金額
+        $ranking_year = 2017;
+        $rankedUsers = $this->User->getRankingPrice($ranking_year);//金額
 
-        $this->set(compact("recentKojiharu","rankedUsers"));
+        $this->set(compact("recentKojiharu","rankedUsers","ranking_year"));
 
 
         $this->set('ad_ad',Configure::read('Base.ad_ad'));

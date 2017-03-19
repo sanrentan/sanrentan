@@ -114,6 +114,8 @@
 		<?php if(!empty($myResultData)):?>
 			<p class="subtitle"><?php echo $year;?>年の戦績：<?php echo $myResultData["ExpectationResult"]["win"];?>勝<?php echo $myResultData["ExpectationResult"]["lose"];?>敗　収支 <?php if($myResultData["ExpectationResult"]["price"]>0):?>+<?php endif;?><?php echo number_format($myResultData["ExpectationResult"]["price"]);?>円</p>
 
+			<p><a href="/other/<?php echo $otherUser['User']['id'];?>">2017年</a>｜<a href="/other/<?php echo $otherUser['User']['id'];?>?year=2016">2016年</a></p>
+
 			<div class="tableArea pc">
 				<table border="1">
 					<tr><th>No.</th><th width="80">日付</th><th>レース名</th><th width="180">結果<br>１着/２着/３着</th><th width="100">配当金</th><th width="130">予想</th><th width="80">結果</th></tr>
@@ -239,7 +241,9 @@
 			</div>
 
 		<?php else:?>
-			まだ今年のレースの予想をしていません。
+			<p><?php echo $year;?>年のレースの予想をしていません。</p>
+			<p><a href="/other/<?php echo $otherUser['User']['id'];?>">2017年</a>｜<a href="/other/<?php echo $otherUser['User']['id'];?>?year=2016">2016年</a></p>
+
 		<?php endif;?>
 	</div>
 	<div id="rightContent" class="sp">
