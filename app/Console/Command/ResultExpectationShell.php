@@ -425,8 +425,12 @@ class ResultExpectationShell extends AppShell {
             );
             $tmpData = $this->RaceResultDetail->find("first",$options);
             //人気は月曜にならないととれないので
+
+            foreach($data as $key2 => $data2){
+                $tmpData['RaceResultDetail'][$key2] = $data2;
+            }
+
             $tmpData["RaceResultDetail"]["popularity"] = $data["popularity"];
-            $tmpData["RaceResultDetail"]["result"]  = $data["result"];
             $tmpData["RaceResultDetail"]["trainer"] = $data["trainer"];
             $tmpData["RaceResultDetail"]["last_time"] = $data["last_time"];
             $tmpData["RaceResultDetail"]["modified"] = date("Y-m-d H:i:s");
@@ -451,7 +455,7 @@ class ResultExpectationShell extends AppShell {
             foreach($element->find('td') as $key2=>$data){
                 switch ($tdCounter) {
                     case 0://着順
-                        if(!empty($data->plaintext)&&is_numeric($data->plaintext)){
+                        if(!empty($data->plaintext)&&is_numeric(str_replace(array(" ", "　"), "", $data->plaintext))){
                             $resultData[$i]["result"] = $data->plaintext;
                         }else{
                             //競争中止や出走除外など
@@ -466,9 +470,9 @@ class ResultExpectationShell extends AppShell {
                         break;
                     case 3://馬名
                         $tmp_name = explode(' ', $data->plaintext);
-                        $resultData[$i]["name"] = $tmp_name[0];
+                        $resultData[$i]["name"] = $tmp_name[5];
 
-                        $tmp_name2 = explode('/', $tmp_name[1]);
+                        $tmp_name2 = explode('/', $tmp_name[11]);
 
                         //性齢
                         $resultData[$i]["sexage"] = $tmp_name2[0];
@@ -476,16 +480,17 @@ class ResultExpectationShell extends AppShell {
                         $resultData[$i]["weight"] = $tmp_name2[1];
                         break;
                     case 4://time,着差
-                        $resultData[$i]["time"] = substr($data->plaintext,0,6);
-                        $resultData[$i]["difference"] = substr($data->plaintext,6);
+                        $resultData[$i]["time"] = substr($data->plaintext,0,7);
+                        $resultData[$i]["difference"] = substr($data->plaintext,7);
                         break;
 
                     case 5://ラスト３ハロン
-                        $resultData[$i]["last_time"] = substr($data->plaintext,-5);
+                        $resultData[$i]["last_time"] = substr($data->plaintext,0,5);
                         break;
                     case 6://騎手名、斤量
-                        $resultData[$i]["j_name"] = mb_substr($data->plaintext,0,mb_strlen($data->plaintext)-5);
-                        $resultData[$i]["j_weight"] = substr($data->plaintext,-5);
+                        $tmp_name = explode(' ', $data->plaintext);
+                        $resultData[$i]["j_name"] = $tmp_name[5].' '.$tmp_name[6];
+                        $resultData[$i]["j_weight"] = $tmp_name[11];
                         break;
                     case 7://単勝人気（TODO オッズも取れるけど今後)
                         $odds = explode('(', $data->plaintext);
