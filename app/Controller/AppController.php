@@ -106,6 +106,10 @@ class AppController extends Controller {
         //$this->Auth->allow('index', 'view','edit','detail');
 
         $this->set("naviType","top");
+
+
+        $this->isSp = $this->request->isMobile();
+        $this->set('isSp',$this->isSp);
    	}
 
     function beforeRender(){
@@ -188,6 +192,5 @@ class AppController extends Controller {
         }
         return $returnData;
     }
-
 
 }

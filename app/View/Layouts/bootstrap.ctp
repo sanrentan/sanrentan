@@ -48,7 +48,7 @@
 	</script>
 
 
-	<?php $adbottomType=1;?>
+	<?php $adbottomType=0;?>
 	<?php if($adbottomType==0):?>
 		<?php //adsense ?>
 		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

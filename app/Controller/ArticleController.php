@@ -90,15 +90,32 @@ class ArticleController extends AppController {
             $this->meta_description = $article['Article']['title'].' 当サイトオリジナル記事、こじはるさんの３連単５頭ボックスの'.$race['Race']['name'].'の'.$article_category['ArticleCategory']['name'].'ページです。';
         }
 
-	//ログを書き込む
-	$log_data = array();
-	$log_data['article_id'] = $article_id;
-	if(!empty($this->user['id'])){
-		$log_data['user_id'] = $this->user['id'];
-	}
-	$this->ArticleLog->create();
-	$this->ArticleLog->save($log_data);
-	
+    //ログを書き込む
+    $log_data = array();
+    $log_data['article_id'] = $article_id;
+    if(!empty($this->user['id'])){
+        $log_data['user_id'] = $this->user['id'];
+    }
+
+    //ua_check(botを除外)
+    $ua = $this->request->header('User-Agent');
+    $ng_list = array('bingbot','spider.php','Mediapartners-Google','bot.html','AhrefsBot','Twitterbot','mj12bot','360Spider');
+
+    $save_flg = true;
+    foreach($ng_list as $key=>$word){
+        if(strpos($ua, $word)!==false){
+            $save_flg = false;
+            break;
+        }
+    }
+
+    if($save_flg){
+        $this->ArticleLog->create();
+        $this->ArticleLog->save($log_data);
+
+        $this->log('article_ua:'.$this->request->header('User-Agent'), 'debug');
+        $this->log($log_data, 'debug');
+    }	
 
         $this->set(compact('article', 'article_category'));
         //$this->render(1);

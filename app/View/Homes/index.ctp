@@ -1,7 +1,13 @@
 <div id="mainBannerArea">
-	<div id="mainBannerAreaLeft">
-		<img src="/img/common/koji1.jpg">
-	</div>
+	<?php if(!$isSp):?>
+		<div id="mainBannerAreaLeft">
+			<img src="/img/common/koji1.jpg">
+		</div>
+	<?php else:?>
+		<div class="sp">
+			<?php echo $this->element('adMini'); ?>
+		</div>
+	<?php endif;?>
 	<p class="titleLabel sp">こじはる最新予想</p>
 	<div id="mainBannerAreaRight">
 		<?php echo $this->element('recentKojiharu'); ?>

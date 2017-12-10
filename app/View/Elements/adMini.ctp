@@ -1,3 +1,4 @@
+<?php if($isSp):?>
 <div class="blogAdWidth">
 	<ul>
 			<?php if($ad_mini==1):?>
@@ -44,3 +45,4 @@
 			<?php endif;?>
 	</ul>
 </div>
+<?php endif;?>

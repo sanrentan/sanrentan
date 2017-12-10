@@ -16,14 +16,16 @@
 							<script type="text/javascript" src="https://js1.nend.net/js/nendAdLoader.js"></script>
 						<?php elseif($ad_pr==2):?>
 							<?php //以下 adsenseのpcメイン;?>
-							<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-							<ins class="adsbygoogle"
-							     style="display:inline-block;width:300px;height:250px"
-							     data-ad-client="ca-pub-3842502310763816"
-							     data-ad-slot="8403630688"></ins>
-							<script>
-							(adsbygoogle = window.adsbygoogle || []).push({});
-							</script>
+							<?php if(!$isSp):?>
+								<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+								<ins class="adsbygoogle"
+								     style="display:inline-block;width:300px;height:250px"
+								     data-ad-client="ca-pub-3842502310763816"
+								     data-ad-slot="8403630688"></ins>
+								<script>
+								(adsbygoogle = window.adsbygoogle || []).push({});
+								</script>
+							<?php endif;?>
 						<?php elseif($ad_pr=3):?>
 
 						<?php endif;?>

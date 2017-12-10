@@ -1,4 +1,12 @@
 <div id="mainBannerArea">
+
+	<?php if($isSp):?>
+		<div class="sp">
+			<?php //広告 ?>
+			<?php echo $this->element('ad'); ?>
+		</div>
+	<?php endif;?>
+
 	<div class="mainBannerAreaLeftDetail">
 		<p class="titleLabel pc"><?php echo $raceData["Race"]["place"];?>　<?php echo $raceData["Race"]["full_name"];?><?php if($raceData["Race"]["grade"]>=1):?> (G<?php echo $raceData["Race"]["grade"];?>)<?php endif;?></p>
 		<p class="titleLabel sp"><?php echo $raceData["Race"]["name"];?><?php if($raceData["Race"]["grade"]>=1):?> (G<?php echo $raceData["Race"]["grade"];?>)<?php endif;?></p>
@@ -79,10 +87,12 @@
 
 </div>
 
-<div class="pc">
-		<?php //広告よこなが ?>
-	<?php echo $this->element('adWidth'); ?>
-</div>
+<?php if(!$isSp):?>
+	<div class="pc">
+			<?php //広告よこなが ?>
+		<?php echo $this->element('adWidth'); ?>
+	</div>
+<?php endif;?>
 
 
 <div id="mainContent">

@@ -19,7 +19,7 @@
 				</div>
 			</div>
 		</div>
-		<a href="/kojiharu_list/2016" class="pc"><img src="/img/button/btn_view_list.png" class="view_btn1"></a>
+		<a href="/kojiharu_list" class="pc"><img src="/img/button/btn_view_list.png" class="view_btn1"></a>
 		<!--<div id="subBannerArea" style="float:right; padding-right:10px;padding-top:20px;"><img src="/img/common/umairasto.png" style="max-width:90px;"></div>-->
 		<div class="clearfix"></div>
 

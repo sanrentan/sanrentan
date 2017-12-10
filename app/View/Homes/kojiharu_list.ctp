@@ -1,8 +1,17 @@
 <div id="mainBannerArea">
-	<div id="mainBannerAreaLeft2">
-		<p class="titleLabel">こじはる予想一覧</p>
-		<img src="/img/common/koji_list.jpg" class="img1" alt="こじはる予想一覧">
-	</div>
+	<?php if($isSp):?>
+		<div class="sp">
+			<?php //広告 ?>
+			<?php echo $this->element('ad'); ?>
+		</div>
+	<?php endif;?>
+
+	<?php if(!$isSp):?>
+		<div id="mainBannerAreaLeft2">
+			<p class="titleLabel">こじはる予想一覧</p>
+			<img src="/img/common/koji_list.jpg" class="img1" alt="こじはる予想一覧">
+		</div>
+	<?php endif;?>
 
 	<p class="titleLabel sp">こじはる最新予想</p>
 	<div id="mainBannerAreaRight">
@@ -10,21 +19,26 @@
 	</div>
 
 	<?php //広告 ?>
-	<div class="sp">
-		<?php echo $this->element('adMini'); ?>
-	</div>
+	<?php if($isSp):?>
+		<div class="sp">
+			<?php echo $this->element('adMini'); ?>
+		</div>
+	<?php endif;?>
 
 	<div class="clearfix"></div>
 </div>
 
-<div class="pc">
+<?php if(!$isSp):?>
+	<div class="pc">
 		<?php //広告よこなが ?>
-	<?php echo $this->element('adWidth'); ?>
-</div>
+		<?php echo $this->element('adWidth'); ?>
+	</div>
+<?php endif;?>
 
 
 <div id="mainContent">
 
+	<p class="titleLabel sp">こじはる予想一覧</p>
 	<div id="resultArea">
 
 		<h3 class="subtitle" style="float:left;"><?php echo $year;?>年の戦績：<?php echo $myResultData["ExpectationResult"]["win"];?>勝<?php echo $myResultData["ExpectationResult"]["lose"];?>敗　収支 <?php if($myResultData["ExpectationResult"]["price"]>0):?>+<?php endif;?><?php echo number_format($myResultData["ExpectationResult"]["price"]);?>円
@@ -231,7 +245,9 @@
 </div>
 
 
-<div class="pc">
+<?php if(!$isSp):?>
+	<div class="pc">
 		<?php //広告よこなが ?>
-	<?php echo $this->element('adWidth'); ?>
-</div>
+		<?php echo $this->element('adWidth'); ?>
+	</div>
+<?php endif;?>
