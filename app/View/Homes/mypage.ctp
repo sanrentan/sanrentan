@@ -7,7 +7,7 @@
 			<p><?php echo h($year);?>年の戦績：まだ予想をしていません</p>
 		<?php endif;?>
 
-		<p><a href="/mypage">2017年</a>｜<a href="/mypage?year=2016">2016年</a></p>
+		<p><a href="/mypage">2018年</a>｜<a href="/mypage/?year=2017">2017年</a>｜<a href="/mypage?year=2016">2016年</a></p>
 
 		<p>レース結果</p>
 		<div class="tableArea pc">

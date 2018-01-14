@@ -150,7 +150,7 @@ class AppController extends Controller {
 
 
         //ランキング
-        $ranking_year = 2017;
+        $ranking_year = 2018;
         $rankedUsers = $this->User->getRankingPrice($ranking_year);//金額
 
         $this->set(compact("recentKojiharu","rankedUsers","ranking_year"));

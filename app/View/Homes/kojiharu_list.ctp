@@ -228,7 +228,8 @@
 		<?php if($year==2017):?>
 			<p style="margin-top:10px;">2016年の結果は<a href="/kojiharu_list/2016" style="text-decoration:underline;">こちら</a></p>
 		<?php else:?>
-			<p style="margin-top:10px;">2017年の結果は<a href="/kojiharu_list" style="text-decoration:underline;">こちら</a></p>
+			<p style="margin-top:10px;">2017年の結果は<a href="/kojiharu_list/2017" style="text-decoration:underline;">こちら</a></p>
+			<p style="margin-top:10px;">2016年の結果は<a href="/kojiharu_list/2016" style="text-decoration:underline;">こちら</a></p>
 		<?php endif;?>
 	</div>
 
