@@ -49,6 +49,7 @@ class ManagesController extends AdminController {
 		'FavoUser'
 	);
 
+	public $COOKIE_ADMIN_KEY = 'AdminAuth';
 
 	public $kojiharu_id = 3;
 
@@ -66,10 +67,28 @@ class ManagesController extends AdminController {
 	//管理画面ログイン
 	public function admin_login(){
 
+		$cookie = $this->Cookie->read($this->COOKIE_ADMIN_KEY);
+		if(!empty($cookie) && !empty($cookie['id']) && !empty($cookie['username'])){
+			$options = array(
+				"conditions" => array(
+					'id' => $cookie['id'],
+					'username' => $cookie['username'],
+					'is_deleted' => 0,
+				),
+			);
+			$admin_user = $this->AdminUser->find("first",$options);
+			if($this->Auth->login($admin_user['AdminUser'])){
+		        $this->redirect($this->Auth->redirectUrl());
+			}
+		}
+
+
 	    if ($this->request->is('post')) {
 
 	        if ($this->Auth->login()) {
-	            $this->redirect($this->Auth->redirectUrl());
+				$cookie = $this->Auth->user();
+				$this->writeAdminCookie($cookie);
+				$this->redirect($this->Auth->redirectUrl());
 	        } else {
                 $this->set("errorMsg","※ログインIDまたはパスワードが異なります");
 	        }
@@ -78,6 +97,7 @@ class ManagesController extends AdminController {
 
 	///管理画面ログアウト
 	public function admin_logout(){
+		$this->Cookie->delete($this->COOKIE_ADMIN_KEY);
 		$this->redirect($this->Auth->logout());
 	}
 
@@ -125,11 +145,20 @@ class ManagesController extends AdminController {
         if ($this->request->is('post')||$this->request->is('put')) {
 
         	if(empty($this->request->data["AdminUser"]["password"])){
+        		unset($this->request->data['AdminUser']['password']);
         		unset($this->AdminUser->validate["password"]);
         	}
 
             if ($this->AdminUser->save($this->request->data)) {
                 $this->Flash->success(__('更新しました。id='.$id));
+
+				//cookieを更新
+				if($this->user['id'] == $id){
+					$this->request->data['AdminUser']['id'] = $id;
+					unset($this->request->data['AdminUser']['password']);
+					$this->writeAdminCookie($this->request->data['AdminUser']);
+                }
+
                 return $this->redirect(array('action' => 'user'));
             }
             $this->Flash->error(
@@ -159,6 +188,11 @@ class ManagesController extends AdminController {
 		$this->AdminUser->saveField('deleted_date', date("Y-m-d H:i:s"));  
         $this->Flash->success(__('削除しました'));
         return $this->redirect(array('action' => 'user'));
+	}
+
+	//クッキーに管理者ログイン情報を書き込む
+	private function writeAdminCookie($cookie){
+		$this->Cookie->write($this->COOKIE_ADMIN_KEY, $cookie, false, '+10 years');
 	}
 
 }

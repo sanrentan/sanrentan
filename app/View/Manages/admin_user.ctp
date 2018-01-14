@@ -12,7 +12,7 @@
 			<td><?php if($data["AdminUser"]["role"]==1):?>システム管理者<?php else:?>一般管理者<?php endif;?></td>
 			<td><?php echo $data["AdminUser"]["created"];?></td>
 			<td><?php echo $data["AdminUser"]["modified"];?></td>
-			<td><a href="./user_edit/<?php echo $data['AdminUser']['id'];?>">編集</a></td>
+			<td><a href="/admin/manages/user_edit/<?php echo $data['AdminUser']['id'];?>">編集</a></td>
 			<td><?php echo $this->Html->link('削除', './user_delete/'.$data['AdminUser']['id'], array('title'=>'削除'), '削除しますがよろしいですか？');?></td>
 		</tr>
 	<?php endforeach;?>

@@ -32,6 +32,7 @@ App::uses('Controller', 'Controller');
 class AdminController extends Controller {
 
     public $components = array(
+        'Cookie',
         'Session',
         'Flash',
         'Paginator',
